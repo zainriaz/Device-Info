@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/app_icon"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:contentDescription="hello_world"
+        android:paddingBottom="8dp" />
+
+    <TextView
+        android:id="@+id/list_app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/app_icon"
+        android:layout_marginStart="16dp"
+        android:layout_toEndOf="@+id/app_icon"
+        android:text="com.app.name"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/list_package_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/list_app_name"
+        android:layout_below="@+id/list_app_name"
+        android:text="com.package.name"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/list_version_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/list_package_name"
+        android:layout_below="@+id/list_package_name"
+        android:text="com.version.name"
+        android:textSize="14sp" />
+
+</RelativeLayout>

@@ -1,0 +1,93 @@
+<resources>
+
+    <string name="DashRAM">RAM</string>
+    <string name="DashROM">ROM</string>
+    <string name="DashInternalStorage">Internal Storage</string>
+    <string name="DashBattery">Battery</string>
+    <string name="DashCPU">CPU</string>
+    <string name="ZeroPerc">0%</string>
+    <string name="imgRAM">RAM Logo</string>
+    <string name="imgInternalStorage">Internal Storage Logo</string>
+    <string name="imgBattery">Battery Logo</string>
+    <string name="imgCPU">CPU Logo</string>
+    <string name="imgROM">ROM Logo</string>
+
+    <string name="app_name">Device Info</string>
+    <string name="app_description">Device Info is a simple and powerful Android application which gives you the complete information about your Mobile device system software and hardware with advanced user interfaces</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_about">About</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="authorname">Yasiru Theekshana</string>
+
+    <string name="DeviceName">Device Name</string>
+    <string name="Model">Model</string>
+    <string name="Manufacturer">Manufacturer</string>
+    <string name="Device">Device</string>
+    <string name="Board">Board</string>
+    <string name="Hardware">Hardware</string>
+    <string name="Brand">Manufacturer</string>
+    <string name="DeviceType">Device Type</string>
+    <string name="AndroidDeviceID">Android Device ID</string>
+    <string name="IMEI">IMEI</string>
+    <string name="HardwareSerial">Hardware Serial</string>
+    <string name="SIMSerial">SIM Serial</string>
+    <string name="SIMSubscriber">SIM Subscriber</string>
+    <string name="NetworkOperator">Network Operator</string>
+    <string name="NetworkType">Network Type</string>
+    <string name="WiFiMac">WiFi MAC Address</string>
+    <string name="BluetoothMac">Bluetooth MAC Address</string>
+    <string name="BuildFingerprint">Build Fingerprint</string>
+    <string name="GrantPermission">Click to Grant Permission</string>
+
+    <string name="AndroidVersion">Android Version</string>
+    <string name="CodeName">Code Name</string>
+    <string name="APILevel">API Level</string>
+    <string name="SecurityPatchLevel">Security Patch Level</string>
+    <string name="Bootloader">Bootloader</string>
+    <string name="BuildNumber">Build Number</string>
+    <string name="Baseband">Baseband</string>
+    <string name="AndroidRuntime">Java VM</string>
+    <string name="Kernel">Kernel</string>
+    <string name="OpenGL">OpenGL ES</string>
+    <string name="RootAccess">Root Access</string>
+    <string name="SELinux">SELinux</string>
+    <string name="Uptime">System Uptime</string>
+
+    <string name="Processor">Processor</string>
+    <string name="ABIs">Supported ABIs</string>
+    <string name="CPUHardware">CPU Hardware</string>
+    <string name="CPUGoverner">CPU Governer</string>
+    <string name="Cores">Cores</string>
+    <string name="CPUFrequency">CPU Frequency</string>
+    <string name="CPUUsage">CPU Usage</string>
+    <string name="RunningCPUs">Running CPUs</string>
+
+    <string name="Health">Health</string>
+    <string name="Temperature">Temperature</string>
+    <string name="Technology">Technology</string>
+    <string name="Voltage">Voltage</string>
+    <string name="Status">Status</string>
+    <string name="Level">Level</string>
+    <string name="PowerSource">Power Source</string>
+    <string name="Capacity">Capacity</string>
+
+    <string name="Resolution">Resolution</string>
+    <string name="Density">Density</string>
+    <string name="FontScale">Font Scale</string>
+    <string name="PhysicalSize">Physical Size</string>
+    <string name="RefreshRate">Refresh Rate</string>
+    <string name="Orientation">Orientation</string>
+
+    <string name="RAM">RAM</string>
+    <string name="InternalStorage">Internal Storage</string>
+    <string name="ExternalStorage">External Storage</string>
+
+    <string name="about_shortcut_short_label">About</string>
+    <string name="about_shortcut_long_label">About</string>
+    <string name="about_disabled_message">Shortcuts Disabled</string>
+
+    <string-array name="app_type">
+        <item>User Apps</item>
+        <item>System Apps</item>
+    </string-array>
+</resources>

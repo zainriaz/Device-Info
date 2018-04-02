@@ -1,0 +1,33 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eceaea"
+    android:id="@+id/relmain"
+    tools:context="com.ytheekshana.deviceinfo.MainActivity$PlaceholderFragment">
+
+    <Spinner
+        android:id="@+id/spinnerAppType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:entries="@array/app_type"
+        android:theme="@style/Base.AlertDialog.AppCompat.Light" />
+
+    <ProgressBar
+        android:id="@+id/progressLoadApps"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" />
+
+    <ListView
+        android:id="@+id/installed_app_list"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/spinnerAppType"
+         />
+
+</RelativeLayout>
