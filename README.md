@@ -1,4 +1,4 @@
-## Device-Info
+## Device-Info (com.ytheekshana.deviceinfo)
 Device Info is a simple and powerful Android application which gives you the complete information about your Mobile device system software and hardware with advanced user interfaces
 
 #### Prerequisites
@@ -7,10 +7,10 @@ Device Info is a simple and powerful Android application which gives you the com
 - Android 5+ Device
 
 ### Changelog
-#### System Info 1.5.4
+#### Device Info 1.1.0
 - Added Application information
 - Added External Storage information
 - Added Support to Android Oreo
 
-#### System Info 1.0
+#### Device Info 1.0
 - Initial Release
