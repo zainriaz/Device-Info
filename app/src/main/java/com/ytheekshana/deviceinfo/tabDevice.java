@@ -22,6 +22,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 public class tabDevice extends Fragment {
     LinearLayout llayout;
     String LineColor = "#B3B3B3", TextDisColor = "#023071";
@@ -37,8 +41,11 @@ public class tabDevice extends Fragment {
         llayout = rootView.findViewById(R.id.llayout);
         try {
             tm = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
-            BluetoothAdapter myDevice = BluetoothAdapter.getDefaultAdapter();
-            String deviceName = myDevice.getName();
+            //BluetoothAdapter myDevice = BluetoothAdapter.getDefaultAdapter();
+            //String deviceName = myDevice.getName();
+
+
+            String deviceName = GetDetails.GetFromBuildProp("ro.semc.product.name");
 
             TextView txtName = new TextView(getContext());
             TextView txtNamedis = new TextView(getContext());

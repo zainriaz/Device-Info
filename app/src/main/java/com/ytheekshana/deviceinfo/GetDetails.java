@@ -25,6 +25,23 @@ import java.util.concurrent.TimeUnit;
 
 class GetDetails {
 
+    static String GetFromBuildProp(String PropKey){
+        Process p;
+        String propvalue = "";
+        try {
+            p = new ProcessBuilder("/system/bin/getprop", PropKey).redirectErrorStream(true).start();
+            BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String line;
+            while ((line=br.readLine()) != null){
+                propvalue = line;
+            }
+            p.destroy();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return propvalue;
+    }
+
     static String GetOSNameAdvanced() {
         String OSName;
         switch (Build.VERSION.SDK_INT) {
