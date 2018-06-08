@@ -3,7 +3,6 @@
 
         <SwitchPreference
             android:id="@+id/dark_theme"
-            android:defaultValue="false"
             android:key="dark_theme"
             android:summary="Enable Dark Theme"
             android:title="Dark Theme" />

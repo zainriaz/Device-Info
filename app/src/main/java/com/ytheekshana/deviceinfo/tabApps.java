@@ -21,6 +21,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -39,6 +40,59 @@ public class tabApps extends Fragment {
     private PopupWindow mPopupWindow;
     TextView txtappname,txtpackagename,txtappversion,txtappminsdk,txtapptargetsdk,txtappinstalldate,txtappupdatedate;
     ImageView imgappicon;
+    ListView userInstalledApps;
+    ProgressBar progressLoadApps;
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser && getActivity()!=null){
+            //Toast.makeText(getActivity(), "js", Toast.LENGTH_SHORT).show();
+            LoadApps = new Thread() {
+                @Override
+                public void run() {
+
+                    progressLoadApps.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressLoadApps.setVisibility(View.VISIBLE);
+                        }
+                    });
+
+                    userInstalledApps.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            userInstalledApps.setVisibility(View.GONE);
+                        }
+                    });
+
+                    List<AppList> installedApps = getInstalledApps();
+                    final AppAdapter installedAppAdapter = new AppAdapter(Objects.requireNonNull(getActivity()), installedApps);
+                    userInstalledApps.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            userInstalledApps.setAdapter(installedAppAdapter);
+                        }
+                    });
+
+                    progressLoadApps.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressLoadApps.setVisibility(View.GONE);
+                        }
+                    });
+
+                    userInstalledApps.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            userInstalledApps.setVisibility(View.VISIBLE);
+                        }
+                    });
+                }
+            };
+            LoadApps.start();
+        }
+    }
 
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container,
@@ -64,51 +118,8 @@ public class tabApps extends Fragment {
             }
         });
 
-        final ListView userInstalledApps = rootView.findViewById(R.id.installed_app_list);
-        final ProgressBar progressLoadApps = rootView.findViewById(R.id.progressLoadApps);
-        LoadApps = new Thread() {
-            @Override
-            public void run() {
-
-                progressLoadApps.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        progressLoadApps.setVisibility(View.VISIBLE);
-                    }
-                });
-
-                userInstalledApps.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        userInstalledApps.setVisibility(View.GONE);
-                    }
-                });
-
-                List<AppList> installedApps = getInstalledApps();
-                final AppAdapter installedAppAdapter = new AppAdapter(Objects.requireNonNull(getActivity()), installedApps);
-                userInstalledApps.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        userInstalledApps.setAdapter(installedAppAdapter);
-                    }
-                });
-
-                progressLoadApps.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        progressLoadApps.setVisibility(View.GONE);
-                    }
-                });
-
-                userInstalledApps.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        userInstalledApps.setVisibility(View.VISIBLE);
-                    }
-                });
-            }
-        };
-        LoadApps.start();
+        userInstalledApps = rootView.findViewById(R.id.installed_app_list);
+        progressLoadApps = rootView.findViewById(R.id.progressLoadApps);
 
         userInstalledApps.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
