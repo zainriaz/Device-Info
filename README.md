@@ -1,7 +1,7 @@
 ## Device-Info (com.ytheekshana.deviceinfo)
 Device Info is a simple and powerful Android application which gives you the complete information about your Mobile device system software and hardware with advanced user interfaces
 
-<p align="center"><img src="DeviceInfo/app/src/main/res/drawable/device-info.jpg" /></p>
+<p align="center"><img src="Device-Info/app/src/main/res/drawable/device-info.jpg" /></p>
 
 #### Prerequisites
 - Android Studio 3.1
