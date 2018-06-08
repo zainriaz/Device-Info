@@ -1,0 +1,12 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="Theme">
+
+        <SwitchPreference
+            android:id="@+id/dark_theme"
+            android:defaultValue="false"
+            android:key="dark_theme"
+            android:summary="Enable Dark Theme"
+            android:title="Dark Theme" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
