@@ -25,6 +25,7 @@ import java.util.concurrent.TimeUnit;
 
 class GetDetails {
 
+
     static String GetFromBuildProp(String PropKey){
         Process p;
         String propvalue = "";
@@ -321,6 +322,7 @@ class GetDetails {
         }
         return "";
     }
+
 
     static String getBluetoothMac(Context context) {
         String result = "";

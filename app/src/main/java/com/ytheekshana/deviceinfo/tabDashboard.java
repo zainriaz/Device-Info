@@ -5,24 +5,23 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.BatteryManager;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.StatFs;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -37,12 +36,12 @@ public class tabDashboard extends Fragment {
     Timer timercUsage;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tabdashboard, container, false);
         //006bff
         IntentFilter iFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-        BatteryContext = getActivity().getApplicationContext();
+        BatteryContext = Objects.requireNonNull(getActivity()).getApplicationContext();
         BatteryContext.registerReceiver(mBroadcastReceiver, iFilter);
         cu2 = new CPUUsage();
 
@@ -298,7 +297,8 @@ public class tabDashboard extends Fragment {
     private void GetRam() {
         try {
             ActivityManager.MemoryInfo mi = new ActivityManager.MemoryInfo();
-            ActivityManager activityManager = (ActivityManager) getActivity().getSystemService(Context.ACTIVITY_SERVICE);
+            ActivityManager activityManager = (ActivityManager) Objects.requireNonNull(getActivity()).getSystemService(Context.ACTIVITY_SERVICE);
+            assert activityManager != null;
             activityManager.getMemoryInfo(mi);
             ARam = (double) (mi.availMem / 1024 / 1024);
             TRam = (double) (mi.totalMem / 1024 / 1024);

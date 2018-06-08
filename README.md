@@ -7,6 +7,9 @@ Device Info is a simple and powerful Android application which gives you the com
 - Android 5+ Device
 
 ### Changelog
+#### Device Info 1.2.0
+- Some UI Tweaks
+
 #### Device Info 1.1.0
 - Added Application information
 - Added External Storage information

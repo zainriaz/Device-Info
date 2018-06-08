@@ -29,6 +29,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
@@ -36,7 +37,7 @@ public class tabApps extends Fragment {
     int apptype = 0;
     Thread LoadApps;
     private PopupWindow mPopupWindow;
-    TextView txtappname,txtpackagename,txtappversion,txtappminsdk,txtapptargetsdk,txtappinstalldate,txtappupdatedate,txtappdescription;
+    TextView txtappname,txtpackagename,txtappversion,txtappminsdk,txtapptargetsdk,txtappinstalldate,txtappupdatedate;
     ImageView imgappicon;
 
     @Override
@@ -84,7 +85,7 @@ public class tabApps extends Fragment {
                 });
 
                 List<AppList> installedApps = getInstalledApps();
-                final AppAdapter installedAppAdapter = new AppAdapter(getActivity(), installedApps);
+                final AppAdapter installedAppAdapter = new AppAdapter(Objects.requireNonNull(getActivity()), installedApps);
                 userInstalledApps.post(new Runnable() {
                     @Override
                     public void run() {
@@ -118,7 +119,7 @@ public class tabApps extends Fragment {
                 //Toast.makeText(getContext(), packgename, Toast.LENGTH_SHORT).show();
 
                 try {
-                    LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                    LayoutInflater inflater = (LayoutInflater) Objects.requireNonNull(getContext()).getSystemService(LAYOUT_INFLATER_SERVICE);
                     View customView = inflater != null ? inflater.inflate(R.layout.apps_popup, null) : null;
 
                     if (customView != null) {
@@ -209,7 +210,7 @@ public class tabApps extends Fragment {
 
     private List<AppList> getInstalledApps() {
         List<AppList> res = new ArrayList<>();
-        PackageManager pm = getActivity().getPackageManager();
+        PackageManager pm = Objects.requireNonNull(getActivity()).getPackageManager();
         List<PackageInfo> packs = pm.getInstalledPackages(0);
 
         Collections.sort(packs, new Comparator<PackageInfo>() {
@@ -223,7 +224,7 @@ public class tabApps extends Fragment {
             PackageInfo p = packs.get(i);
             if ((!isSystemPackage(p))) {
 
-                String appName = p.applicationInfo.loadLabel(getActivity().getPackageManager()).toString();
+                String appName = p.applicationInfo.loadLabel(Objects.requireNonNull(getActivity()).getPackageManager()).toString();
                 String packageName = p.applicationInfo.packageName;
                 String appVersion = "Version : " + p.versionName;
                 Drawable icon = p.applicationInfo.loadIcon(getActivity().getPackageManager());

@@ -2,7 +2,6 @@ package com.ytheekshana.deviceinfo;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -22,9 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.Objects;
 
 public class tabDevice extends Fragment {
     LinearLayout llayout;
@@ -35,12 +32,12 @@ public class tabDevice extends Fragment {
 
     @SuppressLint("HardwareIds")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tabdevice, container, false);
         llayout = rootView.findViewById(R.id.llayout);
         try {
-            tm = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+            tm = (TelephonyManager) Objects.requireNonNull(getActivity()).getSystemService(Context.TELEPHONY_SERVICE);
             //BluetoothAdapter myDevice = BluetoothAdapter.getDefaultAdapter();
             //String deviceName = myDevice.getName();
 
@@ -471,7 +468,7 @@ public class tabDevice extends Fragment {
 
     @SuppressLint("HardwareIds")
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         try {
             switch (requestCode) {
                 case REQUEST_PHONE_STATE: {
@@ -487,7 +484,7 @@ public class tabDevice extends Fragment {
                     }
                 }
             }
-        } catch (Exception ex) {
+        }catch (SecurityException ex){
             ex.printStackTrace();
         }
     }

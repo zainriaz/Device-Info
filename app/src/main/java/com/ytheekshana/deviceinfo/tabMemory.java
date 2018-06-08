@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.StatFs;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.Locale;
+import java.util.Objects;
 
 public class tabMemory extends Fragment {
     LinearLayout llayout;
@@ -27,7 +29,7 @@ public class tabMemory extends Fragment {
     int UPerc;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tabmemory, container, false);
         llayout = rootView.findViewById(R.id.llayout);
@@ -74,8 +76,10 @@ public class tabMemory extends Fragment {
                 public void run() {
                     try {
                         ActivityManager.MemoryInfo mi = new ActivityManager.MemoryInfo();
-                        ActivityManager activityManager = (ActivityManager) getActivity().getSystemService(Context.ACTIVITY_SERVICE);
-                        activityManager.getMemoryInfo(mi);
+                        ActivityManager activityManager = (ActivityManager) Objects.requireNonNull(getActivity()).getSystemService(Context.ACTIVITY_SERVICE);
+                        if (activityManager != null) {
+                            activityManager.getMemoryInfo(mi);
+                        }
                         ARam = (double) (mi.availMem / 1024 / 1024);
                         TRam = (double) (mi.totalMem / 1024 / 1024);
                         URam = TRam - ARam;
@@ -233,7 +237,7 @@ public class tabMemory extends Fragment {
                 llayout.addView(pexternal);
                 llayout.addView(v3);
 
-                String paths[] = GetDetails.getStorageDirectories(getContext());
+                String paths[] = GetDetails.getStorageDirectories(Objects.requireNonNull(getContext()));
 
                 StatFs statEX = new StatFs(paths[0]);
                 FreeSto = (((double) statEX.getBlockSizeLong() * (double) statEX.getAvailableBlocksLong()) / 1024 / 1024 / 1024);

@@ -3,8 +3,7 @@ package com.ytheekshana.deviceinfo;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
-import android.os.Handler;
-import android.os.SystemClock;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.RandomAccessFile;
 import java.util.Locale;
@@ -29,7 +27,7 @@ public class tabCPU extends Fragment {
     Timer timer;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tabcpu, container, false);
         llayout = rootView.findViewById(R.id.llayout);
@@ -77,9 +75,9 @@ public class tabCPU extends Fragment {
             txtABIdis.setPadding(0, 0, 0, 15);
             txtABIdis.setTextColor(Color.parseColor(TextDisColor));
             txtABIdis.setTextSize(16);
-            String ABIs = "";
+            StringBuilder ABIs = new StringBuilder();
             for (int a = 0; a < Build.SUPPORTED_ABIS.length; a++) {
-                ABIs += Build.SUPPORTED_ABIS[a] + ", ";
+                ABIs.append(Build.SUPPORTED_ABIS[a]).append(", ");
             }
             txtABIdis.setText(ABIs.substring(0, ABIs.length() - 2));
             txtABIdis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -182,7 +180,8 @@ public class tabCPU extends Fragment {
                 txtCore[corecount].setPadding(0, 0, 0, 15);
                 txtCore[corecount].setTextColor(Color.parseColor(TextDisColor));
                 txtCore[corecount].setTextSize(16);
-                txtCore[corecount].setText("Core " + corecount + "       ");
+                String settextcorecores = "Core " + corecount + "       ";
+                txtCore[corecount].setText(settextcorecores);
                 txtCore[corecount].setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
                 llayout.addView(txtCore[corecount]);
             }

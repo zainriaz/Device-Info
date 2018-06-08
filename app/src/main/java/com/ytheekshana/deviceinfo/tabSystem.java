@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,12 +18,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.Objects;
+
 public class tabSystem extends Fragment {
     LinearLayout llayout;
     String LineColor = "#B3B3B3", TextDisColor = "#023071";
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tabsystem, container, false);
         llayout = rootView.findViewById(R.id.llayout);
@@ -60,9 +63,15 @@ public class tabSystem extends Fragment {
                 }
             });
 
-            ActivityManager am = (ActivityManager) getActivity().getSystemService(Context.ACTIVITY_SERVICE);
-            ConfigurationInfo info = am.getDeviceConfigurationInfo();
-            String GLVersion = info.getGlEsVersion();
+            ActivityManager am = (ActivityManager) Objects.requireNonNull(getActivity()).getSystemService(Context.ACTIVITY_SERVICE);
+            ConfigurationInfo info = null;
+            if (am != null) {
+                info = am.getDeviceConfigurationInfo();
+            }
+            String GLVersion = null;
+            if (info != null) {
+                GLVersion = info.getGlEsVersion();
+            }
 
             TextView txtAndroidName = new TextView(getContext());
             TextView txtAndroidNamedis = new TextView(getContext());

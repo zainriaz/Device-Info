@@ -17,6 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Objects;
+
 public class tabBattery extends Fragment {
     LinearLayout llayout;
     String LineColor = "#B3B3B3", TextDisColor = "#023071", battechno;
@@ -26,16 +28,16 @@ public class tabBattery extends Fragment {
     Context BatteryContext;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tabbattery, container, false);
         llayout = rootView.findViewById(R.id.llayout);
 
         try {
             IntentFilter iFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-            BatteryContext = getActivity().getApplicationContext();
+            BatteryContext = Objects.requireNonNull(getActivity()).getApplicationContext();
             BatteryContext.registerReceiver(mBroadcastReceiver, iFilter);
-            mBatteryManager = (BatteryManager) getContext().getSystemService(Context.BATTERY_SERVICE);
+            mBatteryManager = (BatteryManager) Objects.requireNonNull(getContext()).getSystemService(Context.BATTERY_SERVICE);
 
             TextView txtBatteryHealth = new TextView(getContext());
             txtBatteryHealthdis = new TextView(getContext());
@@ -249,6 +251,7 @@ public class tabBattery extends Fragment {
                 txtBatteryVoltagedis.setText(battemp);
 
             } catch (Exception ex) {
+                ex.printStackTrace();
                 Toast.makeText(getContext(), ex.toString(), Toast.LENGTH_LONG).show();
             }
 

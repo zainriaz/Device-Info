@@ -85,27 +85,6 @@ class CPUUsage {
         }
     }
 
-    public int getCpuUsage(int cpuId) {
-        update();
-        int usage = 0;
-        if (mCpuInfoList != null) {
-            int cpuCount = mCpuInfoList.size();
-            if (cpuCount > 0) {
-                cpuCount--;
-                if (cpuId == cpuCount) { // -1 total cpu usage
-                    usage = mCpuInfoList.get(0).getUsage();
-                } else {
-                    if (cpuId <= cpuCount)
-                        usage = mCpuInfoList.get(cpuId).getUsage();
-                    else
-                        usage = -1;
-                }
-            }
-        }
-        return usage;
-    }
-
-
     int getTotalCpuUsage() {
         update();
         int usage = 0;
