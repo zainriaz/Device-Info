@@ -22,7 +22,8 @@ import java.util.Objects;
 
 public class tabSystem extends Fragment {
     LinearLayout llayout;
-    String LineColor = "#B3B3B3", TextDisColor = "#023071";
+    String LineColor = "#B3B3B3";
+    int TextDisColor;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -32,6 +33,8 @@ public class tabSystem extends Fragment {
         ImageView imgAndroidLogo = rootView.findViewById(R.id.imgAndroidLogo);
         TextView txtAndroidVersionBig = rootView.findViewById(R.id.txtAndroidVersionBig);
         try {
+            TextDisColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()),R.attr.colorAccent);
+
             switch (Build.VERSION.SDK_INT) {
                 case 21:
                 case 22:
@@ -83,7 +86,7 @@ public class tabSystem extends Fragment {
             txtAndroidName.setTextSize(16);
             txtAndroidName.setPadding(0, 15, 0, 0);
             txtAndroidNamedis.setPadding(0, 0, 0, 15);
-            txtAndroidNamedis.setTextColor(Color.parseColor(TextDisColor));
+            txtAndroidNamedis.setTextColor(TextDisColor);
             txtAndroidNamedis.setTextSize(16);
             txtAndroidNamedis.setText(GetDetails.GetOSNameAdvanced());
             txtAndroidNamedis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -102,7 +105,7 @@ public class tabSystem extends Fragment {
             txtAPILevel.setTextSize(16);
             txtAPILevel.setPadding(0, 15, 0, 0);
             txtAPILeveldis.setPadding(0, 0, 0, 15);
-            txtAPILeveldis.setTextColor(Color.parseColor(TextDisColor));
+            txtAPILeveldis.setTextColor(TextDisColor);
             txtAPILeveldis.setTextSize(16);
             txtAPILeveldis.setText(String.valueOf(Build.VERSION.SDK_INT));
             txtAPILeveldis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -122,7 +125,7 @@ public class tabSystem extends Fragment {
                 txtSecurityPatch.setTextSize(16);
                 txtSecurityPatch.setPadding(0, 15, 0, 0);
                 txtSecurityPatchdis.setPadding(0, 0, 0, 15);
-                txtSecurityPatchdis.setTextColor(Color.parseColor(TextDisColor));
+                txtSecurityPatchdis.setTextColor(TextDisColor);
                 txtSecurityPatchdis.setTextSize(16);
                 txtSecurityPatchdis.setText(Build.VERSION.SECURITY_PATCH);
                 txtSecurityPatchdis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -142,7 +145,7 @@ public class tabSystem extends Fragment {
             txtBootloader.setTextSize(16);
             txtBootloader.setPadding(0, 15, 0, 0);
             txtBootloaderdis.setPadding(0, 0, 0, 15);
-            txtBootloaderdis.setTextColor(Color.parseColor(TextDisColor));
+            txtBootloaderdis.setTextColor(TextDisColor);
             txtBootloaderdis.setTextSize(16);
             txtBootloaderdis.setText(Build.BOOTLOADER);
             txtBootloaderdis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -161,7 +164,7 @@ public class tabSystem extends Fragment {
             txtBuildNumber.setTextSize(16);
             txtBuildNumber.setPadding(0, 15, 0, 0);
             txtBuildNumberdis.setPadding(0, 0, 0, 15);
-            txtBuildNumberdis.setTextColor(Color.parseColor(TextDisColor));
+            txtBuildNumberdis.setTextColor(TextDisColor);
             txtBuildNumberdis.setTextSize(16);
             txtBuildNumberdis.setText(Build.DISPLAY);
             txtBuildNumberdis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -180,7 +183,7 @@ public class tabSystem extends Fragment {
             txtRadioVersion.setTextSize(16);
             txtRadioVersion.setPadding(0, 15, 0, 0);
             txtRadioVersiondis.setPadding(0, 0, 0, 15);
-            txtRadioVersiondis.setTextColor(Color.parseColor(TextDisColor));
+            txtRadioVersiondis.setTextColor(TextDisColor);
             txtRadioVersiondis.setTextSize(16);
             txtRadioVersiondis.setText(Build.getRadioVersion());
             txtRadioVersiondis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -199,7 +202,7 @@ public class tabSystem extends Fragment {
             txtAndroidRuntime.setTextSize(16);
             txtAndroidRuntime.setPadding(0, 15, 0, 0);
             txtAndroidRuntimedis.setPadding(0, 0, 0, 15);
-            txtAndroidRuntimedis.setTextColor(Color.parseColor(TextDisColor));
+            txtAndroidRuntimedis.setTextColor(TextDisColor);
             txtAndroidRuntimedis.setTextSize(16);
             txtAndroidRuntimedis.setText(System.getProperty("java.vm.version"));
             txtAndroidRuntimedis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -218,7 +221,7 @@ public class tabSystem extends Fragment {
             txtKernelVersion.setTextSize(16);
             txtKernelVersion.setPadding(0, 15, 0, 0);
             txtKernelVersiondis.setPadding(0, 0, 0, 15);
-            txtKernelVersiondis.setTextColor(Color.parseColor(TextDisColor));
+            txtKernelVersiondis.setTextColor(TextDisColor);
             txtKernelVersiondis.setTextSize(16);
             txtKernelVersiondis.setText(System.getProperty("os.version"));
             txtKernelVersiondis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -237,7 +240,7 @@ public class tabSystem extends Fragment {
             txtOpenGLES.setTextSize(16);
             txtOpenGLES.setPadding(0, 15, 0, 0);
             txtOpenGLESdis.setPadding(0, 0, 0, 15);
-            txtOpenGLESdis.setTextColor(Color.parseColor(TextDisColor));
+            txtOpenGLESdis.setTextColor(TextDisColor);
             txtOpenGLESdis.setTextSize(16);
             txtOpenGLESdis.setText(GLVersion);
             txtOpenGLESdis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -256,7 +259,7 @@ public class tabSystem extends Fragment {
             txtRootAccess.setTextSize(16);
             txtRootAccess.setPadding(0, 15, 0, 0);
             txtRootAccessdis.setPadding(0, 0, 0, 15);
-            txtRootAccessdis.setTextColor(Color.parseColor(TextDisColor));
+            txtRootAccessdis.setTextColor(TextDisColor);
             txtRootAccessdis.setTextSize(16);
             txtRootAccessdis.setText(GetDetails.isRooted());
             txtRootAccessdis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -275,7 +278,7 @@ public class tabSystem extends Fragment {
             txtSelinux.setTextSize(16);
             txtSelinux.setPadding(0, 15, 0, 0);
             txtSelinuxdis.setPadding(0, 0, 0, 15);
-            txtSelinuxdis.setTextColor(Color.parseColor(TextDisColor));
+            txtSelinuxdis.setTextColor(TextDisColor);
             txtSelinuxdis.setTextSize(16);
             txtSelinuxdis.setText(GetDetails.GetSELinuxMode());
             txtSelinuxdis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -294,7 +297,7 @@ public class tabSystem extends Fragment {
             txtSystemUptime.setTextSize(16);
             txtSystemUptime.setPadding(0, 15, 0, 0);
             txtSystemUptimedis.setPadding(0, 0, 0, 15);
-            txtSystemUptimedis.setTextColor(Color.parseColor(TextDisColor));
+            txtSystemUptimedis.setTextColor(TextDisColor);
             txtSystemUptimedis.setTextSize(16);
             txtSystemUptimedis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             txtSystemUptime.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));

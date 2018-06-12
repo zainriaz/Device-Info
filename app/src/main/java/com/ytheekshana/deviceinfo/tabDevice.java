@@ -25,7 +25,8 @@ import java.util.Objects;
 
 public class tabDevice extends Fragment {
     LinearLayout llayout;
-    String LineColor = "#B3B3B3", TextDisColor = "#023071";
+    String LineColor = "#B3B3B3";
+    int TextDisColor;
     public static final int REQUEST_PHONE_STATE = 1;
     TextView txtDeviceTypedis, txtIMEIdis, txtSIMSerialdis, txtSIMSubscriberdis, txtNetworkOperatordis, txtNetworkTypedis,txtWIFIMACAddressdis,txtBluetoothMACAddressdis,txtBuildFingerPrintdis;
     TelephonyManager tm;
@@ -37,6 +38,8 @@ public class tabDevice extends Fragment {
         View rootView = inflater.inflate(R.layout.tabdevice, container, false);
         llayout = rootView.findViewById(R.id.llayout);
         try {
+
+            TextDisColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()),R.attr.colorAccent);
             tm = (TelephonyManager) Objects.requireNonNull(getActivity()).getSystemService(Context.TELEPHONY_SERVICE);
             //BluetoothAdapter myDevice = BluetoothAdapter.getDefaultAdapter();
             //String deviceName = myDevice.getName();
@@ -53,7 +56,7 @@ public class tabDevice extends Fragment {
             txtName.setTypeface(null, Typeface.BOLD);
             txtName.setTextSize(16);
             txtNamedis.setPadding(0, 0, 0, 15);
-            txtNamedis.setTextColor(Color.parseColor(TextDisColor));
+            txtNamedis.setTextColor(TextDisColor);
             txtNamedis.setTextSize(16);
             txtNamedis.setText(deviceName);
             txtNamedis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -71,7 +74,7 @@ public class tabDevice extends Fragment {
             txtModel.setTextSize(16);
             txtModel.setPadding(0, 15, 0, 0);
             txtModeldis.setPadding(0, 0, 0, 15);
-            txtModeldis.setTextColor(Color.parseColor(TextDisColor));
+            txtModeldis.setTextColor(TextDisColor);
             txtModeldis.setTextSize(16);
             txtModeldis.setText(Build.MODEL);
             txtModeldis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -90,7 +93,7 @@ public class tabDevice extends Fragment {
             txtManufacturer.setTextSize(16);
             txtManufacturer.setPadding(0, 15, 0, 0);
             txtManufacturerdis.setPadding(0, 0, 0, 15);
-            txtManufacturerdis.setTextColor(Color.parseColor(TextDisColor));
+            txtManufacturerdis.setTextColor(TextDisColor);
             txtManufacturerdis.setTextSize(16);
             txtManufacturerdis.setText(Build.MANUFACTURER);
             txtManufacturerdis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -109,7 +112,7 @@ public class tabDevice extends Fragment {
             txtDevice.setTextSize(16);
             txtDevice.setPadding(0, 15, 0, 0);
             txtDevicedis.setPadding(0, 0, 0, 15);
-            txtDevicedis.setTextColor(Color.parseColor(TextDisColor));
+            txtDevicedis.setTextColor(TextDisColor);
             txtDevicedis.setTextSize(16);
             txtDevicedis.setText(Build.MANUFACTURER);
             txtDevicedis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -128,7 +131,7 @@ public class tabDevice extends Fragment {
             txtBoard.setTextSize(16);
             txtBoard.setPadding(0, 15, 0, 0);
             txtBoarddis.setPadding(0, 0, 0, 15);
-            txtBoarddis.setTextColor(Color.parseColor(TextDisColor));
+            txtBoarddis.setTextColor(TextDisColor);
             txtBoarddis.setTextSize(16);
             txtBoarddis.setText(Build.BOARD);
             txtBoarddis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -147,7 +150,7 @@ public class tabDevice extends Fragment {
             txtHardware.setTextSize(16);
             txtHardware.setPadding(0, 15, 0, 0);
             txtHardwaredis.setPadding(0, 0, 0, 15);
-            txtHardwaredis.setTextColor(Color.parseColor(TextDisColor));
+            txtHardwaredis.setTextColor(TextDisColor);
             txtHardwaredis.setTextSize(16);
             txtHardwaredis.setText(Build.HARDWARE);
             txtHardwaredis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -166,7 +169,7 @@ public class tabDevice extends Fragment {
             txtBrand.setTextSize(16);
             txtBrand.setPadding(0, 15, 0, 0);
             txtBranddis.setPadding(0, 0, 0, 15);
-            txtBranddis.setTextColor(Color.parseColor(TextDisColor));
+            txtBranddis.setTextColor(TextDisColor);
             txtBranddis.setTextSize(16);
             txtBranddis.setText(Build.BRAND);
             txtBranddis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -186,7 +189,7 @@ public class tabDevice extends Fragment {
             txtDeviceType.setPadding(0, 15, 0, 0);
             txtDeviceTypedis.setClickable(true);
             txtDeviceTypedis.setPadding(0, 0, 0, 15);
-            txtDeviceTypedis.setTextColor(Color.parseColor(TextDisColor));
+            txtDeviceTypedis.setTextColor(TextDisColor);
             txtDeviceTypedis.setTextSize(16);
             txtDeviceTypedis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             txtDeviceType.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -216,7 +219,7 @@ public class tabDevice extends Fragment {
             txtDeviceID.setTextSize(16);
             txtDeviceID.setPadding(0, 15, 0, 0);
             txtDeviceIDdis.setPadding(0, 0, 0, 15);
-            txtDeviceIDdis.setTextColor(Color.parseColor(TextDisColor));
+            txtDeviceIDdis.setTextColor(TextDisColor);
             txtDeviceIDdis.setTextSize(16);
             txtDeviceIDdis.setText(Settings.Secure.getString(getActivity().getContentResolver(), Settings.Secure.ANDROID_ID));
             txtDeviceIDdis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -236,7 +239,7 @@ public class tabDevice extends Fragment {
             txtIMEI.setPadding(0, 15, 0, 0);
             txtIMEIdis.setClickable(true);
             txtIMEIdis.setPadding(0, 0, 0, 15);
-            txtIMEIdis.setTextColor(Color.parseColor(TextDisColor));
+            txtIMEIdis.setTextColor(TextDisColor);
             txtIMEIdis.setTextSize(16);
             txtIMEIdis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             txtIMEI.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -266,7 +269,7 @@ public class tabDevice extends Fragment {
             txtHardwareSerial.setTextSize(16);
             txtHardwareSerial.setPadding(0, 15, 0, 0);
             txtHardwareSerialdis.setPadding(0, 0, 0, 15);
-            txtHardwareSerialdis.setTextColor(Color.parseColor(TextDisColor));
+            txtHardwareSerialdis.setTextColor(TextDisColor);
             txtHardwareSerialdis.setTextSize(16);
             txtHardwareSerialdis.setText(Build.SERIAL);
             txtHardwareSerialdis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -286,7 +289,7 @@ public class tabDevice extends Fragment {
             txtSIMSerial.setPadding(0, 15, 0, 0);
             txtSIMSerialdis.setClickable(true);
             txtSIMSerialdis.setPadding(0, 0, 0, 15);
-            txtSIMSerialdis.setTextColor(Color.parseColor(TextDisColor));
+            txtSIMSerialdis.setTextColor(TextDisColor);
             txtSIMSerialdis.setTextSize(16);
             txtSIMSerialdis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             txtSIMSerial.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -317,7 +320,7 @@ public class tabDevice extends Fragment {
             txtSIMSubscriber.setPadding(0, 15, 0, 0);
             txtSIMSubscriberdis.setClickable(true);
             txtSIMSubscriberdis.setPadding(0, 0, 0, 15);
-            txtSIMSubscriberdis.setTextColor(Color.parseColor(TextDisColor));
+            txtSIMSubscriberdis.setTextColor(TextDisColor);
             txtSIMSubscriberdis.setTextSize(16);
             txtSIMSubscriberdis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             txtSIMSubscriber.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -348,7 +351,7 @@ public class tabDevice extends Fragment {
             txtNetworkOperator.setPadding(0, 15, 0, 0);
             txtNetworkOperatordis.setClickable(true);
             txtNetworkOperatordis.setPadding(0, 0, 0, 15);
-            txtNetworkOperatordis.setTextColor(Color.parseColor(TextDisColor));
+            txtNetworkOperatordis.setTextColor(TextDisColor);
             txtNetworkOperatordis.setTextSize(16);
             txtNetworkOperatordis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             txtNetworkOperator.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -379,7 +382,7 @@ public class tabDevice extends Fragment {
             txtNetworkType.setPadding(0, 15, 0, 0);
             txtNetworkTypedis.setClickable(true);
             txtNetworkTypedis.setPadding(0, 0, 0, 15);
-            txtNetworkTypedis.setTextColor(Color.parseColor(TextDisColor));
+            txtNetworkTypedis.setTextColor(TextDisColor);
             txtNetworkTypedis.setTextSize(16);
             txtNetworkTypedis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             txtNetworkType.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -410,7 +413,7 @@ public class tabDevice extends Fragment {
             txtWIFIMACAddress.setPadding(0, 15, 0, 0);
             txtWIFIMACAddressdis.setClickable(true);
             txtWIFIMACAddressdis.setPadding(0, 0, 0, 15);
-            txtWIFIMACAddressdis.setTextColor(Color.parseColor(TextDisColor));
+            txtWIFIMACAddressdis.setTextColor(TextDisColor);
             txtWIFIMACAddressdis.setTextSize(16);
             txtWIFIMACAddressdis.setText(GetDetails.getWifiMacAddress());
             txtWIFIMACAddressdis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -430,7 +433,7 @@ public class tabDevice extends Fragment {
             txtBluetoothMACAddress.setPadding(0, 15, 0, 0);
             txtBluetoothMACAddressdis.setClickable(true);
             txtBluetoothMACAddressdis.setPadding(0, 0, 0, 15);
-            txtBluetoothMACAddressdis.setTextColor(Color.parseColor(TextDisColor));
+            txtBluetoothMACAddressdis.setTextColor(TextDisColor);
             txtBluetoothMACAddressdis.setTextSize(16);
             txtBluetoothMACAddressdis.setText(GetDetails.getBluetoothMac(getContext()));
             txtBluetoothMACAddressdis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -450,7 +453,7 @@ public class tabDevice extends Fragment {
             txtBuildFingerPrint.setPadding(0, 15, 0, 0);
             txtBuildFingerPrintdis.setClickable(true);
             txtBuildFingerPrintdis.setPadding(0, 0, 0, 15);
-            txtBuildFingerPrintdis.setTextColor(Color.parseColor(TextDisColor));
+            txtBuildFingerPrintdis.setTextColor(TextDisColor);
             txtBuildFingerPrintdis.setTextSize(16);
             txtBuildFingerPrintdis.setText(Build.FINGERPRINT);
             txtBuildFingerPrintdis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));

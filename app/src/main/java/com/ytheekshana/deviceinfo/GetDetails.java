@@ -6,7 +6,11 @@ import android.content.Context;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Environment;
+import android.support.annotation.AttrRes;
+import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.Display;
 import android.view.WindowManager;
 import android.telephony.TelephonyManager;
@@ -25,6 +29,13 @@ import java.util.concurrent.TimeUnit;
 
 class GetDetails {
 
+    @ColorInt
+    public static int getThemeColor(@NonNull final Context context, @AttrRes final int attributeColor)
+    {
+        final TypedValue value = new TypedValue();
+        context.getTheme ().resolveAttribute (attributeColor, value, true);
+        return value.data;
+    }
 
     static String GetFromBuildProp(String PropKey){
         Process p;

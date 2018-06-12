@@ -22,7 +22,8 @@ import java.util.Objects;
 
 public class tabMemory extends Fragment {
     LinearLayout llayout;
-    String LineColor = "#B3B3B3", TextDisColor = "#023071";
+    String LineColor = "#B3B3B3";
+    int TextDisColor;
     TextView txtRamTotaldis, txtRamFreedis, txtRamUseddis;
     Double ARam, URam, TRam, FreeSto, TotalSto, UsedSto, UsedPerc;
     ProgressBar pram, prom, pinternal, pexternal;
@@ -34,6 +35,8 @@ public class tabMemory extends Fragment {
         View rootView = inflater.inflate(R.layout.tabmemory, container, false);
         llayout = rootView.findViewById(R.id.llayout);
         try {
+            TextDisColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()),R.attr.colorAccent);
+
             TextView txtRAM = new TextView(getContext());
             txtRamFreedis = new TextView(getContext());
             txtRamUseddis = new TextView(getContext());
@@ -48,17 +51,17 @@ public class tabMemory extends Fragment {
             txtRAM.setTextSize(16);
             txtRAM.setPadding(0, 0, 0, 25);
             txtRamFreedis.setPadding(0, 0, 0, 15);
-            txtRamFreedis.setTextColor(Color.parseColor(TextDisColor));
+            txtRamFreedis.setTextColor(TextDisColor);
             txtRamFreedis.setTextSize(16);
             txtRamFreedis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
             txtRamUseddis.setPadding(0, 0, 0, 15);
-            txtRamUseddis.setTextColor(Color.parseColor(TextDisColor));
+            txtRamUseddis.setTextColor(TextDisColor);
             txtRamUseddis.setTextSize(16);
             txtRamUseddis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
             txtRamTotaldis.setPadding(0, 0, 0, 15);
-            txtRamTotaldis.setTextColor(Color.parseColor(TextDisColor));
+            txtRamTotaldis.setTextColor(TextDisColor);
             txtRamTotaldis.setTextSize(16);
             txtRamTotaldis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
@@ -113,17 +116,17 @@ public class tabMemory extends Fragment {
             txtROM.setTextSize(16);
             txtROM.setPadding(0, 20, 0, 25);
             txtROMFreedis.setPadding(0, 0, 0, 15);
-            txtROMFreedis.setTextColor(Color.parseColor(TextDisColor));
+            txtROMFreedis.setTextColor(TextDisColor);
             txtROMFreedis.setTextSize(16);
             txtROMFreedis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
             txtROMUseddis.setPadding(0, 0, 0, 15);
-            txtROMUseddis.setTextColor(Color.parseColor(TextDisColor));
+            txtROMUseddis.setTextColor(TextDisColor);
             txtROMUseddis.setTextSize(16);
             txtROMUseddis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
             txtROMTotaldis.setPadding(0, 0, 0, 15);
-            txtROMTotaldis.setTextColor(Color.parseColor(TextDisColor));
+            txtROMTotaldis.setTextColor(TextDisColor);
             txtROMTotaldis.setTextSize(16);
             txtROMTotaldis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
@@ -163,17 +166,17 @@ public class tabMemory extends Fragment {
             txtInternalStorage.setTextSize(16);
             txtInternalStorage.setPadding(0, 20, 0, 25);
             txtINFreedis.setPadding(0, 0, 0, 15);
-            txtINFreedis.setTextColor(Color.parseColor(TextDisColor));
+            txtINFreedis.setTextColor(TextDisColor);
             txtINFreedis.setTextSize(16);
             txtINFreedis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
             txtINUseddis.setPadding(0, 0, 0, 15);
-            txtINUseddis.setTextColor(Color.parseColor(TextDisColor));
+            txtINUseddis.setTextColor(TextDisColor);
             txtINUseddis.setTextSize(16);
             txtINUseddis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
             txtINTotaldis.setPadding(0, 0, 0, 15);
-            txtINTotaldis.setTextColor(Color.parseColor(TextDisColor));
+            txtINTotaldis.setTextColor(TextDisColor);
             txtINTotaldis.setTextSize(16);
             txtINTotaldis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
@@ -215,17 +218,17 @@ public class tabMemory extends Fragment {
                 txtExternalStorage.setTextSize(16);
                 txtExternalStorage.setPadding(0, 20, 0, 25);
                 txtEXFreedis.setPadding(0, 0, 0, 15);
-                txtEXFreedis.setTextColor(Color.parseColor(TextDisColor));
+                txtEXFreedis.setTextColor(TextDisColor);
                 txtEXFreedis.setTextSize(16);
                 txtEXFreedis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
                 txtEXUseddis.setPadding(0, 0, 0, 15);
-                txtEXUseddis.setTextColor(Color.parseColor(TextDisColor));
+                txtEXUseddis.setTextColor(TextDisColor);
                 txtEXUseddis.setTextSize(16);
                 txtEXUseddis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
                 txtEXTotaldis.setPadding(0, 0, 0, 15);
-                txtEXTotaldis.setTextColor(Color.parseColor(TextDisColor));
+                txtEXTotaldis.setTextColor(TextDisColor);
                 txtEXTotaldis.setTextSize(16);
                 txtEXTotaldis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 

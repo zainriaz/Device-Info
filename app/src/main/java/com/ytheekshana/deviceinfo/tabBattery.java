@@ -21,7 +21,8 @@ import java.util.Objects;
 
 public class tabBattery extends Fragment {
     LinearLayout llayout;
-    String LineColor = "#B3B3B3", TextDisColor = "#023071", battechno;
+    String LineColor = "#B3B3B3", battechno;
+    int TextDisColor;
     int batlevel, batvoltage, battemperature, batstatus, batpowersource, bathealth;
     TextView txtBatteryLeveldis, txtBatteryStatusdis, txtPowerSourcedis, txtBatteryHealthdis, txtTechnologydis, txtTemperaturedis, txtBatteryVoltagedis, txtBatteryCapacitydis;
     BatteryManager mBatteryManager;
@@ -34,6 +35,8 @@ public class tabBattery extends Fragment {
         llayout = rootView.findViewById(R.id.llayout);
 
         try {
+            TextDisColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()),R.attr.colorAccent);
+
             IntentFilter iFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
             BatteryContext = Objects.requireNonNull(getActivity()).getApplicationContext();
             BatteryContext.registerReceiver(mBroadcastReceiver, iFilter);
@@ -48,7 +51,7 @@ public class tabBattery extends Fragment {
             txtBatteryHealth.setTypeface(null, Typeface.BOLD);
             txtBatteryHealth.setTextSize(16);
             txtBatteryHealthdis.setPadding(0, 0, 0, 15);
-            txtBatteryHealthdis.setTextColor(Color.parseColor(TextDisColor));
+            txtBatteryHealthdis.setTextColor(TextDisColor);
             txtBatteryHealthdis.setTextSize(16);
             txtBatteryHealthdis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             txtBatteryHealth.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -65,7 +68,7 @@ public class tabBattery extends Fragment {
             txtBatteryLevel.setTypeface(null, Typeface.BOLD);
             txtBatteryLevel.setTextSize(16);
             txtBatteryLeveldis.setPadding(0, 0, 0, 15);
-            txtBatteryLeveldis.setTextColor(Color.parseColor(TextDisColor));
+            txtBatteryLeveldis.setTextColor(TextDisColor);
             txtBatteryLeveldis.setTextSize(16);
             txtBatteryLeveldis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             txtBatteryLevel.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -83,7 +86,7 @@ public class tabBattery extends Fragment {
             txtBatteryStatus.setTextSize(16);
             txtBatteryStatus.setPadding(0, 15, 0, 0);
             txtBatteryStatusdis.setPadding(0, 0, 0, 15);
-            txtBatteryStatusdis.setTextColor(Color.parseColor(TextDisColor));
+            txtBatteryStatusdis.setTextColor(TextDisColor);
             txtBatteryStatusdis.setTextSize(16);
             txtBatteryStatusdis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             txtBatteryStatus.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -101,7 +104,7 @@ public class tabBattery extends Fragment {
             txtPowerSource.setTextSize(16);
             txtPowerSource.setPadding(0, 15, 0, 0);
             txtPowerSourcedis.setPadding(0, 0, 0, 15);
-            txtPowerSourcedis.setTextColor(Color.parseColor(TextDisColor));
+            txtPowerSourcedis.setTextColor(TextDisColor);
             txtPowerSourcedis.setTextSize(16);
             txtPowerSourcedis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             txtBatteryStatus.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -119,7 +122,7 @@ public class tabBattery extends Fragment {
             txtTechnology.setTextSize(16);
             txtTechnology.setPadding(0, 15, 0, 0);
             txtTechnologydis.setPadding(0, 0, 0, 15);
-            txtTechnologydis.setTextColor(Color.parseColor(TextDisColor));
+            txtTechnologydis.setTextColor(TextDisColor);
             txtTechnologydis.setTextSize(16);
             txtTechnologydis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             txtTechnology.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -137,7 +140,7 @@ public class tabBattery extends Fragment {
             txtTemperature.setTextSize(16);
             txtTemperature.setPadding(0, 15, 0, 0);
             txtTemperaturedis.setPadding(0, 0, 0, 15);
-            txtTemperaturedis.setTextColor(Color.parseColor(TextDisColor));
+            txtTemperaturedis.setTextColor(TextDisColor);
             txtTemperaturedis.setTextSize(16);
             txtTemperaturedis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             txtTemperature.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -155,7 +158,7 @@ public class tabBattery extends Fragment {
             txtBatteryVoltage.setTextSize(16);
             txtBatteryVoltage.setPadding(0, 15, 0, 0);
             txtBatteryVoltagedis.setPadding(0, 0, 0, 15);
-            txtBatteryVoltagedis.setTextColor(Color.parseColor(TextDisColor));
+            txtBatteryVoltagedis.setTextColor(TextDisColor);
             txtBatteryVoltagedis.setTextSize(16);
             txtBatteryVoltagedis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             txtBatteryVoltage.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -173,7 +176,7 @@ public class tabBattery extends Fragment {
             txtBatteryCapacity.setTextSize(16);
             txtBatteryCapacity.setPadding(0, 15, 0, 0);
             txtBatteryCapacitydis.setPadding(0, 0, 0, 15);
-            txtBatteryCapacitydis.setTextColor(Color.parseColor(TextDisColor));
+            txtBatteryCapacitydis.setTextColor(TextDisColor);
             txtBatteryCapacitydis.setTextSize(16);
             String BatCap = String.valueOf(GetDetails.getBatteryCapacity(getActivity()))+" mAh";
             txtBatteryCapacitydis.setText(BatCap);

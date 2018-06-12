@@ -2,8 +2,14 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#ff5100</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
+
+
+    <color name="DarkcolorPrimary">#ff212121</color>
+    <color name="DarkcolorPrimaryDark">@color/black</color>
+    <color name="cardview_dark_background">#ff424242</color>
+
 
 </resources>

@@ -46,7 +46,6 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="14dp"
             android:text="@string/app_name"
-            android:textColor="#000"
             android:textSize="28sp"
             android:textStyle="bold" />
 

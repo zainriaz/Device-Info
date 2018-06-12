@@ -1,8 +1,11 @@
 package com.ytheekshana.deviceinfo;
 
+import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.NotificationCompat;
@@ -19,11 +22,16 @@ import android.view.MenuItem;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
+    public static int themeId;
     NotificationCompat.Builder mBuilder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        SharedPreferences shpre = PreferenceManager.getDefaultSharedPreferences(this);
+        themeId = shpre.getInt("ThemeNoBar",0);
+        setTheme(themeId);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -66,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
             {
                 Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
+                this.finish();
                 return true;
             }
         }

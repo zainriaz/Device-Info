@@ -14,12 +14,14 @@ import android.widget.TextView;
 
 import java.io.RandomAccessFile;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class tabCPU extends Fragment {
     LinearLayout llayout;
-    String LineColor = "#B3B3B3", TextDisColor = "#023071";
+    String LineColor = "#B3B3B3";
+    int TextDisColor;
     TextView txtCPUUsagedis;
     CPUUsage cu;
     TextView txtCore[];
@@ -34,6 +36,8 @@ public class tabCPU extends Fragment {
         cu = new CPUUsage();
 
         try {
+            TextDisColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()),R.attr.colorAccent);
+
             double cpuMaxFreq, cpuMinFreq;
             RandomAccessFile readermax, readermin;
             readermax = new RandomAccessFile("/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq", "r");
@@ -54,7 +58,7 @@ public class tabCPU extends Fragment {
             txtProcessor.setTypeface(null, Typeface.BOLD);
             txtProcessor.setTextSize(16);
             txtProcessordis.setPadding(0, 0, 0, 15);
-            txtProcessordis.setTextColor(Color.parseColor(TextDisColor));
+            txtProcessordis.setTextColor(TextDisColor);
             txtProcessordis.setTextSize(16);
             txtProcessordis.setText(GetDetails.getProcessor());
             txtProcessordis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -73,7 +77,7 @@ public class tabCPU extends Fragment {
             txtABI.setTextSize(16);
             txtABI.setPadding(0, 15, 0, 0);
             txtABIdis.setPadding(0, 0, 0, 15);
-            txtABIdis.setTextColor(Color.parseColor(TextDisColor));
+            txtABIdis.setTextColor(TextDisColor);
             txtABIdis.setTextSize(16);
             StringBuilder ABIs = new StringBuilder();
             for (int a = 0; a < Build.SUPPORTED_ABIS.length; a++) {
@@ -96,7 +100,7 @@ public class tabCPU extends Fragment {
             txtCPUHardware.setTextSize(16);
             txtCPUHardware.setPadding(0, 15, 0, 0);
             txtCPUHardwaredis.setPadding(0, 0, 0, 15);
-            txtCPUHardwaredis.setTextColor(Color.parseColor(TextDisColor));
+            txtCPUHardwaredis.setTextColor(TextDisColor);
             txtCPUHardwaredis.setTextSize(16);
             txtCPUHardwaredis.setText(GetDetails.getProcessorHardware());
             txtCPUHardwaredis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -115,7 +119,7 @@ public class tabCPU extends Fragment {
             txtCPUGovernor.setTextSize(16);
             txtCPUGovernor.setPadding(0, 15, 0, 0);
             txtCPUGovernordis.setPadding(0, 0, 0, 15);
-            txtCPUGovernordis.setTextColor(Color.parseColor(TextDisColor));
+            txtCPUGovernordis.setTextColor(TextDisColor);
             txtCPUGovernordis.setTextSize(16);
             txtCPUGovernordis.setText(GetDetails.getCPUGoverner());
             txtCPUGovernordis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -134,7 +138,7 @@ public class tabCPU extends Fragment {
             txtCPUCores.setTextSize(16);
             txtCPUCores.setPadding(0, 15, 0, 0);
             txtCPUCoresdis.setPadding(0, 0, 0, 15);
-            txtCPUCoresdis.setTextColor(Color.parseColor(TextDisColor));
+            txtCPUCoresdis.setTextColor(TextDisColor);
             txtCPUCoresdis.setTextSize(16);
             txtCPUCoresdis.setText(String.valueOf(Runtime.getRuntime().availableProcessors()));
             txtCPUCoresdis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -153,7 +157,7 @@ public class tabCPU extends Fragment {
             txtCPUFrequency.setTextSize(16);
             txtCPUFrequency.setPadding(0, 15, 0, 0);
             txtCPUFrequencydis.setPadding(0, 0, 0, 15);
-            txtCPUFrequencydis.setTextColor(Color.parseColor(TextDisColor));
+            txtCPUFrequencydis.setTextColor(TextDisColor);
             txtCPUFrequencydis.setTextSize(16);
             String frequ = String.format(Locale.US, "%.0f", cpuMinFreq) + " MHz - " + String.format(Locale.US, "%.0f", cpuMaxFreq) + " MHz";
             txtCPUFrequencydis.setText(frequ);
@@ -178,7 +182,7 @@ public class tabCPU extends Fragment {
             for (int corecount = 0; corecount < Runtime.getRuntime().availableProcessors(); corecount++) {
                 txtCore[corecount] = new TextView(getContext());
                 txtCore[corecount].setPadding(0, 0, 0, 15);
-                txtCore[corecount].setTextColor(Color.parseColor(TextDisColor));
+                txtCore[corecount].setTextColor(TextDisColor);
                 txtCore[corecount].setTextSize(16);
                 String settextcorecores = "Core " + corecount + "       ";
                 txtCore[corecount].setText(settextcorecores);
@@ -198,7 +202,7 @@ public class tabCPU extends Fragment {
             txtCPUUsage.setTextSize(16);
             txtCPUUsage.setPadding(0, 15, 0, 0);
             txtCPUUsagedis.setPadding(0, 0, 0, 15);
-            txtCPUUsagedis.setTextColor(Color.parseColor(TextDisColor));
+            txtCPUUsagedis.setTextColor(TextDisColor);
             txtCPUUsagedis.setTextSize(16);
             txtCPUUsagedis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             txtCPUUsage.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));

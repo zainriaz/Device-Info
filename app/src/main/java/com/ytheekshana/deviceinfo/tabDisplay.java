@@ -16,10 +16,13 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.Objects;
+
 
 public class tabDisplay extends Fragment {
     LinearLayout llayout;
-    String LineColor = "#B3B3B3", TextDisColor = "#023071";
+    String LineColor = "#B3B3B3";
+    int TextDisColor;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -27,6 +30,8 @@ public class tabDisplay extends Fragment {
         View rootView = inflater.inflate(R.layout.tabdisplay, container, false);
         llayout = rootView.findViewById(R.id.llayout);
         try {
+            TextDisColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()),R.attr.colorAccent);
+
             DisplayMetrics getDisplay = new DisplayMetrics();
             getActivity().getWindowManager().getDefaultDisplay().getMetrics(getDisplay);
             WindowManager windowManager = getActivity().getWindowManager();
@@ -74,7 +79,7 @@ public class tabDisplay extends Fragment {
             txtResolution.setTypeface(null, Typeface.BOLD);
             txtResolution.setTextSize(16);
             txtResolutiondis.setPadding(0, 0, 0, 15);
-            txtResolutiondis.setTextColor(Color.parseColor(TextDisColor));
+            txtResolutiondis.setTextColor(TextDisColor);
             txtResolutiondis.setTextSize(16);
             String Res = Integer.toString(width) + " x " + Integer.toString(height) + " Pixels";
             txtResolutiondis.setText(Res);
@@ -94,7 +99,7 @@ public class tabDisplay extends Fragment {
             txtDensity.setTextSize(16);
             txtDensity.setPadding(0, 15, 0, 0);
             txtDensitydis.setPadding(0, 0, 0, 15);
-            txtDensitydis.setTextColor(Color.parseColor(TextDisColor));
+            txtDensitydis.setTextColor(TextDisColor);
             txtDensitydis.setTextSize(16);
             String fdensity = Integer.toString(densitydpi) + " dpi (" + getSize + ")";
             txtDensitydis.setText(fdensity);
@@ -114,7 +119,7 @@ public class tabDisplay extends Fragment {
             txtFontScale.setTextSize(16);
             txtFontScale.setPadding(0, 15, 0, 0);
             txtFontScaledis.setPadding(0, 0, 0, 15);
-            txtFontScaledis.setTextColor(Color.parseColor(TextDisColor));
+            txtFontScaledis.setTextColor(TextDisColor);
             txtFontScaledis.setTextSize(16);
             String fontsize = Float.toString(getResources().getConfiguration().fontScale);
             txtFontScaledis.setText(fontsize);
@@ -134,7 +139,7 @@ public class tabDisplay extends Fragment {
             txtScreenPhysical.setTextSize(16);
             txtScreenPhysical.setPadding(0, 15, 0, 0);
             txtScreenPhysicaldis.setPadding(0, 0, 0, 15);
-            txtScreenPhysicaldis.setTextColor(Color.parseColor(TextDisColor));
+            txtScreenPhysicaldis.setTextColor(TextDisColor);
             txtScreenPhysicaldis.setTextSize(16);
             String physical_size = (GetDetails.getDisplaySize(getActivity())) + " inches";
             txtScreenPhysicaldis.setText(physical_size);
@@ -154,7 +159,7 @@ public class tabDisplay extends Fragment {
             txtRefreshRate.setTextSize(16);
             txtRefreshRate.setPadding(0, 15, 0, 0);
             txtRefreshRatedis.setPadding(0, 0, 0, 15);
-            txtRefreshRatedis.setTextColor(Color.parseColor(TextDisColor));
+            txtRefreshRatedis.setTextColor(TextDisColor);
             txtRefreshRatedis.setTextSize(16);
             String rrate = Float.toString(refreshRating) + " Hz";
             txtRefreshRatedis.setText(rrate);
@@ -174,7 +179,7 @@ public class tabDisplay extends Fragment {
             txtOrientation.setTextSize(16);
             txtOrientation.setPadding(0, 15, 0, 0);
             txtOrientationdis.setPadding(0, 0, 0, 15);
-            txtOrientationdis.setTextColor(Color.parseColor(TextDisColor));
+            txtOrientationdis.setTextColor(TextDisColor);
             txtOrientationdis.setTextSize(16);
             txtOrientationdis.setText(Orientation);
             txtOrientationdis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));

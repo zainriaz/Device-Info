@@ -120,7 +120,7 @@ public class tabApps extends Fragment {
 
         userInstalledApps = rootView.findViewById(R.id.installed_app_list);
         progressLoadApps = rootView.findViewById(R.id.progressLoadApps);
-
+        
         userInstalledApps.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
