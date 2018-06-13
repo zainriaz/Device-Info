@@ -57,13 +57,13 @@
         android:id="@+id/heading_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
         android:layout_below="@id/heading_layout"
         android:orientation="vertical"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
         android:paddingTop="5dp"
-        android:paddingBottom="15dp">
+        android:paddingBottom="15dp"
+        style="?attr/popupWindowStyle">
 
 
         <TextView

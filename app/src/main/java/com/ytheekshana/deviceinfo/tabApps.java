@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,24 +39,25 @@ public class tabApps extends Fragment {
     int apptype = 0;
     Thread LoadApps;
     private PopupWindow mPopupWindow;
-    TextView txtappname,txtpackagename,txtappversion,txtappminsdk,txtapptargetsdk,txtappinstalldate,txtappupdatedate;
+    TextView txtappname, txtpackagename, txtappversion, txtappminsdk, txtapptargetsdk, txtappinstalldate, txtappupdatedate;
     ImageView imgappicon;
     ListView userInstalledApps;
-    ProgressBar progressLoadApps;
+    SwipeRefreshLayout swipeapplist;
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(isVisibleToUser && getActivity()!=null){
-            //Toast.makeText(getActivity(), "js", Toast.LENGTH_SHORT).show();
+        if (isVisibleToUser && getActivity() != null) {
             LoadApps = new Thread() {
                 @Override
                 public void run() {
 
-                    progressLoadApps.post(new Runnable() {
+                    swipeapplist.post(new Runnable() {
                         @Override
                         public void run() {
-                            progressLoadApps.setVisibility(View.VISIBLE);
+                            if (!swipeapplist.isRefreshing()) {
+                                swipeapplist.setRefreshing(true);
+                            }
                         }
                     });
 
@@ -75,10 +77,12 @@ public class tabApps extends Fragment {
                         }
                     });
 
-                    progressLoadApps.post(new Runnable() {
+                    swipeapplist.post(new Runnable() {
                         @Override
                         public void run() {
-                            progressLoadApps.setVisibility(View.GONE);
+                            if (swipeapplist.isRefreshing()) {
+                                swipeapplist.setRefreshing(false);
+                            }
                         }
                     });
 
@@ -101,6 +105,14 @@ public class tabApps extends Fragment {
         final View rootView = inflater.inflate(R.layout.tabapps, container, false);
         final RelativeLayout relmain = rootView.findViewById(R.id.relmain);
         Spinner spinnerAppType = rootView.findViewById(R.id.spinnerAppType);
+        swipeapplist = rootView.findViewById(R.id.swipeapplist);
+        swipeapplist.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Thread(LoadApps).start();
+            }
+        });
+
         spinnerAppType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -119,8 +131,7 @@ public class tabApps extends Fragment {
         });
 
         userInstalledApps = rootView.findViewById(R.id.installed_app_list);
-        progressLoadApps = rootView.findViewById(R.id.progressLoadApps);
-        
+
         userInstalledApps.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -195,7 +206,7 @@ public class tabApps extends Fragment {
                     txtappupdatedate.setText(finalupdatedate);
 
 
-                   // txtappdescription.setText(appinfo.);
+                    // txtappdescription.setText(appinfo.);
 
                     Drawable icon = getContext().getPackageManager().getApplicationIcon(packgename);
                     imgappicon.setImageDrawable(icon);

@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools"
-    tools:override="true">
-    <attr format="reference" name="cardStyle"/>
+    tools:override="true"
+    tools:ignore="PrivateResource">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -9,7 +9,8 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="cardStyle">@style/CardView.Light</item>
-
+        <item name="listDividerStyle">@style/ListViewStyle.Light</item>
+        <item name="popupWindowStyle">@style/PopupAppWindow.Light</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -25,7 +26,7 @@
         <item name="colorPrimary">@color/DarkcolorPrimary</item>
         <item name="colorPrimaryDark">@color/DarkcolorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item  name="android:colorForeground">@color/foreground_material_dark</item>
+        <item name="android:colorForeground">@color/foreground_material_dark</item>
         <item name="android:colorBackground">@color/background_material_dark</item>
         <item name="android:textColorPrimary">@color/abc_primary_text_material_dark</item>
         <item name="android:textColorPrimaryDisableOnly">@color/abc_primary_text_disable_only_material_dark</item>
@@ -46,16 +47,26 @@
         <item name="colorControlNormal">?android:textColorSecondary</item>
         <item name="colorSwitchThumbNormal">@color/switch_thumb_material_dark</item>
         <item name="cardStyle">@style/CardView.Dark</item>
-        <item name="android:popupTheme">@style/PopupMenuStyle.Dark</item>
-        <item name="isLightTheme">false</item>
+        <item name="listDividerStyle">@style/ListViewStyle.Dark</item>
+        <item name="popupWindowStyle">@style/PopupAppWindow.Dark</item>
     </style>
 
     <style name="AppThemeDark.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+    <style name="ListViewStyle.Light" parent="android:style/Widget.ListView">
+        <item name="android:divider">@color/background_material_light</item>
+    </style>
+    <style name="ListViewStyle.Dark" parent="android:style/Widget.ListView">
+        <item name="android:divider">@color/background_material_dark</item>
+    </style>
 
-    <style name="PopupMenuStyle.Dark" parent="AppThemeDark">
+    <style name="PopupAppWindow.Light" parent="AppTheme.PopupOverlay">
+        <item name="android:background">@color/background_material_light</item>
+    </style>
+    <style name="PopupAppWindow.Dark" parent="AppTheme.PopupOverlay">
         <item name="android:background">@color/background_material_dark</item>
     </style>
+
 </resources>

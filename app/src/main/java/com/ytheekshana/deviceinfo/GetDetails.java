@@ -87,6 +87,11 @@ class GetDetails {
     static String GetOSName(int sdk) {
         String OSName;
         switch (sdk) {
+            case 11:
+            case 12:
+            case 13:
+                OSName = "HoneyComb";
+                break;
             case 14:
             case 15:
                 OSName = "Ice Cream Sandwich";
