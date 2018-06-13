@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr format="reference" name="cardStyle"/>
+    <attr format="reference" name="listDividerStyle"/>
+    <attr format="reference" name="popupWindowStyle"/>
+</resources>
