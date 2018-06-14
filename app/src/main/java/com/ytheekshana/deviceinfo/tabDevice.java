@@ -24,10 +24,9 @@ import android.widget.Toast;
 import java.util.Objects;
 
 public class tabDevice extends Fragment {
-    LinearLayout llayout;
-    String LineColor = "#B3B3B3";
-    int TextDisColor;
     public static final int REQUEST_PHONE_STATE = 1;
+    LinearLayout llayout;
+    int TextDisColor,LineColor;
     TextView txtDeviceTypedis, txtIMEIdis, txtSIMSerialdis, txtSIMSubscriberdis, txtNetworkOperatordis, txtNetworkTypedis,txtWIFIMACAddressdis,txtBluetoothMACAddressdis,txtBuildFingerPrintdis;
     TelephonyManager tm;
 
@@ -40,6 +39,7 @@ public class tabDevice extends Fragment {
         try {
 
             TextDisColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()),R.attr.colorAccent);
+            LineColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()),R.attr.colorButtonNormal);
             tm = (TelephonyManager) Objects.requireNonNull(getActivity()).getSystemService(Context.TELEPHONY_SERVICE);
             //BluetoothAdapter myDevice = BluetoothAdapter.getDefaultAdapter();
             //String deviceName = myDevice.getName();
@@ -51,7 +51,7 @@ public class tabDevice extends Fragment {
             TextView txtNamedis = new TextView(getContext());
             View v20 = new View(getContext());
             v20.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v20.setBackgroundColor(Color.parseColor(LineColor));
+            v20.setBackgroundColor(LineColor);
             txtName.setText(R.string.DeviceName);
             txtName.setTypeface(null, Typeface.BOLD);
             txtName.setTextSize(16);
@@ -68,7 +68,7 @@ public class tabDevice extends Fragment {
             TextView txtModeldis = new TextView(getContext());
             View v = new View(getContext());
             v.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v.setBackgroundColor(Color.parseColor(LineColor));
+            v.setBackgroundColor(LineColor);
             txtModel.setText(R.string.Model);
             txtModel.setTypeface(null, Typeface.BOLD);
             txtModel.setTextSize(16);
@@ -87,7 +87,7 @@ public class tabDevice extends Fragment {
             TextView txtManufacturerdis = new TextView(getContext());
             View v1 = new View(getContext());
             v1.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v1.setBackgroundColor(Color.parseColor(LineColor));
+            v1.setBackgroundColor(LineColor);
             txtManufacturer.setText(R.string.Manufacturer);
             txtManufacturer.setTypeface(null, Typeface.BOLD);
             txtManufacturer.setTextSize(16);
@@ -106,7 +106,7 @@ public class tabDevice extends Fragment {
             TextView txtDevicedis = new TextView(getContext());
             View v2 = new View(getContext());
             v2.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v2.setBackgroundColor(Color.parseColor(LineColor));
+            v2.setBackgroundColor(LineColor);
             txtDevice.setText(R.string.Device);
             txtDevice.setTypeface(null, Typeface.BOLD);
             txtDevice.setTextSize(16);
@@ -125,7 +125,7 @@ public class tabDevice extends Fragment {
             TextView txtBoarddis = new TextView(getContext());
             View v3 = new View(getContext());
             v3.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v3.setBackgroundColor(Color.parseColor(LineColor));
+            v3.setBackgroundColor(LineColor);
             txtBoard.setText(R.string.Board);
             txtBoard.setTypeface(null, Typeface.BOLD);
             txtBoard.setTextSize(16);
@@ -144,7 +144,7 @@ public class tabDevice extends Fragment {
             TextView txtHardwaredis = new TextView(getContext());
             View v4 = new View(getContext());
             v4.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v4.setBackgroundColor(Color.parseColor(LineColor));
+            v4.setBackgroundColor(LineColor);
             txtHardware.setText(R.string.Hardware);
             txtHardware.setTypeface(null, Typeface.BOLD);
             txtHardware.setTextSize(16);
@@ -163,7 +163,7 @@ public class tabDevice extends Fragment {
             TextView txtBranddis = new TextView(getContext());
             View v5 = new View(getContext());
             v5.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v5.setBackgroundColor(Color.parseColor(LineColor));
+            v5.setBackgroundColor(LineColor);
             txtBrand.setText(R.string.Brand);
             txtBrand.setTypeface(null, Typeface.BOLD);
             txtBrand.setTextSize(16);
@@ -182,7 +182,7 @@ public class tabDevice extends Fragment {
             txtDeviceTypedis = new TextView(getContext());
             View v6 = new View(getContext());
             v6.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v6.setBackgroundColor(Color.parseColor(LineColor));
+            v6.setBackgroundColor(LineColor);
             txtDeviceType.setText(R.string.DeviceType);
             txtDeviceType.setTypeface(null, Typeface.BOLD);
             txtDeviceType.setTextSize(16);
@@ -213,7 +213,7 @@ public class tabDevice extends Fragment {
             TextView txtDeviceIDdis = new TextView(getContext());
             View v7 = new View(getContext());
             v7.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v7.setBackgroundColor(Color.parseColor(LineColor));
+            v7.setBackgroundColor(LineColor);
             txtDeviceID.setText(R.string.AndroidDeviceID);
             txtDeviceID.setTypeface(null, Typeface.BOLD);
             txtDeviceID.setTextSize(16);
@@ -232,7 +232,7 @@ public class tabDevice extends Fragment {
             txtIMEIdis = new TextView(getContext());
             View v8 = new View(getContext());
             v8.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v8.setBackgroundColor(Color.parseColor(LineColor));
+            v8.setBackgroundColor(LineColor);
             txtIMEI.setText(R.string.IMEI);
             txtIMEI.setTypeface(null, Typeface.BOLD);
             txtIMEI.setTextSize(16);
@@ -263,7 +263,7 @@ public class tabDevice extends Fragment {
             TextView txtHardwareSerialdis = new TextView(getContext());
             View v9 = new View(getContext());
             v9.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v9.setBackgroundColor(Color.parseColor(LineColor));
+            v9.setBackgroundColor(LineColor);
             txtHardwareSerial.setText(R.string.HardwareSerial);
             txtHardwareSerial.setTypeface(null, Typeface.BOLD);
             txtHardwareSerial.setTextSize(16);
@@ -282,7 +282,7 @@ public class tabDevice extends Fragment {
             txtSIMSerialdis = new TextView(getContext());
             View v10 = new View(getContext());
             v10.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v10.setBackgroundColor(Color.parseColor(LineColor));
+            v10.setBackgroundColor(LineColor);
             txtSIMSerial.setText(R.string.SIMSerial);
             txtSIMSerial.setTypeface(null, Typeface.BOLD);
             txtSIMSerial.setTextSize(16);
@@ -313,7 +313,7 @@ public class tabDevice extends Fragment {
             txtSIMSubscriberdis = new TextView(getContext());
             View v11 = new View(getContext());
             v11.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v11.setBackgroundColor(Color.parseColor(LineColor));
+            v11.setBackgroundColor(LineColor);
             txtSIMSubscriber.setText(R.string.SIMSubscriber);
             txtSIMSubscriber.setTypeface(null, Typeface.BOLD);
             txtSIMSubscriber.setTextSize(16);
@@ -344,7 +344,7 @@ public class tabDevice extends Fragment {
             txtNetworkOperatordis = new TextView(getContext());
             View v12 = new View(getContext());
             v12.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v12.setBackgroundColor(Color.parseColor(LineColor));
+            v12.setBackgroundColor(LineColor);
             txtNetworkOperator.setText(R.string.NetworkOperator);
             txtNetworkOperator.setTypeface(null, Typeface.BOLD);
             txtNetworkOperator.setTextSize(16);
@@ -375,7 +375,7 @@ public class tabDevice extends Fragment {
             txtNetworkTypedis = new TextView(getContext());
             View v13 = new View(getContext());
             v13.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v13.setBackgroundColor(Color.parseColor(LineColor));
+            v13.setBackgroundColor(LineColor);
             txtNetworkType.setText(R.string.NetworkType);
             txtNetworkType.setTypeface(null, Typeface.BOLD);
             txtNetworkType.setTextSize(16);
@@ -406,7 +406,7 @@ public class tabDevice extends Fragment {
             txtWIFIMACAddressdis = new TextView(getContext());
             View v14 = new View(getContext());
             v14.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v14.setBackgroundColor(Color.parseColor(LineColor));
+            v14.setBackgroundColor(LineColor);
             txtWIFIMACAddress.setText(R.string.WiFiMac);
             txtWIFIMACAddress.setTypeface(null, Typeface.BOLD);
             txtWIFIMACAddress.setTextSize(16);
@@ -426,7 +426,7 @@ public class tabDevice extends Fragment {
             txtBluetoothMACAddressdis = new TextView(getContext());
             View v15 = new View(getContext());
             v15.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v15.setBackgroundColor(Color.parseColor(LineColor));
+            v15.setBackgroundColor(LineColor);
             txtBluetoothMACAddress.setText(R.string.BluetoothMac);
             txtBluetoothMACAddress.setTypeface(null, Typeface.BOLD);
             txtBluetoothMACAddress.setTextSize(16);
@@ -446,7 +446,7 @@ public class tabDevice extends Fragment {
             txtBuildFingerPrintdis = new TextView(getContext());
             View v16 = new View(getContext());
             v16.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v16.setBackgroundColor(Color.parseColor(LineColor));
+            v16.setBackgroundColor(LineColor);
             txtBuildFingerPrint.setText(R.string.BuildFingerprint);
             txtBuildFingerPrint.setTypeface(null, Typeface.BOLD);
             txtBuildFingerPrint.setTextSize(16);

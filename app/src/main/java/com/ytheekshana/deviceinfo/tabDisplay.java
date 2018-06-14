@@ -21,8 +21,7 @@ import java.util.Objects;
 
 public class tabDisplay extends Fragment {
     LinearLayout llayout;
-    String LineColor = "#B3B3B3";
-    int TextDisColor;
+    int TextDisColor,LineColor;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -31,6 +30,7 @@ public class tabDisplay extends Fragment {
         llayout = rootView.findViewById(R.id.llayout);
         try {
             TextDisColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()),R.attr.colorAccent);
+            LineColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()),R.attr.colorButtonNormal);
 
             DisplayMetrics getDisplay = new DisplayMetrics();
             getActivity().getWindowManager().getDefaultDisplay().getMetrics(getDisplay);
@@ -74,7 +74,7 @@ public class tabDisplay extends Fragment {
             TextView txtResolutiondis = new TextView(getContext());
             View v = new View(getContext());
             v.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v.setBackgroundColor(Color.parseColor(LineColor));
+            v.setBackgroundColor(LineColor);
             txtResolution.setText(R.string.Resolution);
             txtResolution.setTypeface(null, Typeface.BOLD);
             txtResolution.setTextSize(16);
@@ -93,7 +93,7 @@ public class tabDisplay extends Fragment {
             TextView txtDensitydis = new TextView(getContext());
             View v1 = new View(getContext());
             v1.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v1.setBackgroundColor(Color.parseColor(LineColor));
+            v1.setBackgroundColor(LineColor);
             txtDensity.setText(R.string.Density);
             txtDensity.setTypeface(null, Typeface.BOLD);
             txtDensity.setTextSize(16);
@@ -113,7 +113,7 @@ public class tabDisplay extends Fragment {
             TextView txtFontScaledis = new TextView(getContext());
             View v2 = new View(getContext());
             v2.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v2.setBackgroundColor(Color.parseColor(LineColor));
+            v2.setBackgroundColor(LineColor);
             txtFontScale.setText(R.string.FontScale);
             txtFontScale.setTypeface(null, Typeface.BOLD);
             txtFontScale.setTextSize(16);
@@ -133,7 +133,7 @@ public class tabDisplay extends Fragment {
             TextView txtScreenPhysicaldis = new TextView(getContext());
             View v3 = new View(getContext());
             v3.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v3.setBackgroundColor(Color.parseColor(LineColor));
+            v3.setBackgroundColor(LineColor);
             txtScreenPhysical.setText(R.string.PhysicalSize);
             txtScreenPhysical.setTypeface(null, Typeface.BOLD);
             txtScreenPhysical.setTextSize(16);
@@ -153,7 +153,7 @@ public class tabDisplay extends Fragment {
             TextView txtRefreshRatedis = new TextView(getContext());
             View v4 = new View(getContext());
             v4.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v4.setBackgroundColor(Color.parseColor(LineColor));
+            v4.setBackgroundColor(LineColor);
             txtRefreshRate.setText(R.string.RefreshRate);
             txtRefreshRate.setTypeface(null, Typeface.BOLD);
             txtRefreshRate.setTextSize(16);
@@ -173,7 +173,7 @@ public class tabDisplay extends Fragment {
             TextView txtOrientationdis = new TextView(getContext());
             View v5 = new View(getContext());
             v5.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v5.setBackgroundColor(Color.parseColor(LineColor));
+            v5.setBackgroundColor(LineColor);
             txtOrientation.setText(R.string.Orientation);
             txtOrientation.setTypeface(null, Typeface.BOLD);
             txtOrientation.setTextSize(16);

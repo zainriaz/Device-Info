@@ -20,8 +20,7 @@ import java.util.TimerTask;
 
 public class tabCPU extends Fragment {
     LinearLayout llayout;
-    String LineColor = "#B3B3B3";
-    int TextDisColor;
+    int TextDisColor,LineColor;
     TextView txtCPUUsagedis;
     CPUUsage cu;
     TextView txtCore[];
@@ -37,6 +36,7 @@ public class tabCPU extends Fragment {
 
         try {
             TextDisColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()),R.attr.colorAccent);
+            LineColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()),R.attr.colorButtonNormal);
 
             double cpuMaxFreq, cpuMinFreq;
             RandomAccessFile readermax, readermin;
@@ -53,7 +53,7 @@ public class tabCPU extends Fragment {
             TextView txtProcessordis = new TextView(getContext());
             View v = new View(getContext());
             v.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v.setBackgroundColor(Color.parseColor(LineColor));
+            v.setBackgroundColor(LineColor);
             txtProcessor.setText(R.string.Processor);
             txtProcessor.setTypeface(null, Typeface.BOLD);
             txtProcessor.setTextSize(16);
@@ -71,7 +71,7 @@ public class tabCPU extends Fragment {
             TextView txtABIdis = new TextView(getContext());
             View v1 = new View(getContext());
             v1.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v1.setBackgroundColor(Color.parseColor(LineColor));
+            v1.setBackgroundColor(LineColor);
             txtABI.setText(R.string.ABIs);
             txtABI.setTypeface(null, Typeface.BOLD);
             txtABI.setTextSize(16);
@@ -94,7 +94,7 @@ public class tabCPU extends Fragment {
             TextView txtCPUHardwaredis = new TextView(getContext());
             View v2 = new View(getContext());
             v2.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v2.setBackgroundColor(Color.parseColor(LineColor));
+            v2.setBackgroundColor(LineColor);
             txtCPUHardware.setText(R.string.CPUHardware);
             txtCPUHardware.setTypeface(null, Typeface.BOLD);
             txtCPUHardware.setTextSize(16);
@@ -113,7 +113,7 @@ public class tabCPU extends Fragment {
             TextView txtCPUGovernordis = new TextView(getContext());
             View v3 = new View(getContext());
             v3.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v3.setBackgroundColor(Color.parseColor(LineColor));
+            v3.setBackgroundColor(LineColor);
             txtCPUGovernor.setText(R.string.CPUGoverner);
             txtCPUGovernor.setTypeface(null, Typeface.BOLD);
             txtCPUGovernor.setTextSize(16);
@@ -132,7 +132,7 @@ public class tabCPU extends Fragment {
             final TextView txtCPUCoresdis = new TextView(getContext());
             View v4 = new View(getContext());
             v4.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v4.setBackgroundColor(Color.parseColor(LineColor));
+            v4.setBackgroundColor(LineColor);
             txtCPUCores.setText(R.string.Cores);
             txtCPUCores.setTypeface(null, Typeface.BOLD);
             txtCPUCores.setTextSize(16);
@@ -151,7 +151,7 @@ public class tabCPU extends Fragment {
             TextView txtCPUFrequencydis = new TextView(getContext());
             View v5 = new View(getContext());
             v5.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v5.setBackgroundColor(Color.parseColor(LineColor));
+            v5.setBackgroundColor(LineColor);
             txtCPUFrequency.setText(R.string.CPUFrequency);
             txtCPUFrequency.setTypeface(null, Typeface.BOLD);
             txtCPUFrequency.setTextSize(16);
@@ -170,7 +170,7 @@ public class tabCPU extends Fragment {
             TextView txtRunningCPU = new TextView(getContext());
             View v6 = new View(getContext());
             v6.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v6.setBackgroundColor(Color.parseColor(LineColor));
+            v6.setBackgroundColor(LineColor);
             txtRunningCPU.setText(R.string.RunningCPUs);
             txtRunningCPU.setTypeface(null, Typeface.BOLD);
             txtRunningCPU.setTextSize(16);
@@ -196,7 +196,7 @@ public class tabCPU extends Fragment {
             txtCPUUsagedis = new TextView(getContext());
             View v7 = new View(getContext());
             v7.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v7.setBackgroundColor(Color.parseColor(LineColor));
+            v7.setBackgroundColor(LineColor);
             txtCPUUsage.setText(R.string.CPUUsage);
             txtCPUUsage.setTypeface(null, Typeface.BOLD);
             txtCPUUsage.setTextSize(16);

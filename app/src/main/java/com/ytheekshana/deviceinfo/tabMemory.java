@@ -22,8 +22,7 @@ import java.util.Objects;
 
 public class tabMemory extends Fragment {
     LinearLayout llayout;
-    String LineColor = "#B3B3B3";
-    int TextDisColor;
+    int TextDisColor,LineColor;
     TextView txtRamTotaldis, txtRamFreedis, txtRamUseddis;
     Double ARam, URam, TRam, FreeSto, TotalSto, UsedSto, UsedPerc;
     ProgressBar pram, prom, pinternal, pexternal;
@@ -36,6 +35,7 @@ public class tabMemory extends Fragment {
         llayout = rootView.findViewById(R.id.llayout);
         try {
             TextDisColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()),R.attr.colorAccent);
+            LineColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()),R.attr.colorButtonNormal);
 
             TextView txtRAM = new TextView(getContext());
             txtRamFreedis = new TextView(getContext());
@@ -45,7 +45,7 @@ public class tabMemory extends Fragment {
             pram.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             View v = new View(getContext());
             v.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v.setBackgroundColor(Color.parseColor(LineColor));
+            v.setBackgroundColor(LineColor);
             txtRAM.setText(R.string.RAM);
             txtRAM.setTypeface(null, Typeface.BOLD);
             txtRAM.setTextSize(16);
@@ -110,7 +110,7 @@ public class tabMemory extends Fragment {
             prom.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             View v1 = new View(getContext());
             v1.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v1.setBackgroundColor(Color.parseColor(LineColor));
+            v1.setBackgroundColor(LineColor);
             txtROM.setText(R.string.DashROM);
             txtROM.setTypeface(null, Typeface.BOLD);
             txtROM.setTextSize(16);
@@ -160,7 +160,7 @@ public class tabMemory extends Fragment {
             pinternal.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             View v2 = new View(getContext());
             v2.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v2.setBackgroundColor(Color.parseColor(LineColor));
+            v2.setBackgroundColor(LineColor);
             txtInternalStorage.setText(R.string.InternalStorage);
             txtInternalStorage.setTypeface(null, Typeface.BOLD);
             txtInternalStorage.setTextSize(16);
@@ -212,7 +212,7 @@ public class tabMemory extends Fragment {
 
                 View v3 = new View(getContext());
                 v3.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-                v3.setBackgroundColor(Color.parseColor(LineColor));
+                v3.setBackgroundColor(LineColor);
                 txtExternalStorage.setText(R.string.ExternalStorage);
                 txtExternalStorage.setTypeface(null, Typeface.BOLD);
                 txtExternalStorage.setTextSize(16);

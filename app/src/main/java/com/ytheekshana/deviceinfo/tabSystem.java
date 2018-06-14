@@ -22,8 +22,7 @@ import java.util.Objects;
 
 public class tabSystem extends Fragment {
     LinearLayout llayout;
-    String LineColor = "#B3B3B3";
-    int TextDisColor;
+    int TextDisColor,LineColor;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -34,6 +33,7 @@ public class tabSystem extends Fragment {
         TextView txtAndroidVersionBig = rootView.findViewById(R.id.txtAndroidVersionBig);
         try {
             TextDisColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()),R.attr.colorAccent);
+            LineColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()),R.attr.colorButtonNormal);
 
             switch (Build.VERSION.SDK_INT) {
                 case 21:
@@ -80,7 +80,7 @@ public class tabSystem extends Fragment {
             TextView txtAndroidNamedis = new TextView(getContext());
             View v1 = new View(getContext());
             v1.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v1.setBackgroundColor(Color.parseColor(LineColor));
+            v1.setBackgroundColor(LineColor);
             txtAndroidName.setText(R.string.CodeName);
             txtAndroidName.setTypeface(null, Typeface.BOLD);
             txtAndroidName.setTextSize(16);
@@ -99,7 +99,7 @@ public class tabSystem extends Fragment {
             TextView txtAPILeveldis = new TextView(getContext());
             View v2 = new View(getContext());
             v2.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v2.setBackgroundColor(Color.parseColor(LineColor));
+            v2.setBackgroundColor(LineColor);
             txtAPILevel.setText(R.string.APILevel);
             txtAPILevel.setTypeface(null, Typeface.BOLD);
             txtAPILevel.setTextSize(16);
@@ -119,7 +119,7 @@ public class tabSystem extends Fragment {
                 TextView txtSecurityPatchdis = new TextView(getContext());
                 View v3 = new View(getContext());
                 v3.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-                v3.setBackgroundColor(Color.parseColor(LineColor));
+                v3.setBackgroundColor(LineColor);
                 txtSecurityPatch.setText(R.string.SecurityPatchLevel);
                 txtSecurityPatch.setTypeface(null, Typeface.BOLD);
                 txtSecurityPatch.setTextSize(16);
@@ -139,7 +139,7 @@ public class tabSystem extends Fragment {
             TextView txtBootloaderdis = new TextView(getContext());
             View v4 = new View(getContext());
             v4.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v4.setBackgroundColor(Color.parseColor(LineColor));
+            v4.setBackgroundColor(LineColor);
             txtBootloader.setText(R.string.Bootloader);
             txtBootloader.setTypeface(null, Typeface.BOLD);
             txtBootloader.setTextSize(16);
@@ -158,7 +158,7 @@ public class tabSystem extends Fragment {
             TextView txtBuildNumberdis = new TextView(getContext());
             View v5 = new View(getContext());
             v5.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v5.setBackgroundColor(Color.parseColor(LineColor));
+            v5.setBackgroundColor(LineColor);
             txtBuildNumber.setText(R.string.BuildNumber);
             txtBuildNumber.setTypeface(null, Typeface.BOLD);
             txtBuildNumber.setTextSize(16);
@@ -177,7 +177,7 @@ public class tabSystem extends Fragment {
             TextView txtRadioVersiondis = new TextView(getContext());
             View v6 = new View(getContext());
             v6.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v6.setBackgroundColor(Color.parseColor(LineColor));
+            v6.setBackgroundColor(LineColor);
             txtRadioVersion.setText(R.string.Baseband);
             txtRadioVersion.setTypeface(null, Typeface.BOLD);
             txtRadioVersion.setTextSize(16);
@@ -196,7 +196,7 @@ public class tabSystem extends Fragment {
             TextView txtAndroidRuntimedis = new TextView(getContext());
             View v7 = new View(getContext());
             v7.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v7.setBackgroundColor(Color.parseColor(LineColor));
+            v7.setBackgroundColor(LineColor);
             txtAndroidRuntime.setText(R.string.AndroidRuntime);
             txtAndroidRuntime.setTypeface(null, Typeface.BOLD);
             txtAndroidRuntime.setTextSize(16);
@@ -215,7 +215,7 @@ public class tabSystem extends Fragment {
             TextView txtKernelVersiondis = new TextView(getContext());
             View v8 = new View(getContext());
             v8.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v8.setBackgroundColor(Color.parseColor(LineColor));
+            v8.setBackgroundColor(LineColor);
             txtKernelVersion.setText(R.string.Kernel);
             txtKernelVersion.setTypeface(null, Typeface.BOLD);
             txtKernelVersion.setTextSize(16);
@@ -234,7 +234,7 @@ public class tabSystem extends Fragment {
             TextView txtOpenGLESdis = new TextView(getContext());
             View v9 = new View(getContext());
             v9.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v9.setBackgroundColor(Color.parseColor(LineColor));
+            v9.setBackgroundColor(LineColor);
             txtOpenGLES.setText(R.string.OpenGL);
             txtOpenGLES.setTypeface(null, Typeface.BOLD);
             txtOpenGLES.setTextSize(16);
@@ -253,7 +253,7 @@ public class tabSystem extends Fragment {
             TextView txtRootAccessdis = new TextView(getContext());
             View v12 = new View(getContext());
             v12.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v12.setBackgroundColor(Color.parseColor(LineColor));
+            v12.setBackgroundColor(LineColor);
             txtRootAccess.setText(R.string.RootAccess);
             txtRootAccess.setTypeface(null, Typeface.BOLD);
             txtRootAccess.setTextSize(16);
@@ -272,7 +272,7 @@ public class tabSystem extends Fragment {
             TextView txtSelinuxdis = new TextView(getContext());
             View v14 = new View(getContext());
             v14.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v14.setBackgroundColor(Color.parseColor(LineColor));
+            v14.setBackgroundColor(LineColor);
             txtSelinux.setText(R.string.SELinux);
             txtSelinux.setTypeface(null, Typeface.BOLD);
             txtSelinux.setTextSize(16);
@@ -291,7 +291,7 @@ public class tabSystem extends Fragment {
             final TextView txtSystemUptimedis = new TextView(getContext());
             View v13 = new View(getContext());
             v13.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v13.setBackgroundColor(Color.parseColor(LineColor));
+            v13.setBackgroundColor(LineColor);
             txtSystemUptime.setText(R.string.Uptime);
             txtSystemUptime.setTypeface(null, Typeface.BOLD);
             txtSystemUptime.setTextSize(16);

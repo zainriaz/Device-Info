@@ -21,8 +21,8 @@ import java.util.Objects;
 
 public class tabBattery extends Fragment {
     LinearLayout llayout;
-    String LineColor = "#B3B3B3", battechno;
-    int TextDisColor;
+    String battechno;
+    int TextDisColor,LineColor;
     int batlevel, batvoltage, battemperature, batstatus, batpowersource, bathealth;
     TextView txtBatteryLeveldis, txtBatteryStatusdis, txtPowerSourcedis, txtBatteryHealthdis, txtTechnologydis, txtTemperaturedis, txtBatteryVoltagedis, txtBatteryCapacitydis;
     BatteryManager mBatteryManager;
@@ -36,6 +36,7 @@ public class tabBattery extends Fragment {
 
         try {
             TextDisColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()),R.attr.colorAccent);
+            LineColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()),R.attr.colorButtonNormal);
 
             IntentFilter iFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
             BatteryContext = Objects.requireNonNull(getActivity()).getApplicationContext();
@@ -46,7 +47,7 @@ public class tabBattery extends Fragment {
             txtBatteryHealthdis = new TextView(getContext());
             View v = new View(getContext());
             v.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v.setBackgroundColor(Color.parseColor(LineColor));
+            v.setBackgroundColor(LineColor);
             txtBatteryHealth.setText(R.string.Health);
             txtBatteryHealth.setTypeface(null, Typeface.BOLD);
             txtBatteryHealth.setTextSize(16);
@@ -63,7 +64,7 @@ public class tabBattery extends Fragment {
             txtBatteryLeveldis = new TextView(getContext());
             View v1 = new View(getContext());
             v1.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v1.setBackgroundColor(Color.parseColor(LineColor));
+            v1.setBackgroundColor(LineColor);
             txtBatteryLevel.setText(R.string.Level);
             txtBatteryLevel.setTypeface(null, Typeface.BOLD);
             txtBatteryLevel.setTextSize(16);
@@ -80,7 +81,7 @@ public class tabBattery extends Fragment {
             txtBatteryStatusdis = new TextView(getContext());
             View v2 = new View(getContext());
             v2.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v2.setBackgroundColor(Color.parseColor(LineColor));
+            v2.setBackgroundColor(LineColor);
             txtBatteryStatus.setText(R.string.Status);
             txtBatteryStatus.setTypeface(null, Typeface.BOLD);
             txtBatteryStatus.setTextSize(16);
@@ -98,7 +99,7 @@ public class tabBattery extends Fragment {
             txtPowerSourcedis = new TextView(getContext());
             View v3 = new View(getContext());
             v3.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v3.setBackgroundColor(Color.parseColor(LineColor));
+            v3.setBackgroundColor(LineColor);
             txtPowerSource.setText(R.string.PowerSource);
             txtPowerSource.setTypeface(null, Typeface.BOLD);
             txtPowerSource.setTextSize(16);
@@ -116,7 +117,7 @@ public class tabBattery extends Fragment {
             txtTechnologydis = new TextView(getContext());
             View v4 = new View(getContext());
             v4.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v4.setBackgroundColor(Color.parseColor(LineColor));
+            v4.setBackgroundColor(LineColor);
             txtTechnology.setText(R.string.Technology);
             txtTechnology.setTypeface(null, Typeface.BOLD);
             txtTechnology.setTextSize(16);
@@ -134,7 +135,7 @@ public class tabBattery extends Fragment {
             txtTemperaturedis = new TextView(getContext());
             View v5 = new View(getContext());
             v5.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v5.setBackgroundColor(Color.parseColor(LineColor));
+            v5.setBackgroundColor(LineColor);
             txtTemperature.setText(R.string.Temperature);
             txtTemperature.setTypeface(null, Typeface.BOLD);
             txtTemperature.setTextSize(16);
@@ -152,7 +153,7 @@ public class tabBattery extends Fragment {
             txtBatteryVoltagedis = new TextView(getContext());
             View v6 = new View(getContext());
             v6.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v6.setBackgroundColor(Color.parseColor(LineColor));
+            v6.setBackgroundColor(LineColor);
             txtBatteryVoltage.setText(R.string.Voltage);
             txtBatteryVoltage.setTypeface(null, Typeface.BOLD);
             txtBatteryVoltage.setTextSize(16);
@@ -170,7 +171,7 @@ public class tabBattery extends Fragment {
             txtBatteryCapacitydis = new TextView(getContext());
             View v7 = new View(getContext());
             v7.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v7.setBackgroundColor(Color.parseColor(LineColor));
+            v7.setBackgroundColor(LineColor);
             txtBatteryCapacity.setText(R.string.Capacity);
             txtBatteryCapacity.setTypeface(null, Typeface.BOLD);
             txtBatteryCapacity.setTextSize(16);
