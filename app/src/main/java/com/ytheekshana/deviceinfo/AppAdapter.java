@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class AppAdapter extends BaseAdapter {
+public class AppAdapter extends BaseAdapter{
 
     private LayoutInflater layoutInflater;
     private List<AppList> listStorage;

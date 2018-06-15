@@ -1,5 +1,6 @@
 package com.ytheekshana.deviceinfo;
 
+import android.animation.ObjectAnimator;
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -30,7 +31,7 @@ public class tabDashboard extends Fragment {
     RoundCornerProgressBar ProgressBarRam, ProgressBarBattery, ProgressBarStorage, ProgressBarCPU, ProgressBarRom;
     double ARam, TRam, URam, UPerc, AvailableSto, TotalSto, UsedPerc, AvailableStoRom, TotalStoRom, UsedPercRom;
     Context BatteryContext;
-    int a, b, c, d, e, startROM, startRAM, startStorage, startBattery, startCPU, thread_status = 0, usagecpu;
+    int a, e, startROM, startRAM, startStorage, startBattery, startCPU, battery_progress_status = 0, usagecpu;
     CPUUsage cu2;
     String cUsage;
     Timer timercUsage;
@@ -88,23 +89,27 @@ public class tabDashboard extends Fragment {
 
         startCPU = cu2.getTotalCpuUsage();
 
+        GetRam();
+        startRAM = (int) UPerc;
+        String setRam = "Free:" + String.format(Locale.US, "%.2f", ARam / 1024) + " GB, Total:" + String.format(Locale.US, "%.2f", TRam / 1024) + " GB";
+        txtRamStatus.setText(setRam);
+        String ram_percentage = String.valueOf((int) UPerc) + "%";
+        txtRamPerce.setText(ram_percentage);
+
         GetRom();
         startROM = (int) UsedPercRom;
-        txtRomStatus.setText("Free:" + String.format(Locale.US, "%.1f", AvailableStoRom) + " GB, Total:" + String.format(Locale.US, "%.1f", TotalStoRom) + " GB");
+        String  setRom= "Free:" + String.format(Locale.US, "%.1f", AvailableStoRom) + " GB, Total:" + String.format(Locale.US, "%.1f", TotalStoRom) + " GB";
+        txtRomStatus.setText(setRom);
         String storage_percentageRom = String.valueOf((int) UsedPercRom) + "%";
         txtRomPerce.setText(storage_percentageRom);
 
         GetStorage();
         startStorage = (int) UsedPerc;
-        txtStorageStatus.setText("Free:" + String.format(Locale.US, "%.1f", AvailableSto) + " GB, Total:" + String.format(Locale.US, "%.1f", TotalSto) + " GB");
+        String setStorage = "Free:" + String.format(Locale.US, "%.1f", AvailableSto) + " GB, Total:" + String.format(Locale.US, "%.1f", TotalSto) + " GB";
+        txtStorageStatus.setText(setStorage);
         String storage_percentage = String.valueOf((int) UsedPerc) + "%";
         txtStoragePerce.setText(storage_percentage);
 
-        GetRam();
-        startRAM = (int) UPerc;
-        String ram_percentage = (int) UPerc + "%";
-        txtRamPerce.setText(ram_percentage);
-        txtRamStatus.setText("Free:" + String.format(Locale.US, "%.2f", ARam / 1024) + " GB, Total:" + String.format(Locale.US, "%.2f", TRam / 1024) + " GB");
 
         final Handler updateRam = new Handler();
         Runnable runnable = new Runnable() {
@@ -113,7 +118,8 @@ public class tabDashboard extends Fragment {
                 ProgressBarRam.setProgress((int) UPerc);
                 String ram_percentage = (int) UPerc + "%";
                 txtRamPerce.setText(ram_percentage);
-                txtRamStatus.setText("Free:" + String.format(Locale.US, "%.2f", ARam / 1024) + " GB, Total:" + String.format(Locale.US, "%.2f", TRam / 1024) + " GB");
+                String setRam = "Free:" + String.format(Locale.US, "%.2f", ARam / 1024) + " GB, Total:" + String.format(Locale.US, "%.2f", TRam / 1024) + " GB";
+                txtRamStatus.setText(setRam);
                 updateRam.postDelayed(this, 1000);
             }
         };
@@ -141,7 +147,31 @@ public class tabDashboard extends Fragment {
             }
         }, 1000, 1000);
 
-        Thread LoadStartRam = new Thread() {
+
+        ObjectAnimator progressAnimatorRAM = ObjectAnimator.ofFloat(ProgressBarRam, "progress", 0.0f,(float)startRAM);
+        progressAnimatorRAM.setDuration(800);
+        progressAnimatorRAM.start();
+
+        ObjectAnimator progressAnimatorROM = ObjectAnimator.ofFloat(ProgressBarRom, "progress", 0.0f,(float)startROM);
+        progressAnimatorROM.setDuration(800);
+        progressAnimatorROM.start();
+
+        ObjectAnimator progressAnimatorStorage = ObjectAnimator.ofFloat(ProgressBarStorage, "progress", 0.0f,(float)startStorage);
+        progressAnimatorStorage.setDuration(800);
+        progressAnimatorStorage.start();
+
+        if (battery_progress_status == 1) {
+            ObjectAnimator progressAnimatorBattery = ObjectAnimator.ofFloat(ProgressBarBattery, "progress", 0.0f,(float)startBattery);
+            progressAnimatorBattery.setDuration(800);
+            progressAnimatorBattery.start();
+        }
+
+        ObjectAnimator progressAnimatorCPU = ObjectAnimator.ofFloat(ProgressBarCPU, "progress", 0.0f,(float)startCPU);
+        progressAnimatorCPU.setDuration(800);
+        progressAnimatorCPU.start();
+
+
+        /*Thread LoadStartRam = new Thread() {
             @Override
             public void run() {
                 try {
@@ -159,90 +189,8 @@ public class tabDashboard extends Fragment {
                 }
             }
         };
-        LoadStartRam.start();
+        LoadStartRam.start();*/
 
-        Thread LoadStartRom = new Thread() {
-            @Override
-            public void run() {
-                try {
-                    for (e = 1; e <= startROM; e++) {
-                        Thread.sleep(10);
-                        ProgressBarRom.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                ProgressBarRom.setProgress(e);
-                            }
-                        });
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        LoadStartRom.start();
-
-        Thread LoadStartStorage = new Thread() {
-            @Override
-            public void run() {
-                try {
-                    for (b = 1; b <= startStorage; b++) {
-                        Thread.sleep(10);
-                        ProgressBarStorage.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                ProgressBarStorage.setProgress(b);
-                            }
-                        });
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        LoadStartStorage.start();
-
-        Thread LoadCPUStorage = new Thread() {
-            @Override
-            public void run() {
-                try {
-                    for (d = 1; d <= startCPU; d++) {
-                        Thread.sleep(10);
-                        ProgressBarCPU.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                ProgressBarCPU.setProgress(d);
-                            }
-                        });
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        LoadCPUStorage.start();
-
-        if (thread_status == 1) {
-            Thread LoadStartBattery = new Thread() {
-                @Override
-                public void run() {
-                    try {
-                        for (c = 1; c <= startBattery; c++) {
-                            Thread.sleep(10);
-                            thread_status = 1;
-                            ProgressBarBattery.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    ProgressBarBattery.setProgress(c);
-                                }
-                            });
-                        }
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            };
-            LoadStartBattery.start();
-        }
         return rootView;
     }
 
@@ -263,34 +211,17 @@ public class tabDashboard extends Fragment {
             startBattery = batlevel;
             int voltage = intent.getIntExtra("voltage", 0);
             int temperature = (intent.getIntExtra("temperature", 0)) / 10;
-            txtBatteryStatus.setText("Voltage: " + voltage + "mV, Temperature: " + temperature + " \u2103");
+            String setBattery = "Voltage: " + voltage + "mV, Temperature: " + temperature + " \u2103";
+            txtBatteryStatus.setText(setBattery);
             String battery_percentage = Integer.toString(batlevel) + "%";
             txtBatteryPerce.setText(battery_percentage);
 
-            if (thread_status == 0) {
-                Thread LoadStartBattery = new Thread() {
-                    @Override
-                    public void run() {
-                        try {
-                            for (c = 1; c <= startBattery; c++) {
-                                Thread.sleep(10);
-                                thread_status = 1;
-                                ProgressBarBattery.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        ProgressBarBattery.setProgress(c);
-                                    }
-                                });
-                            }
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                };
-                LoadStartBattery.start();
+            if (battery_progress_status == 0) {
+                ObjectAnimator progressAnimatorBattery = ObjectAnimator.ofFloat(ProgressBarBattery, "progress", 0.0f,(float)startBattery);
+                progressAnimatorBattery.setDuration(800);
+                progressAnimatorBattery.start();
             }
             ProgressBarBattery.setProgress(batlevel);
-
         }
     };
 

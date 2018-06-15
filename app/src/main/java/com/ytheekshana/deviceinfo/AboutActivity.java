@@ -15,13 +15,15 @@ public class AboutActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences shpre = PreferenceManager.getDefaultSharedPreferences(this);
-        MainActivity.themeId = shpre.getInt("ThemeNoBar", 0);
+        MainActivity.themeId = shpre.getInt("ThemeBar", 0);
         setTheme(MainActivity.themeId);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
         TextView txtVersion = findViewById(R.id.txtVersion);
+        TextView txtPackageName = findViewById(R.id.txtPackageName);
+        txtPackageName.setText(getApplicationContext().getPackageName());
         txtVersion.setText(BuildConfig.VERSION_NAME);
         CircleImageView imgAuthor = findViewById(R.id.circleimgAuthor);
 

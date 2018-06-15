@@ -1,6 +1,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     style="@android:style/Widget.Material.ScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,269 +14,337 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin">
+        android:padding="5dp">
 
-        <ImageView
-            android:id="@+id/imageRam"
-            android:layout_width="60dp"
-            android:layout_height="53dp"
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardviewRam"
+            style="?attr/cardStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginEnd="5dp"
-            android:contentDescription="@string/imgRAM"
-            app:srcCompat="@drawable/ram" />
+            android:layout_margin="5dp"
+            card_view:cardCornerRadius="5dp"
+            card_view:contentPadding="10dp">
 
-        <TextView
-            android:id="@+id/txtRamTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/imageRam"
-            android:layout_toEndOf="@+id/imageRam"
-            android:gravity="top"
-            android:text="@string/DashRAM"
-            android:textStyle="bold" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-            android:id="@+id/progressRam"
+                <ImageView
+                    android:id="@+id/imageRam"
+                    android:layout_width="60dp"
+                    android:layout_height="53dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="5dp"
+                    android:contentDescription="@string/imgRAM"
+                    app:srcCompat="@drawable/ram" />
+
+                <TextView
+                    android:id="@+id/txtRamTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/imageRam"
+                    android:layout_toEndOf="@+id/imageRam"
+                    android:gravity="top"
+                    android:text="@string/DashRAM"
+                    android:textStyle="bold" />
+
+                <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                    android:id="@+id/progressRam"
+                    android:layout_width="match_parent"
+                    android:layout_height="18dp"
+                    android:layout_below="@+id/txtRamTitle"
+                    android:layout_marginEnd="35dp"
+                    android:layout_toEndOf="@+id/imageRam"
+                    app:rcBackgroundPadding="0dp" />
+
+                <TextView
+                    android:id="@+id/txtRamPerc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/txtRamTitle"
+                    android:gravity="top"
+                    android:text="@string/ZeroPerc"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtRamStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/imageRam"
+                    android:layout_toEndOf="@+id/imageRam"
+                    android:gravity="top"
+                    android:text="Free:0GB, Total:0GB"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardviewRom"
+            style="?attr/cardStyle"
             android:layout_width="match_parent"
-            android:layout_height="18dp"
-            android:layout_below="@+id/txtRamTitle"
-            android:layout_marginEnd="35dp"
-            android:layout_toEndOf="@+id/imageRam"
-            app:rcBackgroundPadding="0dp" />
-
-        <TextView
-            android:id="@+id/txtRamPerc"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@+id/txtRamTitle"
-            android:gravity="top"
-            android:text="@string/ZeroPerc"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+            android:layout_below="@+id/cardviewRam"
+            android:layout_margin="5dp"
+            card_view:cardCornerRadius="5dp"
+            card_view:contentPadding="10dp">
 
-        <TextView
-            android:id="@+id/txtRamStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/imageRam"
-            android:layout_toEndOf="@+id/imageRam"
-            android:gravity="top"
-            android:text="Free:0GB, Total:0GB"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
+                <ImageView
+                    android:id="@+id/imageROM"
+                    android:layout_width="60dp"
+                    android:layout_height="53dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="5dp"
+                    android:contentDescription="@string/imgROM"
+                    app:srcCompat="@drawable/rom" />
 
-        <ImageView
-            android:id="@+id/imageROM"
-            android:layout_width="60dp"
-            android:layout_height="53dp"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/imageRam"
-            android:layout_marginEnd="5dp"
-            android:layout_marginTop="27dp"
-            android:contentDescription="@string/imgROM"
-            app:srcCompat="@drawable/rom" />
+                <TextView
+                    android:id="@+id/txtROMTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/imageROM"
+                    android:layout_toEndOf="@+id/imageROM"
+                    android:gravity="top"
+                    android:text="@string/DashROM"
+                    android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/txtROMTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/imageROM"
-            android:layout_toEndOf="@+id/imageROM"
-            android:gravity="top"
-            android:text="@string/DashROM"
-            android:textStyle="bold" />
+                <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                    android:id="@+id/progressRom"
+                    android:layout_width="match_parent"
+                    android:layout_height="18dp"
+                    android:layout_below="@+id/txtROMTitle"
+                    android:layout_marginEnd="35dp"
+                    android:layout_toEndOf="@+id/imageROM"
+                    app:rcBackgroundPadding="0dp" />
 
-        <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-            android:id="@+id/progressRom"
+                <TextView
+                    android:id="@+id/txtROMPerc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/txtROMTitle"
+                    android:gravity="top"
+                    android:text="@string/ZeroPerc"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtROMStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/imageROM"
+                    android:layout_toEndOf="@+id/imageROM"
+                    android:gravity="top"
+                    android:text="Free:0GB, Total:0GB"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardviewStorage"
+            style="?attr/cardStyle"
             android:layout_width="match_parent"
-            android:layout_height="18dp"
-            android:layout_below="@+id/txtROMTitle"
-            android:layout_marginEnd="35dp"
-            android:layout_toEndOf="@+id/imageROM"
-            app:rcBackgroundPadding="0dp" />
-
-        <TextView
-            android:id="@+id/txtROMPerc"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@+id/txtROMTitle"
-            android:gravity="top"
-            android:text="@string/ZeroPerc"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+            android:layout_below="@+id/cardviewRom"
+            android:layout_margin="5dp"
+            card_view:cardCornerRadius="5dp"
+            card_view:contentPadding="10dp">
 
-        <TextView
-            android:id="@+id/txtROMStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/imageROM"
-            android:layout_toEndOf="@+id/imageROM"
-            android:gravity="top"
-            android:text="Free:0GB, Total:0GB"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
+                <ImageView
+                    android:id="@+id/imageInStorage"
+                    android:layout_width="60dp"
+                    android:layout_height="53dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="5dp"
+                    android:contentDescription="@string/imgInternalStorage"
+                    app:srcCompat="@drawable/instorage" />
 
-        <ImageView
-            android:id="@+id/imageInStorage"
-            android:layout_width="60dp"
-            android:layout_height="53dp"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/imageROM"
-            android:layout_marginEnd="5dp"
-            android:layout_marginTop="27dp"
-            android:contentDescription="@string/imgInternalStorage"
-            app:srcCompat="@drawable/instorage" />
+                <TextView
+                    android:id="@+id/txtStorageTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/imageInStorage"
+                    android:layout_toEndOf="@+id/imageInStorage"
+                    android:gravity="top"
+                    android:text="@string/DashInternalStorage"
+                    android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/txtStorageTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/imageInStorage"
-            android:layout_toEndOf="@+id/imageInStorage"
-            android:gravity="top"
-            android:text="@string/DashInternalStorage"
-            android:textStyle="bold" />
+                <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                    android:id="@+id/progressStorage"
+                    android:layout_width="match_parent"
+                    android:layout_height="18dp"
+                    android:layout_below="@+id/txtStorageTitle"
+                    android:layout_marginEnd="35dp"
+                    android:layout_toEndOf="@+id/imageInStorage"
+                    app:rcBackgroundPadding="0dp" />
 
-        <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-            android:id="@+id/progressStorage"
+                <TextView
+                    android:id="@+id/txtStoragePerc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/txtStorageTitle"
+                    android:gravity="top"
+                    android:text="@string/ZeroPerc"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtStorageStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/imageInStorage"
+                    android:layout_toEndOf="@+id/imageInStorage"
+                    android:gravity="top"
+                    android:text="Free:0GB, Total:0GB"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardviewBattery"
+            style="?attr/cardStyle"
             android:layout_width="match_parent"
-            android:layout_height="18dp"
-            android:layout_below="@+id/txtStorageTitle"
-            android:layout_marginEnd="35dp"
-            android:layout_toEndOf="@+id/imageInStorage"
-            app:rcBackgroundPadding="0dp" />
-
-        <TextView
-            android:id="@+id/txtStoragePerc"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@+id/txtStorageTitle"
-            android:gravity="top"
-            android:text="@string/ZeroPerc"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+            android:layout_below="@+id/cardviewStorage"
+            android:layout_margin="5dp"
+            card_view:cardCornerRadius="5dp"
+            card_view:contentPadding="10dp">
 
-        <TextView
-            android:id="@+id/txtStorageStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/imageInStorage"
-            android:layout_toEndOf="@+id/imageInStorage"
-            android:gravity="top"
-            android:text="Free:0GB, Total:0GB"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/imageBattery"
-            android:layout_width="60dp"
-            android:layout_height="53dp"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/imageInStorage"
-            android:layout_marginEnd="5dp"
-            android:layout_marginTop="27dp"
-            android:contentDescription="@string/imgBattery"
-            app:srcCompat="@drawable/battery" />
+                <ImageView
+                    android:id="@+id/imageBattery"
+                    android:layout_width="60dp"
+                    android:layout_height="53dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="5dp"
+                    android:contentDescription="@string/imgBattery"
+                    app:srcCompat="@drawable/battery" />
 
-        <TextView
-            android:id="@+id/txtBatteryTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/imageBattery"
-            android:layout_toEndOf="@+id/imageBattery"
-            android:gravity="top"
-            android:text="@string/DashBattery"
-            android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/txtBatteryTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/imageBattery"
+                    android:layout_toEndOf="@+id/imageBattery"
+                    android:gravity="top"
+                    android:text="@string/DashBattery"
+                    android:textStyle="bold" />
 
-        <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-            android:id="@+id/progressBattery"
+                <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                    android:id="@+id/progressBattery"
+                    android:layout_width="match_parent"
+                    android:layout_height="18dp"
+                    android:layout_below="@+id/txtBatteryTitle"
+                    android:layout_marginEnd="35dp"
+                    android:layout_toEndOf="@+id/imageBattery"
+                    app:rcBackgroundPadding="0dp" />
+
+                <TextView
+                    android:id="@+id/txtBatteryPerc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/txtBatteryTitle"
+                    android:gravity="top"
+                    android:text="@string/ZeroPerc"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtBatteryStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/imageBattery"
+                    android:layout_toEndOf="@+id/imageBattery"
+                    android:gravity="top"
+                    android:text="Voltage:0 mV, Temperature:0C"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardviewCPU"
+            style="?attr/cardStyle"
             android:layout_width="match_parent"
-            android:layout_height="18dp"
-            android:layout_below="@+id/txtBatteryTitle"
-            android:layout_marginEnd="35dp"
-            android:layout_toEndOf="@+id/imageBattery"
-            app:rcBackgroundPadding="0dp" />
-
-        <TextView
-            android:id="@+id/txtBatteryPerc"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@+id/txtBatteryTitle"
-            android:gravity="top"
-            android:text="@string/ZeroPerc"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+            android:layout_below="@+id/cardviewBattery"
+            android:layout_margin="5dp"
+            card_view:cardCornerRadius="5dp"
+            card_view:contentPadding="10dp">
 
-        <TextView
-            android:id="@+id/txtBatteryStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/imageBattery"
-            android:layout_toEndOf="@+id/imageBattery"
-            android:gravity="top"
-            android:text="Voltage:0 mV, Temperature:0C"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/imageCPU"
-            android:layout_width="60dp"
-            android:layout_height="53dp"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/imageBattery"
-            android:layout_marginEnd="5dp"
-            android:layout_marginTop="27dp"
-            android:contentDescription="@string/imgCPU"
-            app:srcCompat="@drawable/cpu" />
+                <ImageView
+                    android:id="@+id/imageCPU"
+                    android:layout_width="60dp"
+                    android:layout_height="53dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="5dp"
+                    android:contentDescription="@string/imgCPU"
+                    app:srcCompat="@drawable/cpu" />
 
-        <TextView
-            android:id="@+id/txtCPUTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/imageCPU"
-            android:layout_toEndOf="@+id/imageCPU"
-            android:gravity="top"
-            android:text="@string/DashCPU"
-            android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/txtCPUTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/imageCPU"
+                    android:layout_toEndOf="@+id/imageCPU"
+                    android:gravity="top"
+                    android:text="@string/DashCPU"
+                    android:textStyle="bold" />
 
-        <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-            android:id="@+id/progressCPU"
-            android:layout_width="match_parent"
-            android:layout_height="18dp"
-            android:layout_below="@+id/txtCPUTitle"
-            android:layout_marginEnd="35dp"
-            android:layout_toEndOf="@+id/imageCPU"
-            app:rcBackgroundPadding="0dp" />
+                <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                    android:id="@+id/progressCPU"
+                    android:layout_width="match_parent"
+                    android:layout_height="18dp"
+                    android:layout_below="@+id/txtCPUTitle"
+                    android:layout_marginEnd="35dp"
+                    android:layout_toEndOf="@+id/imageCPU"
+                    app:rcBackgroundPadding="0dp" />
 
-        <TextView
-            android:id="@+id/txtCPUPerc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@+id/txtCPUTitle"
-            android:gravity="top"
-            android:text="@string/ZeroPerc"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/txtCPUPerc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/txtCPUTitle"
+                    android:gravity="top"
+                    android:text="@string/ZeroPerc"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/txtCPUStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/imageCPU"
-            android:layout_toEndOf="@+id/imageCPU"
-            android:gravity="top"
-            android:text="Cores:8"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/txtCPUStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/imageCPU"
+                    android:layout_toEndOf="@+id/imageCPU"
+                    android:gravity="top"
+                    android:text="Cores:8"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
     </RelativeLayout>
 </ScrollView>

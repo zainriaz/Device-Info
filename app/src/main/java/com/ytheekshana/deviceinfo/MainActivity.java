@@ -1,6 +1,5 @@
 package com.ytheekshana.deviceinfo;
 
-import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
@@ -150,10 +149,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         NotificationManager nMgr = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         if (nMgr != null) {
             nMgr.cancelAll();
         }
+        super.onBackPressed();
     }
 }
