@@ -1,4 +1,5 @@
 package com.ytheekshana.deviceinfo;
+
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -21,7 +22,7 @@ import java.util.Objects;
 
 public class tabDisplay extends Fragment {
     LinearLayout llayout;
-    int TextDisColor,LineColor;
+    int TextDisColor, LineColor;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -29,8 +30,8 @@ public class tabDisplay extends Fragment {
         View rootView = inflater.inflate(R.layout.tabdisplay, container, false);
         llayout = rootView.findViewById(R.id.llayout);
         try {
-            TextDisColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()),R.attr.colorAccent);
-            LineColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()),R.attr.colorButtonNormal);
+            TextDisColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorAccent);
+            LineColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorButtonNormal);
 
             DisplayMetrics getDisplay = new DisplayMetrics();
             getActivity().getWindowManager().getDefaultDisplay().getMetrics(getDisplay);

@@ -16,7 +16,7 @@ public class AppAdapter extends BaseAdapter {
     private List<AppList> listStorage;
 
     AppAdapter(Context context, List<AppList> customizedListView) {
-        layoutInflater =(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         listStorage = customizedListView;
     }
 
@@ -39,7 +39,7 @@ public class AppAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         ViewHolder listViewHolder;
-        if(convertView == null){
+        if (convertView == null) {
             listViewHolder = new ViewHolder();
             convertView = layoutInflater.inflate(R.layout.installed_app_list, parent, false);
 
@@ -48,8 +48,8 @@ public class AppAdapter extends BaseAdapter {
             listViewHolder.versionNameInListView = convertView.findViewById(R.id.list_version_name);
             listViewHolder.imageInListView = convertView.findViewById(R.id.app_icon);
             convertView.setTag(listViewHolder);
-        }else{
-            listViewHolder = (ViewHolder)convertView.getTag();
+        } else {
+            listViewHolder = (ViewHolder) convertView.getTag();
         }
         listViewHolder.appNameInListView.setText(listStorage.get(position).getAppName());
         listViewHolder.packageNameInListView.setText(listStorage.get(position).getPackageName());
@@ -59,7 +59,7 @@ public class AppAdapter extends BaseAdapter {
         return convertView;
     }
 
-    static class ViewHolder{
+    static class ViewHolder {
 
         TextView appNameInListView;
         TextView packageNameInListView;

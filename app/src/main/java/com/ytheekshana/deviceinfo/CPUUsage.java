@@ -13,6 +13,7 @@ class CPUUsage {
     private RandomAccessFile statFile;
     private CpuInfo mCpuInfoTotal;
     private ArrayList<CpuInfo> mCpuInfoList;
+
     CPUUsage() {
     }
 

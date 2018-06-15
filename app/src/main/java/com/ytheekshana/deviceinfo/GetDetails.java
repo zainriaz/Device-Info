@@ -30,21 +30,20 @@ import java.util.concurrent.TimeUnit;
 class GetDetails {
 
     @ColorInt
-    public static int getThemeColor(@NonNull final Context context, @AttrRes final int attributeColor)
-    {
+    public static int getThemeColor(@NonNull final Context context, @AttrRes final int attributeColor) {
         final TypedValue value = new TypedValue();
-        context.getTheme ().resolveAttribute (attributeColor, value, true);
+        context.getTheme().resolveAttribute(attributeColor, value, true);
         return value.data;
     }
 
-    static String GetFromBuildProp(String PropKey){
+    static String GetFromBuildProp(String PropKey) {
         Process p;
         String propvalue = "";
         try {
             p = new ProcessBuilder("/system/bin/getprop", PropKey).redirectErrorStream(true).start();
             BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
             String line;
-            while ((line=br.readLine()) != null){
+            while ((line = br.readLine()) != null) {
                 propvalue = line;
             }
             p.destroy();
@@ -390,6 +389,15 @@ class GetDetails {
     static Double getAndroidVersion(int sdk) {
         Double Version;
         switch (sdk) {
+            case 11:
+                Version = 3.0;
+                break;
+            case 12:
+                Version = 3.1;
+                break;
+            case 13:
+                Version = 3.2;
+                break;
             case 14:
             case 15:
                 Version = 4.0;

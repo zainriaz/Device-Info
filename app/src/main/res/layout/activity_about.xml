@@ -23,9 +23,9 @@
             android:id="@+id/imgCover"
             android:layout_width="wrap_content"
             android:layout_height="170dp"
+            android:contentDescription="Cover Picture"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/cover"
-            android:contentDescription="Cover Picture" />
+            app:srcCompat="@drawable/cover" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/circleimgProfile"

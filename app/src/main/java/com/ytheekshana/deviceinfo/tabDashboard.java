@@ -26,11 +26,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class tabDashboard extends Fragment {
-    TextView txtRamPerce, txtRamStatus, txtBatteryPerce, txtBatteryStatus, txtStoragePerce, txtStorageStatus, txtCPUPerce, txtCPUStatus,txtRomPerce,txtRomStatus;
-    RoundCornerProgressBar ProgressBarRam, ProgressBarBattery, ProgressBarStorage, ProgressBarCPU,ProgressBarRom;
-    double ARam, TRam, URam, UPerc, AvailableSto, TotalSto, UsedPerc,AvailableStoRom, TotalStoRom, UsedPercRom;
+    TextView txtRamPerce, txtRamStatus, txtBatteryPerce, txtBatteryStatus, txtStoragePerce, txtStorageStatus, txtCPUPerce, txtCPUStatus, txtRomPerce, txtRomStatus;
+    RoundCornerProgressBar ProgressBarRam, ProgressBarBattery, ProgressBarStorage, ProgressBarCPU, ProgressBarRom;
+    double ARam, TRam, URam, UPerc, AvailableSto, TotalSto, UsedPerc, AvailableStoRom, TotalStoRom, UsedPercRom;
     Context BatteryContext;
-    int a, b, c, d,e,startROM, startRAM, startStorage, startBattery, startCPU, thread_status = 0, usagecpu;
+    int a, b, c, d, e, startROM, startRAM, startStorage, startBattery, startCPU, thread_status = 0, usagecpu;
     CPUUsage cu2;
     String cUsage;
     Timer timercUsage;
@@ -89,7 +89,7 @@ public class tabDashboard extends Fragment {
         startCPU = cu2.getTotalCpuUsage();
 
         GetRom();
-        startROM = (int)UsedPercRom;
+        startROM = (int) UsedPercRom;
         txtRomStatus.setText("Free:" + String.format(Locale.US, "%.1f", AvailableStoRom) + " GB, Total:" + String.format(Locale.US, "%.1f", TotalStoRom) + " GB");
         String storage_percentageRom = String.valueOf((int) UsedPercRom) + "%";
         txtRomPerce.setText(storage_percentageRom);

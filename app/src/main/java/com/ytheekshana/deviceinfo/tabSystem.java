@@ -22,7 +22,7 @@ import java.util.Objects;
 
 public class tabSystem extends Fragment {
     LinearLayout llayout;
-    int TextDisColor,LineColor;
+    int TextDisColor, LineColor;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -32,8 +32,8 @@ public class tabSystem extends Fragment {
         ImageView imgAndroidLogo = rootView.findViewById(R.id.imgAndroidLogo);
         TextView txtAndroidVersionBig = rootView.findViewById(R.id.txtAndroidVersionBig);
         try {
-            TextDisColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()),R.attr.colorAccent);
-            LineColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()),R.attr.colorButtonNormal);
+            TextDisColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorAccent);
+            LineColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorButtonNormal);
 
             switch (Build.VERSION.SDK_INT) {
                 case 21:

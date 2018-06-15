@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <attr format="reference" name="cardStyle"/>
-    <attr format="reference" name="listDividerStyle"/>
-    <attr format="reference" name="popupWindowStyle"/>
+    <attr name="cardStyle" format="reference" />
+    <attr name="listDividerStyle" format="reference" />
+    <attr name="popupWindowStyle" format="reference" />
+    <attr name="popupWindowHeaderStyle" format="reference" />
 </resources>

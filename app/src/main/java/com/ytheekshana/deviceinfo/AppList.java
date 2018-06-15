@@ -9,7 +9,7 @@ class AppList {
     private String PackageName;
     private Drawable AppIcon;
 
-    AppList(String AppName, String PackageName,String VersionName, Drawable AppIcon) {
+    AppList(String AppName, String PackageName, String VersionName, Drawable AppIcon) {
         this.AppName = AppName;
         this.PackageName = PackageName;
         this.VersionName = VersionName;

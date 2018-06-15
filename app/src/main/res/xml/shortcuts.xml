@@ -1,15 +1,15 @@
 <shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
     <shortcut
-        android:shortcutId="About"
         android:enabled="true"
         android:icon="@drawable/about"
-        android:shortcutShortLabel="@string/about_shortcut_short_label"
+        android:shortcutDisabledMessage="@string/about_disabled_message"
+        android:shortcutId="About"
         android:shortcutLongLabel="@string/about_shortcut_long_label"
-        android:shortcutDisabledMessage="@string/about_disabled_message">
+        android:shortcutShortLabel="@string/about_shortcut_short_label">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetPackage="com.ytheekshana.deviceinfo"
-            android:targetClass="com.ytheekshana.deviceinfo.AboutActivity" />
+            android:targetClass="com.ytheekshana.deviceinfo.AboutActivity"
+            android:targetPackage="com.ytheekshana.deviceinfo" />
         <categories android:name="android.shortcut.conversation" />
     </shortcut>
 </shortcuts>

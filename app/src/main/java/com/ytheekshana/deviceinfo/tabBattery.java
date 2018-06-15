@@ -22,7 +22,7 @@ import java.util.Objects;
 public class tabBattery extends Fragment {
     LinearLayout llayout;
     String battechno;
-    int TextDisColor,LineColor;
+    int TextDisColor, LineColor;
     int batlevel, batvoltage, battemperature, batstatus, batpowersource, bathealth;
     TextView txtBatteryLeveldis, txtBatteryStatusdis, txtPowerSourcedis, txtBatteryHealthdis, txtTechnologydis, txtTemperaturedis, txtBatteryVoltagedis, txtBatteryCapacitydis;
     BatteryManager mBatteryManager;
@@ -35,8 +35,8 @@ public class tabBattery extends Fragment {
         llayout = rootView.findViewById(R.id.llayout);
 
         try {
-            TextDisColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()),R.attr.colorAccent);
-            LineColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()),R.attr.colorButtonNormal);
+            TextDisColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorAccent);
+            LineColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorButtonNormal);
 
             IntentFilter iFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
             BatteryContext = Objects.requireNonNull(getActivity()).getApplicationContext();
@@ -179,7 +179,7 @@ public class tabBattery extends Fragment {
             txtBatteryCapacitydis.setPadding(0, 0, 0, 15);
             txtBatteryCapacitydis.setTextColor(TextDisColor);
             txtBatteryCapacitydis.setTextSize(16);
-            String BatCap = String.valueOf(GetDetails.getBatteryCapacity(getActivity()))+" mAh";
+            String BatCap = String.valueOf(GetDetails.getBatteryCapacity(getActivity())) + " mAh";
             txtBatteryCapacitydis.setText(BatCap);
             txtBatteryCapacitydis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             txtBatteryCapacity.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));

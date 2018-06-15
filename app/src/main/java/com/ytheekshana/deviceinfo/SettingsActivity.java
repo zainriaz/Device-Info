@@ -12,7 +12,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences shpre = PreferenceManager.getDefaultSharedPreferences(this);
-        MainActivity.themeId = shpre.getInt("ThemeBar",0);
+        MainActivity.themeId = shpre.getInt("ThemeBar", 0);
         setTheme(MainActivity.themeId);
 
         super.onCreate(savedInstanceState);
@@ -32,17 +32,17 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 @Override
                 public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 
-                    boolean darkt = sharedPreferences.getBoolean("dark_theme",false);
-                    if(darkt){
-                        shareEdit.putInt("ThemeNoBar",R.style.AppThemeDark_NoActionBar);
-                        shareEdit.putInt("ThemeBar",R.style.AppThemeDark);
-                    }else{
-                        shareEdit.putInt("ThemeNoBar",R.style.AppTheme_NoActionBar);
-                        shareEdit.putInt("ThemeBar",R.style.AppTheme);
+                    boolean darkt = sharedPreferences.getBoolean("dark_theme", false);
+                    if (darkt) {
+                        shareEdit.putInt("ThemeNoBar", R.style.AppThemeDark_NoActionBar);
+                        shareEdit.putInt("ThemeBar", R.style.AppThemeDark);
+                    } else {
+                        shareEdit.putInt("ThemeNoBar", R.style.AppTheme_NoActionBar);
+                        shareEdit.putInt("ThemeBar", R.style.AppTheme);
                     }
                     shareEdit.apply();
                     shareEdit.commit();
-                    if(getActivity()!=null){
+                    if (getActivity() != null) {
                         getActivity().recreate();
                     }
                 }
@@ -53,7 +53,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(this,MainActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 

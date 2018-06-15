@@ -20,7 +20,7 @@ import java.util.TimerTask;
 
 public class tabCPU extends Fragment {
     LinearLayout llayout;
-    int TextDisColor,LineColor;
+    int TextDisColor, LineColor;
     TextView txtCPUUsagedis;
     CPUUsage cu;
     TextView txtCore[];
@@ -35,8 +35,8 @@ public class tabCPU extends Fragment {
         cu = new CPUUsage();
 
         try {
-            TextDisColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()),R.attr.colorAccent);
-            LineColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()),R.attr.colorButtonNormal);
+            TextDisColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorAccent);
+            LineColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorButtonNormal);
 
             double cpuMaxFreq, cpuMinFreq;
             RandomAccessFile readermax, readermin;

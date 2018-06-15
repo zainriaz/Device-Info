@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         SharedPreferences shpre = PreferenceManager.getDefaultSharedPreferences(this);
-        themeId = shpre.getInt("ThemeNoBar",0);
+        themeId = shpre.getInt("ThemeNoBar", 0);
         setTheme(themeId);
 
         super.onCreate(savedInstanceState);
@@ -45,9 +45,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         mBuilder = new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.cpu)
-                        .setContentTitle("Device Info")
-                        .setContentText("Gathering Data Completed");
+                .setSmallIcon(R.drawable.cpu)
+                .setContentTitle("Device Info")
+                .setContentText("Gathering Data Completed");
         int mNotificationId = 1;
         NotificationManager mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         if (mNotifyMgr != null) {
@@ -64,14 +64,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_about :
-            {
+            case R.id.action_about: {
                 Intent intent = new Intent(this, AboutActivity.class);
                 startActivity(intent);
                 return true;
             }
-            case R.id.action_settings :
-            {
+            case R.id.action_settings: {
                 Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
                 this.finish();

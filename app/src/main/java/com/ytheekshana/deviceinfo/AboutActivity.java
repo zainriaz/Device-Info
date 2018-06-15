@@ -15,7 +15,7 @@ public class AboutActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences shpre = PreferenceManager.getDefaultSharedPreferences(this);
-        MainActivity.themeId = shpre.getInt("ThemeNoBar",0);
+        MainActivity.themeId = shpre.getInt("ThemeNoBar", 0);
         setTheme(MainActivity.themeId);
 
         super.onCreate(savedInstanceState);

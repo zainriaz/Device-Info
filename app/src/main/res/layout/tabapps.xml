@@ -1,16 +1,14 @@
-
-<android.support.v4.widget.SwipeRefreshLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="match_parent"
+    android:id="@+id/swipeapplist"
     android:layout_width="match_parent"
-    tools:context="com.ytheekshana.deviceinfo.MainActivity$PlaceholderFragment"
-    android:id="@+id/swipeapplist">
+    android:layout_height="match_parent"
+    tools:context="com.ytheekshana.deviceinfo.MainActivity$PlaceholderFragment">
 
     <RelativeLayout
+        android:id="@+id/relmain"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/relmain">
+        android:layout_height="match_parent">
 
         <Spinner
             android:id="@+id/spinnerAppType"
@@ -23,14 +21,14 @@
 
         <ListView
             android:id="@+id/installed_app_list"
+            style="?attr/listDividerStyle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_below="@+id/spinnerAppType"
             android:layout_marginTop="10dp"
-            android:dividerHeight="4dp"
-            android:listSelector="@android:color/transparent"
             android:cacheColorHint="@android:color/transparent"
-            style="?attr/listDividerStyle"/>
+            android:dividerHeight="4dp"
+            android:listSelector="@android:color/transparent" />
 
     </RelativeLayout>
 </android.support.v4.widget.SwipeRefreshLayout>

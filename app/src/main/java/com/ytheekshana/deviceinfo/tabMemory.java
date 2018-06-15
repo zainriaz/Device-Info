@@ -22,7 +22,7 @@ import java.util.Objects;
 
 public class tabMemory extends Fragment {
     LinearLayout llayout;
-    int TextDisColor,LineColor;
+    int TextDisColor, LineColor;
     TextView txtRamTotaldis, txtRamFreedis, txtRamUseddis;
     Double ARam, URam, TRam, FreeSto, TotalSto, UsedSto, UsedPerc;
     ProgressBar pram, prom, pinternal, pexternal;
@@ -34,8 +34,8 @@ public class tabMemory extends Fragment {
         View rootView = inflater.inflate(R.layout.tabmemory, container, false);
         llayout = rootView.findViewById(R.id.llayout);
         try {
-            TextDisColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()),R.attr.colorAccent);
-            LineColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()),R.attr.colorButtonNormal);
+            TextDisColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorAccent);
+            LineColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorButtonNormal);
 
             TextView txtRAM = new TextView(getContext());
             txtRamFreedis = new TextView(getContext());

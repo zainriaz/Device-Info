@@ -1,15 +1,15 @@
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.ytheekshana.deviceinfo.MainActivity$PlaceholderFragment"
     style="@android:style/Widget.Material.ScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_alignParentTop="true"
     android:layout_centerHorizontal="true"
     android:clipToPadding="false"
-    android:scrollbars="none">
+    android:scrollbars="none"
+    tools:context="com.ytheekshana.deviceinfo.MainActivity$PlaceholderFragment">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,14 +17,16 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin">
+
         <ImageView
             android:id="@+id/imageRam"
             android:layout_width="60dp"
             android:layout_height="53dp"
-            app:srcCompat="@drawable/ram"
-            android:layout_marginEnd="5dp"
             android:layout_alignParentTop="true"
-            android:contentDescription="@string/imgRAM" />
+            android:layout_marginEnd="5dp"
+            android:contentDescription="@string/imgRAM"
+            app:srcCompat="@drawable/ram" />
+
         <TextView
             android:id="@+id/txtRamTitle"
             android:layout_width="wrap_content"
@@ -43,6 +45,7 @@
             android:layout_marginEnd="35dp"
             android:layout_toEndOf="@+id/imageRam"
             app:rcBackgroundPadding="0dp" />
+
         <TextView
             android:id="@+id/txtRamPerc"
             android:layout_width="wrap_content"
@@ -53,6 +56,7 @@
             android:text="@string/ZeroPerc"
             android:textSize="12sp"
             android:textStyle="bold" />
+
         <TextView
             android:id="@+id/txtRamStatus"
             android:layout_width="wrap_content"
@@ -75,6 +79,7 @@
             android:layout_marginTop="27dp"
             android:contentDescription="@string/imgROM"
             app:srcCompat="@drawable/rom" />
+
         <TextView
             android:id="@+id/txtROMTitle"
             android:layout_width="wrap_content"
@@ -93,6 +98,7 @@
             android:layout_marginEnd="35dp"
             android:layout_toEndOf="@+id/imageROM"
             app:rcBackgroundPadding="0dp" />
+
         <TextView
             android:id="@+id/txtROMPerc"
             android:layout_width="wrap_content"
@@ -103,6 +109,7 @@
             android:text="@string/ZeroPerc"
             android:textSize="12sp"
             android:textStyle="bold" />
+
         <TextView
             android:id="@+id/txtROMStatus"
             android:layout_width="wrap_content"
@@ -115,17 +122,17 @@
             android:textStyle="bold" />
 
 
-
         <ImageView
             android:id="@+id/imageInStorage"
             android:layout_width="60dp"
             android:layout_height="53dp"
-            app:srcCompat="@drawable/instorage"
-            android:layout_marginEnd="5dp"
-            android:layout_below="@+id/imageROM"
             android:layout_alignParentStart="true"
+            android:layout_below="@+id/imageROM"
+            android:layout_marginEnd="5dp"
             android:layout_marginTop="27dp"
-            android:contentDescription="@string/imgInternalStorage" />
+            android:contentDescription="@string/imgInternalStorage"
+            app:srcCompat="@drawable/instorage" />
+
         <TextView
             android:id="@+id/txtStorageTitle"
             android:layout_width="wrap_content"
@@ -140,10 +147,11 @@
             android:id="@+id/progressStorage"
             android:layout_width="match_parent"
             android:layout_height="18dp"
-            android:layout_marginEnd="35dp"
             android:layout_below="@+id/txtStorageTitle"
+            android:layout_marginEnd="35dp"
             android:layout_toEndOf="@+id/imageInStorage"
             app:rcBackgroundPadding="0dp" />
+
         <TextView
             android:id="@+id/txtStoragePerc"
             android:layout_width="wrap_content"
@@ -154,6 +162,7 @@
             android:text="@string/ZeroPerc"
             android:textSize="12sp"
             android:textStyle="bold" />
+
         <TextView
             android:id="@+id/txtStorageStatus"
             android:layout_width="wrap_content"
@@ -166,15 +175,16 @@
             android:textStyle="bold" />
 
         <ImageView
-        android:id="@+id/imageBattery"
-        android:layout_width="60dp"
-        android:layout_height="53dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/imageInStorage"
-        android:layout_marginEnd="5dp"
-        android:layout_marginTop="27dp"
-        app:srcCompat="@drawable/battery"
-        android:contentDescription="@string/imgBattery" />
+            android:id="@+id/imageBattery"
+            android:layout_width="60dp"
+            android:layout_height="53dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/imageInStorage"
+            android:layout_marginEnd="5dp"
+            android:layout_marginTop="27dp"
+            android:contentDescription="@string/imgBattery"
+            app:srcCompat="@drawable/battery" />
+
         <TextView
             android:id="@+id/txtBatteryTitle"
             android:layout_width="wrap_content"
@@ -193,6 +203,7 @@
             android:layout_marginEnd="35dp"
             android:layout_toEndOf="@+id/imageBattery"
             app:rcBackgroundPadding="0dp" />
+
         <TextView
             android:id="@+id/txtBatteryPerc"
             android:layout_width="wrap_content"
@@ -203,6 +214,7 @@
             android:text="@string/ZeroPerc"
             android:textSize="12sp"
             android:textStyle="bold" />
+
         <TextView
             android:id="@+id/txtBatteryStatus"
             android:layout_width="wrap_content"
@@ -224,6 +236,7 @@
             android:layout_marginTop="27dp"
             android:contentDescription="@string/imgCPU"
             app:srcCompat="@drawable/cpu" />
+
         <TextView
             android:id="@+id/txtCPUTitle"
             android:layout_width="wrap_content"
@@ -242,6 +255,7 @@
             android:layout_marginEnd="35dp"
             android:layout_toEndOf="@+id/imageCPU"
             app:rcBackgroundPadding="0dp" />
+
         <TextView
             android:id="@+id/txtCPUPerc"
             android:layout_width="wrap_content"
@@ -252,6 +266,7 @@
             android:text="@string/ZeroPerc"
             android:textSize="12sp"
             android:textStyle="bold" />
+
         <TextView
             android:id="@+id/txtCPUStatus"
             android:layout_width="wrap_content"

@@ -26,8 +26,8 @@ import java.util.Objects;
 public class tabDevice extends Fragment {
     public static final int REQUEST_PHONE_STATE = 1;
     LinearLayout llayout;
-    int TextDisColor,LineColor;
-    TextView txtDeviceTypedis, txtIMEIdis, txtSIMSerialdis, txtSIMSubscriberdis, txtNetworkOperatordis, txtNetworkTypedis,txtWIFIMACAddressdis,txtBluetoothMACAddressdis,txtBuildFingerPrintdis;
+    int TextDisColor, LineColor;
+    TextView txtDeviceTypedis, txtIMEIdis, txtSIMSerialdis, txtSIMSubscriberdis, txtNetworkOperatordis, txtNetworkTypedis, txtWIFIMACAddressdis, txtBluetoothMACAddressdis, txtBuildFingerPrintdis;
     TelephonyManager tm;
 
     @SuppressLint("HardwareIds")
@@ -38,8 +38,8 @@ public class tabDevice extends Fragment {
         llayout = rootView.findViewById(R.id.llayout);
         try {
 
-            TextDisColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()),R.attr.colorAccent);
-            LineColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()),R.attr.colorButtonNormal);
+            TextDisColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorAccent);
+            LineColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorButtonNormal);
             tm = (TelephonyManager) Objects.requireNonNull(getActivity()).getSystemService(Context.TELEPHONY_SERVICE);
             //BluetoothAdapter myDevice = BluetoothAdapter.getDefaultAdapter();
             //String deviceName = myDevice.getName();
@@ -487,7 +487,7 @@ public class tabDevice extends Fragment {
                     }
                 }
             }
-        }catch (SecurityException ex){
+        } catch (SecurityException ex) {
             ex.printStackTrace();
         }
     }
