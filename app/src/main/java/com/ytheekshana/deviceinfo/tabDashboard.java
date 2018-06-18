@@ -14,6 +14,8 @@ import android.os.StatFs;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,11 +29,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class tabDashboard extends Fragment {
-    TextView txtRamPerce, txtRamStatus, txtBatteryPerce, txtBatteryStatus, txtStoragePerce, txtStorageStatus, txtCPUPerce, txtCPUStatus, txtRomPerce, txtRomStatus;
-    RoundCornerProgressBar ProgressBarRam, ProgressBarBattery, ProgressBarStorage, ProgressBarCPU, ProgressBarRom;
-    double ARam, TRam, URam, UPerc, AvailableSto, TotalSto, UsedPerc, AvailableStoRom, TotalStoRom, UsedPercRom;
+    TextView txtRamPerce, txtRamStatus, txtBatteryPerce, txtBatteryStatus, txtInStoragePerce, txtInStorageStatus, txtExStoragePerce, txtExStorageStatus, txtCPUPerce, txtCPUStatus, txtRomPerce, txtRomStatus;
+    RoundCornerProgressBar ProgressBarRam, ProgressBarBattery, ProgressBarInStorage, ProgressBarExStorage, ProgressBarCPU, ProgressBarRom;
+    double ARam, TRam, URam, UPerc, AvailableInSto, TotalInSto, UsedPercInSto, AvailableExSto, TotalExSto, UsedPercExSto, AvailableStoRom, TotalStoRom, UsedPercRom;
     Context BatteryContext;
-    int a, e, startROM, startRAM, startStorage, startBattery, startCPU, battery_progress_status = 0, usagecpu;
+    int a, e, startROM, startRAM, startInStorage, startExStorage, startBattery, startCPU, battery_progress_status = 0, usagecpu;
     CPUUsage cu2;
     String cUsage;
     Timer timercUsage;
@@ -45,6 +47,7 @@ public class tabDashboard extends Fragment {
         BatteryContext = Objects.requireNonNull(getActivity()).getApplicationContext();
         BatteryContext.registerReceiver(mBroadcastReceiver, iFilter);
         cu2 = new CPUUsage();
+        CardView cardExternalStorage = rootView.findViewById(R.id.cardviewExStorage);
 
         txtRamPerce = rootView.findViewById(R.id.txtRamPerc);
         txtRamStatus = rootView.findViewById(R.id.txtRamStatus);
@@ -52,8 +55,10 @@ public class tabDashboard extends Fragment {
         txtRomStatus = rootView.findViewById(R.id.txtROMStatus);
         txtBatteryPerce = rootView.findViewById(R.id.txtBatteryPerc);
         txtBatteryStatus = rootView.findViewById(R.id.txtBatteryStatus);
-        txtStoragePerce = rootView.findViewById(R.id.txtStoragePerc);
-        txtStorageStatus = rootView.findViewById(R.id.txtStorageStatus);
+        txtInStoragePerce = rootView.findViewById(R.id.txtInStoragePerc);
+        txtInStorageStatus = rootView.findViewById(R.id.txtInStorageStatus);
+        txtExStoragePerce = rootView.findViewById(R.id.txtExStoragePerc);
+        txtExStorageStatus = rootView.findViewById(R.id.txtExStorageStatus);
         txtCPUPerce = rootView.findViewById(R.id.txtCPUPerc);
         txtCPUStatus = rootView.findViewById(R.id.txtCPUStatus);
 
@@ -75,11 +80,17 @@ public class tabDashboard extends Fragment {
         ProgressBarBattery.setMax(100);
         ProgressBarBattery.setRadius(0);
 
-        ProgressBarStorage = rootView.findViewById(R.id.progressStorage);
-        ProgressBarStorage.setProgressColor(Color.parseColor("#0059d4"));
-        ProgressBarStorage.setProgressBackgroundColor(Color.parseColor("#c2dbfd"));
-        ProgressBarStorage.setMax(100);
-        ProgressBarStorage.setRadius(0);
+        ProgressBarInStorage = rootView.findViewById(R.id.progressInStorage);
+        ProgressBarInStorage.setProgressColor(Color.parseColor("#0059d4"));
+        ProgressBarInStorage.setProgressBackgroundColor(Color.parseColor("#c2dbfd"));
+        ProgressBarInStorage.setMax(100);
+        ProgressBarInStorage.setRadius(0);
+
+        ProgressBarExStorage = rootView.findViewById(R.id.progressExStorage);
+        ProgressBarExStorage.setProgressColor(Color.parseColor("#0059d4"));
+        ProgressBarExStorage.setProgressBackgroundColor(Color.parseColor("#c2dbfd"));
+        ProgressBarExStorage.setMax(100);
+        ProgressBarExStorage.setRadius(0);
 
         ProgressBarCPU = rootView.findViewById(R.id.progressCPU);
         ProgressBarCPU.setProgressColor(Color.parseColor("#0059d4"));
@@ -98,18 +109,29 @@ public class tabDashboard extends Fragment {
 
         GetRom();
         startROM = (int) UsedPercRom;
-        String  setRom= "Free:" + String.format(Locale.US, "%.1f", AvailableStoRom) + " GB, Total:" + String.format(Locale.US, "%.1f", TotalStoRom) + " GB";
+        String setRom = "Free:" + String.format(Locale.US, "%.1f", AvailableStoRom) + " GB, Total:" + String.format(Locale.US, "%.1f", TotalStoRom) + " GB";
         txtRomStatus.setText(setRom);
         String storage_percentageRom = String.valueOf((int) UsedPercRom) + "%";
         txtRomPerce.setText(storage_percentageRom);
 
-        GetStorage();
-        startStorage = (int) UsedPerc;
-        String setStorage = "Free:" + String.format(Locale.US, "%.1f", AvailableSto) + " GB, Total:" + String.format(Locale.US, "%.1f", TotalSto) + " GB";
-        txtStorageStatus.setText(setStorage);
-        String storage_percentage = String.valueOf((int) UsedPerc) + "%";
-        txtStoragePerce.setText(storage_percentage);
+        GetInStorage();
+        startInStorage = (int) UsedPercInSto;
+        String setInStorage = "Free:" + String.format(Locale.US, "%.1f", AvailableInSto) + " GB, Total:" + String.format(Locale.US, "%.1f", TotalInSto) + " GB";
+        txtInStorageStatus.setText(setInStorage);
+        String in_storage_percentage = String.valueOf((int) UsedPercInSto) + "%";
+        txtInStoragePerce.setText(in_storage_percentage);
 
+        if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED) && ContextCompat.getExternalFilesDirs(Objects.requireNonNull(getContext()), null).length >= 2) {
+            cardExternalStorage.setVisibility(View.VISIBLE);
+            GetExStorage();
+            startExStorage = (int) UsedPercExSto;
+            String setExStorage = "Free:" + String.format(Locale.US, "%.1f", AvailableExSto) + " GB, Total:" + String.format(Locale.US, "%.1f", TotalExSto) + " GB";
+            txtExStorageStatus.setText(setExStorage);
+            String ex_storage_percentage = String.valueOf((int) UsedPercExSto) + "%";
+            txtExStoragePerce.setText(ex_storage_percentage);
+        }else{
+            cardExternalStorage.setVisibility(View.GONE);
+        }
 
         final Handler updateRam = new Handler();
         Runnable runnable = new Runnable() {
@@ -148,25 +170,29 @@ public class tabDashboard extends Fragment {
         }, 1000, 1000);
 
 
-        ObjectAnimator progressAnimatorRAM = ObjectAnimator.ofFloat(ProgressBarRam, "progress", 0.0f,(float)startRAM);
+        ObjectAnimator progressAnimatorRAM = ObjectAnimator.ofFloat(ProgressBarRam, "progress", 0.0f, (float) startRAM);
         progressAnimatorRAM.setDuration(800);
         progressAnimatorRAM.start();
 
-        ObjectAnimator progressAnimatorROM = ObjectAnimator.ofFloat(ProgressBarRom, "progress", 0.0f,(float)startROM);
+        ObjectAnimator progressAnimatorROM = ObjectAnimator.ofFloat(ProgressBarRom, "progress", 0.0f, (float) startROM);
         progressAnimatorROM.setDuration(800);
         progressAnimatorROM.start();
 
-        ObjectAnimator progressAnimatorStorage = ObjectAnimator.ofFloat(ProgressBarStorage, "progress", 0.0f,(float)startStorage);
-        progressAnimatorStorage.setDuration(800);
-        progressAnimatorStorage.start();
+        ObjectAnimator progressAnimatorInStorage = ObjectAnimator.ofFloat(ProgressBarInStorage, "progress", 0.0f, (float) startInStorage);
+        progressAnimatorInStorage.setDuration(800);
+        progressAnimatorInStorage.start();
+
+        ObjectAnimator progressAnimatorExStorage = ObjectAnimator.ofFloat(ProgressBarExStorage, "progress", 0.0f, (float) startExStorage);
+        progressAnimatorExStorage.setDuration(800);
+        progressAnimatorExStorage.start();
 
         if (battery_progress_status == 1) {
-            ObjectAnimator progressAnimatorBattery = ObjectAnimator.ofFloat(ProgressBarBattery, "progress", 0.0f,(float)startBattery);
+            ObjectAnimator progressAnimatorBattery = ObjectAnimator.ofFloat(ProgressBarBattery, "progress", 0.0f, (float) startBattery);
             progressAnimatorBattery.setDuration(800);
             progressAnimatorBattery.start();
         }
 
-        ObjectAnimator progressAnimatorCPU = ObjectAnimator.ofFloat(ProgressBarCPU, "progress", 0.0f,(float)startCPU);
+        ObjectAnimator progressAnimatorCPU = ObjectAnimator.ofFloat(ProgressBarCPU, "progress", 0.0f, (float) startCPU);
         progressAnimatorCPU.setDuration(800);
         progressAnimatorCPU.start();
 
@@ -217,7 +243,7 @@ public class tabDashboard extends Fragment {
             txtBatteryPerce.setText(battery_percentage);
 
             if (battery_progress_status == 0) {
-                ObjectAnimator progressAnimatorBattery = ObjectAnimator.ofFloat(ProgressBarBattery, "progress", 0.0f,(float)startBattery);
+                ObjectAnimator progressAnimatorBattery = ObjectAnimator.ofFloat(ProgressBarBattery, "progress", 0.0f, (float) startBattery);
                 progressAnimatorBattery.setDuration(800);
                 progressAnimatorBattery.start();
             }
@@ -240,12 +266,23 @@ public class tabDashboard extends Fragment {
         }
     }
 
-    private void GetStorage() {
+    private void GetInStorage() {
         try {
             StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
-            AvailableSto = (((double) stat.getBlockSizeLong() * (double) stat.getAvailableBlocksLong()) / 1024 / 1024 / 1024);
-            TotalSto = ((double) stat.getBlockSizeLong() * (double) stat.getBlockCountLong()) / 1024 / 1024 / 1024;
-            UsedPerc = (double) ((((stat.getBlockSizeLong() * stat.getBlockCountLong()) - (stat.getBlockSizeLong() * stat.getAvailableBlocksLong())) * 100) / (stat.getBlockSizeLong() * stat.getBlockCountLong()));
+            AvailableInSto = (((double) stat.getBlockSizeLong() * (double) stat.getAvailableBlocksLong()) / 1024 / 1024 / 1024);
+            TotalInSto = ((double) stat.getBlockSizeLong() * (double) stat.getBlockCountLong()) / 1024 / 1024 / 1024;
+            UsedPercInSto = (double) ((((stat.getBlockSizeLong() * stat.getBlockCountLong()) - (stat.getBlockSizeLong() * stat.getAvailableBlocksLong())) * 100) / (stat.getBlockSizeLong() * stat.getBlockCountLong()));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void GetExStorage() {
+        try {
+            StatFs stat = new StatFs(GetDetails.getStorageDirectories(Objects.requireNonNull(getContext()))[0]);
+            AvailableExSto = (((double) stat.getBlockSizeLong() * (double) stat.getAvailableBlocksLong()) / 1024 / 1024 / 1024);
+            TotalExSto = ((double) stat.getBlockSizeLong() * (double) stat.getBlockCountLong()) / 1024 / 1024 / 1024;
+            UsedPercExSto = (double) ((((stat.getBlockSizeLong() * stat.getBlockCountLong()) - (stat.getBlockSizeLong() * stat.getAvailableBlocksLong())) * 100) / (stat.getBlockSizeLong() * stat.getBlockCountLong()));
         } catch (Exception ex) {
             ex.printStackTrace();
         }

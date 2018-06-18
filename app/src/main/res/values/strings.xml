@@ -3,11 +3,13 @@
     <string name="DashRAM">RAM</string>
     <string name="DashROM">ROM</string>
     <string name="DashInternalStorage">Internal Storage</string>
+    <string name="DashExternalStorage">External Storage</string>
     <string name="DashBattery">Battery</string>
     <string name="DashCPU">CPU</string>
     <string name="ZeroPerc">0%</string>
     <string name="imgRAM">RAM Logo</string>
     <string name="imgInternalStorage">Internal Storage Logo</string>
+    <string name="imgExternalStorage">External Storage Logo</string>
     <string name="imgBattery">Battery Logo</string>
     <string name="imgCPU">CPU Logo</string>
     <string name="imgROM">ROM Logo</string>

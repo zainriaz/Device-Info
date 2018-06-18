@@ -150,7 +150,7 @@
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
-            android:id="@+id/cardviewStorage"
+            android:id="@+id/cardviewInStorage"
             style="?attr/cardStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -173,7 +173,7 @@
                     app:srcCompat="@drawable/instorage" />
 
                 <TextView
-                    android:id="@+id/txtStorageTitle"
+                    android:id="@+id/txtInStorageTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@+id/imageInStorage"
@@ -183,27 +183,27 @@
                     android:textStyle="bold" />
 
                 <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-                    android:id="@+id/progressStorage"
+                    android:id="@+id/progressInStorage"
                     android:layout_width="match_parent"
                     android:layout_height="18dp"
-                    android:layout_below="@+id/txtStorageTitle"
+                    android:layout_below="@+id/txtInStorageTitle"
                     android:layout_marginEnd="35dp"
                     android:layout_toEndOf="@+id/imageInStorage"
                     app:rcBackgroundPadding="0dp" />
 
                 <TextView
-                    android:id="@+id/txtStoragePerc"
+                    android:id="@+id/txtInStoragePerc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_below="@+id/txtStorageTitle"
+                    android:layout_below="@+id/txtInStorageTitle"
                     android:gravity="top"
                     android:text="@string/ZeroPerc"
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/txtStorageStatus"
+                    android:id="@+id/txtInStorageStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/imageInStorage"
@@ -216,11 +216,77 @@
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
+            android:id="@+id/cardviewExStorage"
+            style="?attr/cardStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cardviewInStorage"
+            android:layout_margin="5dp"
+            card_view:cardCornerRadius="5dp"
+            card_view:contentPadding="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/imageExStorage"
+                    android:layout_width="60dp"
+                    android:layout_height="53dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="5dp"
+                    android:contentDescription="@string/imgExternalStorage"
+                    app:srcCompat="@drawable/exstorage" />
+
+                <TextView
+                    android:id="@+id/txtExStorageTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/imageExStorage"
+                    android:layout_toEndOf="@+id/imageExStorage"
+                    android:gravity="top"
+                    android:text="@string/DashExternalStorage"
+                    android:textStyle="bold" />
+
+                <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                    android:id="@+id/progressExStorage"
+                    android:layout_width="match_parent"
+                    android:layout_height="18dp"
+                    android:layout_below="@+id/txtExStorageTitle"
+                    android:layout_marginEnd="35dp"
+                    android:layout_toEndOf="@+id/imageExStorage"
+                    app:rcBackgroundPadding="0dp" />
+
+                <TextView
+                    android:id="@+id/txtExStoragePerc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/txtExStorageTitle"
+                    android:gravity="top"
+                    android:text="@string/ZeroPerc"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtExStorageStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/imageExStorage"
+                    android:layout_toEndOf="@+id/imageExStorage"
+                    android:gravity="top"
+                    android:text="Free:0GB, Total:0GB"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
             android:id="@+id/cardviewBattery"
             style="?attr/cardStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/cardviewStorage"
+            android:layout_below="@+id/cardviewExStorage"
             android:layout_margin="5dp"
             card_view:cardCornerRadius="5dp"
             card_view:contentPadding="10dp">

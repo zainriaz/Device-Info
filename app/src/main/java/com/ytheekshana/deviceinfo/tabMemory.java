@@ -2,76 +2,66 @@ package com.ytheekshana.deviceinfo;
 
 import android.app.ActivityManager;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.StatFs;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.github.lzyzsd.circleprogress.DonutProgress;
 
 import java.util.Locale;
 import java.util.Objects;
 
 public class tabMemory extends Fragment {
-    LinearLayout llayout;
+
     int TextDisColor, LineColor;
-    TextView txtRamTotaldis, txtRamFreedis, txtRamUseddis;
+    TextView txtRamTotal, txtRamFree, txtRamUsed, txtRomTotal, txtRomFree, txtRomUsed,
+            txtInStorageTotal, txtInStorageFree, txtInStorageUsed,
+            txtExStorageTotal, txtExStorageFree, txtExStorageUsed;
+    DonutProgress progressRam, progressRom, progressInStorage, progressExStorage;
     Double ARam, URam, TRam, FreeSto, TotalSto, UsedSto, UsedPerc;
-    ProgressBar pram, prom, pinternal, pexternal;
+    CardView cardExStorage;
     int UPerc;
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tabmemory, container, false);
-        llayout = rootView.findViewById(R.id.llayout);
+
+        TextDisColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorAccent);
+        LineColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorButtonNormal);
+
         try {
-            TextDisColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorAccent);
-            LineColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorButtonNormal);
 
-            TextView txtRAM = new TextView(getContext());
-            txtRamFreedis = new TextView(getContext());
-            txtRamUseddis = new TextView(getContext());
-            txtRamTotaldis = new TextView(getContext());
-            pram = new ProgressBar(getContext(), null, android.R.attr.progressBarStyleHorizontal);
-            pram.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            View v = new View(getContext());
-            v.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v.setBackgroundColor(LineColor);
-            txtRAM.setText(R.string.RAM);
-            txtRAM.setTypeface(null, Typeface.BOLD);
-            txtRAM.setTextSize(16);
-            txtRAM.setPadding(0, 0, 0, 25);
-            txtRamFreedis.setPadding(0, 0, 0, 15);
-            txtRamFreedis.setTextColor(TextDisColor);
-            txtRamFreedis.setTextSize(16);
-            txtRamFreedis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            txtRamTotal = rootView.findViewById(R.id.txtRamFree);
+            txtRamFree = rootView.findViewById(R.id.txtRamUsed);
+            txtRamUsed = rootView.findViewById(R.id.txtRamTotal);
+            progressRam = rootView.findViewById(R.id.progressRam);
 
-            txtRamUseddis.setPadding(0, 0, 0, 15);
-            txtRamUseddis.setTextColor(TextDisColor);
-            txtRamUseddis.setTextSize(16);
-            txtRamUseddis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            txtRomTotal = rootView.findViewById(R.id.txtRomFree);
+            txtRomFree = rootView.findViewById(R.id.txtRomUsed);
+            txtRomUsed = rootView.findViewById(R.id.txtRomTotal);
+            progressRom = rootView.findViewById(R.id.progressRom);
 
-            txtRamTotaldis.setPadding(0, 0, 0, 15);
-            txtRamTotaldis.setTextColor(TextDisColor);
-            txtRamTotaldis.setTextSize(16);
-            txtRamTotaldis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            txtInStorageTotal = rootView.findViewById(R.id.txtInStorageTotal);
+            txtInStorageFree = rootView.findViewById(R.id.txtInStorageFree);
+            txtInStorageUsed = rootView.findViewById(R.id.txtInStorageUsed);
+            progressInStorage = rootView.findViewById(R.id.progressInStorage);
 
-            txtRAM.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            llayout.addView(txtRAM);
-            llayout.addView(txtRamFreedis);
-            llayout.addView(txtRamUseddis);
-            llayout.addView(txtRamTotaldis);
-            llayout.addView(pram);
-            llayout.addView(v);
+            txtExStorageTotal = rootView.findViewById(R.id.txtExStorageTotal);
+            txtExStorageFree = rootView.findViewById(R.id.txtExStorageFree);
+            txtExStorageUsed = rootView.findViewById(R.id.txtExStorageUsed);
+            progressExStorage = rootView.findViewById(R.id.progressExStorage);
+            cardExStorage = rootView.findViewById(R.id.cardExStorageInfo);
 
             final Handler h = new Handler();
             h.postDelayed(new Runnable() {
@@ -90,10 +80,10 @@ public class tabMemory extends Fragment {
                         String TRAM = "Total\t\t\t\t\t" + Double.toString(TRam) + " MB";
                         String ARAM = "Free\t\t\t\t\t\t" + Double.toString(ARam) + " MB";
                         String URAM = "Used\t\t\t\t\t" + Double.toString(URam) + " MB";
-                        txtRamTotaldis.setText(TRAM);
-                        txtRamUseddis.setText(URAM);
-                        txtRamFreedis.setText(ARAM);
-                        pram.setProgress(UPerc);
+                        txtRamTotal.setText(TRAM);
+                        txtRamUsed.setText(URAM);
+                        txtRamFree.setText(ARAM);
+                        progressRam.setProgress(UPerc);
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
@@ -101,42 +91,6 @@ public class tabMemory extends Fragment {
                     h.postDelayed(this, 1000);
                 }
             }, 0);
-
-            TextView txtROM = new TextView(getContext());
-            TextView txtROMFreedis = new TextView(getContext());
-            TextView txtROMUseddis = new TextView(getContext());
-            TextView txtROMTotaldis = new TextView(getContext());
-            prom = new ProgressBar(getContext(), null, android.R.attr.progressBarStyleHorizontal);
-            prom.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            View v1 = new View(getContext());
-            v1.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v1.setBackgroundColor(LineColor);
-            txtROM.setText(R.string.DashROM);
-            txtROM.setTypeface(null, Typeface.BOLD);
-            txtROM.setTextSize(16);
-            txtROM.setPadding(0, 20, 0, 25);
-            txtROMFreedis.setPadding(0, 0, 0, 15);
-            txtROMFreedis.setTextColor(TextDisColor);
-            txtROMFreedis.setTextSize(16);
-            txtROMFreedis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-
-            txtROMUseddis.setPadding(0, 0, 0, 15);
-            txtROMUseddis.setTextColor(TextDisColor);
-            txtROMUseddis.setTextSize(16);
-            txtROMUseddis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-
-            txtROMTotaldis.setPadding(0, 0, 0, 15);
-            txtROMTotaldis.setTextColor(TextDisColor);
-            txtROMTotaldis.setTextSize(16);
-            txtROMTotaldis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-
-            txtROM.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            llayout.addView(txtROM);
-            llayout.addView(txtROMFreedis);
-            llayout.addView(txtROMUseddis);
-            llayout.addView(txtROMTotaldis);
-            llayout.addView(prom);
-            llayout.addView(v1);
 
             StatFs statROM = new StatFs(Environment.getRootDirectory().getAbsolutePath());
             FreeSto = (((double) statROM.getBlockSizeLong() * (double) statROM.getAvailableBlocksLong()) / 1024 / 1024 / 1024);
@@ -147,46 +101,10 @@ public class tabMemory extends Fragment {
             String TROM = "Total\t\t\t\t\t" + String.format(Locale.US, "%.2f", TotalSto) + " GB";
             String AROM = "Free\t\t\t\t\t\t" + String.format(Locale.US, "%.2f", FreeSto) + " GB";
             String UROM = "Used\t\t\t\t\t" + String.format(Locale.US, "%.2f", UsedSto) + " GB";
-            txtROMTotaldis.setText(TROM);
-            txtROMUseddis.setText(UROM);
-            txtROMFreedis.setText(AROM);
-            prom.setProgress(UsedPerc.intValue());
-
-            TextView txtInternalStorage = new TextView(getContext());
-            TextView txtINFreedis = new TextView(getContext());
-            TextView txtINUseddis = new TextView(getContext());
-            TextView txtINTotaldis = new TextView(getContext());
-            pinternal = new ProgressBar(getContext(), null, android.R.attr.progressBarStyleHorizontal);
-            pinternal.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            View v2 = new View(getContext());
-            v2.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-            v2.setBackgroundColor(LineColor);
-            txtInternalStorage.setText(R.string.InternalStorage);
-            txtInternalStorage.setTypeface(null, Typeface.BOLD);
-            txtInternalStorage.setTextSize(16);
-            txtInternalStorage.setPadding(0, 20, 0, 25);
-            txtINFreedis.setPadding(0, 0, 0, 15);
-            txtINFreedis.setTextColor(TextDisColor);
-            txtINFreedis.setTextSize(16);
-            txtINFreedis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-
-            txtINUseddis.setPadding(0, 0, 0, 15);
-            txtINUseddis.setTextColor(TextDisColor);
-            txtINUseddis.setTextSize(16);
-            txtINUseddis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-
-            txtINTotaldis.setPadding(0, 0, 0, 15);
-            txtINTotaldis.setTextColor(TextDisColor);
-            txtINTotaldis.setTextSize(16);
-            txtINTotaldis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-
-            txtInternalStorage.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            llayout.addView(txtInternalStorage);
-            llayout.addView(txtINFreedis);
-            llayout.addView(txtINUseddis);
-            llayout.addView(txtINTotaldis);
-            llayout.addView(pinternal);
-            llayout.addView(v2);
+            txtRomTotal.setText(TROM);
+            txtRomFree.setText(UROM);
+            txtRomUsed.setText(AROM);
+            progressRom.setProgress(UsedPerc.intValue());
 
             StatFs statIN = new StatFs(Environment.getExternalStorageDirectory().getPath());
             FreeSto = (((double) statIN.getBlockSizeLong() * (double) statIN.getAvailableBlocksLong()) / 1024 / 1024 / 1024);
@@ -197,52 +115,14 @@ public class tabMemory extends Fragment {
             String TINS = "Total\t\t\t\t\t" + String.format(Locale.US, "%.2f", TotalSto) + " GB";
             String AINS = "Free\t\t\t\t\t\t" + String.format(Locale.US, "%.2f", FreeSto) + " GB";
             String UINS = "Used\t\t\t\t\t" + String.format(Locale.US, "%.2f", UsedSto) + " GB";
-            txtINTotaldis.setText(TINS);
-            txtINUseddis.setText(UINS);
-            txtINFreedis.setText(AINS);
-            pinternal.setProgress(UsedPerc.intValue());
+            txtInStorageTotal.setText(TINS);
+            txtInStorageUsed.setText(UINS);
+            txtInStorageFree.setText(AINS);
+            progressInStorage.setProgress(UsedPerc.intValue());
 
-            if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED)) {
-                TextView txtExternalStorage = new TextView(getContext());
-                TextView txtEXFreedis = new TextView(getContext());
-                TextView txtEXUseddis = new TextView(getContext());
-                TextView txtEXTotaldis = new TextView(getContext());
-                pexternal = new ProgressBar(getContext(), null, android.R.attr.progressBarStyleHorizontal);
-                pexternal.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-
-                View v3 = new View(getContext());
-                v3.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
-                v3.setBackgroundColor(LineColor);
-                txtExternalStorage.setText(R.string.ExternalStorage);
-                txtExternalStorage.setTypeface(null, Typeface.BOLD);
-                txtExternalStorage.setTextSize(16);
-                txtExternalStorage.setPadding(0, 20, 0, 25);
-                txtEXFreedis.setPadding(0, 0, 0, 15);
-                txtEXFreedis.setTextColor(TextDisColor);
-                txtEXFreedis.setTextSize(16);
-                txtEXFreedis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-
-                txtEXUseddis.setPadding(0, 0, 0, 15);
-                txtEXUseddis.setTextColor(TextDisColor);
-                txtEXUseddis.setTextSize(16);
-                txtEXUseddis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-
-                txtEXTotaldis.setPadding(0, 0, 0, 15);
-                txtEXTotaldis.setTextColor(TextDisColor);
-                txtEXTotaldis.setTextSize(16);
-                txtEXTotaldis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-
-                txtExternalStorage.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-                llayout.addView(txtExternalStorage);
-                llayout.addView(txtEXFreedis);
-                llayout.addView(txtEXUseddis);
-                llayout.addView(txtEXTotaldis);
-                llayout.addView(pexternal);
-                llayout.addView(v3);
-
-                String paths[] = GetDetails.getStorageDirectories(Objects.requireNonNull(getContext()));
-
-                StatFs statEX = new StatFs(paths[0]);
+            if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED) && ContextCompat.getExternalFilesDirs(getContext(), null).length >= 2) {
+                cardExStorage.setVisibility(View.VISIBLE);
+                StatFs statEX = new StatFs(GetDetails.getStorageDirectories(Objects.requireNonNull(getContext()))[0]);
                 FreeSto = (((double) statEX.getBlockSizeLong() * (double) statEX.getAvailableBlocksLong()) / 1024 / 1024 / 1024);
                 TotalSto = ((double) statEX.getBlockSizeLong() * (double) statEX.getBlockCountLong()) / 1024 / 1024 / 1024;
                 UsedSto = TotalSto - FreeSto;
@@ -251,14 +131,13 @@ public class tabMemory extends Fragment {
                 String TEXS = "Total\t\t\t\t\t" + String.format(Locale.US, "%.2f", TotalSto) + " GB";
                 String AEXS = "Free\t\t\t\t\t\t" + String.format(Locale.US, "%.2f", FreeSto) + " GB";
                 String UEXS = "Used\t\t\t\t\t" + String.format(Locale.US, "%.2f", UsedSto) + " GB";
-                txtEXTotaldis.setText(TEXS);
-                txtEXUseddis.setText(UEXS);
-                txtEXFreedis.setText(AEXS);
-                pexternal.setProgress(UsedPerc.intValue());
-                //pexternal.setProgressTintList(ColorStateList.valueOf(Color.RED));
-
+                txtExStorageTotal.setText(TEXS);
+                txtExStorageUsed.setText(UEXS);
+                txtExStorageFree.setText(AEXS);
+                progressExStorage.setProgress(UsedPerc.intValue());
+            } else {
+                cardExStorage.setVisibility(View.GONE);
             }
-
         } catch (Exception ex) {
             ex.printStackTrace();
         }

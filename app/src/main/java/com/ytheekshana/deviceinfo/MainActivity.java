@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(mViewPager);
 
 
-        mBuilder = new NotificationCompat.Builder(this)
+        mBuilder = new NotificationCompat.Builder(this,"1")
                 .setSmallIcon(R.drawable.cpu)
                 .setContentTitle("Device Info")
                 .setContentText("Gathering Data Completed");
