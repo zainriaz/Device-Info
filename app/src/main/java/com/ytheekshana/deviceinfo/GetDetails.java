@@ -77,10 +77,54 @@ class GetDetails {
             case 27:
                 OSName = "Oreo MR1";
                 break;
+            case 28:
+                OSName = "Android P";
+                break;
             default:
                 OSName = "Unknown";
         }
         return OSName;
+    }
+
+    static String GetOSReleaseDate(int sdk) {
+        String OSReleaseDate;
+        switch (sdk) {
+            case 11:
+            case 12:
+            case 13:
+                OSReleaseDate = "February 22, 2011";
+                break;
+            case 14:
+            case 15:
+                OSReleaseDate = "October 18, 2011";
+                break;
+            case 16:
+            case 17:
+            case 18:
+                OSReleaseDate = "July 9, 2012";
+                break;
+            case 19:
+                OSReleaseDate = "October 31, 2013";
+                break;
+            case 21:
+            case 22:
+                OSReleaseDate = "November 12, 2014";
+                break;
+            case 23:
+                OSReleaseDate = "October 5, 2015";
+                break;
+            case 24:
+            case 25:
+                OSReleaseDate = "August 22, 2016";
+                break;
+            case 26:
+            case 27:
+                OSReleaseDate = "August 21, 2017";
+                break;
+            default:
+                OSReleaseDate = "Unknown";
+        }
+        return OSReleaseDate;
     }
 
     static String GetOSName(int sdk) {
@@ -117,6 +161,9 @@ class GetDetails {
             case 26:
             case 27:
                 OSName = "Oreo";
+                break;
+            case 28:
+                OSName = "P";
                 break;
             default:
                 OSName = "Unknown";
@@ -290,16 +337,9 @@ class GetDetails {
         return Type;
     }
 
-    static String isRooted() {
+    static boolean isRooted() {
         String buildTags = android.os.Build.TAGS;
-        if (buildTags != null && buildTags.contains("test-keys")) {
-            return "Yes";
-        }
-        if (canExecuteCommand("/system/xbin/which su") || canExecuteCommand("/system/bin/which su") || canExecuteCommand("which su")) {
-            return "Yes";
-        } else {
-            return "No";
-        }
+        return buildTags != null && buildTags.contains("test-keys") || canExecuteCommand("/system/xbin/which su") || canExecuteCommand("/system/bin/which su") || canExecuteCommand("which su");
     }
 
     private static boolean canExecuteCommand(String command) {
@@ -434,6 +474,9 @@ class GetDetails {
                 break;
             case 27:
                 Version = 8.1;
+                break;
+            case 28:
+                Version = 9.0;
                 break;
             default:
                 Version = 0.0;

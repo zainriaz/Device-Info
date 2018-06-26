@@ -148,11 +148,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
+    protected void onDestroy() {
         NotificationManager nMgr = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         if (nMgr != null) {
             nMgr.cancelAll();
         }
-        super.onBackPressed();
+        super.onDestroy();
     }
 }

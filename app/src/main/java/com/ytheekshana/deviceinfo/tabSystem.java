@@ -30,7 +30,11 @@ public class tabSystem extends Fragment {
         View rootView = inflater.inflate(R.layout.tabsystem, container, false);
         llayout = rootView.findViewById(R.id.llayout);
         ImageView imgAndroidLogo = rootView.findViewById(R.id.imgAndroidLogo);
-        TextView txtAndroidVersionBig = rootView.findViewById(R.id.txtAndroidVersionBig);
+        TextView txtAndroidVersionNumber = rootView.findViewById(R.id.txtAndroidVersionNumber);
+        TextView txtAndroidVersionName = rootView.findViewById(R.id.txtAndroidVersionName);
+        TextView txtAndroidVersionDate = rootView.findViewById(R.id.txtAndroidVersionDate);
+        TextView txtRootStatus = rootView.findViewById(R.id.txtRootStatus);
+
         try {
             TextDisColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorAccent);
             LineColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorButtonNormal);
@@ -52,19 +56,18 @@ public class tabSystem extends Fragment {
                     imgAndroidLogo.setImageResource(R.drawable.oreo);
                     break;
             }
-            String Aversion = "Android " + Build.VERSION.RELEASE + " " + GetDetails.GetOSName(Build.VERSION.SDK_INT);
-            txtAndroidVersionBig.setText(Aversion);
-
-            txtAndroidVersionBig.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    try {
-
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-                }
-            });
+            String Aversion = "Android " + Build.VERSION.RELEASE;
+            txtAndroidVersionNumber.setText(Aversion);
+            txtAndroidVersionName.setText(GetDetails.GetOSName(Build.VERSION.SDK_INT).toUpperCase());
+            String AReleaseDate = "Released : " + GetDetails.GetOSReleaseDate(Build.VERSION.SDK_INT);
+            txtAndroidVersionDate. setText(AReleaseDate);
+            if(GetDetails.isRooted()){
+                txtRootStatus.setText(R.string.rooted);
+                txtRootStatus.setTextColor(Color.parseColor("#e20000"));
+            }else{
+                txtRootStatus.setText(R.string.not_rooted);
+                txtRootStatus.setTextColor(Color.parseColor("#09a400"));
+            }
 
             ActivityManager am = (ActivityManager) Objects.requireNonNull(getActivity()).getSystemService(Context.ACTIVITY_SERVICE);
             ConfigurationInfo info = null;
@@ -261,7 +264,7 @@ public class tabSystem extends Fragment {
             txtRootAccessdis.setPadding(0, 0, 0, 15);
             txtRootAccessdis.setTextColor(TextDisColor);
             txtRootAccessdis.setTextSize(16);
-            txtRootAccessdis.setText(GetDetails.isRooted());
+            txtRootAccessdis.setText(GetDetails.isRooted()?"Yes":"No");
             txtRootAccessdis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             txtRootAccess.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             llayout.addView(txtRootAccess);
@@ -319,7 +322,6 @@ public class tabSystem extends Fragment {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
         return rootView;
     }
 }

@@ -1,7 +1,12 @@
 package com.ytheekshana.deviceinfo;
 
+import android.animation.ObjectAnimator;
 import android.app.ActivityManager;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.LightingColorFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -13,6 +18,9 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.lzyzsd.circleprogress.DonutProgress;
@@ -29,8 +37,35 @@ public class tabMemory extends Fragment {
     DonutProgress progressRam, progressRom, progressInStorage, progressExStorage;
     Double ARam, URam, TRam, FreeSto, TotalSto, UsedSto, UsedPerc;
     CardView cardExStorage;
+    ImageView imgRam,imgRom,imgInSto,imgExSto;
+    int startRam, startRom, startInS, startExS;
     int UPerc;
 
+    /*
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && getActivity() != null) {
+
+            ObjectAnimator progressAnimatorRAM = ObjectAnimator.ofFloat(progressRam, "progress", 0.0f, (float) startRam);
+            progressAnimatorRAM.setDuration(800);
+            progressAnimatorRAM.start();
+
+            ObjectAnimator progressAnimatorROM = ObjectAnimator.ofFloat(progressRom, "progress", 0.0f, (float) startRom);
+            progressAnimatorROM.setDuration(800);
+            progressAnimatorROM.start();
+
+            ObjectAnimator progressAnimatorInS = ObjectAnimator.ofFloat(progressInStorage, "progress", 0.0f, (float) startInS);
+            progressAnimatorInS.setDuration(800);
+            progressAnimatorInS.start();
+
+            if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED) && ContextCompat.getExternalFilesDirs(Objects.requireNonNull(getContext()), null).length >= 2) {
+                ObjectAnimator progressAnimatorExS = ObjectAnimator.ofFloat(progressExStorage, "progress", 0.0f, (float) startExS);
+                progressAnimatorExS.setDuration(800);
+                progressAnimatorExS.start();
+            }
+        }
+    }*/
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -41,7 +76,6 @@ public class tabMemory extends Fragment {
         LineColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorButtonNormal);
 
         try {
-
             txtRamTotal = rootView.findViewById(R.id.txtRamFree);
             txtRamFree = rootView.findViewById(R.id.txtRamUsed);
             txtRamUsed = rootView.findViewById(R.id.txtRamTotal);
@@ -62,6 +96,56 @@ public class tabMemory extends Fragment {
             txtExStorageUsed = rootView.findViewById(R.id.txtExStorageUsed);
             progressExStorage = rootView.findViewById(R.id.progressExStorage);
             cardExStorage = rootView.findViewById(R.id.cardExStorageInfo);
+
+            imgRam = rootView.findViewById(R.id.imageRam);
+            imgRom = rootView.findViewById(R.id.imageRom);
+            imgInSto = rootView.findViewById(R.id.imageInStorage);
+            imgExSto = rootView.findViewById(R.id.imageExStorage);
+
+            ColorFilter clfRam = new LightingColorFilter(Color.BLACK,getResources().getColor(R.color.progress_ram));
+            imgRam.setColorFilter(clfRam);
+            ColorFilter clfRom = new LightingColorFilter(Color.BLACK,getResources().getColor(R.color.progress_rom));
+            imgRom.setColorFilter(clfRom);
+            ColorFilter clfInSto = new LightingColorFilter(Color.BLACK,getResources().getColor(R.color.progress_insto));
+            imgInSto.setColorFilter(clfInSto);
+            ColorFilter clfExSto = new LightingColorFilter(Color.BLACK,getResources().getColor(R.color.progress_exsto));
+            imgExSto.setColorFilter(clfExSto);
+
+            final com.ytheekshana.deviceinfo.BounceInterpolator bounceInterpolator = new com.ytheekshana.deviceinfo.BounceInterpolator(0.2,20);
+
+
+            imgRam.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Animation animRam = AnimationUtils.loadAnimation(getContext(),R.anim.bounce);
+                    animRam.setInterpolator(bounceInterpolator);
+                    imgRam.startAnimation(animRam);
+                }
+            });
+            imgRom.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Animation animRom = AnimationUtils.loadAnimation(getContext(),R.anim.bounce);
+                    animRom.setInterpolator(bounceInterpolator);
+                    imgRom.startAnimation(animRom);
+                }
+            });
+            imgInSto.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Animation animInSto = AnimationUtils.loadAnimation(getContext(),R.anim.bounce);
+                    animInSto.setInterpolator(bounceInterpolator);
+                    imgInSto.startAnimation(animInSto);
+                }
+            });
+            imgExSto.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Animation animExSto = AnimationUtils.loadAnimation(getContext(),R.anim.bounce);
+                    animExSto.setInterpolator(bounceInterpolator);
+                    imgExSto.startAnimation(animExSto);
+                }
+            });
 
             final Handler h = new Handler();
             h.postDelayed(new Runnable() {
@@ -84,6 +168,7 @@ public class tabMemory extends Fragment {
                         txtRamUsed.setText(URAM);
                         txtRamFree.setText(ARAM);
                         progressRam.setProgress(UPerc);
+                        startRam = UPerc;
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
@@ -105,6 +190,7 @@ public class tabMemory extends Fragment {
             txtRomFree.setText(UROM);
             txtRomUsed.setText(AROM);
             progressRom.setProgress(UsedPerc.intValue());
+            startRom = UsedPerc.intValue();
 
             StatFs statIN = new StatFs(Environment.getExternalStorageDirectory().getPath());
             FreeSto = (((double) statIN.getBlockSizeLong() * (double) statIN.getAvailableBlocksLong()) / 1024 / 1024 / 1024);
@@ -119,6 +205,7 @@ public class tabMemory extends Fragment {
             txtInStorageUsed.setText(UINS);
             txtInStorageFree.setText(AINS);
             progressInStorage.setProgress(UsedPerc.intValue());
+            startInS = UsedPerc.intValue();
 
             if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED) && ContextCompat.getExternalFilesDirs(getContext(), null).length >= 2) {
                 cardExStorage.setVisibility(View.VISIBLE);
@@ -135,6 +222,7 @@ public class tabMemory extends Fragment {
                 txtExStorageUsed.setText(UEXS);
                 txtExStorageFree.setText(AEXS);
                 progressExStorage.setProgress(UsedPerc.intValue());
+                startExS = UsedPerc.intValue();
             } else {
                 cardExStorage.setVisibility(View.GONE);
             }

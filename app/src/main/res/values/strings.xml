@@ -92,6 +92,9 @@
     <string name="settings_shortcut_long_label">Settings</string>
     <string name="settings_disabled_message">Shortcut Disabled</string>
 
+    <string name="rooted">ROOTED</string>
+    <string name="not_rooted">NOT ROOTED</string>
+
     <string-array name="app_type">
         <item>User Apps</item>
         <item>System Apps</item>
