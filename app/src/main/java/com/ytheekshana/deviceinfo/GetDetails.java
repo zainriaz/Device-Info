@@ -1,6 +1,7 @@
 package com.ytheekshana.deviceinfo;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.graphics.Point;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 class GetDetails {
@@ -495,5 +497,96 @@ class GetDetails {
             ex.printStackTrace();
         }
         return SELinux;
+    }
+
+    static String GetSensorType(int type) {
+        String stype;
+        switch (type) {
+            case 1:
+                stype = "ACCELEROMETER";
+                break;
+            case 2:
+                stype = "MAGNETIC FIELD";
+                break;
+            case 3:
+                stype = "ORIENTATION";
+                break;
+            case 4:
+                stype = "GYROSCOPE";
+                break;
+            case 5:
+                stype = "LIGHT";
+                break;
+            case 6:
+                stype = "PRESSURE";
+                break;
+            case 7:
+                stype = "TEMPERATURE";
+                break;
+            case 8:
+                stype = "PROXIMITY";
+                break;
+            case 9:
+                stype = "GRAVITY";
+                break;
+            case 10:
+                stype = "LINEAR ACCELERATION";
+                break;
+            case 11:
+                stype = "ROTATION VECTOR";
+                break;
+            case 12:
+                stype = "RELATIVE HUMIDITY";
+                break;
+            case 13:
+                stype = "AMBIENT TEMPERATURE";
+                break;
+            case 14:
+                stype = "MAGNETIC FIELD UNCALIBRATED";
+                break;
+            case 15:
+                stype = "GAME ROTATION VECTOR";
+                break;
+            case 16:
+                stype = "GYROSCOPE UNCALIBRATED";
+                break;
+            case 17:
+                stype = "SIGNIFICANT MOTION";
+                break;
+            case 18:
+                stype = "STEP DETECTOR";
+                break;
+            case 19:
+                stype = "STEP COUNTER";
+                break;
+            case 20:
+                stype = "GEOMAGNETIC ROTATION VECTOR";
+                break;
+            case 21:
+                stype = "HEART_RATE";
+                break;
+            case 28:
+                stype = "POSE 6DOF";
+                break;
+            case 29:
+                stype = "STATIONARY DETECT";
+                break;
+            case 30:
+                stype = "MOTION DETECT";
+                break;
+            case 31:
+                stype = "HEART BEAT";
+                break;
+            case 34:
+                stype = "LOW LATENCY OFFBODY DETECT";
+                break;
+            case 35:
+                stype = "ACCELEROMETER UNCALIBRATED";
+                break;
+            default:
+                stype = "Unknown";
+                break;
+        }
+        return stype;
     }
 }

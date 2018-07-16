@@ -102,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
                 case 6:
                     return new tabMemory();
                 case 7:
+                    return new tabSensor();
+                case 8:
                     return new tabApps();
                 default:
                     return null;
@@ -110,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 8;
+            return 9;
         }
 
         @Override
@@ -131,6 +133,8 @@ public class MainActivity extends AppCompatActivity {
                 case 6:
                     return "Memory";
                 case 7:
+                    return "Sensors";
+                case 8:
                     return "Apps";
             }
             return null;

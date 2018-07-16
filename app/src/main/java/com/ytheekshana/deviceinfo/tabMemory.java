@@ -113,7 +113,6 @@ public class tabMemory extends Fragment {
 
             final com.ytheekshana.deviceinfo.BounceInterpolator bounceInterpolator = new com.ytheekshana.deviceinfo.BounceInterpolator(0.2,20);
 
-
             imgRam.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

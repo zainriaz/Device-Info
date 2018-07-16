@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
+import android.hardware.Sensor;
 import android.os.BatteryManager;
 import android.os.Environment;
 import android.os.Handler;
@@ -19,6 +20,8 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
@@ -47,7 +50,13 @@ public class tabDashboard extends Fragment {
         BatteryContext = Objects.requireNonNull(getActivity()).getApplicationContext();
         BatteryContext.registerReceiver(mBroadcastReceiver, iFilter);
         cu2 = new CPUUsage();
-        CardView cardExternalStorage = rootView.findViewById(R.id.cardviewExStorage);
+        final CardView cardRam = rootView.findViewById(R.id.cardviewRam);
+        final CardView cardRom = rootView.findViewById(R.id.cardviewRom);
+        final CardView cardInternalStorage = rootView.findViewById(R.id.cardviewInStorage);
+        final CardView cardExternalStorage = rootView.findViewById(R.id.cardviewExStorage);
+        final CardView cardBattery = rootView.findViewById(R.id.cardviewBattery);
+        final CardView cardCpu = rootView.findViewById(R.id.cardviewCPU);
+
 
         txtRamPerce = rootView.findViewById(R.id.txtRamPerc);
         txtRamStatus = rootView.findViewById(R.id.txtRamStatus);
@@ -216,6 +225,56 @@ public class tabDashboard extends Fragment {
             }
         };
         LoadStartRam.start();*/
+
+        final com.ytheekshana.deviceinfo.BounceInterpolator bounceInterpolator = new com.ytheekshana.deviceinfo.BounceInterpolator(0.2,20);
+        cardRam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Animation animRam = AnimationUtils.loadAnimation(getContext(),R.anim.bounce_dash);
+                animRam.setInterpolator(bounceInterpolator);
+                cardRam.startAnimation(animRam);
+            }
+        });
+        cardRom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Animation animRom = AnimationUtils.loadAnimation(getContext(),R.anim.bounce_dash);
+                animRom.setInterpolator(bounceInterpolator);
+                cardRom.startAnimation(animRom);
+            }
+        });
+        cardInternalStorage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Animation animInSto = AnimationUtils.loadAnimation(getContext(),R.anim.bounce_dash);
+                animInSto.setInterpolator(bounceInterpolator);
+                cardInternalStorage.startAnimation(animInSto);
+            }
+        });
+        cardExternalStorage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Animation animExSto = AnimationUtils.loadAnimation(getContext(),R.anim.bounce_dash);
+                animExSto.setInterpolator(bounceInterpolator);
+                cardExternalStorage.startAnimation(animExSto);
+            }
+        });
+        cardBattery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Animation animBattery = AnimationUtils.loadAnimation(getContext(),R.anim.bounce_dash);
+                animBattery.setInterpolator(bounceInterpolator);
+                cardBattery.startAnimation(animBattery);
+            }
+        });
+        cardCpu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Animation animCpu = AnimationUtils.loadAnimation(getContext(),R.anim.bounce_dash);
+                animCpu.setInterpolator(bounceInterpolator);
+                cardCpu.startAnimation(animCpu);
+            }
+        });
 
         return rootView;
     }
