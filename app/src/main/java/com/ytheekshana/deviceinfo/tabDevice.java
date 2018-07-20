@@ -43,7 +43,6 @@ public class tabDevice extends Fragment {
             //BluetoothAdapter myDevice = BluetoothAdapter.getDefaultAdapter();
             //String deviceName = myDevice.getName();
 
-
             String deviceName = GetDetails.GetFromBuildProp("ro.semc.product.name").equals("")?"Unknown":GetDetails.GetFromBuildProp("ro.semc.product.name");
 
             TextView txtName = new TextView(getContext());

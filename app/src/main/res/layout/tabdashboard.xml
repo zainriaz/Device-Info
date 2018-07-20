@@ -412,5 +412,131 @@
                     android:textStyle="bold" />
             </RelativeLayout>
         </android.support.v7.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/cardviewCPU"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardviewSensor"
+                style="?attr/cardStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                card_view:cardCornerRadius="5dp"
+                card_view:contentPadding="10dp"
+                android:layout_weight="1">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/imageSensor"
+                        android:layout_width="60dp"
+                        android:layout_height="53dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginEnd="5dp"
+                        android:contentDescription="@string/imgCPU"
+                        app:srcCompat="@drawable/sensor"
+                        android:layout_centerVertical="true"/>
+
+                    <TextView
+                        android:id="@+id/txtSensorCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/imageSensor"
+                        android:layout_toEndOf="@+id/imageSensor"
+                        android:text="15"
+                        android:textSize="30sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/txtSensorTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/imageSensor"
+                        android:layout_below="@id/txtSensorCount"
+                        android:gravity="top"
+                        android:text="@string/DashSensor"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtSensorStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/imageSensor"
+                        android:layout_below="@id/txtSensorTitle"
+                        android:gravity="top"
+                        android:text="@string/DashSensorStatus"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardviewApp"
+                style="?attr/cardStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                card_view:cardCornerRadius="5dp"
+                card_view:contentPadding="10dp"
+                android:layout_weight="1">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/imageApps"
+                        android:layout_width="60dp"
+                        android:layout_height="53dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginEnd="5dp"
+                        android:contentDescription="@string/imgCPU"
+                        app:srcCompat="@drawable/app"
+                        android:layout_centerVertical="true"/>
+
+                    <TextView
+                        android:id="@+id/txtAppCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/imageApps"
+                        android:layout_toEndOf="@+id/imageApps"
+                        android:text="382"
+                        android:textSize="30sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/txtAppTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/imageApps"
+                        android:layout_below="@id/txtAppCount"
+                        android:gravity="top"
+                        android:text="@string/DashApp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtAppStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/imageApps"
+                        android:layout_below="@id/txtAppTitle"
+                        android:gravity="top"
+                        android:text="@string/DashAppStatus"
+                        android:textStyle="bold" />
+
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
     </RelativeLayout>
 </ScrollView>

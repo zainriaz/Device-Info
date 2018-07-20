@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         if (mNotifyMgr != null) {
             mNotifyMgr.notify(mNotificationId, mBuilder.build());
         }
+
     }
 
     @Override

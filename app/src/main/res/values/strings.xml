@@ -6,6 +6,11 @@
     <string name="DashExternalStorage">External Storage</string>
     <string name="DashBattery">Battery</string>
     <string name="DashCPU">CPU</string>
+    <string name="DashSensor">Sensors</string>
+    <string name="DashSensorStatus">Available</string>
+    <string name="DashApp">Apps</string>
+    <string name="DashAppStatus">Installed</string>
+
     <string name="ZeroPerc">0%</string>
     <string name="imgRAM">RAM Logo</string>
     <string name="imgInternalStorage">Internal Storage Logo</string>

@@ -24,6 +24,7 @@ public class tabSensor extends Fragment {
     SensorAdapter allSensorsAdapter;
     ListView listViewSensors;
     String getcount;
+    TextView sensor_count;
 
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container,
@@ -31,24 +32,17 @@ public class tabSensor extends Fragment {
 
         final View rootView = inflater.inflate(R.layout.tabsensor, container, false);
         listViewSensors = rootView.findViewById(R.id.sensor_list);
-        final TextView sensor_count = rootView.findViewById(R.id.sensor_count);
+        sensor_count = rootView.findViewById(R.id.sensor_count);
         final SwipeRefreshLayout swipesensorlist = rootView.findViewById(R.id.swipesensorlist);
         swipesensorlist.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                allSensors = getAllSensors();
-                allSensorsAdapter = new SensorAdapter(Objects.requireNonNull(getActivity()), allSensors);
-                listViewSensors.setAdapter(allSensorsAdapter);
-                getcount = String.valueOf(listViewSensors.getAdapter().getCount())+" Sensors are available on your device";
-                sensor_count.setText(getcount);
+                LoadSensors();
                 swipesensorlist.setRefreshing(false);
             }
         });
-        allSensors = getAllSensors();
-        allSensorsAdapter = new SensorAdapter(Objects.requireNonNull(getActivity()), allSensors);
-        listViewSensors.setAdapter(allSensorsAdapter);
-        getcount = String.valueOf(listViewSensors.getAdapter().getCount())+" Sensors are available on your device";
-        sensor_count.setText(getcount);
+        LoadSensors();
+
 
         listViewSensors.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -83,5 +77,13 @@ public class tabSensor extends Fragment {
             allsensors.add(new SensorList(sensorName, sensorVendor, sensorType,wakeUpType,sensorPower));
         }
         return allsensors;
+    }
+
+    private void LoadSensors(){
+        allSensors = getAllSensors();
+        allSensorsAdapter = new SensorAdapter(Objects.requireNonNull(getActivity()), allSensors);
+        listViewSensors.setAdapter(allSensorsAdapter);
+        getcount = String.valueOf(listViewSensors.getAdapter().getCount())+" Sensors are available on your device";
+        sensor_count.setText(getcount);
     }
 }

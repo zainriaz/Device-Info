@@ -76,14 +76,14 @@ public class tabMemory extends Fragment {
         LineColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorButtonNormal);
 
         try {
-            txtRamTotal = rootView.findViewById(R.id.txtRamFree);
-            txtRamFree = rootView.findViewById(R.id.txtRamUsed);
-            txtRamUsed = rootView.findViewById(R.id.txtRamTotal);
+            txtRamTotal = rootView.findViewById(R.id.txtRamTotal);
+            txtRamFree = rootView.findViewById(R.id.txtRamFree);
+            txtRamUsed = rootView.findViewById(R.id.txtRamUsed);
             progressRam = rootView.findViewById(R.id.progressRam);
 
-            txtRomTotal = rootView.findViewById(R.id.txtRomFree);
-            txtRomFree = rootView.findViewById(R.id.txtRomUsed);
-            txtRomUsed = rootView.findViewById(R.id.txtRomTotal);
+            txtRomTotal = rootView.findViewById(R.id.txtRomTotal);
+            txtRomFree = rootView.findViewById(R.id.txtRomFree);
+            txtRomUsed = rootView.findViewById(R.id.txtRomUsed);
             progressRom = rootView.findViewById(R.id.progressRom);
 
             txtInStorageTotal = rootView.findViewById(R.id.txtInStorageTotal);
@@ -161,7 +161,7 @@ public class tabMemory extends Fragment {
                         URam = TRam - ARam;
                         UPerc = (int) (((URam) * 100) / TRam);
                         String TRAM = "Total\t\t\t\t\t" + Double.toString(TRam) + " MB";
-                        String ARAM = "Free\t\t\t\t\t\t" + Double.toString(ARam) + " MB";
+                        String ARAM = "Free\t\t\t\t\t" + Double.toString(ARam) + " MB";
                         String URAM = "Used\t\t\t\t\t" + Double.toString(URam) + " MB";
                         txtRamTotal.setText(TRAM);
                         txtRamUsed.setText(URAM);
@@ -183,7 +183,7 @@ public class tabMemory extends Fragment {
             UsedPerc = ((UsedSto * 100) / TotalSto);
 
             String TROM = "Total\t\t\t\t\t" + String.format(Locale.US, "%.2f", TotalSto) + " GB";
-            String AROM = "Free\t\t\t\t\t\t" + String.format(Locale.US, "%.2f", FreeSto) + " GB";
+            String AROM = "Free\t\t\t\t\t" + String.format(Locale.US, "%.2f", FreeSto) + " GB";
             String UROM = "Used\t\t\t\t\t" + String.format(Locale.US, "%.2f", UsedSto) + " GB";
             txtRomTotal.setText(TROM);
             txtRomFree.setText(UROM);
@@ -198,7 +198,7 @@ public class tabMemory extends Fragment {
             UsedPerc = ((UsedSto * 100) / TotalSto);
 
             String TINS = "Total\t\t\t\t\t" + String.format(Locale.US, "%.2f", TotalSto) + " GB";
-            String AINS = "Free\t\t\t\t\t\t" + String.format(Locale.US, "%.2f", FreeSto) + " GB";
+            String AINS = "Free\t\t\t\t\t" + String.format(Locale.US, "%.2f", FreeSto) + " GB";
             String UINS = "Used\t\t\t\t\t" + String.format(Locale.US, "%.2f", UsedSto) + " GB";
             txtInStorageTotal.setText(TINS);
             txtInStorageUsed.setText(UINS);
@@ -215,7 +215,7 @@ public class tabMemory extends Fragment {
                 UsedPerc = ((UsedSto * 100) / TotalSto);
 
                 String TEXS = "Total\t\t\t\t\t" + String.format(Locale.US, "%.2f", TotalSto) + " GB";
-                String AEXS = "Free\t\t\t\t\t\t" + String.format(Locale.US, "%.2f", FreeSto) + " GB";
+                String AEXS = "Free\t\t\t\t\t" + String.format(Locale.US, "%.2f", FreeSto) + " GB";
                 String UEXS = "Used\t\t\t\t\t" + String.format(Locale.US, "%.2f", UsedSto) + " GB";
                 txtExStorageTotal.setText(TEXS);
                 txtExStorageUsed.setText(UEXS);

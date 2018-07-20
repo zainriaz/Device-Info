@@ -35,8 +35,8 @@
                     <ImageView
                         android:id="@+id/imageRam"
                         android:layout_marginEnd="10dp"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
                         android:contentDescription="@string/imgRAM"
@@ -54,10 +54,21 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/txtRamFree"
+                        android:id="@+id/txtRamTotal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/txtRAMTitle"
+                        android:layout_toEndOf="@id/imageRam"
+                        android:layout_margin="2dp"
+                        android:text="@string/RAM"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/txtRamFree"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/txtRamTotal"
                         android:layout_toEndOf="@id/imageRam"
                         android:layout_margin="2dp"
                         android:text="@string/RAM"
@@ -75,29 +86,19 @@
                         android:textColor="@color/colorAccent"
                         android:textSize="15sp" />
 
-                    <TextView
-                        android:id="@+id/txtRamTotal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/txtRamUsed"
-                        android:layout_toEndOf="@id/imageRam"
-                        android:layout_margin="2dp"
-                        android:text="@string/RAM"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="15sp" />
-
                     <com.github.lzyzsd.circleprogress.DonutProgress
                         android:id="@+id/progressRam"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         app:donut_progress="30"
                         app:donut_finished_color="@color/progress_ram"
                         app:donut_text_color="@color/progress_ram"
                         app:donut_unfinished_color="@color/progress_ram_unfinished"
-                        app:donut_finished_stroke_width="12dp"
-                        app:donut_unfinished_stroke_width="12dp"/>
+                        app:donut_finished_stroke_width="10dp"
+                        app:donut_unfinished_stroke_width="10dp"
+                        app:donut_text_size="15dp"/>
 
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
@@ -119,8 +120,8 @@
                     <ImageView
                         android:id="@+id/imageRom"
                         android:layout_marginEnd="10dp"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
                         android:contentDescription="@string/imgROM"
@@ -138,10 +139,21 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/txtRomFree"
+                        android:id="@+id/txtRomTotal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/txtRomTitle"
+                        android:layout_toEndOf="@id/imageRom"
+                        android:layout_margin="2dp"
+                        android:text="@string/DashROM"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/txtRomFree"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/txtRomTotal"
                         android:layout_toEndOf="@id/imageRom"
                         android:layout_margin="2dp"
                         android:text="@string/DashROM"
@@ -159,29 +171,19 @@
                         android:textColor="@color/colorAccent"
                         android:textSize="15sp" />
 
-                    <TextView
-                        android:id="@+id/txtRomTotal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/txtRomUsed"
-                        android:layout_toEndOf="@id/imageRom"
-                        android:layout_margin="2dp"
-                        android:text="@string/DashROM"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="15sp" />
-
                     <com.github.lzyzsd.circleprogress.DonutProgress
                         android:id="@+id/progressRom"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         app:donut_progress="30"
                         app:donut_finished_color="@color/progress_rom"
                         app:donut_text_color="@color/progress_rom"
                         app:donut_unfinished_color="@color/progress_rom_unfinished"
-                        app:donut_finished_stroke_width="12dp"
-                        app:donut_unfinished_stroke_width="12dp"/>
+                        app:donut_finished_stroke_width="10dp"
+                        app:donut_unfinished_stroke_width="10dp"
+                        app:donut_text_size="15dp"/>
 
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
@@ -203,8 +205,8 @@
                     <ImageView
                         android:id="@+id/imageInStorage"
                         android:layout_marginEnd="10dp"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
                         android:contentDescription="@string/imgInternalStorage"
@@ -222,10 +224,21 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/txtInStorageFree"
+                        android:id="@+id/txtInStorageTotal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/txtInStorageTitle"
+                        android:layout_toEndOf="@id/imageInStorage"
+                        android:layout_margin="2dp"
+                        android:text="@string/InternalStorage"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/txtInStorageFree"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/txtInStorageTotal"
                         android:layout_toEndOf="@id/imageInStorage"
                         android:layout_margin="2dp"
                         android:text="@string/InternalStorage"
@@ -243,29 +256,19 @@
                         android:textColor="@color/colorAccent"
                         android:textSize="15sp" />
 
-                    <TextView
-                        android:id="@+id/txtInStorageTotal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/txtInStorageUsed"
-                        android:layout_toEndOf="@id/imageInStorage"
-                        android:layout_margin="2dp"
-                        android:text="@string/InternalStorage"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="15sp" />
-
                     <com.github.lzyzsd.circleprogress.DonutProgress
                         android:id="@+id/progressInStorage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         app:donut_progress="30"
                         app:donut_finished_color="@color/progress_insto"
                         app:donut_text_color="@color/progress_insto"
                         app:donut_unfinished_color="@color/progress_insto_unfinished"
-                        app:donut_finished_stroke_width="12dp"
-                        app:donut_unfinished_stroke_width="12dp"/>
+                        app:donut_finished_stroke_width="10dp"
+                        app:donut_unfinished_stroke_width="10dp"
+                        app:donut_text_size="15dp"/>
 
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
@@ -281,16 +284,16 @@
                 app:contentPadding="10dp">
 
                 <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_width="wrap_content"
+                    android:layout_height="94dp">
 
                     <ImageView
                         android:id="@+id/imageExStorage"
-                        android:layout_marginEnd="10dp"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
+                        android:layout_marginEnd="10dp"
                         android:contentDescription="@string/imgExternalStorage"
                         app:srcCompat="@drawable/exstorage" />
 
@@ -299,19 +302,30 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
-                        android:layout_toEndOf="@id/imageExStorage"
                         android:layout_margin="2dp"
+                        android:layout_toEndOf="@id/imageExStorage"
                         android:text="@string/ExternalStorage"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/txtExStorageFree"
+                        android:id="@+id/txtExStorageTotal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/txtExStorageTitle"
-                        android:layout_toEndOf="@id/imageExStorage"
                         android:layout_margin="2dp"
+                        android:layout_toEndOf="@id/imageExStorage"
+                        android:text="@string/ExternalStorage"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/txtExStorageFree"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/txtExStorageTotal"
+                        android:layout_margin="2dp"
+                        android:layout_toEndOf="@id/imageExStorage"
                         android:text="@string/ExternalStorage"
                         android:textColor="@color/colorAccent"
                         android:textSize="15sp" />
@@ -321,35 +335,25 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/txtExStorageFree"
-                        android:layout_toEndOf="@id/imageExStorage"
                         android:layout_margin="2dp"
-                        android:text="@string/ExternalStorage"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:id="@+id/txtExStorageTotal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/txtExStorageUsed"
                         android:layout_toEndOf="@id/imageExStorage"
-                        android:layout_margin="2dp"
                         android:text="@string/ExternalStorage"
                         android:textColor="@color/colorAccent"
                         android:textSize="15sp" />
 
                     <com.github.lzyzsd.circleprogress.DonutProgress
                         android:id="@+id/progressExStorage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        app:donut_progress="30"
                         app:donut_finished_color="@color/progress_exsto"
+                        app:donut_finished_stroke_width="10dp"
+                        app:donut_progress="30"
                         app:donut_text_color="@color/progress_exsto"
+                        app:donut_text_size="15dp"
                         app:donut_unfinished_color="@color/progress_exsto_unfinished"
-                        app:donut_finished_stroke_width="12dp"
-                        app:donut_unfinished_stroke_width="12dp"/>
+                        app:donut_unfinished_stroke_width="10dp" />
 
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
