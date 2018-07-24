@@ -50,9 +50,9 @@ public class tabDashboard extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tabdashboard, container, false);
         //006bff
-        IntentFilter iFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        IntentFilter batteryIntentFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
         BatteryContext = Objects.requireNonNull(getActivity()).getApplicationContext();
-        BatteryContext.registerReceiver(mBroadcastReceiver, iFilter);
+        BatteryContext.registerReceiver(batteryBroadcastReceiver, batteryIntentFilter);
         cu2 = new CPUUsage();
         final CardView cardRam = rootView.findViewById(R.id.cardviewRam);
         final CardView cardRom = rootView.findViewById(R.id.cardviewRom);
@@ -193,7 +193,6 @@ public class tabDashboard extends Fragment {
             }
         }, 1000, 1000);
 
-
         ObjectAnimator progressAnimatorRAM = ObjectAnimator.ofFloat(ProgressBarRam, "progress", 0.0f, (float) startRAM);
         progressAnimatorRAM.setDuration(800);
         progressAnimatorRAM.start();
@@ -314,7 +313,7 @@ public class tabDashboard extends Fragment {
         }
     }
 
-    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+    private BroadcastReceiver batteryBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             final int batlevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);

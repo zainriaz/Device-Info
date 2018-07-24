@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Locale;
 import java.util.Objects;
@@ -20,7 +22,7 @@ import java.util.TimerTask;
 
 public class tabCPU extends Fragment {
     LinearLayout llayout;
-    int TextDisColor, LineColor;
+    int TextDisColor, LineColor, a;
     TextView txtCPUUsagedis;
     CPUUsage cu;
     TextView txtCore[];
@@ -184,8 +186,7 @@ public class tabCPU extends Fragment {
                 txtCore[corecount].setPadding(0, 0, 0, 15);
                 txtCore[corecount].setTextColor(TextDisColor);
                 txtCore[corecount].setTextSize(16);
-                String settextcorecores = "Core " + corecount + "       ";
-                txtCore[corecount].setText(settextcorecores);
+                txtCore[corecount].setText(String.valueOf(corecount));
                 txtCore[corecount].setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
                 llayout.addView(txtCore[corecount]);
             }
@@ -215,6 +216,37 @@ public class tabCPU extends Fragment {
                 @Override
                 public void run() {
                     cUsage = String.valueOf(cu.getTotalCpuUsage()) + " %";
+
+                    for (int corecount = 0; corecount < Runtime.getRuntime().availableProcessors(); corecount++) {
+                        try {
+                            double currentFreq;
+                            RandomAccessFile readerCurFreq;
+                            readerCurFreq = new RandomAccessFile("/sys/devices/system/cpu/cpu" + corecount + "/cpufreq/scaling_cur_freq", "r");
+                            String curfreg = readerCurFreq.readLine();
+                            currentFreq = Double.parseDouble(curfreg) / 1000;
+                            readerCurFreq.close();
+                            final String settextcorecores = "Core " + corecount + "       " + (int) currentFreq + " Mhz";
+                            final int finalCorecount1 = corecount;
+                            txtCore[corecount].post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    txtCore[finalCorecount1].setText(settextcorecores);
+                                }
+                            });
+
+                        } catch (Exception ex) {
+                            final String settextcorecoresEX = "Core " + corecount + "       " + "Idle";
+                            final int finalCorecount = corecount;
+                            txtCore[corecount].post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    txtCore[finalCorecount].setText(settextcorecoresEX);
+                                }
+                            });
+                        }
+                    }
+
+
                     txtCPUUsagedis.post(new Runnable() {
                         @Override
                         public void run() {
