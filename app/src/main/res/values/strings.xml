@@ -64,11 +64,14 @@
     <string name="Processor">Processor</string>
     <string name="ABIs">Supported ABIs</string>
     <string name="CPUHardware">CPU Hardware</string>
-    <string name="CPUGoverner">CPU Governer</string>
+    <string name="CPUGovernor">CPU Governor</string>
     <string name="Cores">Cores</string>
     <string name="CPUFrequency">CPU Frequency</string>
     <string name="CPUUsage">CPU Usage</string>
     <string name="RunningCPUs">Running CPUs</string>
+    <string name="GPURenderer">GPU Renderer</string>
+    <string name="GPUVendor">GPU Vendor</string>
+    <string name="GPUVersion">GPU Version</string>
 
     <string name="Health">Health</string>
     <string name="Temperature">Temperature</string>

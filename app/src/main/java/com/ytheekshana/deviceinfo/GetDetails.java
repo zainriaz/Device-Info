@@ -1,7 +1,6 @@
 package com.ytheekshana.deviceinfo;
 
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.graphics.Point;

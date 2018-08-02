@@ -1,12 +1,18 @@
 package com.ytheekshana.deviceinfo;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.opengl.GLES10;
+import android.opengl.GLES20;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import javax.microedition.khronos.opengles.GL10;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 

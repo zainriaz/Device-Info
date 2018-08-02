@@ -1,7 +1,7 @@
 package com.ytheekshana.deviceinfo;
 
-import android.graphics.Color;
 import android.graphics.Typeface;
+import android.opengl.GLSurfaceView;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -12,33 +12,41 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class tabCPU extends Fragment {
+import javax.microedition.khronos.egl.EGLConfig;
+import javax.microedition.khronos.opengles.GL10;
+
+public class tabCPU extends Fragment implements GLSurfaceView.Renderer {
     LinearLayout llayout;
     int TextDisColor, LineColor, a;
-    TextView txtCPUUsagedis;
+    TextView txtCPUUsagedis, txtGPURendererdis, txtGPUVendordis, txtGPUsupport,txtGPUVersiondis;
     CPUUsage cu;
     TextView txtCore[];
     String cUsage;
     Timer timer;
+    private GLSurfaceView glSurfaceView;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tabcpu, container, false);
         llayout = rootView.findViewById(R.id.llayout);
+        txtGPUsupport = rootView.findViewById(R.id.txtGPUsupport);
         cu = new CPUUsage();
 
         try {
             TextDisColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorAccent);
             LineColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorButtonNormal);
+
+            txtGPUsupport.setText(R.string.GPUVendor);
+            glSurfaceView = new GLSurfaceView(getContext());
+            glSurfaceView.setRenderer(this);
+            ((ViewGroup) txtGPUsupport.getParent()).addView(glSurfaceView);
 
             double cpuMaxFreq, cpuMinFreq;
             RandomAccessFile readermax, readermin;
@@ -116,7 +124,7 @@ public class tabCPU extends Fragment {
             View v3 = new View(getContext());
             v3.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
             v3.setBackgroundColor(LineColor);
-            txtCPUGovernor.setText(R.string.CPUGoverner);
+            txtCPUGovernor.setText(R.string.CPUGovernor);
             txtCPUGovernor.setTypeface(null, Typeface.BOLD);
             txtCPUGovernor.setTextSize(16);
             txtCPUGovernor.setPadding(0, 15, 0, 0);
@@ -211,6 +219,60 @@ public class tabCPU extends Fragment {
             llayout.addView(txtCPUUsagedis);
             llayout.addView(v7);
 
+            TextView txtGPURenderer = new TextView(getContext());
+            txtGPURendererdis = new TextView(getContext());
+            View v8 = new View(getContext());
+            v8.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
+            v8.setBackgroundColor(LineColor);
+            txtGPURenderer.setText(R.string.GPURenderer);
+            txtGPURenderer.setTypeface(null, Typeface.BOLD);
+            txtGPURenderer.setTextSize(16);
+            txtGPURenderer.setPadding(0, 15, 0, 0);
+            txtGPURendererdis.setPadding(0, 0, 0, 15);
+            txtGPURendererdis.setTextColor(TextDisColor);
+            txtGPURendererdis.setTextSize(16);
+            txtGPURendererdis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            txtGPURenderer.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            llayout.addView(txtGPURenderer);
+            llayout.addView(txtGPURendererdis);
+            llayout.addView(v8);
+
+            TextView txtGPUVendor = new TextView(getContext());
+            txtGPUVendordis = new TextView(getContext());
+            View v9 = new View(getContext());
+            v9.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
+            v9.setBackgroundColor(LineColor);
+            txtGPUVendor.setText(R.string.GPUVendor);
+            txtGPUVendor.setTypeface(null, Typeface.BOLD);
+            txtGPUVendor.setTextSize(16);
+            txtGPUVendor.setPadding(0, 15, 0, 0);
+            txtGPUVendordis.setPadding(0, 0, 0, 15);
+            txtGPUVendordis.setTextColor(TextDisColor);
+            txtGPUVendordis.setTextSize(16);
+            txtGPUVendordis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            txtGPUVendor.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            llayout.addView(txtGPUVendor);
+            llayout.addView(txtGPUVendordis);
+            llayout.addView(v9);
+
+            TextView txtGPUVersion = new TextView(getContext());
+            txtGPUVersiondis = new TextView(getContext());
+            View v10 = new View(getContext());
+            v10.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
+            v10.setBackgroundColor(LineColor);
+            txtGPUVersion.setText(R.string.GPUVersion);
+            txtGPUVersion.setTypeface(null, Typeface.BOLD);
+            txtGPUVersion.setTextSize(16);
+            txtGPUVersion.setPadding(0, 15, 0, 0);
+            txtGPUVersiondis.setPadding(0, 0, 0, 15);
+            txtGPUVersiondis.setTextColor(TextDisColor);
+            txtGPUVersiondis.setTextSize(16);
+            txtGPUVersiondis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            txtGPUVersion.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            llayout.addView(txtGPUVersion);
+            llayout.addView(txtGPUVersiondis);
+            llayout.addView(v10);
+
             timer = new Timer();
             timer.scheduleAtFixedRate(new TimerTask() {
                 @Override
@@ -225,7 +287,7 @@ public class tabCPU extends Fragment {
                             String curfreg = readerCurFreq.readLine();
                             currentFreq = Double.parseDouble(curfreg) / 1000;
                             readerCurFreq.close();
-                            final String settextcorecores = "Core " + corecount + "       " + (int) currentFreq + " Mhz";
+                            final String settextcorecores = "\t\tCore " + corecount + "       " + (int) currentFreq + " Mhz";
                             final int finalCorecount1 = corecount;
                             txtCore[corecount].post(new Runnable() {
                                 @Override
@@ -235,7 +297,7 @@ public class tabCPU extends Fragment {
                             });
 
                         } catch (Exception ex) {
-                            final String settextcorecoresEX = "Core " + corecount + "       " + "Idle";
+                            final String settextcorecoresEX = "\t\tCore " + corecount + "       " + "Idle";
                             final int finalCorecount = corecount;
                             txtCore[corecount].post(new Runnable() {
                                 @Override
@@ -245,8 +307,6 @@ public class tabCPU extends Fragment {
                             });
                         }
                     }
-
-
                     txtCPUUsagedis.post(new Runnable() {
                         @Override
                         public void run() {
@@ -257,11 +317,41 @@ public class tabCPU extends Fragment {
                 }
             }, 0, 1000);
 
-
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         return rootView;
+    }
+
+    @Override
+    public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+        try {
+            final String Renderer = gl.glGetString(GL10.GL_RENDERER);
+            final String Vendor = gl.glGetString(GL10.GL_VENDOR);
+            final String Version = gl.glGetString(GL10.GL_VERSION);
+
+            Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    txtGPURendererdis.setText(Renderer);
+                    txtGPUVendordis.setText(Vendor);
+                    txtGPUVersiondis.setText(Version);
+                    glSurfaceView.setVisibility(View.GONE);
+                }
+            });
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onSurfaceChanged(GL10 gl, int width, int height) {
+
+    }
+
+    @Override
+    public void onDrawFrame(GL10 gl) {
+
     }
 
     @Override

@@ -29,7 +29,6 @@ import android.widget.TextView;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 
-import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Timer;
@@ -40,7 +39,7 @@ public class tabDashboard extends Fragment {
     RoundCornerProgressBar ProgressBarRam, ProgressBarBattery, ProgressBarInStorage, ProgressBarExStorage, ProgressBarCPU, ProgressBarRom;
     double ARam, TRam, URam, UPerc, AvailableInSto, TotalInSto, UsedPercInSto, AvailableExSto, TotalExSto, UsedPercExSto, AvailableStoRom, TotalStoRom, UsedPercRom;
     Context BatteryContext;
-    int a, e, startROM, startRAM, startInStorage, startExStorage, startBattery, startCPU, battery_progress_status = 0, usagecpu;
+    int a, e, startROM, startRAM, startInStorage, startExStorage, startBattery, startCPU, usagecpu;
     CPUUsage cu2;
     String cUsage;
     Timer timercUsage;
@@ -120,9 +119,9 @@ public class tabDashboard extends Fragment {
         //txtAppCount.setText(numberOfInstalledApps);
         SensorManager mSensorManager = (SensorManager) Objects.requireNonNull(getActivity()).getSystemService(Context.SENSOR_SERVICE);
         int numberOfSensors = Objects.requireNonNull(mSensorManager).getSensorList(Sensor.TYPE_ALL).size();
-       // txtSensorCount.setText(numberOfSensors);
-        animateTextView(0,numberOfInstalledApps,txtAppCount);
-        animateTextView(0,numberOfSensors,txtSensorCount);
+        // txtSensorCount.setText(numberOfSensors);
+        animateTextView(0, numberOfInstalledApps, txtAppCount);
+        animateTextView(0, numberOfSensors, txtSensorCount);
 
         GetRam();
         startRAM = (int) UPerc;
