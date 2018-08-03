@@ -19,11 +19,9 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,7 +35,7 @@ import java.util.Objects;
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 public class tabApps extends Fragment {
-    int apptype = 0;
+    int apptype = 0,TextDisColor;
     Thread LoadApps;
     private PopupWindow mPopupWindow;
     TextView txtappname, txtpackagename, txtappversion, txtappminsdk, txtapptargetsdk, txtappinstalldate, txtappupdatedate;
@@ -105,6 +103,7 @@ public class tabApps extends Fragment {
 
         final View rootView = inflater.inflate(R.layout.tabapps, container, false);
         final RelativeLayout relmain = rootView.findViewById(R.id.relmain);
+        TextDisColor = MainActivity.themeColor;
         Spinner spinnerAppType = rootView.findViewById(R.id.spinnerAppType);
         swipeapplist = rootView.findViewById(R.id.swipeapplist);
         swipeapplist.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -156,41 +155,19 @@ public class tabApps extends Fragment {
                 try {
                     LayoutInflater inflater = (LayoutInflater) Objects.requireNonNull(getContext()).getSystemService(LAYOUT_INFLATER_SERVICE);
                     View customView = inflater != null ? inflater.inflate(R.layout.apps_popup, null) : null;
+                    RelativeLayout heading_layout = Objects.requireNonNull(customView).findViewById(R.id.heading_layout);
+                    heading_layout.setBackgroundColor(TextDisColor);
 
-                    if (customView != null) {
-                        txtappname = customView.findViewById(R.id.txtappnameheading);
-                    }
-                    if (customView != null) {
-                        txtpackagename = customView.findViewById(R.id.txtpackagenameheading);
-                    }
-                    if (customView != null) {
-                        txtappversion = customView.findViewById(R.id.txtappversion);
-                    }
-                    if (customView != null) {
-                        txtappminsdk = customView.findViewById(R.id.txtappminsdk);
-                    }
-                    if (customView != null) {
-                        txtapptargetsdk = customView.findViewById(R.id.txtapptargetsdk);
-                    }
-                    if (customView != null) {
-                        txtappinstalldate = customView.findViewById(R.id.txtappinstalldate);
-                    }
-                    if (customView != null) {
-                        txtappupdatedate = customView.findViewById(R.id.txtappupdatedate);
-                    }
-                    /*if (customView != null) {
-                        txtappdescription = customView.findViewById(R.id.txtappdescription);
-                    }
-                    */
-                    if (customView != null) {
-                        imgappicon = customView.findViewById(R.id.imgappicon);
-                    }
+                    txtappname = customView.findViewById(R.id.txtappnameheading);
+                    txtpackagename = customView.findViewById(R.id.txtpackagenameheading);
+                    txtappversion = customView.findViewById(R.id.txtappversion);
+                    txtappminsdk = customView.findViewById(R.id.txtappminsdk);
+                    txtapptargetsdk = customView.findViewById(R.id.txtapptargetsdk);
+                    txtappinstalldate = customView.findViewById(R.id.txtappinstalldate);
+                    txtappupdatedate = customView.findViewById(R.id.txtappupdatedate);
+                    imgappicon = customView.findViewById(R.id.imgappicon);
 
-                    mPopupWindow = new PopupWindow(
-                            customView,
-                            RelativeLayout.LayoutParams.WRAP_CONTENT,
-                            RelativeLayout.LayoutParams.WRAP_CONTENT
-                    );
+                    mPopupWindow = new PopupWindow(customView, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
                     mPopupWindow.setElevation(5.0f);
 
                     txtappname.setText(appname);
@@ -217,9 +194,6 @@ public class tabApps extends Fragment {
                     String updatedate = new SimpleDateFormat("EEE, d MMM yyyy", Locale.US).format(new Date(getContext().getPackageManager().getPackageInfo(packgename, 0).lastUpdateTime));
                     String finalupdatedate = "Last Updated : " + updatedate;
                     txtappupdatedate.setText(finalupdatedate);
-
-
-                    // txtappdescription.setText(appinfo.);
 
                     Drawable icon = getContext().getPackageManager().getApplicationIcon(packgename);
                     imgappicon.setImageDrawable(icon);

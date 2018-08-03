@@ -36,7 +36,7 @@ public class tabSystem extends Fragment {
         TextView txtRootStatus = rootView.findViewById(R.id.txtRootStatus);
 
         try {
-            TextDisColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorAccent);
+            TextDisColor = MainActivity.themeColor;
             LineColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorButtonNormal);
 
             switch (Build.VERSION.SDK_INT) {

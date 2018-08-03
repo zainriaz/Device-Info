@@ -1,19 +1,35 @@
 package com.ytheekshana.deviceinfo;
 
+import android.app.ActivityManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.preference.SwitchPreference;
 import android.view.MenuItem;
+
+import com.kizitonwose.colorpreference.ColorDialog;
 
 public class SettingsActivity extends AppCompatPreferenceActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences shpre = PreferenceManager.getDefaultSharedPreferences(this);
-        MainActivity.themeId = shpre.getInt("ThemeBar", 0);
+        MainActivity.themeId = shpre.getInt("ThemeBar", R.style.AppTheme);
         setTheme(MainActivity.themeId);
+
+        if (shpre.getInt("ThemeBar", 0) != R.style.AppThemeDark) {
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(MainActivity.themeColor));
+            getWindow().setStatusBarColor(MainActivity.themeColorDark);
+        }
+        Bitmap icon = BitmapFactory.decodeResource(getResources(),R.drawable.icon);
+        ActivityManager.TaskDescription taskDescription = new ActivityManager.TaskDescription(getString(R.string.app_name),icon , MainActivity.themeColor);
+        setTaskDescription(taskDescription);
 
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -21,19 +37,23 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     }
 
     public static class MainPreferenceFragment extends PreferenceFragment {
+
+        SwitchPreference dark_theme_Pref;
+        SharedPreferences sharedPrefs;
+        SharedPreferences.Editor shareEdit;
+
         @Override
         public void onCreate(final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.settings);
-            final SharedPreferences sharedprefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-            final SharedPreferences.Editor shareEdit = sharedprefs.edit();
+            sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            shareEdit = sharedPrefs.edit();
 
-            sharedprefs.registerOnSharedPreferenceChangeListener(new SharedPreferences.OnSharedPreferenceChangeListener() {
-                @Override
-                public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+            dark_theme_Pref = (SwitchPreference) findPreference("dark_theme_switch");
+            dark_theme_Pref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                public boolean onPreferenceClick(Preference preference) {
 
-                    boolean darkt = sharedPreferences.getBoolean("dark_theme", false);
-                    if (darkt) {
+                    if (dark_theme_Pref.isChecked()) {
                         shareEdit.putInt("ThemeNoBar", R.style.AppThemeDark_NoActionBar);
                         shareEdit.putInt("ThemeBar", R.style.AppThemeDark);
                     } else {
@@ -45,8 +65,15 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                     if (getActivity() != null) {
                         getActivity().recreate();
                     }
+                    return true;
                 }
             });
+
+            if (sharedPrefs.getInt("ThemeBar", 0) == R.style.AppThemeDark) {
+                dark_theme_Pref.setChecked(true);
+            } else {
+                dark_theme_Pref.setChecked(false);
+            }
         }
     }
 

@@ -9,7 +9,6 @@
         <item name="cardStyle">@style/CardView.Light</item>
         <item name="listDividerStyle">@style/ListViewStyle.Light</item>
         <item name="popupWindowStyle">@style/PopupAppWindow.Light</item>
-        <item name="popupWindowHeaderStyle">@style/PopupAppWindowHeader.Light</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -48,7 +47,6 @@
         <item name="cardStyle">@style/CardView.Dark</item>
         <item name="listDividerStyle">@style/ListViewStyle.Dark</item>
         <item name="popupWindowStyle">@style/PopupAppWindow.Dark</item>
-        <item name="popupWindowHeaderStyle">@style/PopupAppWindowHeader.Dark</item>
     </style>
 
     <style name="AppThemeDark.NoActionBar">
@@ -70,14 +68,6 @@
 
     <style name="PopupAppWindow.Dark" parent="AppTheme.PopupOverlay">
         <item name="android:background">@color/background_material_dark</item>
-    </style>
-
-    <style name="PopupAppWindowHeader.Light" parent="AppTheme.PopupOverlay">
-        <item name="android:background">@color/colorPrimary</item>
-    </style>
-
-    <style name="PopupAppWindowHeader.Dark" parent="AppTheme.PopupOverlay">
-        <item name="android:background">@color/DarkcolorPrimary</item>
     </style>
 
 </resources>

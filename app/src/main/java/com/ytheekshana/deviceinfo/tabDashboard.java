@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.LightingColorFilter;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.BatteryManager;
@@ -19,12 +21,14 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.ColorUtils;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
@@ -43,174 +47,197 @@ public class tabDashboard extends Fragment {
     CPUUsage cu2;
     String cUsage;
     Timer timercUsage;
+    int colorProgressBackground;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tabdashboard, container, false);
         //006bff
-        IntentFilter batteryIntentFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-        BatteryContext = Objects.requireNonNull(getActivity()).getApplicationContext();
-        BatteryContext.registerReceiver(batteryBroadcastReceiver, batteryIntentFilter);
-        cu2 = new CPUUsage();
-        final CardView cardRam = rootView.findViewById(R.id.cardviewRam);
-        final CardView cardRom = rootView.findViewById(R.id.cardviewRom);
-        final CardView cardInternalStorage = rootView.findViewById(R.id.cardviewInStorage);
-        final CardView cardExternalStorage = rootView.findViewById(R.id.cardviewExStorage);
-        final CardView cardBattery = rootView.findViewById(R.id.cardviewBattery);
-        final CardView cardCpu = rootView.findViewById(R.id.cardviewCPU);
-        final CardView cardSensor = rootView.findViewById(R.id.cardviewSensor);
-        final CardView cardApps = rootView.findViewById(R.id.cardviewApp);
+        try {
+            colorProgressBackground = ColorUtils.setAlphaComponent(MainActivity.themeColor,70);
 
-        txtRamPerce = rootView.findViewById(R.id.txtRamPerc);
-        txtRamStatus = rootView.findViewById(R.id.txtRamStatus);
-        txtRomPerce = rootView.findViewById(R.id.txtROMPerc);
-        txtRomStatus = rootView.findViewById(R.id.txtROMStatus);
-        txtBatteryPerce = rootView.findViewById(R.id.txtBatteryPerc);
-        txtBatteryStatus = rootView.findViewById(R.id.txtBatteryStatus);
-        txtInStoragePerce = rootView.findViewById(R.id.txtInStoragePerc);
-        txtInStorageStatus = rootView.findViewById(R.id.txtInStorageStatus);
-        txtExStoragePerce = rootView.findViewById(R.id.txtExStoragePerc);
-        txtExStorageStatus = rootView.findViewById(R.id.txtExStorageStatus);
-        txtCPUPerce = rootView.findViewById(R.id.txtCPUPerc);
-        txtCPUStatus = rootView.findViewById(R.id.txtCPUStatus);
-        txtSensorCount = rootView.findViewById(R.id.txtSensorCount);
-        txtAppCount = rootView.findViewById(R.id.txtAppCount);
+            ImageView imgRAM = rootView.findViewById(R.id.imageRam);
+            ImageView imgROM = rootView.findViewById(R.id.imageROM);
+            ImageView imgInStorage = rootView.findViewById(R.id.imageInStorage);
+            ImageView imgExStorage = rootView.findViewById(R.id.imageExStorage);
+            ImageView imgBattery = rootView.findViewById(R.id.imageBattery);
+            ImageView imgCPU = rootView.findViewById(R.id.imageCPU);
+            ImageView imgSensor = rootView.findViewById(R.id.imageSensor);
+            ImageView imgApps = rootView.findViewById(R.id.imageApps);
 
-        ProgressBarRam = rootView.findViewById(R.id.progressRam);
-        ProgressBarRam.setProgressColor(Color.parseColor("#0059d4"));
-        ProgressBarRam.setProgressBackgroundColor(Color.parseColor("#c2dbfd"));
-        ProgressBarRam.setMax(100);
-        ProgressBarRam.setRadius(0);
+            ColorFilter accentFilter = new LightingColorFilter(Color.BLACK,MainActivity.themeColor);
+            imgRAM.setColorFilter(accentFilter);
+            imgROM.setColorFilter(accentFilter);
+            imgInStorage.setColorFilter(accentFilter);
+            imgExStorage.setColorFilter(accentFilter);
+            imgBattery.setColorFilter(accentFilter);
+            imgCPU.setColorFilter(accentFilter);
+            imgSensor.setColorFilter(accentFilter);
+            imgApps.setColorFilter(accentFilter);
 
-        ProgressBarRom = rootView.findViewById(R.id.progressRom);
-        ProgressBarRom.setProgressColor(Color.parseColor("#0059d4"));
-        ProgressBarRom.setProgressBackgroundColor(Color.parseColor("#c2dbfd"));
-        ProgressBarRom.setMax(100);
-        ProgressBarRom.setRadius(0);
+            IntentFilter batteryIntentFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+            BatteryContext = Objects.requireNonNull(getActivity()).getApplicationContext();
+            BatteryContext.registerReceiver(batteryBroadcastReceiver, batteryIntentFilter);
+            cu2 = new CPUUsage();
+            final CardView cardRam = rootView.findViewById(R.id.cardviewRam);
+            final CardView cardRom = rootView.findViewById(R.id.cardviewRom);
+            final CardView cardInternalStorage = rootView.findViewById(R.id.cardviewInStorage);
+            final CardView cardExternalStorage = rootView.findViewById(R.id.cardviewExStorage);
+            final CardView cardBattery = rootView.findViewById(R.id.cardviewBattery);
+            final CardView cardCpu = rootView.findViewById(R.id.cardviewCPU);
+            final CardView cardSensor = rootView.findViewById(R.id.cardviewSensor);
+            final CardView cardApps = rootView.findViewById(R.id.cardviewApp);
 
-        ProgressBarBattery = rootView.findViewById(R.id.progressBattery);
-        ProgressBarBattery.setProgressColor(Color.parseColor("#0059d4"));
-        ProgressBarBattery.setProgressBackgroundColor(Color.parseColor("#c2dbfd"));
-        ProgressBarBattery.setMax(100);
-        ProgressBarBattery.setRadius(0);
+            txtRamPerce = rootView.findViewById(R.id.txtRamPerc);
+            txtRamStatus = rootView.findViewById(R.id.txtRamStatus);
+            txtRomPerce = rootView.findViewById(R.id.txtROMPerc);
+            txtRomStatus = rootView.findViewById(R.id.txtROMStatus);
+            txtBatteryPerce = rootView.findViewById(R.id.txtBatteryPerc);
+            txtBatteryStatus = rootView.findViewById(R.id.txtBatteryStatus);
+            txtInStoragePerce = rootView.findViewById(R.id.txtInStoragePerc);
+            txtInStorageStatus = rootView.findViewById(R.id.txtInStorageStatus);
+            txtExStoragePerce = rootView.findViewById(R.id.txtExStoragePerc);
+            txtExStorageStatus = rootView.findViewById(R.id.txtExStorageStatus);
+            txtCPUPerce = rootView.findViewById(R.id.txtCPUPerc);
+            txtCPUStatus = rootView.findViewById(R.id.txtCPUStatus);
+            txtSensorCount = rootView.findViewById(R.id.txtSensorCount);
+            txtAppCount = rootView.findViewById(R.id.txtAppCount);
 
-        ProgressBarInStorage = rootView.findViewById(R.id.progressInStorage);
-        ProgressBarInStorage.setProgressColor(Color.parseColor("#0059d4"));
-        ProgressBarInStorage.setProgressBackgroundColor(Color.parseColor("#c2dbfd"));
-        ProgressBarInStorage.setMax(100);
-        ProgressBarInStorage.setRadius(0);
+            ProgressBarRam = rootView.findViewById(R.id.progressRam);
+            ProgressBarRam.setProgressColor(MainActivity.themeColor);
+            ProgressBarRam.setProgressBackgroundColor(colorProgressBackground);
+            ProgressBarRam.setMax(100);
+            ProgressBarRam.setRadius(0);
 
-        ProgressBarExStorage = rootView.findViewById(R.id.progressExStorage);
-        ProgressBarExStorage.setProgressColor(Color.parseColor("#0059d4"));
-        ProgressBarExStorage.setProgressBackgroundColor(Color.parseColor("#c2dbfd"));
-        ProgressBarExStorage.setMax(100);
-        ProgressBarExStorage.setRadius(0);
+            ProgressBarRom = rootView.findViewById(R.id.progressRom);
+            ProgressBarRom.setProgressColor(MainActivity.themeColor);
+            ProgressBarRom.setProgressBackgroundColor(colorProgressBackground);
+            ProgressBarRom.setMax(100);
+            ProgressBarRom.setRadius(0);
 
-        ProgressBarCPU = rootView.findViewById(R.id.progressCPU);
-        ProgressBarCPU.setProgressColor(Color.parseColor("#0059d4"));
-        ProgressBarCPU.setProgressBackgroundColor(Color.parseColor("#c2dbfd"));
-        ProgressBarCPU.setMax(100);
-        ProgressBarCPU.setRadius(0);
+            ProgressBarBattery = rootView.findViewById(R.id.progressBattery);
+            ProgressBarBattery.setProgressColor(MainActivity.themeColor);
+            ProgressBarBattery.setProgressBackgroundColor(colorProgressBackground);
+            ProgressBarBattery.setMax(100);
+            ProgressBarBattery.setRadius(0);
 
-        startCPU = cu2.getTotalCpuUsage();
-        PackageManager pm = Objects.requireNonNull(getActivity()).getPackageManager();
-        int numberOfInstalledApps = pm.getInstalledApplications(0).size();
-        //txtAppCount.setText(numberOfInstalledApps);
-        SensorManager mSensorManager = (SensorManager) Objects.requireNonNull(getActivity()).getSystemService(Context.SENSOR_SERVICE);
-        int numberOfSensors = Objects.requireNonNull(mSensorManager).getSensorList(Sensor.TYPE_ALL).size();
-        // txtSensorCount.setText(numberOfSensors);
-        animateTextView(0, numberOfInstalledApps, txtAppCount);
-        animateTextView(0, numberOfSensors, txtSensorCount);
+            ProgressBarInStorage = rootView.findViewById(R.id.progressInStorage);
+            ProgressBarInStorage.setProgressColor(MainActivity.themeColor);
+            ProgressBarInStorage.setProgressBackgroundColor(colorProgressBackground);
+            ProgressBarInStorage.setMax(100);
+            ProgressBarInStorage.setRadius(0);
 
-        GetRam();
-        startRAM = (int) UPerc;
-        String setRam = "Free:" + String.format(Locale.US, "%.2f", ARam / 1024) + " GB, Total:" + String.format(Locale.US, "%.2f", TRam / 1024) + " GB";
-        txtRamStatus.setText(setRam);
-        String ram_percentage = String.valueOf((int) UPerc) + "%";
-        txtRamPerce.setText(ram_percentage);
+            ProgressBarExStorage = rootView.findViewById(R.id.progressExStorage);
+            ProgressBarExStorage.setProgressColor(MainActivity.themeColor);
+            ProgressBarExStorage.setProgressBackgroundColor(colorProgressBackground);
+            ProgressBarExStorage.setMax(100);
+            ProgressBarExStorage.setRadius(0);
 
-        GetRom();
-        startROM = (int) UsedPercRom;
-        String setRom = "Free:" + String.format(Locale.US, "%.1f", AvailableStoRom) + " GB, Total:" + String.format(Locale.US, "%.1f", TotalStoRom) + " GB";
-        txtRomStatus.setText(setRom);
-        String storage_percentageRom = String.valueOf((int) UsedPercRom) + "%";
-        txtRomPerce.setText(storage_percentageRom);
+            ProgressBarCPU = rootView.findViewById(R.id.progressCPU);
+            ProgressBarCPU.setProgressColor(MainActivity.themeColor);
+            ProgressBarCPU.setProgressBackgroundColor(colorProgressBackground);
+            ProgressBarCPU.setMax(100);
+            ProgressBarCPU.setRadius(0);
 
-        GetInStorage();
-        startInStorage = (int) UsedPercInSto;
-        String setInStorage = "Free:" + String.format(Locale.US, "%.1f", AvailableInSto) + " GB, Total:" + String.format(Locale.US, "%.1f", TotalInSto) + " GB";
-        txtInStorageStatus.setText(setInStorage);
-        String in_storage_percentage = String.valueOf((int) UsedPercInSto) + "%";
-        txtInStoragePerce.setText(in_storage_percentage);
+            startCPU = cu2.getTotalCpuUsage();
+            PackageManager pm = Objects.requireNonNull(getActivity()).getPackageManager();
+            int numberOfInstalledApps = pm.getInstalledApplications(0).size();
+            //txtAppCount.setText(numberOfInstalledApps);
+            SensorManager mSensorManager = (SensorManager) Objects.requireNonNull(getActivity()).getSystemService(Context.SENSOR_SERVICE);
+            int numberOfSensors = Objects.requireNonNull(mSensorManager).getSensorList(Sensor.TYPE_ALL).size();
+            // txtSensorCount.setText(numberOfSensors);
+            animateTextView(0, numberOfInstalledApps, txtAppCount);
+            animateTextView(0, numberOfSensors, txtSensorCount);
 
-        if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED) && ContextCompat.getExternalFilesDirs(Objects.requireNonNull(getContext()), null).length >= 2) {
-            cardExternalStorage.setVisibility(View.VISIBLE);
-            GetExStorage();
-            startExStorage = (int) UsedPercExSto;
-            String setExStorage = "Free:" + String.format(Locale.US, "%.1f", AvailableExSto) + " GB, Total:" + String.format(Locale.US, "%.1f", TotalExSto) + " GB";
-            txtExStorageStatus.setText(setExStorage);
-            String ex_storage_percentage = String.valueOf((int) UsedPercExSto) + "%";
-            txtExStoragePerce.setText(ex_storage_percentage);
-        } else {
-            cardExternalStorage.setVisibility(View.GONE);
-        }
+            GetRam();
+            startRAM = (int) UPerc;
+            String setRam = "Free:" + String.format(Locale.US, "%.2f", ARam / 1024) + " GB, Total:" + String.format(Locale.US, "%.2f", TRam / 1024) + " GB";
+            txtRamStatus.setText(setRam);
+            String ram_percentage = String.valueOf((int) UPerc) + "%";
+            txtRamPerce.setText(ram_percentage);
 
-        final Handler updateRam = new Handler();
-        Runnable runnable = new Runnable() {
-            public void run() {
-                GetRam();
-                ProgressBarRam.setProgress((int) UPerc);
-                String ram_percentage = (int) UPerc + "%";
-                txtRamPerce.setText(ram_percentage);
-                String setRam = "Free:" + String.format(Locale.US, "%.2f", ARam / 1024) + " GB, Total:" + String.format(Locale.US, "%.2f", TRam / 1024) + " GB";
-                txtRamStatus.setText(setRam);
-                updateRam.postDelayed(this, 1000);
+            GetRom();
+            startROM = (int) UsedPercRom;
+            String setRom = "Free:" + String.format(Locale.US, "%.1f", AvailableStoRom) + " GB, Total:" + String.format(Locale.US, "%.1f", TotalStoRom) + " GB";
+            txtRomStatus.setText(setRom);
+            String storage_percentageRom = String.valueOf((int) UsedPercRom) + "%";
+            txtRomPerce.setText(storage_percentageRom);
+
+            GetInStorage();
+            startInStorage = (int) UsedPercInSto;
+            String setInStorage = "Free:" + String.format(Locale.US, "%.1f", AvailableInSto) + " GB, Total:" + String.format(Locale.US, "%.1f", TotalInSto) + " GB";
+            txtInStorageStatus.setText(setInStorage);
+            String in_storage_percentage = String.valueOf((int) UsedPercInSto) + "%";
+            txtInStoragePerce.setText(in_storage_percentage);
+
+            if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED) && ContextCompat.getExternalFilesDirs(Objects.requireNonNull(getContext()), null).length >= 2) {
+                cardExternalStorage.setVisibility(View.VISIBLE);
+                GetExStorage();
+                startExStorage = (int) UsedPercExSto;
+                String setExStorage = "Free:" + String.format(Locale.US, "%.1f", AvailableExSto) + " GB, Total:" + String.format(Locale.US, "%.1f", TotalExSto) + " GB";
+                txtExStorageStatus.setText(setExStorage);
+                String ex_storage_percentage = String.valueOf((int) UsedPercExSto) + "%";
+                txtExStoragePerce.setText(ex_storage_percentage);
+            } else {
+                cardExternalStorage.setVisibility(View.GONE);
             }
-        };
-        updateRam.postDelayed(runnable, 1000);
 
-        timercUsage = new Timer();
-        timercUsage.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                usagecpu = cu2.getTotalCpuUsage();
-                cUsage = String.valueOf(usagecpu) + " %";
-                txtCPUPerce.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        txtCPUPerce.setText(cUsage);
-                    }
-                });
-                ProgressBarCPU.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        ProgressBarCPU.setProgress(usagecpu);
-                    }
-                });
+            final Handler updateRam = new Handler();
+            Runnable runnable = new Runnable() {
+                public void run() {
+                    GetRam();
+                    ProgressBarRam.setProgress((int) UPerc);
+                    String ram_percentage = (int) UPerc + "%";
+                    txtRamPerce.setText(ram_percentage);
+                    String setRam = "Free:" + String.format(Locale.US, "%.2f", ARam / 1024) + " GB, Total:" + String.format(Locale.US, "%.2f", TRam / 1024) + " GB";
+                    txtRamStatus.setText(setRam);
+                    updateRam.postDelayed(this, 1000);
+                }
+            };
+            updateRam.postDelayed(runnable, 1000);
 
-            }
-        }, 1000, 1000);
+            timercUsage = new Timer();
+            timercUsage.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    usagecpu = cu2.getTotalCpuUsage();
+                    cUsage = String.valueOf(usagecpu) + " %";
+                    txtCPUPerce.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            txtCPUPerce.setText(cUsage);
+                        }
+                    });
+                    ProgressBarCPU.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            ProgressBarCPU.setProgress(usagecpu);
+                        }
+                    });
 
-        ObjectAnimator progressAnimatorRAM = ObjectAnimator.ofFloat(ProgressBarRam, "progress", 0.0f, (float) startRAM);
-        progressAnimatorRAM.setDuration(800);
-        progressAnimatorRAM.start();
+                }
+            }, 1000, 1000);
 
-        ObjectAnimator progressAnimatorROM = ObjectAnimator.ofFloat(ProgressBarRom, "progress", 0.0f, (float) startROM);
-        progressAnimatorROM.setDuration(800);
-        progressAnimatorROM.start();
+            ObjectAnimator progressAnimatorRAM = ObjectAnimator.ofFloat(ProgressBarRam, "progress", 0.0f, (float) startRAM);
+            progressAnimatorRAM.setDuration(800);
+            progressAnimatorRAM.start();
 
-        ObjectAnimator progressAnimatorInStorage = ObjectAnimator.ofFloat(ProgressBarInStorage, "progress", 0.0f, (float) startInStorage);
-        progressAnimatorInStorage.setDuration(800);
-        progressAnimatorInStorage.start();
+            ObjectAnimator progressAnimatorROM = ObjectAnimator.ofFloat(ProgressBarRom, "progress", 0.0f, (float) startROM);
+            progressAnimatorROM.setDuration(800);
+            progressAnimatorROM.start();
 
-        ObjectAnimator progressAnimatorExStorage = ObjectAnimator.ofFloat(ProgressBarExStorage, "progress", 0.0f, (float) startExStorage);
-        progressAnimatorExStorage.setDuration(800);
-        progressAnimatorExStorage.start();
+            ObjectAnimator progressAnimatorInStorage = ObjectAnimator.ofFloat(ProgressBarInStorage, "progress", 0.0f, (float) startInStorage);
+            progressAnimatorInStorage.setDuration(800);
+            progressAnimatorInStorage.start();
 
-        ObjectAnimator progressAnimatorCPU = ObjectAnimator.ofFloat(ProgressBarCPU, "progress", 0.0f, (float) startCPU);
-        progressAnimatorCPU.setDuration(800);
-        progressAnimatorCPU.start();
+            ObjectAnimator progressAnimatorExStorage = ObjectAnimator.ofFloat(ProgressBarExStorage, "progress", 0.0f, (float) startExStorage);
+            progressAnimatorExStorage.setDuration(800);
+            progressAnimatorExStorage.start();
+
+            ObjectAnimator progressAnimatorCPU = ObjectAnimator.ofFloat(ProgressBarCPU, "progress", 0.0f, (float) startCPU);
+            progressAnimatorCPU.setDuration(800);
+            progressAnimatorCPU.start();
 
 
         /*Thread LoadStartRam = new Thread() {
@@ -233,71 +260,74 @@ public class tabDashboard extends Fragment {
         };
         LoadStartRam.start();*/
 
-        final com.ytheekshana.deviceinfo.BounceInterpolator bounceInterpolator = new com.ytheekshana.deviceinfo.BounceInterpolator(0.2, 20);
-        cardRam.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Animation animRam = AnimationUtils.loadAnimation(getContext(), R.anim.bounce_dash);
-                animRam.setInterpolator(bounceInterpolator);
-                cardRam.startAnimation(animRam);
-            }
-        });
-        cardRom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Animation animRom = AnimationUtils.loadAnimation(getContext(), R.anim.bounce_dash);
-                animRom.setInterpolator(bounceInterpolator);
-                cardRom.startAnimation(animRom);
-            }
-        });
-        cardInternalStorage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Animation animInSto = AnimationUtils.loadAnimation(getContext(), R.anim.bounce_dash);
-                animInSto.setInterpolator(bounceInterpolator);
-                cardInternalStorage.startAnimation(animInSto);
-            }
-        });
-        cardExternalStorage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Animation animExSto = AnimationUtils.loadAnimation(getContext(), R.anim.bounce_dash);
-                animExSto.setInterpolator(bounceInterpolator);
-                cardExternalStorage.startAnimation(animExSto);
-            }
-        });
-        cardBattery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Animation animBattery = AnimationUtils.loadAnimation(getContext(), R.anim.bounce_dash);
-                animBattery.setInterpolator(bounceInterpolator);
-                cardBattery.startAnimation(animBattery);
-            }
-        });
-        cardCpu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Animation animCpu = AnimationUtils.loadAnimation(getContext(), R.anim.bounce_dash);
-                animCpu.setInterpolator(bounceInterpolator);
-                cardCpu.startAnimation(animCpu);
-            }
-        });
-        cardSensor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Animation animSensor = AnimationUtils.loadAnimation(getContext(), R.anim.bounce_dash);
-                animSensor.setInterpolator(bounceInterpolator);
-                cardSensor.startAnimation(animSensor);
-            }
-        });
-        cardApps.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Animation animApps = AnimationUtils.loadAnimation(getContext(), R.anim.bounce_dash);
-                animApps.setInterpolator(bounceInterpolator);
-                cardApps.startAnimation(animApps);
-            }
-        });
+            final com.ytheekshana.deviceinfo.BounceInterpolator bounceInterpolator = new com.ytheekshana.deviceinfo.BounceInterpolator(0.2, 20);
+            cardRam.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Animation animRam = AnimationUtils.loadAnimation(getContext(), R.anim.bounce_dash);
+                    animRam.setInterpolator(bounceInterpolator);
+                    cardRam.startAnimation(animRam);
+                }
+            });
+            cardRom.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Animation animRom = AnimationUtils.loadAnimation(getContext(), R.anim.bounce_dash);
+                    animRom.setInterpolator(bounceInterpolator);
+                    cardRom.startAnimation(animRom);
+                }
+            });
+            cardInternalStorage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Animation animInSto = AnimationUtils.loadAnimation(getContext(), R.anim.bounce_dash);
+                    animInSto.setInterpolator(bounceInterpolator);
+                    cardInternalStorage.startAnimation(animInSto);
+                }
+            });
+            cardExternalStorage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Animation animExSto = AnimationUtils.loadAnimation(getContext(), R.anim.bounce_dash);
+                    animExSto.setInterpolator(bounceInterpolator);
+                    cardExternalStorage.startAnimation(animExSto);
+                }
+            });
+            cardBattery.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Animation animBattery = AnimationUtils.loadAnimation(getContext(), R.anim.bounce_dash);
+                    animBattery.setInterpolator(bounceInterpolator);
+                    cardBattery.startAnimation(animBattery);
+                }
+            });
+            cardCpu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Animation animCpu = AnimationUtils.loadAnimation(getContext(), R.anim.bounce_dash);
+                    animCpu.setInterpolator(bounceInterpolator);
+                    cardCpu.startAnimation(animCpu);
+                }
+            });
+            cardSensor.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Animation animSensor = AnimationUtils.loadAnimation(getContext(), R.anim.bounce_dash);
+                    animSensor.setInterpolator(bounceInterpolator);
+                    cardSensor.startAnimation(animSensor);
+                }
+            });
+            cardApps.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Animation animApps = AnimationUtils.loadAnimation(getContext(), R.anim.bounce_dash);
+                    animApps.setInterpolator(bounceInterpolator);
+                    cardApps.startAnimation(animApps);
+                }
+            });
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 
         return rootView;
     }

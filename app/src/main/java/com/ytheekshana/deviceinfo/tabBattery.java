@@ -35,7 +35,7 @@ public class tabBattery extends Fragment {
         llayout = rootView.findViewById(R.id.llayout);
 
         try {
-            TextDisColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorAccent);
+            TextDisColor = MainActivity.themeColor;
             LineColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorButtonNormal);
 
             IntentFilter iFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);

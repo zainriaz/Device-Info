@@ -1,11 +1,18 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <PreferenceCategory android:title="Theme">
 
         <SwitchPreference
-            android:id="@+id/dark_theme"
-            android:key="dark_theme"
+            android:id="@+id/dark_theme_switch"
+            android:key="dark_theme_switch"
             android:summary="Enable Dark Theme"
             android:title="Dark Theme" />
+        <com.kizitonwose.colorpreference.ColorPreference
+            android:defaultValue="@color/colorPrimary"
+            android:key="accent_color_dialog"
+            android:summary="Select an Accent Color"
+            android:title="Accent Color"
+            app:colorChoices="@array/accent_colors"
+            app:colorShape="circle" />
     </PreferenceCategory>
-
 </PreferenceScreen>

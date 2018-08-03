@@ -41,59 +41,45 @@ public class tabMemory extends Fragment {
     int startRam, startRom, startInS, startExS;
     int UPerc;
 
-    /*
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && getActivity() != null) {
-
-            ObjectAnimator progressAnimatorRAM = ObjectAnimator.ofFloat(progressRam, "progress", 0.0f, (float) startRam);
-            progressAnimatorRAM.setDuration(800);
-            progressAnimatorRAM.start();
-
-            ObjectAnimator progressAnimatorROM = ObjectAnimator.ofFloat(progressRom, "progress", 0.0f, (float) startRom);
-            progressAnimatorROM.setDuration(800);
-            progressAnimatorROM.start();
-
-            ObjectAnimator progressAnimatorInS = ObjectAnimator.ofFloat(progressInStorage, "progress", 0.0f, (float) startInS);
-            progressAnimatorInS.setDuration(800);
-            progressAnimatorInS.start();
-
-            if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED) && ContextCompat.getExternalFilesDirs(Objects.requireNonNull(getContext()), null).length >= 2) {
-                ObjectAnimator progressAnimatorExS = ObjectAnimator.ofFloat(progressExStorage, "progress", 0.0f, (float) startExS);
-                progressAnimatorExS.setDuration(800);
-                progressAnimatorExS.start();
-            }
-        }
-    }*/
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tabmemory, container, false);
 
-        TextDisColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorAccent);
+        TextDisColor = MainActivity.themeColor;
         LineColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorButtonNormal);
 
         try {
             txtRamTotal = rootView.findViewById(R.id.txtRamTotal);
+            txtRamTotal.setTextColor(TextDisColor);
             txtRamFree = rootView.findViewById(R.id.txtRamFree);
+            txtRamFree.setTextColor(TextDisColor);
             txtRamUsed = rootView.findViewById(R.id.txtRamUsed);
+            txtRamUsed.setTextColor(TextDisColor);
             progressRam = rootView.findViewById(R.id.progressRam);
 
             txtRomTotal = rootView.findViewById(R.id.txtRomTotal);
+            txtRomTotal.setTextColor(TextDisColor);
             txtRomFree = rootView.findViewById(R.id.txtRomFree);
+            txtRomFree.setTextColor(TextDisColor);
             txtRomUsed = rootView.findViewById(R.id.txtRomUsed);
+            txtRomUsed.setTextColor(TextDisColor);
             progressRom = rootView.findViewById(R.id.progressRom);
 
             txtInStorageTotal = rootView.findViewById(R.id.txtInStorageTotal);
+            txtInStorageTotal.setTextColor(TextDisColor);
             txtInStorageFree = rootView.findViewById(R.id.txtInStorageFree);
+            txtInStorageFree.setTextColor(TextDisColor);
             txtInStorageUsed = rootView.findViewById(R.id.txtInStorageUsed);
+            txtInStorageUsed.setTextColor(TextDisColor);
             progressInStorage = rootView.findViewById(R.id.progressInStorage);
 
             txtExStorageTotal = rootView.findViewById(R.id.txtExStorageTotal);
+            txtExStorageTotal.setTextColor(TextDisColor);
             txtExStorageFree = rootView.findViewById(R.id.txtExStorageFree);
+            txtExStorageFree.setTextColor(TextDisColor);
             txtExStorageUsed = rootView.findViewById(R.id.txtExStorageUsed);
+            txtExStorageUsed.setTextColor(TextDisColor);
             progressExStorage = rootView.findViewById(R.id.progressExStorage);
             cardExStorage = rootView.findViewById(R.id.cardExStorageInfo);
 

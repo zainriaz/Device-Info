@@ -7,7 +7,7 @@
     android:paddingLeft="1dp"
     android:paddingRight="1dp"
     android:paddingTop="1dp"
-    tools:context="com.ytheekshana.deviceinfo.MainActivity$PlaceholderFragment">
+    tools:context="com.ytheekshana.deviceinfo.MainActivity">
 
     <ScrollView
         style="@android:style/Widget.Material.ScrollView"
@@ -26,7 +26,7 @@
             android:id="@+id/llayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"></LinearLayout>
+            android:orientation="vertical"/>
 
     </ScrollView>
 </RelativeLayout>

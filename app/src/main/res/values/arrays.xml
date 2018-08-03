@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="accent_colors">
+        <item>#f44336</item>
+        <item>#e91e63</item>
+        <item>#9c27b0</item>
+        <item>#673ab7</item>
+        <item>#3f51b5</item>
+        <item>#2196f3</item>
+        <item>#03a9f4</item>
+        <item>#00bcd4</item>
+        <item>#009688</item>
+        <item>#4caf50</item>
+        <item>#cddc39</item>
+        <item>#ffc107</item>
+        <item>#ff9800</item>
+        <item>#ff5722</item>
+        <item>#795548</item>
+    </string-array>
+    <string-array name="accent_colors_700">
+        <item>#d32f2f</item>
+        <item>#c2185b</item>
+        <item>#7b1fa2</item>
+        <item>#512da8</item>
+        <item>#303f9f</item>
+        <item>#1976d2</item>
+        <item>#0288d1</item>
+        <item>#0097a7</item>
+        <item>#00796b</item>
+        <item>#388e3c</item>
+        <item>#afb42b</item>
+        <item>#ffa000</item>
+        <item>#f57c00</item>
+        <item>#e64a19</item>
+        <item>#5d4037</item>
+    </string-array>
+</resources>

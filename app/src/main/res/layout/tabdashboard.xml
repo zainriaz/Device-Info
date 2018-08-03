@@ -9,7 +9,7 @@
     android:layout_centerHorizontal="true"
     android:clipToPadding="false"
     android:scrollbars="none"
-    tools:context="com.ytheekshana.deviceinfo.MainActivity$PlaceholderFragment">
+    tools:context="com.ytheekshana.deviceinfo.MainActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

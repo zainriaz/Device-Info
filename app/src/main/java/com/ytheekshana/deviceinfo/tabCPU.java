@@ -40,7 +40,7 @@ public class tabCPU extends Fragment implements GLSurfaceView.Renderer {
         cu = new CPUUsage();
 
         try {
-            TextDisColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorAccent);
+            TextDisColor = MainActivity.themeColor;
             LineColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorButtonNormal);
 
             txtGPUsupport.setText(R.string.GPUVendor);

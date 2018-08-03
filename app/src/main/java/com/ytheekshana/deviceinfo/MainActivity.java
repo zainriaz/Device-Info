@@ -1,11 +1,16 @@
 package com.ytheekshana.deviceinfo;
 
+import android.app.ActivityManager;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -18,21 +23,28 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    public static int themeId;
+    public static int themeId, themeColor,themeColorDark;
+    public static List<String> colorThemeColor, colorThemeColorDark;
     NotificationCompat.Builder mBuilder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         SharedPreferences shpre = PreferenceManager.getDefaultSharedPreferences(this);
-        themeId = shpre.getInt("ThemeNoBar", 0);
+        themeId = shpre.getInt("ThemeNoBar", R.style.AppTheme_NoActionBar);
+        themeColor = shpre.getInt("accent_color_dialog", Color.parseColor("#2196f3"));
+        colorThemeColor = Arrays.asList(getResources().getStringArray(R.array.accent_colors));
+        colorThemeColorDark = Arrays.asList(getResources().getStringArray(R.array.accent_colors_700));
+        themeColorDark = getDarkColor(themeColor);
         setTheme(themeId);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        AppBarLayout appbar = findViewById(R.id.appbar);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -42,8 +54,17 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
+        if (shpre.getInt("ThemeNoBar", 0) != R.style.AppThemeDark_NoActionBar) {
+            appbar.setBackgroundColor(themeColor);
+            toolbar.setBackgroundColor(themeColor);
+            tabLayout.setBackgroundColor(themeColor);
+            getWindow().setStatusBarColor(themeColorDark);
+        }
+        Bitmap icon = BitmapFactory.decodeResource(getResources(),R.drawable.icon);
+        ActivityManager.TaskDescription taskDescription = new ActivityManager.TaskDescription(getString(R.string.app_name),icon , themeColor);
+        setTaskDescription(taskDescription);
 
-        mBuilder = new NotificationCompat.Builder(this,"1")
+        mBuilder = new NotificationCompat.Builder(this, "1")
                 .setSmallIcon(R.drawable.cpu)
                 .setContentTitle("Device Info")
                 .setContentText("Gathering Data Completed");
@@ -159,5 +180,10 @@ public class MainActivity extends AppCompatActivity {
             nMgr.cancelAll();
         }
         super.onDestroy();
+    }
+
+    private int getDarkColor(int color) {
+        String getHex = String.format("#%02x%02x%02x", Color.red(color), Color.green(color), Color.blue(color));
+        return Color.parseColor(colorThemeColorDark.get(colorThemeColor.indexOf(getHex)));
     }
 }

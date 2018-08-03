@@ -30,7 +30,7 @@ public class tabDisplay extends Fragment {
         View rootView = inflater.inflate(R.layout.tabdisplay, container, false);
         llayout = rootView.findViewById(R.id.llayout);
         try {
-            TextDisColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorAccent);
+            TextDisColor = MainActivity.themeColor;
             LineColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorButtonNormal);
 
             DisplayMetrics getDisplay = new DisplayMetrics();

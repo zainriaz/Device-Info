@@ -6,7 +6,7 @@
     android:paddingLeft="1dp"
     android:paddingRight="1dp"
     android:paddingTop="1dp"
-    tools:context="com.ytheekshana.deviceinfo.MainActivity$PlaceholderFragment">
+    tools:context="com.ytheekshana.deviceinfo.MainActivity">
 
     <ScrollView
         style="@android:style/Widget.Material.ScrollView"

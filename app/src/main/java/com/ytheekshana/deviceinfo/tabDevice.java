@@ -37,7 +37,7 @@ public class tabDevice extends Fragment {
         llayout = rootView.findViewById(R.id.llayout);
         try {
 
-            TextDisColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorAccent);
+            TextDisColor = MainActivity.themeColor;
             LineColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorButtonNormal);
             tm = (TelephonyManager) Objects.requireNonNull(getActivity()).getSystemService(Context.TELEPHONY_SERVICE);
             //BluetoothAdapter myDevice = BluetoothAdapter.getDefaultAdapter();
