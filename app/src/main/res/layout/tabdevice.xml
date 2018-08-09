@@ -11,6 +11,7 @@
 
     <ScrollView
         style="@android:style/Widget.Material.ScrollView"
+        android:id="@+id/devicescroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"

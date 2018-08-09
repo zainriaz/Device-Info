@@ -23,23 +23,19 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    public static int themeId, themeColor,themeColorDark;
-    public static List<String> colorThemeColor, colorThemeColorDark;
     NotificationCompat.Builder mBuilder;
+    public static int themeColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         SharedPreferences shpre = PreferenceManager.getDefaultSharedPreferences(this);
-        themeId = shpre.getInt("ThemeNoBar", R.style.AppTheme_NoActionBar);
+        int themeId = shpre.getInt("ThemeNoBar", R.style.AppTheme_NoActionBar);
         themeColor = shpre.getInt("accent_color_dialog", Color.parseColor("#2196f3"));
-        colorThemeColor = Arrays.asList(getResources().getStringArray(R.array.accent_colors));
-        colorThemeColorDark = Arrays.asList(getResources().getStringArray(R.array.accent_colors_700));
-        themeColorDark = getDarkColor(themeColor);
+        int themeColorDark = GetDetails.getDarkColor(this, themeColor);
         setTheme(themeId);
 
         super.onCreate(savedInstanceState);
@@ -180,10 +176,5 @@ public class MainActivity extends AppCompatActivity {
             nMgr.cancelAll();
         }
         super.onDestroy();
-    }
-
-    private int getDarkColor(int color) {
-        String getHex = String.format("#%02x%02x%02x", Color.red(color), Color.green(color), Color.blue(color));
-        return Color.parseColor(colorThemeColorDark.get(colorThemeColor.indexOf(getHex)));
     }
 }

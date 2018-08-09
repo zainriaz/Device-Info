@@ -16,9 +16,12 @@ import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.jaredrummler.android.device.DeviceName;
 
 import java.util.Objects;
 
@@ -40,13 +43,9 @@ public class tabDevice extends Fragment {
             TextDisColor = MainActivity.themeColor;
             LineColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorButtonNormal);
             tm = (TelephonyManager) Objects.requireNonNull(getActivity()).getSystemService(Context.TELEPHONY_SERVICE);
-            //BluetoothAdapter myDevice = BluetoothAdapter.getDefaultAdapter();
-            //String deviceName = myDevice.getName();
-
-            String deviceName = GetDetails.GetFromBuildProp("ro.semc.product.name").equals("")?"Unknown":GetDetails.GetFromBuildProp("ro.semc.product.name");
 
             TextView txtName = new TextView(getContext());
-            TextView txtNamedis = new TextView(getContext());
+            final TextView txtNamedis = new TextView(getContext());
             View v20 = new View(getContext());
             v20.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
             v20.setBackgroundColor(LineColor);
@@ -56,11 +55,24 @@ public class tabDevice extends Fragment {
             txtNamedis.setPadding(0, 0, 0, 15);
             txtNamedis.setTextColor(TextDisColor);
             txtNamedis.setTextSize(16);
-            txtNamedis.setText(deviceName);
+            //txtNamedis.setText(deviceName);
             txtNamedis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             llayout.addView(txtName);
             llayout.addView(txtNamedis);
             llayout.addView(v20);
+
+            if (GetDetails.GetFromBuildProp("ro.semc.product.name").equals("")) {
+                DeviceName.with(getContext()).request(new DeviceName.Callback() {
+
+                    @Override
+                    public void onFinished(DeviceName.DeviceInfo info, Exception error) {
+                        txtNamedis.setText(info.getName());
+                    }
+                });
+            } else {
+                txtNamedis.setText(GetDetails.GetFromBuildProp("ro.semc.product.name"));
+            }
+
 
             TextView txtModel = new TextView(getContext());
             TextView txtModeldis = new TextView(getContext());

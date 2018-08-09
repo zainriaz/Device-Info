@@ -3,6 +3,7 @@ package com.ytheekshana.deviceinfo;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Environment;
@@ -22,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.NetworkInterface;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -79,7 +81,7 @@ class GetDetails {
                 OSName = "Oreo MR1";
                 break;
             case 28:
-                OSName = "Android P";
+                OSName = "Android Pie";
                 break;
             default:
                 OSName = "Unknown";
@@ -121,6 +123,9 @@ class GetDetails {
             case 26:
             case 27:
                 OSReleaseDate = "August 21, 2017";
+                break;
+            case 28:
+                OSReleaseDate = "August 09, 2018";
                 break;
             default:
                 OSReleaseDate = "Unknown";
@@ -164,7 +169,7 @@ class GetDetails {
                 OSName = "Oreo";
                 break;
             case 28:
-                OSName = "P";
+                OSName = "Pie";
                 break;
             default:
                 OSName = "Unknown";
@@ -587,5 +592,12 @@ class GetDetails {
                 break;
         }
         return stype;
+    }
+
+    static int getDarkColor(Context context, int color) {
+        List<String> colorThemeColor = Arrays.asList(context.getResources().getStringArray(R.array.accent_colors));
+        List<String> colorThemeColorDark = Arrays.asList(context.getResources().getStringArray(R.array.accent_colors_700));
+        String getHex = String.format("#%02x%02x%02x", Color.red(color), Color.green(color), Color.blue(color));
+        return Color.parseColor(colorThemeColorDark.get(colorThemeColor.indexOf(getHex)));
     }
 }

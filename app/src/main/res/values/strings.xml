@@ -33,7 +33,7 @@
     <string name="Device">Device</string>
     <string name="Board">Board</string>
     <string name="Hardware">Hardware</string>
-    <string name="Brand">Manufacturer</string>
+    <string name="Brand">Brand</string>
     <string name="DeviceType">Device Type</string>
     <string name="AndroidDeviceID">Android Device ID</string>
     <string name="IMEI">IMEI</string>

@@ -4,6 +4,7 @@ import android.app.ActivityManager;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
@@ -21,16 +22,18 @@ public class AboutActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences shpre = PreferenceManager.getDefaultSharedPreferences(this);
-        MainActivity.themeId = shpre.getInt("ThemeBar", R.style.AppTheme);
-        setTheme(MainActivity.themeId);
+        int themeId = shpre.getInt("ThemeBar", R.style.AppTheme);
+        int themeColor = shpre.getInt("accent_color_dialog", Color.parseColor("#2196f3"));
+        int themeColorDark = GetDetails.getDarkColor(this, themeColor);
+        setTheme(themeId);
 
         if (shpre.getInt("ThemeBar", 0) != R.style.AppThemeDark) {
-            Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(MainActivity.themeColor));
+            Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(themeColor));
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getWindow().setStatusBarColor(MainActivity.themeColorDark);
+            getWindow().setStatusBarColor(themeColorDark);
         }
         Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.icon);
-        ActivityManager.TaskDescription taskDescription = new ActivityManager.TaskDescription(getString(R.string.app_name), icon, MainActivity.themeColor);
+        ActivityManager.TaskDescription taskDescription = new ActivityManager.TaskDescription(getString(R.string.app_name), icon, themeColor);
         setTaskDescription(taskDescription);
 
         super.onCreate(savedInstanceState);

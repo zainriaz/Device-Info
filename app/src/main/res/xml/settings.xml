@@ -8,6 +8,7 @@
             android:summary="Enable Dark Theme"
             android:title="Dark Theme" />
         <com.kizitonwose.colorpreference.ColorPreference
+            android:id="@+id/theme_color"
             android:defaultValue="@color/colorPrimary"
             android:key="accent_color_dialog"
             android:summary="Select an Accent Color"

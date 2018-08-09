@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -15,20 +16,26 @@ import android.view.MenuItem;
 
 import com.kizitonwose.colorpreference.ColorDialog;
 
-public class SettingsActivity extends AppCompatPreferenceActivity {
+public class SettingsActivity extends AppCompatPreferenceActivity implements ColorDialog.OnColorSelectedListener {
+
+    private int themeColor;
+    private int themeColorDark;
+    static com.kizitonwose.colorpreference.ColorPreference theme_color;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences shpre = PreferenceManager.getDefaultSharedPreferences(this);
-        MainActivity.themeId = shpre.getInt("ThemeBar", R.style.AppTheme);
-        setTheme(MainActivity.themeId);
+        int themeId = shpre.getInt("ThemeBar", R.style.AppTheme);
+        themeColor = shpre.getInt("accent_color_dialog", Color.parseColor("#2196f3"));
+        themeColorDark = GetDetails.getDarkColor(this,themeColor);
+        setTheme(themeId);
 
         if (shpre.getInt("ThemeBar", 0) != R.style.AppThemeDark) {
-            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(MainActivity.themeColor));
-            getWindow().setStatusBarColor(MainActivity.themeColorDark);
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(themeColor));
+            getWindow().setStatusBarColor(themeColorDark);
         }
-        Bitmap icon = BitmapFactory.decodeResource(getResources(),R.drawable.icon);
-        ActivityManager.TaskDescription taskDescription = new ActivityManager.TaskDescription(getString(R.string.app_name),icon , MainActivity.themeColor);
+        Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.icon);
+        ActivityManager.TaskDescription taskDescription = new ActivityManager.TaskDescription(getString(R.string.app_name), icon, themeColor);
         setTaskDescription(taskDescription);
 
         super.onCreate(savedInstanceState);
@@ -49,6 +56,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
             shareEdit = sharedPrefs.edit();
 
+            theme_color = (com.kizitonwose.colorpreference.ColorPreference) findPreference("accent_color_dialog");
             dark_theme_Pref = (SwitchPreference) findPreference("dark_theme_switch");
             dark_theme_Pref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 public boolean onPreferenceClick(Preference preference) {
@@ -90,5 +98,18 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             onBackPressed();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onColorSelected(int newColor, String s) {
+        theme_color.setValue(newColor);
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor sharedEdit = sharedPref.edit();
+        sharedEdit.putInt("accent_color_dialog", newColor);
+        sharedEdit.apply();
+        sharedEdit.commit();
+        themeColor = newColor;
+        themeColorDark = GetDetails.getDarkColor(this,newColor);
+        this.recreate();
     }
 }
