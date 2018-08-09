@@ -15,6 +15,7 @@ import android.util.TypedValue;
 import android.view.Display;
 import android.view.WindowManager;
 import android.telephony.TelephonyManager;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -177,7 +178,7 @@ class GetDetails {
         return OSName;
     }
 
-    static String getProcessor() {
+    static String getProcessor(Context context) {
         String Final = "";
         try {
             StringBuilder sb = new StringBuilder();
@@ -193,16 +194,29 @@ class GetDetails {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }
-            String cpuinfo[] = sb.toString().split(":");
-            for (int a = 0; a < cpuinfo.length; a++) {
-                if (cpuinfo[a].toLowerCase().contains("processor")) {
-                    int getlastindex = cpuinfo[a + 1].indexOf("ndeviceinfo");
-                    Final = cpuinfo[a + 1].substring(1, getlastindex);
-                    break;
-                } else {
+
+                String cpuinfo[] = sb.toString().split(":");
+                for (int a = 0; a < cpuinfo.length; a++) {
+                    if (cpuinfo[a].toLowerCase().contains("processor")) {
+                        int getlastindex = cpuinfo[a + 1].indexOf("ndeviceinfo");
+                        Final = cpuinfo[a + 1].substring(1, getlastindex);
+                        break;
+                    }
+                }
+                if (Final.equals("0") || Final.equals("")) {
+                    for (int a = 0; a < cpuinfo.length; a++) {
+                        if (cpuinfo[a].contains("model name")) {
+                            int getlastindex = cpuinfo[a + 1].indexOf("ndeviceinfo");
+                            Final = cpuinfo[a + 1].substring(1, getlastindex);
+                            break;
+                        }
+                    }
+                }
+                if (Final.equals("") || Final.equals("0")) {
                     Final = "Unknown";
                 }
+            } else {
+                Final = "Unknown";
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -226,16 +240,19 @@ class GetDetails {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }
-            String cpuinfo[] = sb.toString().split(":");
-            for (int a = 0; a < cpuinfo.length; a++) {
-                if (cpuinfo[a].toLowerCase().contains("hardware")) {
-                    int getlastindex = cpuinfo[a + 1].indexOf("ndeviceinfo");
-                    Final = cpuinfo[a + 1].substring(1, getlastindex);
-                    break;
-                } else {
-                    Final = "Unknown";
+
+                String cpuinfo[] = sb.toString().split(":");
+                for (int a = 0; a < cpuinfo.length; a++) {
+                    if (cpuinfo[a].toLowerCase().contains("hardware")) {
+                        int getlastindex = cpuinfo[a + 1].indexOf("ndeviceinfo");
+                        Final = cpuinfo[a + 1].substring(1, getlastindex);
+                        break;
+                    } else {
+                        Final = "Unknown";
+                    }
                 }
+            } else {
+                Final = "Unknown";
             }
         } catch (Exception ex) {
             ex.printStackTrace();

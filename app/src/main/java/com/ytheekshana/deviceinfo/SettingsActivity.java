@@ -24,13 +24,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Col
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SharedPreferences shpre = PreferenceManager.getDefaultSharedPreferences(this);
-        int themeId = shpre.getInt("ThemeBar", R.style.AppTheme);
-        themeColor = shpre.getInt("accent_color_dialog", Color.parseColor("#2196f3"));
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        int themeId = sharedPrefs.getInt("ThemeBar", R.style.AppTheme);
+        themeColor = sharedPrefs.getInt("accent_color_dialog", Color.parseColor("#2196f3"));
         themeColorDark = GetDetails.getDarkColor(this,themeColor);
         setTheme(themeId);
 
-        if (shpre.getInt("ThemeBar", 0) != R.style.AppThemeDark) {
+        if (sharedPrefs.getInt("ThemeBar", 0) != R.style.AppThemeDark) {
             getSupportActionBar().setBackgroundDrawable(new ColorDrawable(themeColor));
             getWindow().setStatusBarColor(themeColorDark);
         }

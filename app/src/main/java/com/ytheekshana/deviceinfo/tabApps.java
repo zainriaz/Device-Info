@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -35,18 +36,19 @@ import java.util.Objects;
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 public class tabApps extends Fragment {
-    int apptype = 0,TextDisColor;
+    int apptype = 0, TextDisColor;
     Thread LoadApps;
     private PopupWindow mPopupWindow;
     TextView txtappname, txtpackagename, txtappversion, txtappminsdk, txtapptargetsdk, txtappinstalldate, txtappupdatedate;
     ImageView imgappicon;
     ListView userInstalledApps;
     SwipeRefreshLayout swipeapplist;
+    boolean appsvisible = false;
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
-        //super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && getActivity() != null) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && isResumed()) {
             LoadApps = new Thread() {
                 @Override
                 public void run() {
@@ -106,6 +108,58 @@ public class tabApps extends Fragment {
         TextDisColor = MainActivity.themeColor;
         Spinner spinnerAppType = rootView.findViewById(R.id.spinnerAppType);
         swipeapplist = rootView.findViewById(R.id.swipeapplist);
+        userInstalledApps = rootView.findViewById(R.id.installed_app_list);
+
+        if (getUserVisibleHint()) {
+            LoadApps = new Thread() {
+                @Override
+                public void run() {
+
+                    swipeapplist.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (!swipeapplist.isRefreshing()) {
+                                swipeapplist.setRefreshing(true);
+                            }
+                        }
+                    });
+
+                    userInstalledApps.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            userInstalledApps.setVisibility(View.GONE);
+                        }
+                    });
+
+                    List<AppList> installedApps = getInstalledApps();
+                    final AppAdapter installedAppAdapter = new AppAdapter(Objects.requireNonNull(getActivity()), installedApps);
+                    userInstalledApps.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            userInstalledApps.setAdapter(installedAppAdapter);
+                        }
+                    });
+
+                    swipeapplist.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (swipeapplist.isRefreshing()) {
+                                swipeapplist.setRefreshing(false);
+                            }
+                        }
+                    });
+
+                    userInstalledApps.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            userInstalledApps.setVisibility(View.VISIBLE);
+                        }
+                    });
+                }
+            };
+            LoadApps.start();
+        }
+
         swipeapplist.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -130,7 +184,6 @@ public class tabApps extends Fragment {
             }
         });
 
-        userInstalledApps = rootView.findViewById(R.id.installed_app_list);
         userInstalledApps.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {

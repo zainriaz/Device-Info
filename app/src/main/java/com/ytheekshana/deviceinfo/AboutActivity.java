@@ -21,13 +21,13 @@ public class AboutActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SharedPreferences shpre = PreferenceManager.getDefaultSharedPreferences(this);
-        int themeId = shpre.getInt("ThemeBar", R.style.AppTheme);
-        int themeColor = shpre.getInt("accent_color_dialog", Color.parseColor("#2196f3"));
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        int themeId = sharedPrefs.getInt("ThemeBar", R.style.AppTheme);
+        int themeColor = sharedPrefs.getInt("accent_color_dialog", Color.parseColor("#2196f3"));
         int themeColorDark = GetDetails.getDarkColor(this, themeColor);
         setTheme(themeId);
 
-        if (shpre.getInt("ThemeBar", 0) != R.style.AppThemeDark) {
+        if (sharedPrefs.getInt("ThemeBar", 0) != R.style.AppThemeDark) {
             Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(themeColor));
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getWindow().setStatusBarColor(themeColorDark);

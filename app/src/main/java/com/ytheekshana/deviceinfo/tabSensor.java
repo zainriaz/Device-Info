@@ -57,7 +57,6 @@ public class tabSensor extends Fragment {
                 swipesensorlist.setEnabled((topRowVerticalPosition >= 0));
             }
         });
-
         return rootView;
     }
 

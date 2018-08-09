@@ -32,9 +32,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        SharedPreferences shpre = PreferenceManager.getDefaultSharedPreferences(this);
-        int themeId = shpre.getInt("ThemeNoBar", R.style.AppTheme_NoActionBar);
-        themeColor = shpre.getInt("accent_color_dialog", Color.parseColor("#2196f3"));
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        int themeId = sharedPrefs.getInt("ThemeNoBar", R.style.AppTheme_NoActionBar);
+        themeColor = sharedPrefs.getInt("accent_color_dialog", Color.parseColor("#2196f3"));
         int themeColorDark = GetDetails.getDarkColor(this, themeColor);
         setTheme(themeId);
 
@@ -47,10 +47,10 @@ public class MainActivity extends AppCompatActivity {
 
         ViewPager mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-        TabLayout tabLayout = findViewById(R.id.tabs);
+        final TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        if (shpre.getInt("ThemeNoBar", 0) != R.style.AppThemeDark_NoActionBar) {
+        if (sharedPrefs.getInt("ThemeNoBar", 0) != R.style.AppThemeDark_NoActionBar) {
             appbar.setBackgroundColor(themeColor);
             toolbar.setBackgroundColor(themeColor);
             tabLayout.setBackgroundColor(themeColor);

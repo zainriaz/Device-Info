@@ -70,7 +70,7 @@ public class tabCPU extends Fragment implements GLSurfaceView.Renderer {
             txtProcessordis.setPadding(0, 0, 0, 15);
             txtProcessordis.setTextColor(TextDisColor);
             txtProcessordis.setTextSize(16);
-            txtProcessordis.setText(GetDetails.getProcessor());
+            txtProcessordis.setText(GetDetails.getProcessor(getContext()));
             txtProcessordis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             txtProcessor.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             llayout.addView(txtProcessor);
