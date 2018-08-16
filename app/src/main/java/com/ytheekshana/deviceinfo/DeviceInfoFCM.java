@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
+
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -30,7 +31,7 @@ public class DeviceInfoFCM extends FirebaseMessagingService {
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder mNotifyBuilder = new NotificationCompat.Builder(this, "2")
                 .setSmallIcon(R.drawable.cpu)
-                .setContentTitle(remoteMessage.getNotification().getTitle().equals("") ?"Device Info Notification":remoteMessage.getNotification().getTitle())
+                .setContentTitle(remoteMessage.getNotification().getTitle().equals("") ? "Device Info Notification" : remoteMessage.getNotification().getTitle())
                 .setContentText(remoteMessage.getNotification().getBody())
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)

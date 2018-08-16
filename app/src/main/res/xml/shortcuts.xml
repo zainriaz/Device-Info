@@ -12,7 +12,7 @@
             android:targetPackage="com.ytheekshana.deviceinfo" />
         <categories android:name="android.shortcut.conversation" />
     </shortcut>
-    <shortcut
+    <!--shortcut
         android:enabled="true"
         android:icon="@drawable/shortcut_settings"
         android:shortcutDisabledMessage="@string/settings_disabled_message"
@@ -24,5 +24,5 @@
             android:targetClass="com.ytheekshana.deviceinfo.SettingsActivity"
             android:targetPackage="com.ytheekshana.deviceinfo" />
         <categories android:name="android.shortcut.conversation" />
-    </shortcut>
+    </shortcut-->
 </shortcuts>

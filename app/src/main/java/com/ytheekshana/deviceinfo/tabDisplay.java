@@ -2,7 +2,6 @@ package com.ytheekshana.deviceinfo;
 
 import android.content.Context;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
@@ -17,8 +16,6 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.Objects;
-
 
 public class tabDisplay extends Fragment {
     LinearLayout llayout;
@@ -31,45 +28,7 @@ public class tabDisplay extends Fragment {
         llayout = rootView.findViewById(R.id.llayout);
         try {
             TextDisColor = MainActivity.themeColor;
-            LineColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorButtonNormal);
-
-            DisplayMetrics getDisplay = new DisplayMetrics();
-            getActivity().getWindowManager().getDefaultDisplay().getMetrics(getDisplay);
-            WindowManager windowManager = getActivity().getWindowManager();
-            Display display1 = windowManager.getDefaultDisplay();
-            DisplayMetrics displayMetrics = new DisplayMetrics();
-            display1.getMetrics(displayMetrics);
-            Point realSize = new Point();
-            Display.class.getMethod("getRealSize", Point.class).invoke(display1, realSize);
-            int height = realSize.y;
-            int width = realSize.x;
-            int densitydpi = getDisplay.densityDpi;
-            Double density = (double) getDisplay.density;
-            String getSize = "";
-            if (density >= 4.0) {
-                getSize = "XXXHDPI";
-            } else if (density >= 3.0) {
-                getSize = "XXHDPI";
-            } else if (density >= 2.0) {
-                getSize = "XHDPI";
-            } else if (density >= 1.5) {
-                getSize = "HDPI";
-            } else if (density >= 1.0) {
-                getSize = "MDPI";
-            } else if (density >= 0.75) {
-                getSize = "LDPI";
-            }
-            Display display = ((WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-            float refreshRating = display.getRefreshRate();
-            int orie = getActivity().getResources().getConfiguration().orientation;
-            String Orientation = "";
-            if (orie == Configuration.ORIENTATION_PORTRAIT) {
-                Orientation = "Portrait";
-            } else if (orie == Configuration.ORIENTATION_LANDSCAPE) {
-                Orientation = "Landscape";
-            } else if (orie == Configuration.ORIENTATION_UNDEFINED) {
-                Orientation = "Undefined";
-            }
+            LineColor = GetDetails.getThemeColor(getContext(), R.attr.colorButtonNormal);
 
             TextView txtResolution = new TextView(getContext());
             TextView txtResolutiondis = new TextView(getContext());
@@ -82,7 +41,7 @@ public class tabDisplay extends Fragment {
             txtResolutiondis.setPadding(0, 0, 0, 15);
             txtResolutiondis.setTextColor(TextDisColor);
             txtResolutiondis.setTextSize(16);
-            String Res = Integer.toString(width) + " x " + Integer.toString(height) + " Pixels";
+            String Res = String.valueOf(SplashActivity.displayWidth) + " x " + String.valueOf(SplashActivity.displayHeight) + " Pixels";
             txtResolutiondis.setText(Res);
             txtResolutiondis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             txtResolution.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -102,7 +61,7 @@ public class tabDisplay extends Fragment {
             txtDensitydis.setPadding(0, 0, 0, 15);
             txtDensitydis.setTextColor(TextDisColor);
             txtDensitydis.setTextSize(16);
-            String fdensity = Integer.toString(densitydpi) + " dpi (" + getSize + ")";
+            String fdensity = String.valueOf(SplashActivity.displayDensityDPI) + " dpi (" + SplashActivity.displaySize + ")";
             txtDensitydis.setText(fdensity);
             txtDensitydis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             txtDensity.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -122,7 +81,7 @@ public class tabDisplay extends Fragment {
             txtFontScaledis.setPadding(0, 0, 0, 15);
             txtFontScaledis.setTextColor(TextDisColor);
             txtFontScaledis.setTextSize(16);
-            String fontsize = Float.toString(getResources().getConfiguration().fontScale);
+            String fontsize = String.valueOf(SplashActivity.fontSize);
             txtFontScaledis.setText(fontsize);
             txtFontScaledis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             txtFontScale.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -142,7 +101,7 @@ public class tabDisplay extends Fragment {
             txtScreenPhysicaldis.setPadding(0, 0, 0, 15);
             txtScreenPhysicaldis.setTextColor(TextDisColor);
             txtScreenPhysicaldis.setTextSize(16);
-            String physical_size = (GetDetails.getDisplaySize(getActivity())) + " inches";
+            String physical_size = SplashActivity.displayPhysicalSize + " inches";
             txtScreenPhysicaldis.setText(physical_size);
             txtScreenPhysicaldis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             txtFontScale.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -162,7 +121,7 @@ public class tabDisplay extends Fragment {
             txtRefreshRatedis.setPadding(0, 0, 0, 15);
             txtRefreshRatedis.setTextColor(TextDisColor);
             txtRefreshRatedis.setTextSize(16);
-            String rrate = Float.toString(refreshRating) + " Hz";
+            String rrate = String.valueOf(SplashActivity.diplayRefreshRate) + " Hz";
             txtRefreshRatedis.setText(rrate);
             txtRefreshRatedis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             txtRefreshRate.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -182,7 +141,7 @@ public class tabDisplay extends Fragment {
             txtOrientationdis.setPadding(0, 0, 0, 15);
             txtOrientationdis.setTextColor(TextDisColor);
             txtOrientationdis.setTextSize(16);
-            txtOrientationdis.setText(Orientation);
+            txtOrientationdis.setText(SplashActivity.displayOrientation);
             txtOrientationdis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             txtOrientation.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             llayout.addView(txtOrientation);

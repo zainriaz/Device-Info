@@ -56,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
             tabLayout.setBackgroundColor(themeColor);
             getWindow().setStatusBarColor(themeColorDark);
         }
-        Bitmap icon = BitmapFactory.decodeResource(getResources(),R.drawable.icon);
-        ActivityManager.TaskDescription taskDescription = new ActivityManager.TaskDescription(getString(R.string.app_name),icon , themeColor);
+        Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.icon);
+        ActivityManager.TaskDescription taskDescription = new ActivityManager.TaskDescription(getString(R.string.app_name), icon, themeColor);
         setTaskDescription(taskDescription);
 
         mBuilder = new NotificationCompat.Builder(this, "1")

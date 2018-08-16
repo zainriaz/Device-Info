@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.BatteryManager;
 import android.support.annotation.NonNull;
@@ -15,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Objects;
 
@@ -41,7 +39,7 @@ public class tabBattery extends Fragment {
             IntentFilter iFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
             BatteryContext = Objects.requireNonNull(getActivity()).getApplicationContext();
             BatteryContext.registerReceiver(mBroadcastReceiver, iFilter);
-            mBatteryManager = (BatteryManager) Objects.requireNonNull(getContext()).getSystemService(Context.BATTERY_SERVICE);
+            mBatteryManager = (BatteryManager) getContext().getSystemService(Context.BATTERY_SERVICE);
 
             TextView txtBatteryHealth = new TextView(getContext());
             txtBatteryHealthdis = new TextView(getContext());
@@ -179,7 +177,7 @@ public class tabBattery extends Fragment {
             txtBatteryCapacitydis.setPadding(0, 0, 0, 15);
             txtBatteryCapacitydis.setTextColor(TextDisColor);
             txtBatteryCapacitydis.setTextSize(16);
-            String BatCap = String.valueOf(GetDetails.getBatteryCapacity(getActivity())) + " mAh";
+            String BatCap = SplashActivity.batteryCapacity + " mAh";
             txtBatteryCapacitydis.setText(BatCap);
             txtBatteryCapacitydis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             txtBatteryCapacity.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -256,9 +254,7 @@ public class tabBattery extends Fragment {
 
             } catch (Exception ex) {
                 ex.printStackTrace();
-                Toast.makeText(getContext(), ex.toString(), Toast.LENGTH_LONG).show();
             }
-
         }
     };
 }

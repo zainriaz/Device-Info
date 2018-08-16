@@ -16,7 +16,6 @@ import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,7 +28,9 @@ public class tabDevice extends Fragment {
     public static final int REQUEST_PHONE_STATE = 1;
     LinearLayout llayout;
     int TextDisColor, LineColor;
-    TextView txtDeviceTypedis, txtIMEIdis, txtSIMSerialdis, txtSIMSubscriberdis, txtNetworkOperatordis, txtNetworkTypedis, txtWIFIMACAddressdis, txtBluetoothMACAddressdis, txtBuildFingerPrintdis;
+    TextView txtDeviceTypedis, txtIMEIdis, txtSIMSerialdis, txtSIMSubscriberdis, txtNetworkOperatordis,
+            txtNetworkTypedis, txtWIFIMACAddressdis, txtBluetoothMACAddressdis, txtBuildFingerPrintdis,
+            txtUSBHostdis;
     TelephonyManager tm;
 
     @SuppressLint("HardwareIds")
@@ -55,24 +56,11 @@ public class tabDevice extends Fragment {
             txtNamedis.setPadding(0, 0, 0, 15);
             txtNamedis.setTextColor(TextDisColor);
             txtNamedis.setTextSize(16);
-            //txtNamedis.setText(deviceName);
+            txtNamedis.setText(SplashActivity.deviceName);
             txtNamedis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             llayout.addView(txtName);
             llayout.addView(txtNamedis);
             llayout.addView(v20);
-
-            if (GetDetails.GetFromBuildProp("ro.semc.product.name").equals("")) {
-                DeviceName.with(getContext()).request(new DeviceName.Callback() {
-
-                    @Override
-                    public void onFinished(DeviceName.DeviceInfo info, Exception error) {
-                        txtNamedis.setText(info.getName());
-                    }
-                });
-            } else {
-                txtNamedis.setText(GetDetails.GetFromBuildProp("ro.semc.product.name"));
-            }
-
 
             TextView txtModel = new TextView(getContext());
             TextView txtModeldis = new TextView(getContext());
@@ -425,7 +413,7 @@ public class tabDevice extends Fragment {
             txtWIFIMACAddressdis.setPadding(0, 0, 0, 15);
             txtWIFIMACAddressdis.setTextColor(TextDisColor);
             txtWIFIMACAddressdis.setTextSize(16);
-            txtWIFIMACAddressdis.setText(GetDetails.getWifiMacAddress());
+            txtWIFIMACAddressdis.setText(SplashActivity.wifiMac);
             txtWIFIMACAddressdis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             txtWIFIMACAddress.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             llayout.addView(txtWIFIMACAddress);
@@ -445,7 +433,7 @@ public class tabDevice extends Fragment {
             txtBluetoothMACAddressdis.setPadding(0, 0, 0, 15);
             txtBluetoothMACAddressdis.setTextColor(TextDisColor);
             txtBluetoothMACAddressdis.setTextSize(16);
-            txtBluetoothMACAddressdis.setText(GetDetails.getBluetoothMac(getContext()));
+            txtBluetoothMACAddressdis.setText(SplashActivity.bluetoothMac);
             txtBluetoothMACAddressdis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             txtBluetoothMACAddress.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             llayout.addView(txtBluetoothMACAddress);
@@ -471,6 +459,26 @@ public class tabDevice extends Fragment {
             llayout.addView(txtBuildFingerPrint);
             llayout.addView(txtBuildFingerPrintdis);
             llayout.addView(v16);
+
+            TextView txtUSBHost = new TextView(getContext());
+            txtUSBHostdis = new TextView(getContext());
+            View v17 = new View(getContext());
+            v17.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
+            v17.setBackgroundColor(LineColor);
+            txtUSBHost.setText(R.string.usbHost);
+            txtUSBHost.setTypeface(null, Typeface.BOLD);
+            txtUSBHost.setTextSize(16);
+            txtUSBHost.setPadding(0, 15, 0, 0);
+            txtUSBHostdis.setClickable(true);
+            txtUSBHostdis.setPadding(0, 0, 0, 15);
+            txtUSBHostdis.setTextColor(TextDisColor);
+            txtUSBHostdis.setTextSize(16);
+            txtUSBHostdis.setText(SplashActivity.usbHost);
+            txtUSBHostdis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            txtUSBHost.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            llayout.addView(txtUSBHost);
+            llayout.addView(txtUSBHostdis);
+            llayout.addView(v17);
 
         } catch (Exception ex) {
             ex.printStackTrace();

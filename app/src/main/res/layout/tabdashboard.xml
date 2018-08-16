@@ -56,7 +56,9 @@
                     android:layout_below="@+id/txtRamTitle"
                     android:layout_marginEnd="35dp"
                     android:layout_toEndOf="@+id/imageRam"
-                    app:rcBackgroundPadding="0dp" />
+                    app:rcBackgroundPadding="0dp"
+                    app:rcMax="100"
+                    app:rcRadius="0dp"/>
 
                 <TextView
                     android:id="@+id/txtRamPerc"
@@ -123,7 +125,9 @@
                     android:layout_below="@+id/txtROMTitle"
                     android:layout_marginEnd="35dp"
                     android:layout_toEndOf="@+id/imageROM"
-                    app:rcBackgroundPadding="0dp" />
+                    app:rcBackgroundPadding="0dp"
+                    app:rcMax="100"
+                    app:rcRadius="0dp"/>
 
                 <TextView
                     android:id="@+id/txtROMPerc"
@@ -189,7 +193,9 @@
                     android:layout_below="@+id/txtInStorageTitle"
                     android:layout_marginEnd="35dp"
                     android:layout_toEndOf="@+id/imageInStorage"
-                    app:rcBackgroundPadding="0dp" />
+                    app:rcBackgroundPadding="0dp"
+                    app:rcMax="100"
+                    app:rcRadius="0dp"/>
 
                 <TextView
                     android:id="@+id/txtInStoragePerc"
@@ -255,7 +261,9 @@
                     android:layout_below="@+id/txtExStorageTitle"
                     android:layout_marginEnd="35dp"
                     android:layout_toEndOf="@+id/imageExStorage"
-                    app:rcBackgroundPadding="0dp" />
+                    app:rcBackgroundPadding="0dp"
+                    app:rcMax="100"
+                    app:rcRadius="0dp"/>
 
                 <TextView
                     android:id="@+id/txtExStoragePerc"
@@ -321,7 +329,9 @@
                     android:layout_below="@+id/txtBatteryTitle"
                     android:layout_marginEnd="35dp"
                     android:layout_toEndOf="@+id/imageBattery"
-                    app:rcBackgroundPadding="0dp" />
+                    app:rcBackgroundPadding="0dp"
+                    app:rcMax="100"
+                    app:rcRadius="0dp"/>
 
                 <TextView
                     android:id="@+id/txtBatteryPerc"
@@ -387,7 +397,9 @@
                     android:layout_below="@+id/txtCPUTitle"
                     android:layout_marginEnd="35dp"
                     android:layout_toEndOf="@+id/imageCPU"
-                    app:rcBackgroundPadding="0dp" />
+                    app:rcBackgroundPadding="0dp"
+                    app:rcMax="100"
+                    app:rcRadius="0dp"/>
 
                 <TextView
                     android:id="@+id/txtCPUPerc"

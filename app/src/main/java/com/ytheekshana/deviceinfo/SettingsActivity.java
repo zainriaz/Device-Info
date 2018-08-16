@@ -89,6 +89,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Col
     public void onBackPressed() {
         super.onBackPressed();
         Intent intent = new Intent(this, MainActivity.class);
+        this.finish();
         startActivity(intent);
     }
 

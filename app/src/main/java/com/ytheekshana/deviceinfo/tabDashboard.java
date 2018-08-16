@@ -2,21 +2,15 @@ package com.ytheekshana.deviceinfo;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.LightingColorFilter;
-import android.hardware.Sensor;
-import android.hardware.SensorManager;
 import android.os.BatteryManager;
-import android.os.Environment;
 import android.os.Handler;
-import android.os.StatFs;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -41,7 +35,6 @@ import java.util.TimerTask;
 public class tabDashboard extends Fragment {
     TextView txtRamPerce, txtRamStatus, txtBatteryPerce, txtBatteryStatus, txtInStoragePerce, txtInStorageStatus, txtExStoragePerce, txtExStorageStatus, txtCPUPerce, txtCPUStatus, txtRomPerce, txtRomStatus, txtSensorCount, txtAppCount;
     RoundCornerProgressBar ProgressBarRam, ProgressBarBattery, ProgressBarInStorage, ProgressBarExStorage, ProgressBarCPU, ProgressBarRom;
-    double ARam, TRam, URam, UPerc, AvailableInSto, TotalInSto, UsedPercInSto, AvailableExSto, TotalExSto, UsedPercExSto, AvailableStoRom, TotalStoRom, UsedPercRom;
     Context BatteryContext;
     int a, e, startROM, startRAM, startInStorage, startExStorage, startBattery, startCPU, usagecpu;
     CPUUsage cu2;
@@ -53,9 +46,9 @@ public class tabDashboard extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tabdashboard, container, false);
-        //006bff
+
         try {
-            colorProgressBackground = ColorUtils.setAlphaComponent(MainActivity.themeColor,70);
+            colorProgressBackground = ColorUtils.setAlphaComponent(MainActivity.themeColor, 70);
 
             ImageView imgRAM = rootView.findViewById(R.id.imageRam);
             ImageView imgROM = rootView.findViewById(R.id.imageROM);
@@ -66,7 +59,7 @@ public class tabDashboard extends Fragment {
             ImageView imgSensor = rootView.findViewById(R.id.imageSensor);
             ImageView imgApps = rootView.findViewById(R.id.imageApps);
 
-            ColorFilter accentFilter = new LightingColorFilter(Color.BLACK,MainActivity.themeColor);
+            ColorFilter accentFilter = new LightingColorFilter(Color.BLACK, MainActivity.themeColor);
             imgRAM.setColorFilter(accentFilter);
             imgROM.setColorFilter(accentFilter);
             imgInStorage.setColorFilter(accentFilter);
@@ -107,90 +100,70 @@ public class tabDashboard extends Fragment {
             ProgressBarRam = rootView.findViewById(R.id.progressRam);
             ProgressBarRam.setProgressColor(MainActivity.themeColor);
             ProgressBarRam.setProgressBackgroundColor(colorProgressBackground);
-            ProgressBarRam.setMax(100);
-            ProgressBarRam.setRadius(0);
 
             ProgressBarRom = rootView.findViewById(R.id.progressRom);
             ProgressBarRom.setProgressColor(MainActivity.themeColor);
             ProgressBarRom.setProgressBackgroundColor(colorProgressBackground);
-            ProgressBarRom.setMax(100);
-            ProgressBarRom.setRadius(0);
 
             ProgressBarBattery = rootView.findViewById(R.id.progressBattery);
             ProgressBarBattery.setProgressColor(MainActivity.themeColor);
             ProgressBarBattery.setProgressBackgroundColor(colorProgressBackground);
-            ProgressBarBattery.setMax(100);
-            ProgressBarBattery.setRadius(0);
 
             ProgressBarInStorage = rootView.findViewById(R.id.progressInStorage);
             ProgressBarInStorage.setProgressColor(MainActivity.themeColor);
             ProgressBarInStorage.setProgressBackgroundColor(colorProgressBackground);
-            ProgressBarInStorage.setMax(100);
-            ProgressBarInStorage.setRadius(0);
 
             ProgressBarExStorage = rootView.findViewById(R.id.progressExStorage);
             ProgressBarExStorage.setProgressColor(MainActivity.themeColor);
             ProgressBarExStorage.setProgressBackgroundColor(colorProgressBackground);
-            ProgressBarExStorage.setMax(100);
-            ProgressBarExStorage.setRadius(0);
 
             ProgressBarCPU = rootView.findViewById(R.id.progressCPU);
             ProgressBarCPU.setProgressColor(MainActivity.themeColor);
             ProgressBarCPU.setProgressBackgroundColor(colorProgressBackground);
-            ProgressBarCPU.setMax(100);
-            ProgressBarCPU.setRadius(0);
 
             startCPU = cu2.getTotalCpuUsage();
-            PackageManager pm = Objects.requireNonNull(getActivity()).getPackageManager();
-            int numberOfInstalledApps = pm.getInstalledApplications(0).size();
-            //txtAppCount.setText(numberOfInstalledApps);
-            SensorManager mSensorManager = (SensorManager) Objects.requireNonNull(getActivity()).getSystemService(Context.SENSOR_SERVICE);
-            int numberOfSensors = Objects.requireNonNull(mSensorManager).getSensorList(Sensor.TYPE_ALL).size();
-            // txtSensorCount.setText(numberOfSensors);
-            animateTextView(0, numberOfInstalledApps, txtAppCount);
-            animateTextView(0, numberOfSensors, txtSensorCount);
 
-            GetRam();
-            startRAM = (int) UPerc;
-            String setRam = "Free:" + String.format(Locale.US, "%.2f", ARam / 1024) + " GB, Total:" + String.format(Locale.US, "%.2f", TRam / 1024) + " GB";
+            animateTextView(0, SplashActivity.numberOfInstalledApps, txtAppCount);
+            animateTextView(0, SplashActivity.numberOfSensors, txtSensorCount);
+
+            startRAM = (int) SplashActivity.usedRamPercentage;
+            String setRam = "Free:" + String.format(Locale.US, "%.2f", SplashActivity.availableRam / 1024) + " GB, Total:" + String.format(Locale.US, "%.2f", SplashActivity.totalRam / 1024) + " GB";
             txtRamStatus.setText(setRam);
-            String ram_percentage = String.valueOf((int) UPerc) + "%";
+            String ram_percentage = String.valueOf((int) SplashActivity.usedRamPercentage) + "%";
             txtRamPerce.setText(ram_percentage);
 
-            GetRom();
-            startROM = (int) UsedPercRom;
-            String setRom = "Free:" + String.format(Locale.US, "%.1f", AvailableStoRom) + " GB, Total:" + String.format(Locale.US, "%.1f", TotalStoRom) + " GB";
+            startROM = (int) SplashActivity.usedRomPercentage;
+            String setRom = "Free:" + String.format(Locale.US, "%.1f", SplashActivity.availableRom) + " GB, Total:" + String.format(Locale.US, "%.1f", SplashActivity.totalRom) + " GB";
             txtRomStatus.setText(setRom);
-            String storage_percentageRom = String.valueOf((int) UsedPercRom) + "%";
+            String storage_percentageRom = String.valueOf((int) SplashActivity.usedRomPercentage) + "%";
             txtRomPerce.setText(storage_percentageRom);
 
-            GetInStorage();
-            startInStorage = (int) UsedPercInSto;
-            String setInStorage = "Free:" + String.format(Locale.US, "%.1f", AvailableInSto) + " GB, Total:" + String.format(Locale.US, "%.1f", TotalInSto) + " GB";
+            startInStorage = (int) SplashActivity.usedInternalPercentage;
+            String setInStorage = "Free:" + String.format(Locale.US, "%.1f", SplashActivity.availableInternalStorage) + " GB, Total:" + String.format(Locale.US, "%.1f", SplashActivity.totalInternalStorage) + " GB";
             txtInStorageStatus.setText(setInStorage);
-            String in_storage_percentage = String.valueOf((int) UsedPercInSto) + "%";
+            String in_storage_percentage = String.valueOf((int) SplashActivity.usedInternalPercentage) + "%";
             txtInStoragePerce.setText(in_storage_percentage);
 
             if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED) && ContextCompat.getExternalFilesDirs(Objects.requireNonNull(getContext()), null).length >= 2) {
                 cardExternalStorage.setVisibility(View.VISIBLE);
-                GetExStorage();
-                startExStorage = (int) UsedPercExSto;
-                String setExStorage = "Free:" + String.format(Locale.US, "%.1f", AvailableExSto) + " GB, Total:" + String.format(Locale.US, "%.1f", TotalExSto) + " GB";
+                startExStorage = (int) SplashActivity.usedExternalPercentage;
+                String setExStorage = "Free:" + String.format(Locale.US, "%.1f", SplashActivity.availableExternalStorage) + " GB, Total:" + String.format(Locale.US, "%.1f", SplashActivity.totalExternalStorage) + " GB";
                 txtExStorageStatus.setText(setExStorage);
-                String ex_storage_percentage = String.valueOf((int) UsedPercExSto) + "%";
+                String ex_storage_percentage = String.valueOf((int) SplashActivity.usedExternalPercentage) + "%";
                 txtExStoragePerce.setText(ex_storage_percentage);
             } else {
                 cardExternalStorage.setVisibility(View.GONE);
             }
 
+            final MemoryInfo memoryInfo = new MemoryInfo(getActivity(),getContext());
             final Handler updateRam = new Handler();
             Runnable runnable = new Runnable() {
                 public void run() {
-                    GetRam();
-                    ProgressBarRam.setProgress((int) UPerc);
-                    String ram_percentage = (int) UPerc + "%";
+                    memoryInfo.Ram();
+                    ProgressBarRam.setProgress((int) memoryInfo.getUsedRamPercentage());
+                    String ram_percentage = (int) memoryInfo.getUsedRamPercentage() + "%";
                     txtRamPerce.setText(ram_percentage);
-                    String setRam = "Free:" + String.format(Locale.US, "%.2f", ARam / 1024) + " GB, Total:" + String.format(Locale.US, "%.2f", TRam / 1024) + " GB";
+                    String setRam = "Free:" + String.format(Locale.US, "%.2f", memoryInfo.getAvailableRam() / 1024) + " GB, Total:" + String.format(Locale.US, "%.2f", memoryInfo.getTotalRam() / 1024) + " GB";
                     txtRamStatus.setText(setRam);
                     updateRam.postDelayed(this, 1000);
                 }
@@ -239,26 +212,6 @@ public class tabDashboard extends Fragment {
             progressAnimatorCPU.setDuration(800);
             progressAnimatorCPU.start();
 
-
-        /*Thread LoadStartRam = new Thread() {
-            @Override
-            public void run() {
-                try {
-                    for (a = 1; a <= startRAM; a++) {
-                        Thread.sleep(10);
-                        ProgressBarBattery.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                ProgressBarRam.setProgress(a);
-                            }
-                        });
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        LoadStartRam.start();*/
 
             final com.ytheekshana.deviceinfo.BounceInterpolator bounceInterpolator = new com.ytheekshana.deviceinfo.BounceInterpolator(0.2, 20);
             cardRam.setOnClickListener(new View.OnClickListener() {
@@ -361,54 +314,6 @@ public class tabDashboard extends Fragment {
             ProgressBarBattery.setProgress(batlevel);
         }
     };
-
-    private void GetRam() {
-        try {
-            ActivityManager.MemoryInfo mi = new ActivityManager.MemoryInfo();
-            ActivityManager activityManager = (ActivityManager) Objects.requireNonNull(getActivity()).getSystemService(Context.ACTIVITY_SERVICE);
-            assert activityManager != null;
-            activityManager.getMemoryInfo(mi);
-            ARam = (double) (mi.availMem / 1024 / 1024);
-            TRam = (double) (mi.totalMem / 1024 / 1024);
-            URam = TRam - ARam;
-            UPerc = (((URam) * 100) / TRam);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    private void GetInStorage() {
-        try {
-            StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
-            AvailableInSto = (((double) stat.getBlockSizeLong() * (double) stat.getAvailableBlocksLong()) / 1024 / 1024 / 1024);
-            TotalInSto = ((double) stat.getBlockSizeLong() * (double) stat.getBlockCountLong()) / 1024 / 1024 / 1024;
-            UsedPercInSto = (double) ((((stat.getBlockSizeLong() * stat.getBlockCountLong()) - (stat.getBlockSizeLong() * stat.getAvailableBlocksLong())) * 100) / (stat.getBlockSizeLong() * stat.getBlockCountLong()));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    private void GetExStorage() {
-        try {
-            StatFs stat = new StatFs(GetDetails.getStorageDirectories(Objects.requireNonNull(getContext()))[0]);
-            AvailableExSto = (((double) stat.getBlockSizeLong() * (double) stat.getAvailableBlocksLong()) / 1024 / 1024 / 1024);
-            TotalExSto = ((double) stat.getBlockSizeLong() * (double) stat.getBlockCountLong()) / 1024 / 1024 / 1024;
-            UsedPercExSto = (double) ((((stat.getBlockSizeLong() * stat.getBlockCountLong()) - (stat.getBlockSizeLong() * stat.getAvailableBlocksLong())) * 100) / (stat.getBlockSizeLong() * stat.getBlockCountLong()));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    private void GetRom() {
-        try {
-            StatFs stat = new StatFs(Environment.getRootDirectory().getAbsolutePath());
-            AvailableStoRom = (((double) stat.getBlockSizeLong() * (double) stat.getAvailableBlocksLong()) / 1024 / 1024 / 1024);
-            TotalStoRom = ((double) stat.getBlockSizeLong() * (double) stat.getBlockCountLong()) / 1024 / 1024 / 1024;
-            UsedPercRom = (double) ((((stat.getBlockSizeLong() * stat.getBlockCountLong()) - (stat.getBlockSizeLong() * stat.getAvailableBlocksLong())) * 100) / (stat.getBlockSizeLong() * stat.getBlockCountLong()));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
 
     public void animateTextView(int initialValue, int finalValue, final TextView textview) {
 

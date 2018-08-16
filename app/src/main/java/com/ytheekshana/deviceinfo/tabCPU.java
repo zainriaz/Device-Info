@@ -1,8 +1,6 @@
 package com.ytheekshana.deviceinfo;
 
 import android.graphics.Typeface;
-import android.opengl.GLSurfaceView;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -18,10 +16,7 @@ import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.opengles.GL10;
-
-public class tabCPU extends Fragment implements GLSurfaceView.Renderer {
+public class tabCPU extends Fragment{
     LinearLayout llayout;
     int TextDisColor, LineColor, a;
     TextView txtCPUUsagedis, txtGPURendererdis, txtGPUVendordis, txtGPUsupport,txtGPUVersiondis;
@@ -29,7 +24,6 @@ public class tabCPU extends Fragment implements GLSurfaceView.Renderer {
     TextView txtCore[];
     String cUsage;
     Timer timer;
-    private GLSurfaceView glSurfaceView;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -43,22 +37,6 @@ public class tabCPU extends Fragment implements GLSurfaceView.Renderer {
             TextDisColor = MainActivity.themeColor;
             LineColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorButtonNormal);
 
-            txtGPUsupport.setText(R.string.GPUVendor);
-            glSurfaceView = new GLSurfaceView(getContext());
-            glSurfaceView.setRenderer(this);
-            ((ViewGroup) txtGPUsupport.getParent()).addView(glSurfaceView);
-
-            double cpuMaxFreq, cpuMinFreq;
-            RandomAccessFile readermax, readermin;
-            readermax = new RandomAccessFile("/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq", "r");
-            readermin = new RandomAccessFile("/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq", "r");
-            String maxfreq = readermax.readLine();
-            String minfreq = readermin.readLine();
-            cpuMaxFreq = Double.parseDouble(maxfreq) / 1000;
-            cpuMinFreq = Double.parseDouble(minfreq) / 1000;
-            readermax.close();
-            readermin.close();
-
             TextView txtProcessor = new TextView(getContext());
             TextView txtProcessordis = new TextView(getContext());
             View v = new View(getContext());
@@ -70,7 +48,7 @@ public class tabCPU extends Fragment implements GLSurfaceView.Renderer {
             txtProcessordis.setPadding(0, 0, 0, 15);
             txtProcessordis.setTextColor(TextDisColor);
             txtProcessordis.setTextSize(16);
-            txtProcessordis.setText(GetDetails.getProcessor(getContext()));
+            txtProcessordis.setText(SplashActivity.processorName);
             txtProcessordis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             txtProcessor.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             llayout.addView(txtProcessor);
@@ -89,11 +67,7 @@ public class tabCPU extends Fragment implements GLSurfaceView.Renderer {
             txtABIdis.setPadding(0, 0, 0, 15);
             txtABIdis.setTextColor(TextDisColor);
             txtABIdis.setTextSize(16);
-            StringBuilder ABIs = new StringBuilder();
-            for (int a = 0; a < Build.SUPPORTED_ABIS.length; a++) {
-                ABIs.append(Build.SUPPORTED_ABIS[a]).append(", ");
-            }
-            txtABIdis.setText(ABIs.substring(0, ABIs.length() - 2));
+            txtABIdis.setText(SplashActivity.cpuABIs);
             txtABIdis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             txtABI.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             llayout.addView(txtABI);
@@ -112,7 +86,7 @@ public class tabCPU extends Fragment implements GLSurfaceView.Renderer {
             txtCPUHardwaredis.setPadding(0, 0, 0, 15);
             txtCPUHardwaredis.setTextColor(TextDisColor);
             txtCPUHardwaredis.setTextSize(16);
-            txtCPUHardwaredis.setText(GetDetails.getProcessorHardware());
+            txtCPUHardwaredis.setText(SplashActivity.processorHardware);
             txtCPUHardwaredis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             txtCPUHardware.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             llayout.addView(txtCPUHardware);
@@ -131,7 +105,7 @@ public class tabCPU extends Fragment implements GLSurfaceView.Renderer {
             txtCPUGovernordis.setPadding(0, 0, 0, 15);
             txtCPUGovernordis.setTextColor(TextDisColor);
             txtCPUGovernordis.setTextSize(16);
-            txtCPUGovernordis.setText(GetDetails.getCPUGoverner());
+            txtCPUGovernordis.setText(SplashActivity.cpuGovernor);
             txtCPUGovernordis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             txtCPUGovernor.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             llayout.addView(txtCPUGovernor);
@@ -169,7 +143,7 @@ public class tabCPU extends Fragment implements GLSurfaceView.Renderer {
             txtCPUFrequencydis.setPadding(0, 0, 0, 15);
             txtCPUFrequencydis.setTextColor(TextDisColor);
             txtCPUFrequencydis.setTextSize(16);
-            String frequ = String.format(Locale.US, "%.0f", cpuMinFreq) + " MHz - " + String.format(Locale.US, "%.0f", cpuMaxFreq) + " MHz";
+            String frequ = String.format(Locale.US, "%.0f", SplashActivity.cpuMinFreq) + " MHz - " + String.format(Locale.US, "%.0f", SplashActivity.cpuMaxFreq) + " MHz";
             txtCPUFrequencydis.setText(frequ);
             txtCPUFrequencydis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             txtCPUFrequency.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -231,6 +205,7 @@ public class tabCPU extends Fragment implements GLSurfaceView.Renderer {
             txtGPURendererdis.setPadding(0, 0, 0, 15);
             txtGPURendererdis.setTextColor(TextDisColor);
             txtGPURendererdis.setTextSize(16);
+            txtGPURendererdis.setText(SplashActivity.gpuRenderer);
             txtGPURendererdis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             txtGPURenderer.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             llayout.addView(txtGPURenderer);
@@ -249,6 +224,7 @@ public class tabCPU extends Fragment implements GLSurfaceView.Renderer {
             txtGPUVendordis.setPadding(0, 0, 0, 15);
             txtGPUVendordis.setTextColor(TextDisColor);
             txtGPUVendordis.setTextSize(16);
+            txtGPUVendordis.setText(SplashActivity.gpuVendor);
             txtGPUVendordis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             txtGPUVendor.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             llayout.addView(txtGPUVendor);
@@ -267,6 +243,7 @@ public class tabCPU extends Fragment implements GLSurfaceView.Renderer {
             txtGPUVersiondis.setPadding(0, 0, 0, 15);
             txtGPUVersiondis.setTextColor(TextDisColor);
             txtGPUVersiondis.setTextSize(16);
+            txtGPUVersiondis.setText(SplashActivity.gpuVersion);
             txtGPUVersiondis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             txtGPUVersion.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             llayout.addView(txtGPUVersion);
@@ -321,37 +298,6 @@ public class tabCPU extends Fragment implements GLSurfaceView.Renderer {
             ex.printStackTrace();
         }
         return rootView;
-    }
-
-    @Override
-    public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-        try {
-            final String Renderer = gl.glGetString(GL10.GL_RENDERER);
-            final String Vendor = gl.glGetString(GL10.GL_VENDOR);
-            final String Version = gl.glGetString(GL10.GL_VERSION);
-
-            Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    txtGPURendererdis.setText(Renderer);
-                    txtGPUVendordis.setText(Vendor);
-                    txtGPUVersiondis.setText(Version);
-                    glSurfaceView.setVisibility(View.GONE);
-                }
-            });
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    @Override
-    public void onSurfaceChanged(GL10 gl, int width, int height) {
-
-    }
-
-    @Override
-    public void onDrawFrame(GL10 gl) {
-
     }
 
     @Override

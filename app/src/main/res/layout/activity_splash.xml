@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainlayout_Splash"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SplashActivity">
+
+    <!--ImageView
+        android:id="@+id/imageAppIconSplash"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/icon_transparent"
+        android:contentDescription="@string/app_name" /-->
+
+    <ImageView
+        android:id="@+id/imageLogoSplash1"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_centerInParent="true"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/splash_logo1" />
+
+    <ImageView
+        android:id="@+id/imageLogoSplash2"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_centerInParent="true"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/splash_logo2" />
+
+    <ImageView
+        android:id="@+id/imageLogoSplash3"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_centerInParent="true"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/splash_logo3" />
+
+    <ImageView
+        android:id="@+id/imageLogoSplash4"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_centerInParent="true"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/splash_logo4" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/txtAppName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/progressBar_Splash"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/google"
+        android:text="@string/app_name"
+        android:textColor="@color/white"
+        android:textSize="32sp"
+        android:textStyle="bold" />
+
+    <ProgressBar
+        android:id="@+id/progressBar_Splash"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="115dp"
+        android:layout_height="2dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        android:layout_marginTop="10dp"
+        android:max="700"
+        android:progressTint="@color/white" />
+
+    <TextView
+        android:id="@+id/txtGPUsupport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="Hello World!"
+        android:visibility="gone" />
+</RelativeLayout>

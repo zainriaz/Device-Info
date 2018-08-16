@@ -8,7 +8,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -37,19 +36,18 @@ import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 public class tabApps extends Fragment {
     int apptype = 0, TextDisColor;
-    Thread LoadApps;
+    Thread loadApps;
     private PopupWindow mPopupWindow;
     TextView txtappname, txtpackagename, txtappversion, txtappminsdk, txtapptargetsdk, txtappinstalldate, txtappupdatedate;
     ImageView imgappicon;
     ListView userInstalledApps;
     SwipeRefreshLayout swipeapplist;
-    boolean appsvisible = false;
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && isResumed()) {
-            LoadApps = new Thread() {
+            loadApps = new Thread() {
                 @Override
                 public void run() {
 
@@ -95,7 +93,7 @@ public class tabApps extends Fragment {
                     });
                 }
             };
-            LoadApps.start();
+            loadApps.start();
         }
     }
 
@@ -111,7 +109,7 @@ public class tabApps extends Fragment {
         userInstalledApps = rootView.findViewById(R.id.installed_app_list);
 
         if (getUserVisibleHint()) {
-            LoadApps = new Thread() {
+            loadApps = new Thread() {
                 @Override
                 public void run() {
 
@@ -157,13 +155,13 @@ public class tabApps extends Fragment {
                     });
                 }
             };
-            LoadApps.start();
+            loadApps.start();
         }
 
         swipeapplist.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                new Thread(LoadApps).start();
+                new Thread(loadApps).start();
             }
         });
 
@@ -175,7 +173,7 @@ public class tabApps extends Fragment {
                 } else if (i == 0) {
                     apptype = 0;
                 }
-                new Thread(LoadApps).start();
+                new Thread(loadApps).start();
             }
 
             @Override

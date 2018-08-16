@@ -401,7 +401,6 @@ class GetDetails {
         return "";
     }
 
-
     static String getBluetoothMac(Context context) {
         String result = "";
         try {

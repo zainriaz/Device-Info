@@ -45,6 +45,7 @@
     <string name="WiFiMac">WiFi MAC Address</string>
     <string name="BluetoothMac">Bluetooth MAC Address</string>
     <string name="BuildFingerprint">Build Fingerprint</string>
+    <string name="usbHost">USB Host</string>
     <string name="GrantPermission">Click to Grant Permission</string>
 
     <string name="AndroidVersion">Android Version</string>
@@ -109,4 +110,5 @@
         <item>System Apps</item>
     </string-array>
     <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_splash">Device Info</string>
 </resources>
