@@ -38,7 +38,6 @@ public class DeviceInfoFCM extends FirebaseMessagingService {
                 .setContentIntent(pendingIntent);
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
         if (NOTIFICATION_ID > 1073741824) {
             NOTIFICATION_ID = 0;
         }

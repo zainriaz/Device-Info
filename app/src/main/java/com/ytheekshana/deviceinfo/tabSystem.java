@@ -54,6 +54,8 @@ public class tabSystem extends Fragment {
                 case 26:
                 case 27:
                     imgAndroidLogo.setImageResource(R.drawable.oreo);
+                case 28:
+                    imgAndroidLogo.setImageResource(R.drawable.pie);
                     break;
             }
             String Aversion = "Android " + Build.VERSION.RELEASE;

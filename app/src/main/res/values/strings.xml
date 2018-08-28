@@ -111,4 +111,32 @@
     </string-array>
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_splash">Device Info</string>
+
+    <string name="display_test">Display</string>
+    <string name="display_test_status">Display Test Status</string>
+    <string name="display_test_description">Display may turn black, white, red, green and blue. Look for different colored pixels and tap to continue</string>
+    <string name="display_test_question">Were the screen one solid color?</string>
+    <string name="flashlight_test">Flashlight</string>
+    <string name="flashlight_test_status">Flashlight Test Status</string>
+    <string name="flashlight_test_question">Is the flashlight working?</string>
+    <string name="loudspeaker_test">Loudspeaker</string>
+    <string name="loudspeaker_test_status">Loudspeaker Test Status</string>
+    <string name="loudspeaker_test_question">Audio is playing. Can you hear it?</string>
+    <string name="earspeaker_test">Ear Speaker</string>
+    <string name="earspeaker_test_status">Ear Speaker Test Status</string>
+    <string name="earspeaker_test_question">Audio is playing. Can you hear it?</string>
+    <string name="earproximity_test">Ear Proximity</string>
+    <string name="earproximity_test_status">Ear Proximity Test Status</string>
+    <string name="earproximity_test_question">Cover the area above the display. Is the illustration changing?</string>
+    <string name="vibration_test">Vibration</string>
+    <string name="vibration_test_status">Vibration Test Status</string>
+    <string name="vibration_test_question">Can you feel the phone vibrating?</string>
+    <string name="volumeup_test">Volume Up Button</string>
+    <string name="volumeup_test_status">Volume Up Button Test Status</string>
+    <string name="volumeup_test_question">Press the volume up key, do you get any feedback?</string>
+    <string name="volumedown_test">Volume Down Button</string>
+    <string name="volumedown_test_status">Volume Down Button Test Status</string>
+    <string name="volumedown_test_question">Press the volume down key, do you get any feedback?</string>
+
+
 </resources>

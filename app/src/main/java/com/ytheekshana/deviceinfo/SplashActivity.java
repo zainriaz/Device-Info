@@ -28,8 +28,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -79,9 +77,7 @@ public class SplashActivity extends Activity implements GLSurfaceView.Renderer {
         int themeColorDark = GetDetails.getDarkColor(this, themeColor);
         setTheme(themeId);
 
-        if (sharedPrefs.getInt("ThemeNoBar", 0) != R.style.AppThemeDark_NoActionBar) {
-            getWindow().setStatusBarColor(themeColorDark);
-        }
+        getWindow().setStatusBarColor(themeColorDark);
         Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.icon);
         ActivityManager.TaskDescription taskDescription = new ActivityManager.TaskDescription(getString(R.string.app_name), icon, themeColor);
         setTaskDescription(taskDescription);

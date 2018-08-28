@@ -43,9 +43,9 @@ public class AboutActivity extends AppCompatActivity {
         TextView txtPackageName = findViewById(R.id.txtPackageName);
         txtPackageName.setText(getApplicationContext().getPackageName());
         txtVersion.setText(BuildConfig.VERSION_NAME);
-        CircleImageView imgAuthor = findViewById(R.id.circleimgAuthor);
+        CircleImageView circleimgAuthor = findViewById(R.id.circleimgAuthor);
 
-        imgAuthor.setOnClickListener(new View.OnClickListener() {
+        circleimgAuthor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Created by Ytheekshana", Snackbar.LENGTH_LONG).show();

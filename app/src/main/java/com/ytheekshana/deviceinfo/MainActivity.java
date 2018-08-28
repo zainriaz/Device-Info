@@ -1,6 +1,7 @@
 package com.ytheekshana.deviceinfo;
 
 import android.app.ActivityManager;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
@@ -61,15 +62,16 @@ public class MainActivity extends AppCompatActivity {
         setTaskDescription(taskDescription);
 
         mBuilder = new NotificationCompat.Builder(this, "1")
-                .setSmallIcon(R.drawable.cpu)
+                .setPriority(Notification.PRIORITY_HIGH)
+                .setSmallIcon(R.drawable.icon_transparent)
                 .setContentTitle("Device Info")
                 .setContentText("Gathering Data Completed");
+
         int mNotificationId = 1;
         NotificationManager mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         if (mNotifyMgr != null) {
             mNotifyMgr.notify(mNotificationId, mBuilder.build());
         }
-
     }
 
     @Override
@@ -123,6 +125,8 @@ public class MainActivity extends AppCompatActivity {
                     return new tabSensor();
                 case 8:
                     return new tabApps();
+                case 9:
+                    return new tabTests();
                 default:
                     return null;
             }
@@ -130,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 9;
+            return 10;
         }
 
         @Override
@@ -154,6 +158,8 @@ public class MainActivity extends AppCompatActivity {
                     return "Sensors";
                 case 8:
                     return "Apps";
+                case 9:
+                    return "Tests";
             }
             return null;
         }

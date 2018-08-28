@@ -129,7 +129,7 @@ public class tabMemory extends Fragment {
                 }
             });
 
-            final MemoryInfo memoryInfo = new MemoryInfo(getActivity(),getContext());
+            final MemoryInfo memoryInfo = new MemoryInfo(getActivity(), getContext());
             final Handler updateRam = new Handler();
             Runnable runnable = new Runnable() {
                 public void run() {

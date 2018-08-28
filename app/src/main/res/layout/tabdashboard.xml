@@ -49,16 +49,18 @@
                     android:text="@string/DashRAM"
                     android:textStyle="bold" />
 
-                <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                <ProgressBar
                     android:id="@+id/progressRam"
+                    style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="match_parent"
                     android:layout_height="18dp"
                     android:layout_below="@+id/txtRamTitle"
                     android:layout_marginEnd="35dp"
                     android:layout_toEndOf="@+id/imageRam"
-                    app:rcBackgroundPadding="0dp"
-                    app:rcMax="100"
-                    app:rcRadius="0dp"/>
+                    android:max="1000"
+                    android:progress="500"
+                    android:scaleY="4.5"
+                    android:progressTint="@color/colorPrimary"/>
 
                 <TextView
                     android:id="@+id/txtRamPerc"
@@ -118,16 +120,18 @@
                     android:text="@string/DashROM"
                     android:textStyle="bold" />
 
-                <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                <ProgressBar
                     android:id="@+id/progressRom"
+                    style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="match_parent"
                     android:layout_height="18dp"
                     android:layout_below="@+id/txtROMTitle"
                     android:layout_marginEnd="35dp"
                     android:layout_toEndOf="@+id/imageROM"
-                    app:rcBackgroundPadding="0dp"
-                    app:rcMax="100"
-                    app:rcRadius="0dp"/>
+                    android:max="1000"
+                    android:progress="600"
+                    android:scaleY="4.5"
+                    android:progressTint="@color/colorPrimary"/>
 
                 <TextView
                     android:id="@+id/txtROMPerc"
@@ -186,16 +190,18 @@
                     android:text="@string/DashInternalStorage"
                     android:textStyle="bold" />
 
-                <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                <ProgressBar
                     android:id="@+id/progressInStorage"
+                    style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="match_parent"
                     android:layout_height="18dp"
                     android:layout_below="@+id/txtInStorageTitle"
                     android:layout_marginEnd="35dp"
                     android:layout_toEndOf="@+id/imageInStorage"
-                    app:rcBackgroundPadding="0dp"
-                    app:rcMax="100"
-                    app:rcRadius="0dp"/>
+                    android:max="1000"
+                    android:progress="700"
+                    android:scaleY="4.5"
+                    android:progressTint="@color/colorPrimary" />
 
                 <TextView
                     android:id="@+id/txtInStoragePerc"
@@ -254,16 +260,18 @@
                     android:text="@string/DashExternalStorage"
                     android:textStyle="bold" />
 
-                <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                <ProgressBar
                     android:id="@+id/progressExStorage"
+                    style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="match_parent"
                     android:layout_height="18dp"
                     android:layout_below="@+id/txtExStorageTitle"
                     android:layout_marginEnd="35dp"
                     android:layout_toEndOf="@+id/imageExStorage"
-                    app:rcBackgroundPadding="0dp"
-                    app:rcMax="100"
-                    app:rcRadius="0dp"/>
+                    android:max="1000"
+                    android:progress="800"
+                    android:scaleY="4.5"
+                    android:progressTint="@color/colorPrimary" />
 
                 <TextView
                     android:id="@+id/txtExStoragePerc"
@@ -285,7 +293,7 @@
                     android:gravity="top"
                     android:text="Free:0GB, Total:0GB"
                     android:textSize="12sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"/>
             </RelativeLayout>
         </android.support.v7.widget.CardView>
 
@@ -322,16 +330,18 @@
                     android:text="@string/DashBattery"
                     android:textStyle="bold" />
 
-                <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                <ProgressBar
                     android:id="@+id/progressBattery"
+                    style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="match_parent"
                     android:layout_height="18dp"
                     android:layout_below="@+id/txtBatteryTitle"
                     android:layout_marginEnd="35dp"
                     android:layout_toEndOf="@+id/imageBattery"
-                    app:rcBackgroundPadding="0dp"
-                    app:rcMax="100"
-                    app:rcRadius="0dp"/>
+                    android:max="1000"
+                    android:progress="900"
+                    android:scaleY="4.5"
+                    android:progressTint="@color/colorPrimary" />
 
                 <TextView
                     android:id="@+id/txtBatteryPerc"
@@ -390,16 +400,18 @@
                     android:text="@string/DashCPU"
                     android:textStyle="bold" />
 
-                <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                <ProgressBar
                     android:id="@+id/progressCPU"
+                    style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="match_parent"
                     android:layout_height="18dp"
                     android:layout_below="@+id/txtCPUTitle"
                     android:layout_marginEnd="35dp"
                     android:layout_toEndOf="@+id/imageCPU"
-                    app:rcBackgroundPadding="0dp"
-                    app:rcMax="100"
-                    app:rcRadius="0dp"/>
+                    android:max="1000"
+                    android:progress="1000"
+                    android:scaleY="4.5"
+                    android:progressTint="@color/colorPrimary"/>
 
                 <TextView
                     android:id="@+id/txtCPUPerc"

@@ -5,6 +5,17 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.front"
+        android:required="false" />
 
     <application
         android:icon="@mipmap/ic_launcher"
@@ -15,18 +26,20 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SplashActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
             <meta-data
                 android:name="android.app.shortcuts"
-                android:resource="@xml/shortcuts"/>
+                android:resource="@xml/shortcuts" />
         </activity>
         <activity
             android:name=".AboutActivity"
@@ -36,6 +49,34 @@
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
             android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".FlashlightTestActivity"
+            android:label="@string/flashlight_test" />
+        <activity
+            android:name=".DisplayTestActivity"
+            android:label="@string/display_test" />
+        <activity
+            android:name=".DisplayTestFullScreen"
+            android:label="@string/display_test"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".LoudSpeakerTestActivity"
+            android:label="@string/loudspeaker_test" />
+        <activity
+            android:name=".EarSpeakerTestActivity"
+            android:label="@string/earspeaker_test" />
+        <activity
+            android:name=".EarProximityTestActivity"
+            android:label="@string/earproximity_test" />
+        <activity
+            android:name=".VibrationTestActivity"
+            android:label="@string/vibration_test" />
+        <activity
+            android:name=".VolumeUpTestActivity"
+            android:label="@string/volumeup_test" />
+        <activity
+            android:name=".VolumeDownTestActivity"
+            android:label="@string/volumedown_test" />
 
         <service
             android:name=".DeviceInfoFCM"
@@ -47,7 +88,7 @@
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/cpu" />
+            android:resource="@drawable/icon_transparent" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />

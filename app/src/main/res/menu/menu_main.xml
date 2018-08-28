@@ -6,7 +6,7 @@
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"
-        app:showAsAction="never" />
+        app:showAsAction="never"/>
     <!--item
         android:id="@+id/action_invite"
         android:orderInCategory="100"
@@ -18,5 +18,4 @@
         android:title="@string/action_about"
         app:showAsAction="never"
         android:icon="@drawable/shortcut_about"/>
-
 </menu>

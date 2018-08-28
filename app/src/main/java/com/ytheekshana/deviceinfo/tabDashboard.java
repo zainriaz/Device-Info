@@ -15,7 +15,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.ColorUtils;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,9 +23,8 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 
 import java.util.Locale;
 import java.util.Objects;
@@ -34,13 +33,12 @@ import java.util.TimerTask;
 
 public class tabDashboard extends Fragment {
     TextView txtRamPerce, txtRamStatus, txtBatteryPerce, txtBatteryStatus, txtInStoragePerce, txtInStorageStatus, txtExStoragePerce, txtExStorageStatus, txtCPUPerce, txtCPUStatus, txtRomPerce, txtRomStatus, txtSensorCount, txtAppCount;
-    RoundCornerProgressBar ProgressBarRam, ProgressBarBattery, ProgressBarInStorage, ProgressBarExStorage, ProgressBarCPU, ProgressBarRom;
+    ProgressBar ProgressBarRam, ProgressBarBattery, ProgressBarInStorage, ProgressBarExStorage, ProgressBarCPU, ProgressBarRom;
     Context BatteryContext;
     int a, e, startROM, startRAM, startInStorage, startExStorage, startBattery, startCPU, usagecpu;
     CPUUsage cu2;
     String cUsage;
     Timer timercUsage;
-    int colorProgressBackground;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -48,8 +46,6 @@ public class tabDashboard extends Fragment {
         View rootView = inflater.inflate(R.layout.tabdashboard, container, false);
 
         try {
-            colorProgressBackground = ColorUtils.setAlphaComponent(MainActivity.themeColor, 70);
-
             ImageView imgRAM = rootView.findViewById(R.id.imageRam);
             ImageView imgROM = rootView.findViewById(R.id.imageROM);
             ImageView imgInStorage = rootView.findViewById(R.id.imageInStorage);
@@ -98,28 +94,22 @@ public class tabDashboard extends Fragment {
             txtAppCount = rootView.findViewById(R.id.txtAppCount);
 
             ProgressBarRam = rootView.findViewById(R.id.progressRam);
-            ProgressBarRam.setProgressColor(MainActivity.themeColor);
-            ProgressBarRam.setProgressBackgroundColor(colorProgressBackground);
+            DrawableCompat.setTint(ProgressBarRam.getProgressDrawable(), MainActivity.themeColor);
 
             ProgressBarRom = rootView.findViewById(R.id.progressRom);
-            ProgressBarRom.setProgressColor(MainActivity.themeColor);
-            ProgressBarRom.setProgressBackgroundColor(colorProgressBackground);
+            DrawableCompat.setTint(ProgressBarRom.getProgressDrawable(), MainActivity.themeColor);
 
             ProgressBarBattery = rootView.findViewById(R.id.progressBattery);
-            ProgressBarBattery.setProgressColor(MainActivity.themeColor);
-            ProgressBarBattery.setProgressBackgroundColor(colorProgressBackground);
+            DrawableCompat.setTint(ProgressBarBattery.getProgressDrawable(), MainActivity.themeColor);
 
             ProgressBarInStorage = rootView.findViewById(R.id.progressInStorage);
-            ProgressBarInStorage.setProgressColor(MainActivity.themeColor);
-            ProgressBarInStorage.setProgressBackgroundColor(colorProgressBackground);
+            DrawableCompat.setTint(ProgressBarInStorage.getProgressDrawable(), MainActivity.themeColor);
 
             ProgressBarExStorage = rootView.findViewById(R.id.progressExStorage);
-            ProgressBarExStorage.setProgressColor(MainActivity.themeColor);
-            ProgressBarExStorage.setProgressBackgroundColor(colorProgressBackground);
+            DrawableCompat.setTint(ProgressBarExStorage.getProgressDrawable(), MainActivity.themeColor);
 
             ProgressBarCPU = rootView.findViewById(R.id.progressCPU);
-            ProgressBarCPU.setProgressColor(MainActivity.themeColor);
-            ProgressBarCPU.setProgressBackgroundColor(colorProgressBackground);
+            DrawableCompat.setTint(ProgressBarCPU.getProgressDrawable(), MainActivity.themeColor);
 
             startCPU = cu2.getTotalCpuUsage();
 
@@ -155,12 +145,12 @@ public class tabDashboard extends Fragment {
                 cardExternalStorage.setVisibility(View.GONE);
             }
 
-            final MemoryInfo memoryInfo = new MemoryInfo(getActivity(),getContext());
+            final MemoryInfo memoryInfo = new MemoryInfo(getActivity(), getContext());
             final Handler updateRam = new Handler();
             Runnable runnable = new Runnable() {
                 public void run() {
                     memoryInfo.Ram();
-                    ProgressBarRam.setProgress((int) memoryInfo.getUsedRamPercentage());
+                    ProgressBarRam.setProgress((int) memoryInfo.getUsedRamPercentage() * 10);
                     String ram_percentage = (int) memoryInfo.getUsedRamPercentage() + "%";
                     txtRamPerce.setText(ram_percentage);
                     String setRam = "Free:" + String.format(Locale.US, "%.2f", memoryInfo.getAvailableRam() / 1024) + " GB, Total:" + String.format(Locale.US, "%.2f", memoryInfo.getTotalRam() / 1024) + " GB";
@@ -185,30 +175,30 @@ public class tabDashboard extends Fragment {
                     ProgressBarCPU.post(new Runnable() {
                         @Override
                         public void run() {
-                            ProgressBarCPU.setProgress(usagecpu);
+                            ProgressBarCPU.setProgress(usagecpu*10);
                         }
                     });
 
                 }
             }, 1000, 1000);
 
-            ObjectAnimator progressAnimatorRAM = ObjectAnimator.ofFloat(ProgressBarRam, "progress", 0.0f, (float) startRAM);
+            ObjectAnimator progressAnimatorRAM = ObjectAnimator.ofInt(ProgressBarRam, "progress", 0, startRAM * 10);
             progressAnimatorRAM.setDuration(800);
             progressAnimatorRAM.start();
 
-            ObjectAnimator progressAnimatorROM = ObjectAnimator.ofFloat(ProgressBarRom, "progress", 0.0f, (float) startROM);
+            ObjectAnimator progressAnimatorROM = ObjectAnimator.ofInt(ProgressBarRom, "progress", 0, startROM * 10);
             progressAnimatorROM.setDuration(800);
             progressAnimatorROM.start();
 
-            ObjectAnimator progressAnimatorInStorage = ObjectAnimator.ofFloat(ProgressBarInStorage, "progress", 0.0f, (float) startInStorage);
+            ObjectAnimator progressAnimatorInStorage = ObjectAnimator.ofInt(ProgressBarInStorage, "progress", 0, startInStorage * 10);
             progressAnimatorInStorage.setDuration(800);
             progressAnimatorInStorage.start();
 
-            ObjectAnimator progressAnimatorExStorage = ObjectAnimator.ofFloat(ProgressBarExStorage, "progress", 0.0f, (float) startExStorage);
+            ObjectAnimator progressAnimatorExStorage = ObjectAnimator.ofInt(ProgressBarExStorage, "progress", 0, startExStorage * 10);
             progressAnimatorExStorage.setDuration(800);
             progressAnimatorExStorage.start();
 
-            ObjectAnimator progressAnimatorCPU = ObjectAnimator.ofFloat(ProgressBarCPU, "progress", 0.0f, (float) startCPU);
+            ObjectAnimator progressAnimatorCPU = ObjectAnimator.ofInt(ProgressBarCPU, "progress", 0, startCPU * 10);
             progressAnimatorCPU.setDuration(800);
             progressAnimatorCPU.start();
 
@@ -307,7 +297,7 @@ public class tabDashboard extends Fragment {
             String battery_percentage = Integer.toString(batlevel) + "%";
             txtBatteryPerce.setText(battery_percentage);
 
-            ObjectAnimator progressAnimatorBattery = ObjectAnimator.ofFloat(ProgressBarBattery, "progress", 0.0f, (float) startBattery);
+            ObjectAnimator progressAnimatorBattery = ObjectAnimator.ofInt(ProgressBarBattery, "progress", 0, startBattery * 10);
             progressAnimatorBattery.setDuration(800);
             progressAnimatorBattery.start();
 

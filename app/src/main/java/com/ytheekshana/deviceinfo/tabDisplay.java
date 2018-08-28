@@ -1,20 +1,16 @@
 package com.ytheekshana.deviceinfo;
 
-import android.content.Context;
-import android.content.res.Configuration;
-import android.graphics.Point;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.util.Objects;
 
 
 public class tabDisplay extends Fragment {
@@ -28,7 +24,7 @@ public class tabDisplay extends Fragment {
         llayout = rootView.findViewById(R.id.llayout);
         try {
             TextDisColor = MainActivity.themeColor;
-            LineColor = GetDetails.getThemeColor(getContext(), R.attr.colorButtonNormal);
+            LineColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorButtonNormal);
 
             TextView txtResolution = new TextView(getContext());
             TextView txtResolutiondis = new TextView(getContext());

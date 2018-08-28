@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".VolumeDownTestActivity">
+
+    <ImageButton
+        android:id="@+id/imgbtn_failed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="50dp"
+        android:layout_marginStart="100dp"
+        android:backgroundTint="@android:color/transparent"
+        android:tint="@color/test_failed"
+        app:srcCompat="@drawable/test_failed" />
+
+    <ImageButton
+        android:id="@+id/imgbtn_success"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="50dp"
+        android:layout_marginEnd="100dp"
+        android:backgroundTint="@android:color/transparent"
+        android:tint="@color/test_success"
+        app:srcCompat="@drawable/test_success" />
+
+    <ImageView
+        android:id="@+id/imgVolumeDownImage"
+        android:layout_width="200dp"
+        android:layout_height="300dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/ic_volume_down_image" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="123dp"
+        android:paddingEnd="20dp"
+        android:paddingStart="20dp"
+        android:textAlignment="center"
+        android:text="@string/volumedown_test_question" />
+</RelativeLayout>
