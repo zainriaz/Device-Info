@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="PrivateResource" tools:override="true">
 
-    <!-- Base application theme. -->
+    <!-- Light Theme -->
+
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -10,6 +11,7 @@
         <item name="cardStyle">@style/CardView.Light</item>
         <item name="listDividerStyle">@style/ListViewStyle.Light</item>
         <item name="popupWindowStyle">@style/PopupAppWindow.Light</item>
+        <item name="optionsMenuStyle">@style/AppTheme.AppBarOverlay</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -17,9 +19,23 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:itemBackground">@color/background_material_light</item>
+        <item name="android:textColor">@color/abc_primary_text_material_light</item>
+    </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="ListViewStyle.Light" parent="android:style/Widget.ListView">
+        <item name="android:divider">@color/background_material_light</item>
+    </style>
+
+    <style name="PopupAppWindow.Light" parent="AppTheme.PopupOverlay">
+        <item name="android:background">@color/background_material_light</item>
+    </style>
+
+
+    <!-- Dark Theme -->
 
     <style name="AppThemeDark" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name="colorPrimary">@color/DarkcolorPrimary</item>
@@ -54,6 +70,7 @@
         <item name="cardStyle">@style/CardView.Dark</item>
         <item name="listDividerStyle">@style/ListViewStyle.Dark</item>
         <item name="popupWindowStyle">@style/PopupAppWindow.Dark</item>
+        <item name="optionsMenuStyle">@style/AppThemeDark.AppBarOverlay</item>
     </style>
 
     <style name="AppThemeDark.NoActionBar">
@@ -61,16 +78,13 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="ListViewStyle.Light" parent="android:style/Widget.ListView">
-        <item name="android:divider">@color/background_material_light</item>
+    <style name="AppThemeDark.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:itemBackground">@color/background_material_dark</item>
+        <item name="android:textColor">@color/abc_primary_text_material_dark</item>
     </style>
 
     <style name="ListViewStyle.Dark" parent="android:style/Widget.ListView">
         <item name="android:divider">@color/background_material_dark</item>
-    </style>
-
-    <style name="PopupAppWindow.Light" parent="AppTheme.PopupOverlay">
-        <item name="android:background">@color/background_material_light</item>
     </style>
 
     <style name="PopupAppWindow.Dark" parent="AppTheme.PopupOverlay">

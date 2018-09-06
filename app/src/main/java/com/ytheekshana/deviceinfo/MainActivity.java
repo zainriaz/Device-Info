@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         AppBarLayout appbar = findViewById(R.id.appbar);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -61,9 +62,9 @@ public class MainActivity extends AppCompatActivity {
         ActivityManager.TaskDescription taskDescription = new ActivityManager.TaskDescription(getString(R.string.app_name), icon, themeColor);
         setTaskDescription(taskDescription);
 
-        mBuilder = new NotificationCompat.Builder(this, "1")
+        /*mBuilder = new NotificationCompat.Builder(this, "1")
                 .setPriority(Notification.PRIORITY_HIGH)
-                .setSmallIcon(R.drawable.icon_transparent)
+                .setSmallIcon(R.drawable.cpu)
                 .setContentTitle("Device Info")
                 .setContentText("Gathering Data Completed");
 
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         NotificationManager mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         if (mNotifyMgr != null) {
             mNotifyMgr.notify(mNotificationId, mBuilder.build());
-        }
+        }*/
     }
 
     @Override

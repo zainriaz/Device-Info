@@ -3,4 +3,5 @@
     <attr name="cardStyle" format="reference" />
     <attr name="listDividerStyle" format="reference" />
     <attr name="popupWindowStyle" format="reference" />
+    <attr name="optionsMenuStyle" format="reference" />
 </resources>

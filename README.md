@@ -13,6 +13,11 @@ Device Info is a simple and powerful Android application which gives you the com
 - Android 5+ Device
 
 ### Changelog
+#### Device Info 1.5.0
+- Added Service Tests
+- Fixed bugs in dark mode
+- Improved UI
+
 #### Device Info 1.4.0
 - New Splash Screen
 - Fixed lag between tabs
