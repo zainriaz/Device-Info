@@ -58,7 +58,7 @@
                     android:layout_marginEnd="35dp"
                     android:layout_toEndOf="@+id/imageRam"
                     android:max="1000"
-                    android:progress="500"
+                    android:progress="400"
                     android:scaleY="4.5"
                     android:progressTint="@color/colorPrimary"/>
 
@@ -129,7 +129,7 @@
                     android:layout_marginEnd="35dp"
                     android:layout_toEndOf="@+id/imageROM"
                     android:max="1000"
-                    android:progress="600"
+                    android:progress="500"
                     android:scaleY="4.5"
                     android:progressTint="@color/colorPrimary"/>
 
@@ -199,7 +199,7 @@
                     android:layout_marginEnd="35dp"
                     android:layout_toEndOf="@+id/imageInStorage"
                     android:max="1000"
-                    android:progress="700"
+                    android:progress="600"
                     android:scaleY="4.5"
                     android:progressTint="@color/colorPrimary" />
 
@@ -269,7 +269,7 @@
                     android:layout_marginEnd="35dp"
                     android:layout_toEndOf="@+id/imageExStorage"
                     android:max="1000"
-                    android:progress="800"
+                    android:progress="700"
                     android:scaleY="4.5"
                     android:progressTint="@color/colorPrimary" />
 
@@ -339,7 +339,7 @@
                     android:layout_marginEnd="35dp"
                     android:layout_toEndOf="@+id/imageBattery"
                     android:max="1000"
-                    android:progress="900"
+                    android:progress="800"
                     android:scaleY="4.5"
                     android:progressTint="@color/colorPrimary" />
 
@@ -409,7 +409,7 @@
                     android:layout_marginEnd="35dp"
                     android:layout_toEndOf="@+id/imageCPU"
                     android:max="1000"
-                    android:progress="1000"
+                    android:progress="900"
                     android:scaleY="4.5"
                     android:progressTint="@color/colorPrimary"/>
 

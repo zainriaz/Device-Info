@@ -14,6 +14,15 @@
             android:summary="Select an Accent Color"
             android:title="Accent Color"
             app:colorChoices="@array/accent_colors"
-            app:colorShape="circle" />
+            app:colorShape="circle"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="About">
+        <Preference
+            android:key="app_version_pref"
+            android:selectable="false"
+            android:persistent="false"
+            android:title="App Version"
+            android:summary=""/>
     </PreferenceCategory>
 </PreferenceScreen>

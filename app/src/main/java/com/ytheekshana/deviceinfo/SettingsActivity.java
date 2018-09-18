@@ -53,6 +53,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Col
         SwitchPreference dark_theme_Pref;
         SharedPreferences sharedPrefs;
         SharedPreferences.Editor shareEdit;
+        Preference app_version_pref;
 
         @Override
         public void onCreate(final Bundle savedInstanceState) {
@@ -63,6 +64,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Col
 
             theme_color = (com.kizitonwose.colorpreference.ColorPreference) findPreference("accent_color_dialog");
             dark_theme_Pref = (SwitchPreference) findPreference("dark_theme_switch");
+            app_version_pref = findPreference("app_version_pref");
             dark_theme_Pref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 public boolean onPreferenceClick(Preference preference) {
 
@@ -91,6 +93,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Col
                 dark_theme_Pref.setChecked(false);
                 dark_theme_Pref.setSummary("Enable Dark Theme");
             }
+            app_version_pref.setSummary(BuildConfig.VERSION_NAME);
         }
     }
 

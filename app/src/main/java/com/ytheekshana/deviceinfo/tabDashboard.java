@@ -32,8 +32,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class tabDashboard extends Fragment {
-    TextView txtRamPerce, txtRamStatus, txtBatteryPerce, txtBatteryStatus, txtInStoragePerce, txtInStorageStatus, txtExStoragePerce, txtExStorageStatus, txtCPUPerce, txtCPUStatus, txtRomPerce, txtRomStatus, txtSensorCount, txtAppCount;
-    ProgressBar ProgressBarRam, ProgressBarBattery, ProgressBarInStorage, ProgressBarExStorage, ProgressBarCPU, ProgressBarRom;
+    TextView txtRamPerce, txtRamStatus, txtBatteryPerce, txtBatteryStatus, txtInStoragePerce, txtInStorageStatus,
+            txtExStoragePerce, txtExStorageStatus, txtCPUPerce, txtCPUStatus,
+            txtRomPerce, txtRomStatus, txtSensorCount, txtAppCount;
+    ProgressBar ProgressBarRam, ProgressBarBattery, ProgressBarInStorage, ProgressBarExStorage,
+            ProgressBarCPU, ProgressBarRom;
     Context BatteryContext;
     int a, e, startROM, startRAM, startInStorage, startExStorage, startBattery, startCPU, usagecpu;
     CPUUsage cu2;
@@ -175,7 +178,7 @@ public class tabDashboard extends Fragment {
                     ProgressBarCPU.post(new Runnable() {
                         @Override
                         public void run() {
-                            ProgressBarCPU.setProgress(usagecpu*10);
+                            ProgressBarCPU.setProgress(usagecpu * 10);
                         }
                     });
 

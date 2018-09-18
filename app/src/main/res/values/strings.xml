@@ -6,6 +6,7 @@
     <string name="DashExternalStorage">External Storage</string>
     <string name="DashBattery">Battery</string>
     <string name="DashCPU">CPU</string>
+    <string name="DashTests">Tests Passed</string>
     <string name="DashSensor">Sensors</string>
     <string name="DashSensorStatus">Available</string>
     <string name="DashApp">Apps</string>
@@ -20,12 +21,13 @@
     <string name="imgROM">ROM Logo</string>
 
     <string name="app_name">Device Info</string>
-    <string name="app_description">Device Info is a simple and powerful Android application which gives you the complete information about your Mobile device system software and hardware with advanced user interfaces</string>
+    <string name="app_description">Device Info is a simple and powerful Android application which gives you complete information about your Mobile device with advanced user interfaces</string>
     <string name="action_settings">Settings</string>
     <string name="action_about">About</string>
     <string name="action_invite">Invite</string>
+    <string name="action_rate">Rate App</string>
     <string name="section_format">Hello World from section: %1$d</string>
-    <string name="authorname">Yasiru Theekshana</string>
+    <string name="authorname">Yasiru Nayanajith</string>
 
     <string name="DeviceName">Device Name</string>
     <string name="Model">Model</string>
