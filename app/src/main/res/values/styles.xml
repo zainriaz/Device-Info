@@ -91,4 +91,12 @@
         <item name="android:background">@color/background_material_dark</item>
     </style>
 
+    <style name="BottomSheetDialogThemeTransparent" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetStyleTransparent</item>
+    </style>
+
+    <style name="BottomSheetStyleTransparent" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
 </resources>

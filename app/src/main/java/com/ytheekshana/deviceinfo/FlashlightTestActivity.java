@@ -1,30 +1,35 @@
 package com.ytheekshana.deviceinfo;
 
+import android.Manifest;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.hardware.Camera;
 import android.hardware.camera2.CameraAccessException;
-import android.hardware.camera2.CameraManager;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
+
+import com.noob.noobcameraflash.managers.NoobCameraManager;
 
 import java.util.Objects;
 
 @SuppressWarnings("deprecation")
 public class FlashlightTestActivity extends AppCompatActivity {
 
-    private Camera mCamera;
-    private Camera.Parameters parameters;
-    private CameraManager camManager;
+    public static final int REQUEST_CAMERA = 1;
     SharedPreferences sharedPrefs;
     SharedPreferences.Editor editPrefs;
     Context context;
@@ -32,6 +37,7 @@ public class FlashlightTestActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         try {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
             int themeId = sharedPrefs.getInt("ThemeBar", R.style.AppTheme);
             int themeColor = sharedPrefs.getInt("accent_color_dialog", Color.parseColor("#2196f3"));
@@ -63,7 +69,6 @@ public class FlashlightTestActivity extends AppCompatActivity {
                     editPrefs.putInt("flashlight_test_status", 0);
                     editPrefs.apply();
                     editPrefs.commit();
-                    turnFlashlightOff(context);
                     finish();
                 }
             });
@@ -73,73 +78,74 @@ public class FlashlightTestActivity extends AppCompatActivity {
                     editPrefs.putInt("flashlight_test_status", 1);
                     editPrefs.apply();
                     editPrefs.commit();
-                    turnFlashlightOff(context);
                     finish();
                 }
             });
-            turnFlashlightOn(context);
+
+            NoobCameraManager.getInstance().init(this);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA);
+                } else {
+                    NoobCameraManager.getInstance().turnOnFlash();
+                }
+            } else {
+                NoobCameraManager.getInstance().turnOnFlash();
+            }
+
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    private void turnFlashlightOn(Context context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            try {
-                camManager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
-                String cameraId; // Usually front camera is at 0 position.
-                if (camManager != null) {
-                    cameraId = camManager.getCameraIdList()[0];
-                    camManager.setTorchMode(cameraId, true);
-                }
-            } catch (CameraAccessException e) {
-                e.printStackTrace();
-            }
-        } else {
-            mCamera = Camera.open();
-            parameters = mCamera.getParameters();
-            parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
-            mCamera.setParameters(parameters);
-            mCamera.startPreview();
-        }
-    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-    private void turnFlashlightOff(Context context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            try {
-                String cameraId;
-                camManager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
-                if (camManager != null) {
-                    cameraId = camManager.getCameraIdList()[0]; // Usually front camera is at 0 position.
-                    camManager.setTorchMode(cameraId, false);
+        try {
+            switch (requestCode) {
+                case REQUEST_CAMERA: {
+                    if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                        NoobCameraManager.getInstance().turnOnFlash();
+                    } else {
+                        Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            } catch (CameraAccessException e) {
-                e.printStackTrace();
             }
-        } else {
-            mCamera = Camera.open();
-            parameters = mCamera.getParameters();
-            parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
-            mCamera.setParameters(parameters);
-            mCamera.stopPreview();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
     @Override
     protected void onDestroy() {
-        turnFlashlightOff(getApplicationContext());
+        try {
+            NoobCameraManager.getInstance().turnOffFlash();
+            NoobCameraManager.getInstance().release();
+        } catch (CameraAccessException e) {
+            e.printStackTrace();
+        }
         super.onDestroy();
     }
 
     @Override
     public void onBackPressed() {
-        turnFlashlightOff(getApplicationContext());
+        try {
+            NoobCameraManager.getInstance().turnOffFlash();
+        } catch (CameraAccessException e) {
+            e.printStackTrace();
+        }
         super.onBackPressed();
     }
 
     @Override
     protected void onPause() {
-        turnFlashlightOff(getApplicationContext());
+        try {
+            NoobCameraManager.getInstance().turnOffFlash();
+        } catch (CameraAccessException e) {
+            e.printStackTrace();
+        }
         super.onPause();
     }
 }

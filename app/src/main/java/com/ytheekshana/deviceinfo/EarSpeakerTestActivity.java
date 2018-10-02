@@ -1,16 +1,25 @@
 package com.ytheekshana.deviceinfo;
 
+import android.Manifest;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,6 +29,7 @@ import android.widget.Toast;
 import java.util.Objects;
 
 public class EarSpeakerTestActivity extends AppCompatActivity {
+    public static final int REQUEST_READ_EXTERNAL_STORAGE = 1;
     SharedPreferences sharedPrefs;
     SharedPreferences.Editor editPrefs;
     Context context;
@@ -28,6 +38,7 @@ public class EarSpeakerTestActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         try {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
             int themeId = sharedPrefs.getInt("ThemeBar", R.style.AppTheme);
             int themeColor = sharedPrefs.getInt("accent_color_dialog", Color.parseColor("#2196f3"));
@@ -72,14 +83,49 @@ public class EarSpeakerTestActivity extends AppCompatActivity {
                 }
             });
 
-            AudioManager audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+
+            AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
             Objects.requireNonNull(audioManager).setMode(AudioManager.STREAM_VOICE_CALL);
             setVolumeControlStream(AudioManager.STREAM_VOICE_CALL);
             mediaPlayer = new MediaPlayer();
             mediaPlayer.setAudioStreamType(AudioManager.STREAM_VOICE_CALL);
-            mediaPlayer.setDataSource(this, Settings.System.DEFAULT_RINGTONE_URI);
-            mediaPlayer.prepare();
-            mediaPlayer.start();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_READ_EXTERNAL_STORAGE);
+                } else {
+                    Uri defaultRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+                    mediaPlayer.setDataSource(this, defaultRingtoneUri);
+                    mediaPlayer.prepare();
+                    mediaPlayer.start();
+                }
+            } else {
+                Uri defaultRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+                mediaPlayer.setDataSource(this, defaultRingtoneUri);
+                mediaPlayer.prepare();
+                mediaPlayer.start();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        try {
+            switch (requestCode) {
+                case REQUEST_READ_EXTERNAL_STORAGE: {
+                    if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                        Uri defaultRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+                        mediaPlayer.setDataSource(this, defaultRingtoneUri);
+                        mediaPlayer.prepare();
+                        mediaPlayer.start();
+                    } else {
+                        Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }

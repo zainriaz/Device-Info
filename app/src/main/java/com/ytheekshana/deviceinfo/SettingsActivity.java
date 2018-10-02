@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -54,6 +55,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Col
         SharedPreferences sharedPrefs;
         SharedPreferences.Editor shareEdit;
         Preference app_version_pref;
+        Preference pref_rate_us;
 
         @Override
         public void onCreate(final Bundle savedInstanceState) {
@@ -94,6 +96,17 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Col
                 dark_theme_Pref.setSummary("Enable Dark Theme");
             }
             app_version_pref.setSummary(BuildConfig.VERSION_NAME);
+            pref_rate_us = findPreference("pref_rate_us");
+            pref_rate_us.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse("https://play.google.com/store/apps/details?id=com.ytheekshana.deviceinfo"));
+                    intent.setPackage("com.android.vending");
+                    startActivity(intent);
+                    return false;
+                }
+            });
         }
     }
 

@@ -3,6 +3,7 @@ package com.ytheekshana.deviceinfo;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -29,6 +30,7 @@ public class VolumeDownTestActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         try {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
             int themeId = sharedPrefs.getInt("ThemeBar", R.style.AppTheme);
             int themeColor = sharedPrefs.getInt("accent_color_dialog", Color.parseColor("#2196f3"));
@@ -61,7 +63,7 @@ public class VolumeDownTestActivity extends AppCompatActivity {
                     editPrefs.putInt("volumedown_test_status", 0);
                     editPrefs.apply();
                     editPrefs.commit();
-                    finish();
+                    onBackPressed();
                 }
             });
             imgbtn_success.setOnClickListener(new View.OnClickListener() {
@@ -70,7 +72,7 @@ public class VolumeDownTestActivity extends AppCompatActivity {
                     editPrefs.putInt("volumedown_test_status", 1);
                     editPrefs.apply();
                     editPrefs.commit();
-                    finish();
+                    onBackPressed();
                 }
             });
             vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
@@ -101,5 +103,22 @@ public class VolumeDownTestActivity extends AppCompatActivity {
         } else {
             return super.onKeyDown(keyCode, event);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        boolean requestReview = sharedPreferences.getBoolean("RequestReview", false);
+        if (!requestReview) {
+            BottomSheetEnjoy bottomSheetEnjoy = BottomSheetEnjoy.newInstance();
+            bottomSheetEnjoy.show(getSupportFragmentManager(), "EnjoyAppFragment");
+            editor.putBoolean("RequestReview", true);
+            editor.apply();
+            editor.commit();
+        } else {
+           finish();
+        }
+
     }
 }

@@ -7,11 +7,6 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never"/>
-    <!--item
-        android:id="@+id/action_invite"
-        android:orderInCategory="100"
-        android:title="@string/action_invite"
-        app:showAsAction="never"/-->
     <item
         android:id="@+id/action_rate"
         android:orderInCategory="100"

@@ -4,6 +4,7 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -25,6 +26,7 @@ public class DisplayTestActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         int themeId = sharedPrefs.getInt("ThemeBar", R.style.AppTheme);
         int themeColor = sharedPrefs.getInt("accent_color_dialog", Color.parseColor("#2196f3"));

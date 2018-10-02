@@ -15,6 +15,10 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.util.Objects;
 
 public class tabBattery extends Fragment {
@@ -184,6 +188,7 @@ public class tabBattery extends Fragment {
             llayout.addView(txtBatteryCapacity);
             llayout.addView(txtBatteryCapacitydis);
             llayout.addView(v7);
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }

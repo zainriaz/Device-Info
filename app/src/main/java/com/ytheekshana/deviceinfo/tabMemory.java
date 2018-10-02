@@ -16,9 +16,13 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.lzyzsd.circleprogress.DonutProgress;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import java.util.Locale;
 
@@ -31,6 +35,7 @@ public class tabMemory extends Fragment {
     DonutProgress progressRam, progressRom, progressInStorage, progressExStorage;
     CardView cardExStorage;
     ImageView imgRam, imgRom, imgInSto, imgExSto;
+    RelativeLayout rlayout;
 
     @Override
     public void onAttach(Context context) {
@@ -47,6 +52,7 @@ public class tabMemory extends Fragment {
         LineColor = GetDetails.getThemeColor(context, R.attr.colorButtonNormal);
         try {
 
+            rlayout = rootView.findViewById(R.id.rlayout);
             txtRamTotal = rootView.findViewById(R.id.txtRamTotal);
             txtRamTotal.setTextColor(TextDisColor);
             txtRamFree = rootView.findViewById(R.id.txtRamFree);
@@ -175,6 +181,7 @@ public class tabMemory extends Fragment {
             } else {
                 cardExStorage.setVisibility(View.GONE);
             }
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }

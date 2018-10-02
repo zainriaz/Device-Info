@@ -1,7 +1,6 @@
 package com.ytheekshana.deviceinfo;
 
 import android.app.ActivityManager;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
@@ -24,31 +23,48 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     NotificationCompat.Builder mBuilder;
-    public static int themeColor;
+    public static int themeColor,requestReviewCount;
+    ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         int themeId = sharedPrefs.getInt("ThemeNoBar", R.style.AppTheme_NoActionBar);
+        requestReviewCount = sharedPrefs.getInt("requestReviewCount", 0);
         themeColor = sharedPrefs.getInt("accent_color_dialog", Color.parseColor("#2196f3"));
         int themeColorDark = GetDetails.getDarkColor(this, themeColor);
         setTheme(themeId);
 
         super.onCreate(savedInstanceState);
+        /*View mDecorView = getWindow().getDecorView();
+        mDecorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE);*/
         setContentView(R.layout.activity_main);
+        MobileAds.initialize(this, "ca-app-pub-9823272508031979~9460111064");
         AppBarLayout appbar = findViewById(R.id.appbar);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        ViewPager mViewPager = findViewById(R.id.container);
+        mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         final TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
@@ -62,6 +78,16 @@ public class MainActivity extends AppCompatActivity {
         Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.icon);
         ActivityManager.TaskDescription taskDescription = new ActivityManager.TaskDescription(getString(R.string.app_name), icon, themeColor);
         setTaskDescription(taskDescription);
+
+        final AdView adView = findViewById(R.id.adViewAllTabs);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+        adView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                adView.setVisibility(View.VISIBLE);
+            }
+        });
 
         /*mBuilder = new NotificationCompat.Builder(this, "1")
                 .setPriority(Notification.PRIORITY_HIGH)
@@ -177,10 +203,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         List<Fragment> fragments = getSupportFragmentManager().getFragments();
-        if (fragments != null) {
-            for (Fragment fragment : fragments) {
-                fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
-            }
+        for (Fragment fragment : fragments) {
+            fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 

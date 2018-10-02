@@ -20,7 +20,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.jaredrummler.android.device.DeviceName;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 
 import java.util.Objects;
 
@@ -195,14 +198,18 @@ public class tabDevice extends Fragment {
             llayout.addView(txtDeviceTypedis);
             llayout.addView(v6);
 
-            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-                txtDeviceTypedis.setText(R.string.GrantPermission);
-                txtDeviceTypedis.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_PHONE_STATE);
-                    }
-                });
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                    txtDeviceTypedis.setText(R.string.GrantPermission);
+                    txtDeviceTypedis.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_PHONE_STATE);
+                        }
+                    });
+                } else {
+                    txtDeviceTypedis.setText(GetDetails.PhoneType(tm.getPhoneType()));
+                }
             } else {
                 txtDeviceTypedis.setText(GetDetails.PhoneType(tm.getPhoneType()));
             }
@@ -245,14 +252,18 @@ public class tabDevice extends Fragment {
             llayout.addView(txtIMEIdis);
             llayout.addView(v8);
 
-            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-                txtIMEIdis.setText(R.string.GrantPermission);
-                txtIMEIdis.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_PHONE_STATE);
-                    }
-                });
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                    txtIMEIdis.setText(R.string.GrantPermission);
+                    txtIMEIdis.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_PHONE_STATE);
+                        }
+                    });
+                } else {
+                    txtIMEIdis.setText(tm.getDeviceId());
+                }
             } else {
                 txtIMEIdis.setText(tm.getDeviceId());
             }
@@ -295,14 +306,18 @@ public class tabDevice extends Fragment {
             llayout.addView(txtSIMSerialdis);
             llayout.addView(v10);
 
-            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-                txtSIMSerialdis.setText(R.string.GrantPermission);
-                txtSIMSerialdis.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_PHONE_STATE);
-                    }
-                });
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                    txtSIMSerialdis.setText(R.string.GrantPermission);
+                    txtSIMSerialdis.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_PHONE_STATE);
+                        }
+                    });
+                } else {
+                    txtSIMSerialdis.setText(tm.getSimSerialNumber());
+                }
             } else {
                 txtSIMSerialdis.setText(tm.getSimSerialNumber());
             }
@@ -326,14 +341,18 @@ public class tabDevice extends Fragment {
             llayout.addView(txtSIMSubscriberdis);
             llayout.addView(v11);
 
-            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-                txtSIMSubscriberdis.setText(R.string.GrantPermission);
-                txtSIMSubscriberdis.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_PHONE_STATE);
-                    }
-                });
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                    txtSIMSubscriberdis.setText(R.string.GrantPermission);
+                    txtSIMSubscriberdis.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_PHONE_STATE);
+                        }
+                    });
+                } else {
+                    txtSIMSubscriberdis.setText(tm.getSubscriberId());
+                }
             } else {
                 txtSIMSubscriberdis.setText(tm.getSubscriberId());
             }
@@ -357,14 +376,18 @@ public class tabDevice extends Fragment {
             llayout.addView(txtNetworkOperatordis);
             llayout.addView(v12);
 
-            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-                txtNetworkOperatordis.setText(R.string.GrantPermission);
-                txtNetworkOperatordis.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_PHONE_STATE);
-                    }
-                });
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                    txtNetworkOperatordis.setText(R.string.GrantPermission);
+                    txtNetworkOperatordis.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_PHONE_STATE);
+                        }
+                    });
+                } else {
+                    txtNetworkOperatordis.setText(tm.getNetworkOperatorName());
+                }
             } else {
                 txtNetworkOperatordis.setText(tm.getNetworkOperatorName());
             }
@@ -388,14 +411,18 @@ public class tabDevice extends Fragment {
             llayout.addView(txtNetworkTypedis);
             llayout.addView(v13);
 
-            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-                txtNetworkTypedis.setText(R.string.GrantPermission);
-                txtNetworkTypedis.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_PHONE_STATE);
-                    }
-                });
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                    txtNetworkTypedis.setText(R.string.GrantPermission);
+                    txtNetworkTypedis.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_PHONE_STATE);
+                        }
+                    });
+                } else {
+                    txtNetworkTypedis.setText(GetDetails.NetworkType(tm.getNetworkType()));
+                }
             } else {
                 txtNetworkTypedis.setText(GetDetails.NetworkType(tm.getNetworkType()));
             }

@@ -3,7 +3,6 @@
     <PreferenceCategory android:title="Theme">
 
         <SwitchPreference
-            android:id="@+id/dark_theme_switch"
             android:key="dark_theme_switch"
             android:summary="Enable Dark Theme"
             android:title="Dark Theme" />
@@ -15,6 +14,13 @@
             android:title="Accent Color"
             app:colorChoices="@array/accent_colors"
             app:colorShape="circle"/>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Support Us">
+
+        <Preference
+            android:key="pref_rate_us"
+            android:summary="Enjoying Device Info? Would you mind giving us some feedback on Google Play Store"
+            android:title="Rate Us" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="About">

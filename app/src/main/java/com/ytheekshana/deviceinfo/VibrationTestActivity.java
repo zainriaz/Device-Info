@@ -3,6 +3,7 @@ package com.ytheekshana.deviceinfo;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -26,6 +27,7 @@ public class VibrationTestActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         try {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
             int themeId = sharedPrefs.getInt("ThemeBar", R.style.AppTheme);
             int themeColor = sharedPrefs.getInt("accent_color_dialog", Color.parseColor("#2196f3"));

@@ -18,6 +18,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.util.Objects;
 
 public class tabSystem extends Fragment {
@@ -311,6 +315,8 @@ public class tabSystem extends Fragment {
                     h.postDelayed(this, 1000);
                 }
             }, 1000);
+
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
