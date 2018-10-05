@@ -139,4 +139,11 @@
     <string name="volumedown_test_status">Volume Down Button Test Status</string>
     <string name="volumedown_test_question">Press the volume down key, do you get any feedback?</string>
 
+    <string name="review_no_thanks">No, Thanks</string>
+    <string name="review_ok_sure">OK, Sure</string>
+    <string name="review_how_about_a_rating">How about a rating on the Play Store?</string>
+    <string name="review_enjoying_device_info">Enjoying Device Info ?</string>
+    <string name="review_not_really">Not Really</string>
+    <string name="review_yes">Yes!</string>
+
 </resources>

@@ -585,6 +585,24 @@ class GetDetails {
             case 21:
                 stype = "HEART_RATE";
                 break;
+            case 22:
+                stype = "TILT DETECTOR";
+                break;
+            case 23:
+                stype = "WAKE GESTURE";
+                break;
+            case 24:
+                stype = "GLANCE_GESTURE";
+                break;
+            case 25:
+                stype = "PICK_UP_GESTURE";
+                break;
+            case 26:
+                stype = "WRIST_TILT_GESTURE";
+                break;
+            case 27:
+                stype = "DEVICE_ORIENTATION ";
+                break;
             case 28:
                 stype = "POSE 6DOF";
                 break;
@@ -596,6 +614,12 @@ class GetDetails {
                 break;
             case 31:
                 stype = "HEART BEAT";
+                break;
+            case 32:
+                stype = "DYNAMIC_SENSOR_META";
+                break;
+            case 33:
+                stype = "ADDITIONAL_INFO";
                 break;
             case 34:
                 stype = "LOW LATENCY OFFBODY DETECT";

@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:padding="20dp"
-                android:text="Enjoying Device Info ?"
+                android:text="@string/review_enjoying_device_info"
                 android:textAlignment="center"
                 android:textColor="#ffffff"
                 android:textSize="20sp" />
@@ -41,6 +41,7 @@
 
                 <Button
                     android:id="@+id/btnEnjoyNo"
+                    style="?android:buttonBarStyle"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:layout_marginBottom="10dp"
@@ -51,13 +52,14 @@
                     android:fontFamily="sans-serif"
                     android:paddingBottom="0dp"
                     android:paddingTop="0dp"
-                    android:text="Not Really"
+                    android:text="@string/review_not_really"
                     android:textAllCaps="false"
                     android:textColor="#ffffff"
                     android:textSize="18sp" />
 
                 <Button
                     android:id="@+id/btnEnjoyYes"
+                    style="?android:buttonBarStyle"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:layout_marginBottom="10dp"
@@ -65,7 +67,7 @@
                     android:layout_marginStart="12dp"
                     android:layout_weight="1"
                     android:background="@drawable/round_button_ok"
-                    android:text="Yes!"
+                    android:text="@string/review_yes"
                     android:textAllCaps="false"
                     android:textColor="@color/colorPrimary"
                     android:textSize="18sp" />

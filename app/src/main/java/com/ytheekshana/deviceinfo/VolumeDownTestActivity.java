@@ -63,7 +63,7 @@ public class VolumeDownTestActivity extends AppCompatActivity {
                     editPrefs.putInt("volumedown_test_status", 0);
                     editPrefs.apply();
                     editPrefs.commit();
-                    onBackPressed();
+                    finish();
                 }
             });
             imgbtn_success.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +72,7 @@ public class VolumeDownTestActivity extends AppCompatActivity {
                     editPrefs.putInt("volumedown_test_status", 1);
                     editPrefs.apply();
                     editPrefs.commit();
-                    onBackPressed();
+                    finish();
                 }
             });
             vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
@@ -103,22 +103,5 @@ public class VolumeDownTestActivity extends AppCompatActivity {
         } else {
             return super.onKeyDown(keyCode, event);
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        boolean requestReview = sharedPreferences.getBoolean("RequestReview", false);
-        if (!requestReview) {
-            BottomSheetEnjoy bottomSheetEnjoy = BottomSheetEnjoy.newInstance();
-            bottomSheetEnjoy.show(getSupportFragmentManager(), "EnjoyAppFragment");
-            editor.putBoolean("RequestReview", true);
-            editor.apply();
-            editor.commit();
-        } else {
-           finish();
-        }
-
     }
 }

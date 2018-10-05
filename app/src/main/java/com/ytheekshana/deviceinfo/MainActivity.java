@@ -35,12 +35,14 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     NotificationCompat.Builder mBuilder;
     public static int themeColor,requestReviewCount;
+    SharedPreferences sharedPrefs;
+    SharedPreferences.Editor editor;
     ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         int themeId = sharedPrefs.getInt("ThemeNoBar", R.style.AppTheme_NoActionBar);
         requestReviewCount = sharedPrefs.getInt("requestReviewCount", 0);
         themeColor = sharedPrefs.getInt("accent_color_dialog", Color.parseColor("#2196f3"));
@@ -106,6 +108,23 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = sharedPrefs.edit();
+        boolean requestReview = sharedPrefs.getBoolean("RequestReview", false);
+        if (!requestReview) {
+            BottomSheetEnjoy bottomSheetEnjoy = BottomSheetEnjoy.newInstance();
+            bottomSheetEnjoy.show(getSupportFragmentManager(), "EnjoyAppFragment");
+            editor.putBoolean("RequestReview", true);
+            editor.apply();
+            editor.commit();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override

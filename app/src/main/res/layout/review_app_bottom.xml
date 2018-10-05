@@ -31,7 +31,7 @@
                 android:paddingEnd="10dp"
                 android:paddingTop="20dp"
                 android:paddingBottom="20dp"
-                android:text="How about a rating on the Play Store?"
+                android:text="@string/review_how_about_a_rating"
                 android:textAlignment="center"
                 android:textColor="#ffffff"
                 android:textSize="20sp" />
@@ -44,6 +44,7 @@
 
                 <Button
                     android:id="@+id/btnReviewNo"
+                    style="?android:buttonBarStyle"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:layout_marginBottom="10dp"
@@ -54,13 +55,14 @@
                     android:fontFamily="sans-serif"
                     android:paddingBottom="0dp"
                     android:paddingTop="0dp"
-                    android:text="No, Thanks"
+                    android:text="@string/review_no_thanks"
                     android:textAllCaps="false"
                     android:textColor="#ffffff"
                     android:textSize="18sp" />
 
                 <Button
                     android:id="@+id/btnReviewYes"
+                    style="?android:buttonBarStyle"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:layout_marginBottom="10dp"
@@ -68,7 +70,7 @@
                     android:layout_marginStart="12dp"
                     android:layout_weight="1"
                     android:background="@drawable/round_button_ok"
-                    android:text="Ok, Sure"
+                    android:text="@string/review_ok_sure"
                     android:textAllCaps="false"
                     android:textColor="@color/colorPrimary"
                     android:textSize="18sp" />
