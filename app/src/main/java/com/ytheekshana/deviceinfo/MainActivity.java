@@ -1,8 +1,6 @@
 package com.ytheekshana.deviceinfo;
 
 import android.app.ActivityManager;
-import android.app.NotificationManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -23,12 +21,6 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
 
 import java.util.List;
 
@@ -59,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
                         | View.SYSTEM_UI_FLAG_IMMERSIVE);*/
         setContentView(R.layout.activity_main);
-        MobileAds.initialize(this, "ca-app-pub-9823272508031979~9460111064");
+        //MobileAds.initialize(this, "ca-app-pub-9823272508031979~9460111064");
         AppBarLayout appbar = findViewById(R.id.appbar);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -81,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         ActivityManager.TaskDescription taskDescription = new ActivityManager.TaskDescription(getString(R.string.app_name), icon, themeColor);
         setTaskDescription(taskDescription);
 
-        final AdView adView = findViewById(R.id.adViewAllTabs);
+        /*final AdView adView = findViewById(R.id.adViewAllTabs);
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
         adView.setAdListener(new AdListener() {
@@ -89,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
             public void onAdLoaded() {
                 adView.setVisibility(View.VISIBLE);
             }
-        });
+        });*/
 
         /*mBuilder = new NotificationCompat.Builder(this, "1")
                 .setPriority(Notification.PRIORITY_HIGH)
@@ -225,14 +217,5 @@ public class MainActivity extends AppCompatActivity {
         for (Fragment fragment : fragments) {
             fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        NotificationManager nMgr = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        if (nMgr != null) {
-            nMgr.cancelAll();
-        }
-        super.onDestroy();
     }
 }

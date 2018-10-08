@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.ytheekshana.deviceinfo">
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
@@ -23,11 +27,14 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:allowBackup="true"
+        tools:ignore="GoogleAppIndexingWarning"
+        android:fullBackupContent="@xml/backup_descriptor">
 
-        <meta-data
+        <!--meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-9823272508031979~9460111064"/>
+            android:value="ca-app-pub-9823272508031979~9460111064"/-->
 
         <activity
             android:name=".MainActivity"
@@ -75,8 +82,17 @@
             android:name=".EarProximityTestActivity"
             android:label="@string/earproximity_test" />
         <activity
+            android:name=".LightSensorTestActivity"
+            android:label="@string/lightsensor_test" />
+        <activity
             android:name=".VibrationTestActivity"
             android:label="@string/vibration_test" />
+        <activity
+            android:name=".WifiTestActivity"
+            android:label="@string/wifi_test" />
+        <activity
+            android:name=".BluetoothTestActivity"
+            android:label="@string/bluetooth_test" />
         <activity
             android:name=".VolumeUpTestActivity"
             android:label="@string/volumeup_test" />

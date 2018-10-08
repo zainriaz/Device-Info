@@ -20,10 +20,10 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class tabTests extends Fragment {
     LinearLayout llayout;
-    CardView cardviewFlashlight, cardviewDisplay, cardviewLoudSpeaker, cardviewEarSpeaker, cardviewEarProximity, cardviewVibration,
-            cardviewVolumeUp, cardviewVolumeDown;
-    ImageView imgFlashlightTest, imgDisplayTest, imgLoudSpeakerTest, imgEarSpeakerTest, imgEarProximityTest, imgVibrationTest,
-            imgVolumeUpTest, imgVolumeDownTest;
+    CardView cardviewFlashlight, cardviewDisplay, cardviewLoudSpeaker, cardviewEarSpeaker, cardviewEarProximity, cardviewLightSensor, cardviewVibration,
+            cardviewWifi, cardviewBluetooth, cardviewVolumeUp, cardviewVolumeDown;
+    ImageView imgFlashlightTest, imgDisplayTest, imgLoudSpeakerTest, imgEarSpeakerTest, imgEarProximityTest, imgLightSensorTest, imgVibrationTest,
+            imgWifiTest, imgBluetoothTest, imgVolumeUpTest, imgVolumeDownTest;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -34,7 +34,10 @@ public class tabTests extends Fragment {
         imgLoudSpeakerTest = rootView.findViewById(R.id.imgLoudSpeakerTest);
         imgEarSpeakerTest = rootView.findViewById(R.id.imgEarSpeakerTest);
         imgEarProximityTest = rootView.findViewById(R.id.imgEarProximityTest);
+        imgLightSensorTest = rootView.findViewById(R.id.imgLightSensorTest);
         imgVibrationTest = rootView.findViewById(R.id.imgVibrationTest);
+        imgWifiTest = rootView.findViewById(R.id.imgWifiTest);
+        imgBluetoothTest = rootView.findViewById(R.id.imgBluetoothTest);
         imgVolumeUpTest = rootView.findViewById(R.id.imgVolumeUpTest);
         imgVolumeDownTest = rootView.findViewById(R.id.imgVolumeDownTest);
 
@@ -43,7 +46,10 @@ public class tabTests extends Fragment {
         cardviewLoudSpeaker = rootView.findViewById(R.id.cardviewLoudSpeaker);
         cardviewEarSpeaker = rootView.findViewById(R.id.cardviewEarSpeaker);
         cardviewEarProximity = rootView.findViewById(R.id.cardviewEarProximity);
+        cardviewLightSensor = rootView.findViewById(R.id.cardviewLightSensor);
         cardviewVibration = rootView.findViewById(R.id.cardviewVibration);
+        cardviewWifi = rootView.findViewById(R.id.cardviewWifi);
+        cardviewBluetooth = rootView.findViewById(R.id.cardviewBluetooth);
         cardviewVolumeUp = rootView.findViewById(R.id.cardviewVolumeUp);
         cardviewVolumeDown = rootView.findViewById(R.id.cardviewVolumeDown);
 
@@ -90,11 +96,35 @@ public class tabTests extends Fragment {
                 getActivity().overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
             }
         });
+        cardviewLightSensor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent loadLightSensor = new Intent(getContext(), LightSensorTestActivity.class);
+                startActivity(loadLightSensor);
+                getActivity().overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
+            }
+        });
         cardviewVibration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent loadVibration = new Intent(getContext(), VibrationTestActivity.class);
                 startActivity(loadVibration);
+                getActivity().overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
+            }
+        });
+        cardviewWifi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent loadWifi = new Intent(getContext(), WifiTestActivity.class);
+                startActivity(loadWifi);
+                getActivity().overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
+            }
+        });
+        cardviewBluetooth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent loadBluetooth = new Intent(getContext(), BluetoothTestActivity.class);
+                startActivity(loadBluetooth);
                 getActivity().overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
             }
         });
@@ -132,7 +162,10 @@ public class tabTests extends Fragment {
         int loudspeakerstatus = sharedPref.getInt("loudspeaker_test_status", 2);
         int earspeakerstatus = sharedPref.getInt("earspeaker_test_status", 2);
         int earproximitystatus = sharedPref.getInt("earproximity_test_status", 2);
+        int lightsensorstatus = sharedPref.getInt("light_sensor_test_status", 2);
         int vibrationstatus = sharedPref.getInt("vibration_test_status", 2);
+        int wifistatus = sharedPref.getInt("wifi_test_status", 2);
+        int bluetoothstatus = sharedPref.getInt("bluetooth_test_status", 2);
         int volumeup_test_status = sharedPref.getInt("volumeup_test_status", 2);
         int volumedown_test_status = sharedPref.getInt("volumedown_test_status", 2);
 
@@ -191,6 +224,17 @@ public class tabTests extends Fragment {
             imgEarProximityTest.setColorFilter(getResources().getColor(R.color.test_default));
         }
 
+        if (lightsensorstatus == 0) {
+            imgLightSensorTest.setImageResource(R.drawable.test_failed);
+            imgLightSensorTest.setColorFilter(getResources().getColor(R.color.test_failed));
+        } else if (lightsensorstatus == 1) {
+            imgLightSensorTest.setImageResource(R.drawable.test_success);
+            imgLightSensorTest.setColorFilter(getResources().getColor(R.color.test_success));
+        } else if (lightsensorstatus == 2) {
+            imgLightSensorTest.setImageResource(R.drawable.test_default);
+            imgLightSensorTest.setColorFilter(getResources().getColor(R.color.test_default));
+        }
+
         if (vibrationstatus == 0) {
             imgVibrationTest.setImageResource(R.drawable.test_failed);
             imgVibrationTest.setColorFilter(getResources().getColor(R.color.test_failed));
@@ -200,6 +244,28 @@ public class tabTests extends Fragment {
         } else if (vibrationstatus == 2) {
             imgVibrationTest.setImageResource(R.drawable.test_default);
             imgVibrationTest.setColorFilter(getResources().getColor(R.color.test_default));
+        }
+
+        if (wifistatus == 0) {
+            imgWifiTest.setImageResource(R.drawable.test_failed);
+            imgWifiTest.setColorFilter(getResources().getColor(R.color.test_failed));
+        } else if (wifistatus == 1) {
+            imgWifiTest.setImageResource(R.drawable.test_success);
+            imgWifiTest.setColorFilter(getResources().getColor(R.color.test_success));
+        } else if (wifistatus == 2) {
+            imgWifiTest.setImageResource(R.drawable.test_default);
+            imgWifiTest.setColorFilter(getResources().getColor(R.color.test_default));
+        }
+
+        if (bluetoothstatus == 0) {
+            imgBluetoothTest.setImageResource(R.drawable.test_failed);
+            imgBluetoothTest.setColorFilter(getResources().getColor(R.color.test_failed));
+        } else if (bluetoothstatus == 1) {
+            imgBluetoothTest.setImageResource(R.drawable.test_success);
+            imgBluetoothTest.setColorFilter(getResources().getColor(R.color.test_success));
+        } else if (bluetoothstatus == 2) {
+            imgBluetoothTest.setImageResource(R.drawable.test_default);
+            imgBluetoothTest.setColorFilter(getResources().getColor(R.color.test_default));
         }
 
         if (volumeup_test_status == 0) {

@@ -42,8 +42,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_toEndOf="@+id/imgDisplayIcon"
                         android:layout_marginStart="15dp"
+                        android:layout_toEndOf="@+id/imgDisplayIcon"
                         android:text="@string/display_test"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -87,8 +87,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_toEndOf="@+id/imgFlashlightIcon"
                         android:layout_marginStart="15dp"
+                        android:layout_toEndOf="@+id/imgFlashlightIcon"
                         android:text="@string/flashlight_test"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -131,8 +131,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_toEndOf="@+id/imgLoudSpeakerIcon"
                         android:layout_marginStart="15dp"
+                        android:layout_toEndOf="@+id/imgLoudSpeakerIcon"
                         android:text="@string/loudspeaker_test"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -175,8 +175,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_toEndOf="@+id/imgEarSpeakerIcon"
                         android:layout_marginStart="15dp"
+                        android:layout_toEndOf="@+id/imgEarSpeakerIcon"
                         android:text="@string/earspeaker_test"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -219,8 +219,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_toEndOf="@+id/imgEarProximityIcon"
                         android:layout_marginStart="15dp"
+                        android:layout_toEndOf="@+id/imgEarProximityIcon"
                         android:text="@string/earproximity_test"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -247,6 +247,50 @@
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
+                android:id="@+id/cardviewLightSensor"
+                style="?attr/cardStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                card_view:cardCornerRadius="5dp"
+                card_view:contentPadding="10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="15dp"
+                        android:layout_toEndOf="@+id/imgLightSensorIcon"
+                        android:text="@string/lightsensor_test"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/imgLightSensorTest"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:contentDescription="@string/lightsensor_test_status"
+                        android:tint="@color/test_default"
+                        card_view:srcCompat="@drawable/test_default" />
+
+                    <ImageView
+                        android:id="@+id/imgLightSensorIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerVertical="true"
+                        card_view:srcCompat="@drawable/ic_light_sensor" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
                 android:id="@+id/cardviewVibration"
                 style="?attr/cardStyle"
                 android:layout_width="match_parent"
@@ -263,8 +307,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_toEndOf="@+id/imgVibrationIcon"
                         android:layout_marginStart="15dp"
+                        android:layout_toEndOf="@+id/imgVibrationIcon"
                         android:text="@string/vibration_test"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -291,6 +335,94 @@
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
+                android:id="@+id/cardviewWifi"
+                style="?attr/cardStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                card_view:cardCornerRadius="5dp"
+                card_view:contentPadding="10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="15dp"
+                        android:layout_toEndOf="@+id/imgWifiIcon"
+                        android:text="@string/wifi_test"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/imgWifiTest"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:contentDescription="@string/wifi_test_status"
+                        android:tint="@color/test_default"
+                        card_view:srcCompat="@drawable/test_default" />
+
+                    <ImageView
+                        android:id="@+id/imgWifiIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerVertical="true"
+                        card_view:srcCompat="@drawable/ic_wifi" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardviewBluetooth"
+                style="?attr/cardStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                card_view:cardCornerRadius="5dp"
+                card_view:contentPadding="10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="15dp"
+                        android:layout_toEndOf="@+id/imgBluetoothIcon"
+                        android:text="@string/bluetooth_test"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/imgBluetoothTest"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:contentDescription="@string/bluetooth_test_status"
+                        android:tint="@color/test_default"
+                        card_view:srcCompat="@drawable/test_default" />
+
+                    <ImageView
+                        android:id="@+id/imgBluetoothIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerVertical="true"
+                        card_view:srcCompat="@drawable/ic_bluetooth" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
                 android:id="@+id/cardviewVolumeUp"
                 style="?attr/cardStyle"
                 android:layout_width="match_parent"
@@ -307,8 +439,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_toEndOf="@+id/imgVolumeUpIcon"
                         android:layout_marginStart="15dp"
+                        android:layout_toEndOf="@+id/imgVolumeUpIcon"
                         android:text="@string/volumeup_test"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -351,8 +483,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_toEndOf="@+id/imgVolumeDownIcon"
                         android:layout_marginStart="15dp"
+                        android:layout_toEndOf="@+id/imgVolumeDownIcon"
                         android:text="@string/volumedown_test"
                         android:textSize="16sp"
                         android:textStyle="bold" />

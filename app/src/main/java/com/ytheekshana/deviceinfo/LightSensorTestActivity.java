@@ -1,37 +1,36 @@
 package com.ytheekshana.deviceinfo;
 
-import android.Manifest;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
-import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.Objects;
 
-import github.nisrulz.lantern.Lantern;
+public class LightSensorTestActivity extends AppCompatActivity implements SensorEventListener {
 
-public class FlashlightTestActivity extends AppCompatActivity {
-
-    public static final int REQUEST_CAMERA = 1;
     SharedPreferences sharedPrefs;
     SharedPreferences.Editor editPrefs;
     Context context;
-    Lantern lantern;
+    SensorManager sensorManager;
+    Sensor sensorLight;
+    ImageView imgLightImage;
+    TextView txtLightValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,19 +52,21 @@ public class FlashlightTestActivity extends AppCompatActivity {
             setTaskDescription(taskDescription);
 
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_test_flashlight);
+            setContentView(R.layout.activity_test_light_sensor);
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
             context = this;
             sharedPrefs = getSharedPreferences("tests", MODE_PRIVATE);
             editPrefs = sharedPrefs.edit();
 
+            txtLightValue = findViewById(R.id.txtLightValue);
+            imgLightImage = findViewById(R.id.imgLightImage);
             ImageButton imgbtn_failed = findViewById(R.id.imgbtn_failed);
             ImageButton imgbtn_success = findViewById(R.id.imgbtn_success);
             imgbtn_failed.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    editPrefs.putInt("flashlight_test_status", 0);
+                    editPrefs.putInt("light_sensor_test_status", 0);
                     editPrefs.apply();
                     editPrefs.commit();
                     finish();
@@ -74,26 +75,14 @@ public class FlashlightTestActivity extends AppCompatActivity {
             imgbtn_success.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    editPrefs.putInt("flashlight_test_status", 1);
+                    editPrefs.putInt("light_sensor_test_status", 1);
                     editPrefs.apply();
                     editPrefs.commit();
                     finish();
                 }
             });
-
-            lantern = new Lantern(this).observeLifecycle(this);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA);
-                } else {
-                    lantern.initTorch();
-                    lantern.enableTorchMode(true);
-                }
-            } else {
-                lantern.initTorch();
-                lantern.enableTorchMode(true);
-            }
-
+            sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+            sensorLight = Objects.requireNonNull(sensorManager).getDefaultSensor(Sensor.TYPE_LIGHT);
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -101,54 +90,33 @@ public class FlashlightTestActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        try {
-            switch (requestCode) {
-                case REQUEST_CAMERA: {
-                    if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                        lantern.initTorch();
-                        lantern.enableTorchMode(true);
-                    } else {
-                        Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
-                }
-            }
-        } catch (SecurityException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        try {
-            lantern.cleanup();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        super.onDestroy();
-    }
-
-    @Override
-    public void onBackPressed() {
-        try {
-            lantern.enableTorchMode(false);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        super.onBackPressed();
+    protected void onResume() {
+        sensorManager.registerListener(this, sensorLight, SensorManager.SENSOR_DELAY_NORMAL);
+        super.onResume();
     }
 
     @Override
     protected void onPause() {
-        try {
-            lantern.enableTorchMode(false);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        sensorManager.unregisterListener(this);
         super.onPause();
     }
-}
 
+    @Override
+    public void onBackPressed() {
+        sensorManager.unregisterListener(this);
+        super.onBackPressed();
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        if (event.sensor.getType() == Sensor.TYPE_LIGHT) {
+            String value = String.valueOf(event.values[0]) + " lx";
+            txtLightValue.setText(value);
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
+}

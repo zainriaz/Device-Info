@@ -8,8 +8,8 @@ android {
         applicationId "com.ytheekshana.deviceinfo"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 11
-        versionName "1.5.4"
+        versionCode 13
+        versionName "1.5.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -40,7 +40,7 @@ dependencies {
     implementation 'com.github.kizitonwose.colorpreference:core:1.0.6'
     implementation 'com.gelitenight.waveview:waveview:1.0.0'
     implementation 'com.jaredrummler:android-device-names:1.1.7'
-    implementation 'com.github.Abhi347:NoobCameraFlash:0.2.0'
+    implementation 'com.github.nisrulz:lantern:2.0.0'
 }
 
 apply plugin: 'com.google.gms.google-services'
