@@ -1,8 +1,5 @@
 package com.ytheekshana.deviceinfo;
 
-import android.app.ActivityManager;
-import android.content.Context;
-import android.content.pm.ConfigurationInfo;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -17,10 +14,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 
 import java.util.Objects;
 

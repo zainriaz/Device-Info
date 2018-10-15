@@ -143,6 +143,13 @@
     <string name="bluetooth_test">Bluetooth</string>
     <string name="bluetooth_test_status">Bluetooth Test Status</string>
     <string name="bluetooth_test_start">Starting Bluetooth</string>
+    <string name="fingerprint_test">Fingerprint</string>
+    <string name="fingerprint_test_status">Fingerprint Test Status</string>
+    <string name="fingerprint_test_start">Starting test</string>
+    <string name="fingerprint_test_failed_no_hardware">Test failed, Hardware not available</string>
+    <string name="fingerprint_test_failed_not_enrolled">Test failed, fingerprints not enrolled</string>
+    <string name="fingerprint_hardware_available">Hardware Available</string>
+    <string name="fingerprints_enrolled">Fingerprints Enrolled</string>
     <string name="volumeup_test">Volume Up Button</string>
     <string name="volumeup_test_status">Volume Up Button Test Status</string>
     <string name="volumeup_test_question">Press the volume up key, do you get any feedback?</string>
@@ -156,6 +163,7 @@
     <string name="review_enjoying_device_info">Enjoying Device Info ?</string>
     <string name="review_not_really">Not Really</string>
     <string name="review_yes">Yes!</string>
+    <string name="unknown_min_sdk">Unknown</string>
 
 
 </resources>

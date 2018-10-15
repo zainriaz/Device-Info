@@ -20,7 +20,7 @@ public class MemoryInfo {
         this.context = context;
     }
 
-    public void Ram() {
+    void Ram() {
         try {
             ActivityManager.MemoryInfo mi = new ActivityManager.MemoryInfo();
             ActivityManager activityManager = (ActivityManager) activity.getSystemService(Context.ACTIVITY_SERVICE);
@@ -35,7 +35,7 @@ public class MemoryInfo {
         }
     }
 
-    public void Rom() {
+    void Rom() {
         try {
             StatFs stat = new StatFs(Environment.getRootDirectory().getAbsolutePath());
             availableRom = (((double) stat.getBlockSizeLong() * (double) stat.getAvailableBlocksLong()) / 1024 / 1024 / 1024);
@@ -73,67 +73,67 @@ public class MemoryInfo {
         }
     }
 
-    public double getTotalRam() {
+    double getTotalRam() {
         return totalRam;
     }
 
-    public double getAvailableRam() {
+    double getAvailableRam() {
         return availableRam;
     }
 
-    public double getUsedRam() {
+    double getUsedRam() {
         return usedRam;
     }
 
-    public double getUsedRamPercentage() {
+    double getUsedRamPercentage() {
         return usedRamPercentage;
     }
 
-    public double getTotalRom() {
+    double getTotalRom() {
         return totalRom;
     }
 
-    public double getAvailableRom() {
+    double getAvailableRom() {
         return availableRom;
     }
 
-    public double getUsedRom() {
+    double getUsedRom() {
         return usedRom;
     }
 
-    public double getUsedRomPercentage() {
+    double getUsedRomPercentage() {
         return usedRomPercentage;
     }
 
-    public double getTotalInternalStorage() {
+    double getTotalInternalStorage() {
         return totalInternalStorage;
     }
 
-    public double getAvailableInternalStorage() {
+    double getAvailableInternalStorage() {
         return availableInternalStorage;
     }
 
-    public double getUsedInternalStorage() {
+    double getUsedInternalStorage() {
         return usedInternalStorage;
     }
 
-    public double getUsedInternalPercentage() {
+    double getUsedInternalPercentage() {
         return usedInternalPercentage;
     }
 
-    public double getTotalExternalStorage() {
+    double getTotalExternalStorage() {
         return totalExternalStorage;
     }
 
-    public double getAvailableExternalStorage() {
+    double getAvailableExternalStorage() {
         return availableExternalStorage;
     }
 
-    public double getUsedExternalStorage() {
+    double getUsedExternalStorage() {
         return usedExternalStorage;
     }
 
-    public double getUsedExternalPercentage() {
+    double getUsedExternalPercentage() {
         return usedExternalPercentage;
     }
 }

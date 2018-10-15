@@ -19,16 +19,15 @@
             android:entries="@array/app_type"
             android:theme="@style/Base.AlertDialog.AppCompat.Light" />
 
-        <ListView
-            android:id="@+id/installed_app_list"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerInstalledApps"
+            android:scrollbars="none"
             style="?attr/listDividerStyle"
-            android:layout_width="wrap_content"
+            android:layoutAnimation="@anim/recycler_layout_animation"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/spinnerAppType"
-            android:layout_marginTop="10dp"
-            android:cacheColorHint="@android:color/transparent"
-            android:dividerHeight="4dp"
-            android:listSelector="@android:color/transparent" />
+            android:layout_marginTop="10dp" />
 
     </RelativeLayout>
 </android.support.v4.widget.SwipeRefreshLayout>

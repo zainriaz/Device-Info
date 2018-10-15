@@ -423,6 +423,50 @@
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
+                android:id="@+id/cardviewFingerprint"
+                style="?attr/cardStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                card_view:cardCornerRadius="5dp"
+                card_view:contentPadding="10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="15dp"
+                        android:layout_toEndOf="@+id/imgFingerprintIcon"
+                        android:text="@string/fingerprint_test"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/imgFingerprintTest"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:contentDescription="@string/fingerprint_test_status"
+                        android:tint="@color/test_default"
+                        card_view:srcCompat="@drawable/test_default" />
+
+                    <ImageView
+                        android:id="@+id/imgFingerprintIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerVertical="true"
+                        card_view:srcCompat="@drawable/ic_fingerprint" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
                 android:id="@+id/cardviewVolumeUp"
                 style="?attr/cardStyle"
                 android:layout_width="match_parent"

@@ -15,7 +15,6 @@ import android.util.TypedValue;
 import android.view.Display;
 import android.view.WindowManager;
 import android.telephony.TelephonyManager;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -28,13 +27,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-class GetDetails {
+public class GetDetails {
 
     @ColorInt
-    public static int getThemeColor(@NonNull final Context context, @AttrRes final int attributeColor) {
+    static int getThemeColor(@NonNull final Context context, @AttrRes final int attributeColor) {
         final TypedValue value = new TypedValue();
         context.getTheme().resolveAttribute(attributeColor, value, true);
         return value.data;
@@ -320,7 +318,7 @@ class GetDetails {
         return Type;
     }
 
-    static String NetworkType(int gettype) {
+    public static String NetworkType(int gettype) {
         String Type;
         switch (gettype) {
             case TelephonyManager.NETWORK_TYPE_CDMA:
@@ -634,7 +632,7 @@ class GetDetails {
         return stype;
     }
 
-    static int getDarkColor(Context context, int color) {
+    public static int getDarkColor(Context context, int color) {
         List<String> colorThemeColor = Arrays.asList(context.getResources().getStringArray(R.array.accent_colors));
         List<String> colorThemeColorDark = Arrays.asList(context.getResources().getStringArray(R.array.accent_colors_700));
         String getHex = String.format("#%02x%02x%02x", Color.red(color), Color.green(color), Color.blue(color));

@@ -8,8 +8,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.hardware.Sensor;
-import android.hardware.SensorManager;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;

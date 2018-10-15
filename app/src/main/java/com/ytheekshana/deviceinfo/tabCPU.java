@@ -10,10 +10,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-
 import java.io.RandomAccessFile;
 import java.util.Locale;
 import java.util.Objects;

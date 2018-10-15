@@ -20,9 +20,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.lzyzsd.circleprogress.DonutProgress;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 
 import java.util.Locale;
 

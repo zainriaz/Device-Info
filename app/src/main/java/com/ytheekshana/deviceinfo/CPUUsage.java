@@ -1,6 +1,7 @@
 package com.ytheekshana.deviceinfo;
 
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.io.FileNotFoundException;
@@ -8,13 +9,13 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 
-class CPUUsage {
+public class CPUUsage {
     private static final String TAG = "CpuUsage";
     private RandomAccessFile statFile;
     private CpuInfo mCpuInfoTotal;
     private ArrayList<CpuInfo> mCpuInfoList;
 
-    CPUUsage() {
+    public CPUUsage() {
     }
 
     private void update() {
@@ -95,6 +96,7 @@ class CPUUsage {
     }
 
 
+    @NonNull
     public String toString() {
         update();
         StringBuilder buf = new StringBuilder();

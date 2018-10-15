@@ -1,8 +1,12 @@
 package com.ytheekshana.deviceinfo;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -21,9 +25,10 @@ import static android.content.Context.MODE_PRIVATE;
 public class tabTests extends Fragment {
     LinearLayout llayout;
     CardView cardviewFlashlight, cardviewDisplay, cardviewLoudSpeaker, cardviewEarSpeaker, cardviewEarProximity, cardviewLightSensor, cardviewVibration,
-            cardviewWifi, cardviewBluetooth, cardviewVolumeUp, cardviewVolumeDown;
+            cardviewWifi, cardviewBluetooth, cardviewFingerprint, cardviewVolumeUp, cardviewVolumeDown;
     ImageView imgFlashlightTest, imgDisplayTest, imgLoudSpeakerTest, imgEarSpeakerTest, imgEarProximityTest, imgLightSensorTest, imgVibrationTest,
-            imgWifiTest, imgBluetoothTest, imgVolumeUpTest, imgVolumeDownTest;
+            imgWifiTest, imgBluetoothTest, imgFingerprintTest, imgVolumeUpTest, imgVolumeDownTest;
+    SensorManager sensorManager;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -38,6 +43,7 @@ public class tabTests extends Fragment {
         imgVibrationTest = rootView.findViewById(R.id.imgVibrationTest);
         imgWifiTest = rootView.findViewById(R.id.imgWifiTest);
         imgBluetoothTest = rootView.findViewById(R.id.imgBluetoothTest);
+        imgFingerprintTest = rootView.findViewById(R.id.imgFingerprintTest);
         imgVolumeUpTest = rootView.findViewById(R.id.imgVolumeUpTest);
         imgVolumeDownTest = rootView.findViewById(R.id.imgVolumeDownTest);
 
@@ -50,12 +56,30 @@ public class tabTests extends Fragment {
         cardviewVibration = rootView.findViewById(R.id.cardviewVibration);
         cardviewWifi = rootView.findViewById(R.id.cardviewWifi);
         cardviewBluetooth = rootView.findViewById(R.id.cardviewBluetooth);
+        cardviewFingerprint = rootView.findViewById(R.id.cardviewFingerprint);
         cardviewVolumeUp = rootView.findViewById(R.id.cardviewVolumeUp);
         cardviewVolumeDown = rootView.findViewById(R.id.cardviewVolumeDown);
 
         if (!Objects.requireNonNull(getActivity()).getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
             cardviewFlashlight.setVisibility(View.GONE);
         }
+        sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+        if (Objects.requireNonNull(sensorManager).getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) == null) {
+            cardviewLightSensor.setVisibility(View.GONE);
+        }
+        if (!getActivity().getPackageManager().hasSystemFeature(PackageManager.FEATURE_WIFI)) {
+            cardviewWifi.setVisibility(View.GONE);
+        }
+        if (!getActivity().getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH)) {
+            cardviewBluetooth.setVisibility(View.GONE);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!getActivity().getPackageManager().hasSystemFeature(PackageManager.FEATURE_FINGERPRINT)) {
+                cardviewFingerprint.setVisibility(View.GONE);
+            }
+        }
+
+
         cardviewFlashlight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,6 +152,14 @@ public class tabTests extends Fragment {
                 getActivity().overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
             }
         });
+        cardviewFingerprint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent loadFingerprint = new Intent(getContext(), FingerprintTestActivity.class);
+                startActivity(loadFingerprint);
+                getActivity().overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
+            }
+        });
         cardviewVolumeUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -166,6 +198,7 @@ public class tabTests extends Fragment {
         int vibrationstatus = sharedPref.getInt("vibration_test_status", 2);
         int wifistatus = sharedPref.getInt("wifi_test_status", 2);
         int bluetoothstatus = sharedPref.getInt("bluetooth_test_status", 2);
+        int fingerprintstatus = sharedPref.getInt("fingerprint_test_status", 2);
         int volumeup_test_status = sharedPref.getInt("volumeup_test_status", 2);
         int volumedown_test_status = sharedPref.getInt("volumedown_test_status", 2);
 
@@ -266,6 +299,17 @@ public class tabTests extends Fragment {
         } else if (bluetoothstatus == 2) {
             imgBluetoothTest.setImageResource(R.drawable.test_default);
             imgBluetoothTest.setColorFilter(getResources().getColor(R.color.test_default));
+        }
+
+        if (fingerprintstatus == 0) {
+            imgFingerprintTest.setImageResource(R.drawable.test_failed);
+            imgFingerprintTest.setColorFilter(getResources().getColor(R.color.test_failed));
+        } else if (fingerprintstatus == 1) {
+            imgFingerprintTest.setImageResource(R.drawable.test_success);
+            imgFingerprintTest.setColorFilter(getResources().getColor(R.color.test_success));
+        } else if (fingerprintstatus == 2) {
+            imgFingerprintTest.setImageResource(R.drawable.test_default);
+            imgFingerprintTest.setColorFilter(getResources().getColor(R.color.test_default));
         }
 
         if (volumeup_test_status == 0) {

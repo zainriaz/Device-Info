@@ -20,11 +20,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.AdView;
-
 import java.util.Objects;
 
 public class tabDevice extends Fragment {

@@ -1,70 +1,68 @@
 package com.ytheekshana.deviceinfo;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import java.util.List;
+import java.util.ArrayList;
 
-public class SensorAdapter extends BaseAdapter{
+public class SensorAdapter extends RecyclerView.Adapter<SensorAdapter.ViewHolder> {
 
-    private LayoutInflater layoutInflater;
-    private List<SensorList> listStorage;
+    private Context mContext;
+    private ArrayList<SensorInfo> mDataSet;
 
-    SensorAdapter(Context context, List<SensorList> customizedListView) {
-        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        listStorage = customizedListView;
+    SensorAdapter(Context context, ArrayList<SensorInfo> list) {
+        mContext = context;
+        mDataSet = list;
     }
 
-    @Override
-    public int getCount() {
-        return listStorage.size();
-    }
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
-    @Override
-    public Object getItem(int position) {
-        return position;
-    }
+        TextView txt_sensor_name;
+        TextView txt_vendor_name;
+        TextView txt_sensor_type;
+        TextView txt_wake_up_type;
+        TextView txt_sensor_power;
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-
-        ViewHolder listViewHolder;
-        if (convertView == null) {
-            listViewHolder = new ViewHolder();
-            convertView = layoutInflater.inflate(R.layout.sensor_list, parent, false);
-
-            listViewHolder.sensorNameInListView = convertView.findViewById(R.id.list_sensor_name);
-            listViewHolder.vendorNameInListView = convertView.findViewById(R.id.list_vendor_name);
-            listViewHolder.sensorTypeInListView = convertView.findViewById(R.id.list_sensor_type);
-            listViewHolder.wakeUpTypeInListView = convertView.findViewById(R.id.list_wake_up_type);
-            listViewHolder.sensorPowerInListView = convertView.findViewById(R.id.list_sensor_power);
-            convertView.setTag(listViewHolder);
-        } else {
-            listViewHolder = (ViewHolder) convertView.getTag();
+        ViewHolder(View view) {
+            super(view);
+            txt_sensor_name = view.findViewById(R.id.txt_sensor_name);
+            txt_vendor_name = view.findViewById(R.id.txt_vendor_name);
+            txt_sensor_type = view.findViewById(R.id.txt_sensor_type);
+            txt_wake_up_type = view.findViewById(R.id.txt_wake_up_type);
+            txt_sensor_power = view.findViewById(R.id.txt_sensor_power);
         }
-        listViewHolder.sensorNameInListView.setText(listStorage.get(position).getSensorName());
-        listViewHolder.vendorNameInListView.setText(listStorage.get(position).getVenderName());
-        listViewHolder.sensorTypeInListView.setText(listStorage.get(position).getSensorType());
-        listViewHolder.wakeUpTypeInListView.setText(listStorage.get(position).getWakeUpType());
-        listViewHolder.sensorPowerInListView.setText(listStorage.get(position).getSensorPower());
 
-        return convertView;
     }
 
-    static class ViewHolder {
-        TextView sensorNameInListView;
-        TextView vendorNameInListView;
-        TextView sensorTypeInListView;
-        TextView wakeUpTypeInListView;
-        TextView sensorPowerInListView;
+    @NonNull
+    @Override
+    public SensorAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(mContext).inflate(R.layout.sensor_list, parent, false);
+        return new ViewHolder(v);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+        final String txt_sensor_name = mDataSet.get(position).getSensorName();
+        final String txt_vendor_name = mDataSet.get(position).getVendorName();
+        final String txt_sensor_type = mDataSet.get(position).getSensorType();
+        final String txt_wake_up_type = mDataSet.get(position).getWakeUpType();
+        final String txt_sensor_power = mDataSet.get(position).getSensorPower();
+
+        holder.txt_sensor_name.setText(txt_sensor_name);
+        holder.txt_vendor_name.setText(txt_vendor_name);
+        holder.txt_sensor_type.setText(txt_sensor_type);
+        holder.txt_wake_up_type.setText(txt_wake_up_type);
+        holder.txt_sensor_power.setText(txt_sensor_power);
+    }
+
+    @Override
+    public int getItemCount() {
+        return mDataSet.size();
     }
 }
