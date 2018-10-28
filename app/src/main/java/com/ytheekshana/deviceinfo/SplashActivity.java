@@ -14,6 +14,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.drawable.GradientDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.opengl.GLSurfaceView;
@@ -44,7 +45,9 @@ import javax.microedition.khronos.opengles.GL10;
 public class SplashActivity extends Activity implements GLSurfaceView.Renderer {
     public static String deviceName, wifiMac, bluetoothMac, usbHost, glVersion, androidRuntime, kernelVersion,
             selinuxMode, processorName, cpuABIs, processorHardware, cpuGovernor, gpuRenderer, gpuVendor, gpuVersion,
-            batteryCapacity, displaySize, displayOrientation, displayPhysicalSize;
+            batteryCapacity, displaySize, displayOrientation, displayPhysicalSize, romPath, internalStoragePath,
+            externalStoragePath;
+
     public static boolean rootedStatus;
     public static double cpuMaxFreq, cpuMinFreq, displayDensity;
     public static int displayHeight, displayWidth, displayDensityDPI, numberOfInstalledApps, numberOfSensors;
@@ -83,7 +86,10 @@ public class SplashActivity extends Activity implements GLSurfaceView.Renderer {
         setTaskDescription(taskDescription);
 
         RelativeLayout relativeLayout = findViewById(R.id.mainlayout_Splash);
-        relativeLayout.setBackgroundColor(themeColor);
+        //relativeLayout.setBackgroundColor(themeColor);
+        int abc[] = {themeColorDark,themeColor};
+        GradientDrawable splashGradient = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,abc);
+        relativeLayout.setBackground(splashGradient);
 
         progressBarSplash = findViewById(R.id.progressBar_Splash);
         TextView txtAppName = findViewById(R.id.txtAppName);
@@ -196,7 +202,7 @@ public class SplashActivity extends Activity implements GLSurfaceView.Renderer {
                 readermax.close();
                 readermin.close();
 
-                processorName = GetDetails.getProcessor(context);
+                processorName = GetDetails.getProcessor();
 
                 StringBuilder ABIs = new StringBuilder();
                 for (int a = 0; a < Build.SUPPORTED_ABIS.length; a++) {
@@ -285,6 +291,9 @@ public class SplashActivity extends Activity implements GLSurfaceView.Renderer {
                 availableExternalStorage = memoryInfo.getAvailableExternalStorage();
                 usedExternalStorage = memoryInfo.getUsedExternalStorage();
                 usedExternalPercentage = memoryInfo.getUsedExternalPercentage();
+                romPath = memoryInfo.getRomPath();
+                internalStoragePath = memoryInfo.getInternalStoragePath();
+                externalStoragePath = memoryInfo.getExternalStoragePath();
                 Thread.sleep(threadSleepAmount);
                 publishProgress(70 * 10);
 

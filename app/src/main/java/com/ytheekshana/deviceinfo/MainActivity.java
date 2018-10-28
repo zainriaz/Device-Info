@@ -8,16 +8,20 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.NotificationCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
+
+import androidx.annotation.NonNull;
+
+import com.google.android.material.appbar.AppBarLayout;
+import com.ogaclejapan.smarttablayout.SmartTabLayout;
+
+import androidx.core.app.NotificationCompat;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,7 +30,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     NotificationCompat.Builder mBuilder;
-    public static int themeColor,requestReviewCount;
+    public static int themeColor, requestReviewCount, appsort = 1;
     SharedPreferences sharedPrefs;
     SharedPreferences.Editor editor;
     ViewPager mViewPager;
@@ -51,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
                         | View.SYSTEM_UI_FLAG_IMMERSIVE);*/
         setContentView(R.layout.activity_main);
-        //MobileAds.initialize(this, "ca-app-pub-9823272508031979~9460111064");
         AppBarLayout appbar = findViewById(R.id.appbar);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -60,8 +63,11 @@ public class MainActivity extends AppCompatActivity {
 
         mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-        final TabLayout tabLayout = findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
+        /*final TabLayout tabLayout = findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(mViewPager);*/
+        final SmartTabLayout tabLayout = findViewById(R.id.tabs);
+        tabLayout.setSelectedIndicatorColors(themeColorDark);
+        tabLayout.setViewPager(mViewPager);
 
         if (sharedPrefs.getInt("ThemeNoBar", 0) != R.style.AppThemeDark_NoActionBar) {
             appbar.setBackgroundColor(themeColor);
@@ -72,16 +78,6 @@ public class MainActivity extends AppCompatActivity {
         Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.icon);
         ActivityManager.TaskDescription taskDescription = new ActivityManager.TaskDescription(getString(R.string.app_name), icon, themeColor);
         setTaskDescription(taskDescription);
-
-        /*final AdView adView = findViewById(R.id.adViewAllTabs);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        adView.loadAd(adRequest);
-        adView.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-                adView.setVisibility(View.VISIBLE);
-            }
-        });*/
 
         /*mBuilder = new NotificationCompat.Builder(this, "1")
                 .setPriority(Notification.PRIORITY_HIGH)

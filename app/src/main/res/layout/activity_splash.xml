@@ -46,7 +46,7 @@
         android:contentDescription="@string/app_name"
         android:src="@drawable/splash_logo4" />
 
-    <android.support.v7.widget.AppCompatTextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/txtAppName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

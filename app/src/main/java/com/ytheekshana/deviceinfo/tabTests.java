@@ -8,9 +8,9 @@ import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.cardview.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +28,6 @@ public class tabTests extends Fragment {
             cardviewWifi, cardviewBluetooth, cardviewFingerprint, cardviewVolumeUp, cardviewVolumeDown;
     ImageView imgFlashlightTest, imgDisplayTest, imgLoudSpeakerTest, imgEarSpeakerTest, imgEarProximityTest, imgLightSensorTest, imgVibrationTest,
             imgWifiTest, imgBluetoothTest, imgFingerprintTest, imgVolumeUpTest, imgVolumeDownTest;
-    SensorManager sensorManager;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -63,7 +62,7 @@ public class tabTests extends Fragment {
         if (!Objects.requireNonNull(getActivity()).getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
             cardviewFlashlight.setVisibility(View.GONE);
         }
-        sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+        SensorManager sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         if (Objects.requireNonNull(sensorManager).getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) == null) {
             cardviewLightSensor.setVisibility(View.GONE);
         }

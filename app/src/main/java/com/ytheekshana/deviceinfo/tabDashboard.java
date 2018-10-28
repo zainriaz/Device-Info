@@ -11,12 +11,12 @@ import android.graphics.ColorFilter;
 import android.graphics.LightingColorFilter;
 import android.os.BatteryManager;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v7.widget.CardView;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.cardview.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,16 +32,13 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class tabDashboard extends Fragment {
-    TextView txtRamPerce, txtRamStatus, txtBatteryPerce, txtBatteryStatus, txtInStoragePerce, txtInStorageStatus,
-            txtExStoragePerce, txtExStorageStatus, txtCPUPerce, txtCPUStatus,
-            txtRomPerce, txtRomStatus, txtSensorCount, txtAppCount;
-    ProgressBar ProgressBarRam, ProgressBarBattery, ProgressBarInStorage, ProgressBarExStorage,
-            ProgressBarCPU, ProgressBarRom;
-    Context BatteryContext;
-    int a, e, startROM, startRAM, startInStorage, startExStorage, startBattery, startCPU, usagecpu;
-    CPUUsage cu2;
-    String cUsage;
-    Timer timercUsage;
+    private TextView txtRamPerce, txtRamStatus, txtBatteryPerce, txtBatteryStatus, txtCPUPerce;
+    private ProgressBar ProgressBarRam, ProgressBarBattery, ProgressBarCPU;
+    private int startExStorage;
+    private int usagecpu;
+    private CPUUsage cu2;
+    private String cUsage;
+    private Timer timercUsage;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -69,8 +66,8 @@ public class tabDashboard extends Fragment {
             imgApps.setColorFilter(accentFilter);
 
             IntentFilter batteryIntentFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-            BatteryContext = Objects.requireNonNull(getActivity()).getApplicationContext();
-            BatteryContext.registerReceiver(batteryBroadcastReceiver, batteryIntentFilter);
+            Context batteryContext = Objects.requireNonNull(getActivity()).getApplicationContext();
+            batteryContext.registerReceiver(batteryBroadcastReceiver, batteryIntentFilter);
             cu2 = new CPUUsage();
             final CardView cardRam = rootView.findViewById(R.id.cardviewRam);
             final CardView cardRom = rootView.findViewById(R.id.cardviewRom);
@@ -83,56 +80,56 @@ public class tabDashboard extends Fragment {
 
             txtRamPerce = rootView.findViewById(R.id.txtRamPerc);
             txtRamStatus = rootView.findViewById(R.id.txtRamStatus);
-            txtRomPerce = rootView.findViewById(R.id.txtROMPerc);
-            txtRomStatus = rootView.findViewById(R.id.txtROMStatus);
+            TextView txtRomPerce = rootView.findViewById(R.id.txtROMPerc);
+            TextView txtRomStatus = rootView.findViewById(R.id.txtROMStatus);
             txtBatteryPerce = rootView.findViewById(R.id.txtBatteryPerc);
             txtBatteryStatus = rootView.findViewById(R.id.txtBatteryStatus);
-            txtInStoragePerce = rootView.findViewById(R.id.txtInStoragePerc);
-            txtInStorageStatus = rootView.findViewById(R.id.txtInStorageStatus);
-            txtExStoragePerce = rootView.findViewById(R.id.txtExStoragePerc);
-            txtExStorageStatus = rootView.findViewById(R.id.txtExStorageStatus);
+            TextView txtInStoragePerce = rootView.findViewById(R.id.txtInStoragePerc);
+            TextView txtInStorageStatus = rootView.findViewById(R.id.txtInStorageStatus);
+            TextView txtExStoragePerce = rootView.findViewById(R.id.txtExStoragePerc);
+            TextView txtExStorageStatus = rootView.findViewById(R.id.txtExStorageStatus);
             txtCPUPerce = rootView.findViewById(R.id.txtCPUPerc);
-            txtCPUStatus = rootView.findViewById(R.id.txtCPUStatus);
-            txtSensorCount = rootView.findViewById(R.id.txtSensorCount);
-            txtAppCount = rootView.findViewById(R.id.txtAppCount);
+            TextView txtCPUStatus = rootView.findViewById(R.id.txtCPUStatus);
+            TextView txtSensorCount = rootView.findViewById(R.id.txtSensorCount);
+            TextView txtAppCount = rootView.findViewById(R.id.txtAppCount);
 
             ProgressBarRam = rootView.findViewById(R.id.progressRam);
             DrawableCompat.setTint(ProgressBarRam.getProgressDrawable(), MainActivity.themeColor);
 
-            ProgressBarRom = rootView.findViewById(R.id.progressRom);
-            DrawableCompat.setTint(ProgressBarRom.getProgressDrawable(), MainActivity.themeColor);
+            ProgressBar progressBarRom = rootView.findViewById(R.id.progressRom);
+            DrawableCompat.setTint(progressBarRom.getProgressDrawable(), MainActivity.themeColor);
 
             ProgressBarBattery = rootView.findViewById(R.id.progressBattery);
             DrawableCompat.setTint(ProgressBarBattery.getProgressDrawable(), MainActivity.themeColor);
 
-            ProgressBarInStorage = rootView.findViewById(R.id.progressInStorage);
-            DrawableCompat.setTint(ProgressBarInStorage.getProgressDrawable(), MainActivity.themeColor);
+            ProgressBar progressBarInStorage = rootView.findViewById(R.id.progressInStorage);
+            DrawableCompat.setTint(progressBarInStorage.getProgressDrawable(), MainActivity.themeColor);
 
-            ProgressBarExStorage = rootView.findViewById(R.id.progressExStorage);
-            DrawableCompat.setTint(ProgressBarExStorage.getProgressDrawable(), MainActivity.themeColor);
+            ProgressBar progressBarExStorage = rootView.findViewById(R.id.progressExStorage);
+            DrawableCompat.setTint(progressBarExStorage.getProgressDrawable(), MainActivity.themeColor);
 
             ProgressBarCPU = rootView.findViewById(R.id.progressCPU);
             DrawableCompat.setTint(ProgressBarCPU.getProgressDrawable(), MainActivity.themeColor);
 
-            startCPU = cu2.getTotalCpuUsage();
+            int startCPU = cu2.getTotalCpuUsage();
 
-            animateTextView(0, SplashActivity.numberOfInstalledApps, txtAppCount);
-            animateTextView(0, SplashActivity.numberOfSensors, txtSensorCount);
+            animateTextView(SplashActivity.numberOfInstalledApps, txtAppCount);
+            animateTextView(SplashActivity.numberOfSensors, txtSensorCount);
 
-            startRAM = (int) SplashActivity.usedRamPercentage;
-            String setRam = "Free:" + String.format(Locale.US, "%.2f", SplashActivity.availableRam / 1024) + " GB, Total:" + String.format(Locale.US, "%.2f", SplashActivity.totalRam / 1024) + " GB";
+            int startRAM = (int) SplashActivity.usedRamPercentage;
+            String setRam = "Free: " + String.format(Locale.US, "%.2f", SplashActivity.availableRam / 1024) + " GB,  Total: " + String.format(Locale.US, "%.2f", SplashActivity.totalRam / 1024) + " GB";
             txtRamStatus.setText(setRam);
             String ram_percentage = String.valueOf((int) SplashActivity.usedRamPercentage) + "%";
             txtRamPerce.setText(ram_percentage);
 
-            startROM = (int) SplashActivity.usedRomPercentage;
-            String setRom = "Free:" + String.format(Locale.US, "%.1f", SplashActivity.availableRom) + " GB, Total:" + String.format(Locale.US, "%.1f", SplashActivity.totalRom) + " GB";
+            int startROM = (int) SplashActivity.usedRomPercentage;
+            String setRom = "Free: " + String.format(Locale.US, "%.1f", SplashActivity.availableRom) + " GB,  Total: " + String.format(Locale.US, "%.1f", SplashActivity.totalRom) + " GB";
             txtRomStatus.setText(setRom);
             String storage_percentageRom = String.valueOf((int) SplashActivity.usedRomPercentage) + "%";
             txtRomPerce.setText(storage_percentageRom);
 
-            startInStorage = (int) SplashActivity.usedInternalPercentage;
-            String setInStorage = "Free:" + String.format(Locale.US, "%.1f", SplashActivity.availableInternalStorage) + " GB, Total:" + String.format(Locale.US, "%.1f", SplashActivity.totalInternalStorage) + " GB";
+            int startInStorage = (int) SplashActivity.usedInternalPercentage;
+            String setInStorage = "Free: " + String.format(Locale.US, "%.1f", SplashActivity.availableInternalStorage) + " GB,  Total: " + String.format(Locale.US, "%.1f", SplashActivity.totalInternalStorage) + " GB";
             txtInStorageStatus.setText(setInStorage);
             String in_storage_percentage = String.valueOf((int) SplashActivity.usedInternalPercentage) + "%";
             txtInStoragePerce.setText(in_storage_percentage);
@@ -140,7 +137,7 @@ public class tabDashboard extends Fragment {
             if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED) && ContextCompat.getExternalFilesDirs(Objects.requireNonNull(getContext()), null).length >= 2) {
                 cardExternalStorage.setVisibility(View.VISIBLE);
                 startExStorage = (int) SplashActivity.usedExternalPercentage;
-                String setExStorage = "Free:" + String.format(Locale.US, "%.1f", SplashActivity.availableExternalStorage) + " GB, Total:" + String.format(Locale.US, "%.1f", SplashActivity.totalExternalStorage) + " GB";
+                String setExStorage = "Free: " + String.format(Locale.US, "%.1f", SplashActivity.availableExternalStorage) + " GB,  Total: " + String.format(Locale.US, "%.1f", SplashActivity.totalExternalStorage) + " GB";
                 txtExStorageStatus.setText(setExStorage);
                 String ex_storage_percentage = String.valueOf((int) SplashActivity.usedExternalPercentage) + "%";
                 txtExStoragePerce.setText(ex_storage_percentage);
@@ -156,7 +153,7 @@ public class tabDashboard extends Fragment {
                     ProgressBarRam.setProgress((int) memoryInfo.getUsedRamPercentage() * 10);
                     String ram_percentage = (int) memoryInfo.getUsedRamPercentage() + "%";
                     txtRamPerce.setText(ram_percentage);
-                    String setRam = "Free:" + String.format(Locale.US, "%.2f", memoryInfo.getAvailableRam() / 1024) + " GB, Total:" + String.format(Locale.US, "%.2f", memoryInfo.getTotalRam() / 1024) + " GB";
+                    String setRam = "Free: " + String.format(Locale.US, "%.2f", memoryInfo.getAvailableRam() / 1024) + " GB,  Total: " + String.format(Locale.US, "%.2f", memoryInfo.getTotalRam() / 1024) + " GB";
                     txtRamStatus.setText(setRam);
                     updateRam.postDelayed(this, 1000);
                 }
@@ -184,27 +181,28 @@ public class tabDashboard extends Fragment {
 
                 }
             }, 1000, 1000);
+            String cpuStatus = "Cores: " + Runtime.getRuntime().availableProcessors() + ",  Max Frequency: " + (int)SplashActivity.cpuMaxFreq + " MHz";
+            txtCPUStatus.setText(cpuStatus);
 
             ObjectAnimator progressAnimatorRAM = ObjectAnimator.ofInt(ProgressBarRam, "progress", 0, startRAM * 10);
             progressAnimatorRAM.setDuration(800);
             progressAnimatorRAM.start();
 
-            ObjectAnimator progressAnimatorROM = ObjectAnimator.ofInt(ProgressBarRom, "progress", 0, startROM * 10);
+            ObjectAnimator progressAnimatorROM = ObjectAnimator.ofInt(progressBarRom, "progress", 0, startROM * 10);
             progressAnimatorROM.setDuration(800);
             progressAnimatorROM.start();
 
-            ObjectAnimator progressAnimatorInStorage = ObjectAnimator.ofInt(ProgressBarInStorage, "progress", 0, startInStorage * 10);
+            ObjectAnimator progressAnimatorInStorage = ObjectAnimator.ofInt(progressBarInStorage, "progress", 0, startInStorage * 10);
             progressAnimatorInStorage.setDuration(800);
             progressAnimatorInStorage.start();
 
-            ObjectAnimator progressAnimatorExStorage = ObjectAnimator.ofInt(ProgressBarExStorage, "progress", 0, startExStorage * 10);
+            ObjectAnimator progressAnimatorExStorage = ObjectAnimator.ofInt(progressBarExStorage, "progress", 0, startExStorage * 10);
             progressAnimatorExStorage.setDuration(800);
             progressAnimatorExStorage.start();
 
             ObjectAnimator progressAnimatorCPU = ObjectAnimator.ofInt(ProgressBarCPU, "progress", 0, startCPU * 10);
             progressAnimatorCPU.setDuration(800);
             progressAnimatorCPU.start();
-
 
             final com.ytheekshana.deviceinfo.BounceInterpolator bounceInterpolator = new com.ytheekshana.deviceinfo.BounceInterpolator(0.2, 20);
             cardRam.setOnClickListener(new View.OnClickListener() {
@@ -293,15 +291,14 @@ public class tabDashboard extends Fragment {
         @Override
         public void onReceive(Context context, Intent intent) {
             final int batlevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
-            startBattery = batlevel;
             int voltage = intent.getIntExtra("voltage", 0);
             int temperature = (intent.getIntExtra("temperature", 0)) / 10;
-            String setBattery = "Voltage: " + voltage + "mV, Temperature: " + temperature + " \u2103";
+            String setBattery = "Voltage: " + voltage + "mV,  Temperature: " + temperature + " \u2103";
             txtBatteryStatus.setText(setBattery);
             String battery_percentage = Integer.toString(batlevel) + "%";
             txtBatteryPerce.setText(battery_percentage);
 
-            ObjectAnimator progressAnimatorBattery = ObjectAnimator.ofInt(ProgressBarBattery, "progress", 0, startBattery * 10);
+            ObjectAnimator progressAnimatorBattery = ObjectAnimator.ofInt(ProgressBarBattery, "progress", 0, batlevel * 10);
             progressAnimatorBattery.setDuration(800);
             progressAnimatorBattery.start();
 
@@ -309,9 +306,9 @@ public class tabDashboard extends Fragment {
         }
     };
 
-    public void animateTextView(int initialValue, int finalValue, final TextView textview) {
+    private void animateTextView(int finalValue, final TextView textview) {
 
-        ValueAnimator valueAnimator = ValueAnimator.ofInt(initialValue, finalValue);
+        ValueAnimator valueAnimator = ValueAnimator.ofInt(0, finalValue);
         valueAnimator.setDuration(800);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override

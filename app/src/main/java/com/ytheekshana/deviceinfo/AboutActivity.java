@@ -7,15 +7,14 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.preference.PreferenceManager;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Objects;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AboutActivity extends AppCompatActivity {
 
@@ -43,7 +42,7 @@ public class AboutActivity extends AppCompatActivity {
         TextView txtPackageName = findViewById(R.id.txtPackageName);
         txtPackageName.setText(getApplicationContext().getPackageName());
         txtVersion.setText(BuildConfig.VERSION_NAME);
-        CircleImageView circleimgAuthor = findViewById(R.id.circleimgAuthor);
+        ImageView circleimgAuthor = findViewById(R.id.circleimgAuthor);
 
         circleimgAuthor.setOnClickListener(new View.OnClickListener() {
             @Override

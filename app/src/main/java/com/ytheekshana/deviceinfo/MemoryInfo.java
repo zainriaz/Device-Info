@@ -5,13 +5,14 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.os.Environment;
 import android.os.StatFs;
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 
 public class MemoryInfo {
     private Activity activity;
     private Context context;
     private double totalRam, availableRam, usedRam, usedRamPercentage;
     private double totalRom, availableRom, usedRom, usedRomPercentage;
+    private String romPath, internalStoragePath, externalStoragePath;
     private double totalInternalStorage, availableInternalStorage, usedInternalStorage, usedInternalPercentage;
     private double totalExternalStorage, availableExternalStorage, usedExternalStorage, usedExternalPercentage;
 
@@ -42,6 +43,7 @@ public class MemoryInfo {
             totalRom = ((double) stat.getBlockSizeLong() * (double) stat.getBlockCountLong()) / 1024 / 1024 / 1024;
             usedRom = totalRom - availableRom;
             usedRomPercentage = (double) ((((stat.getBlockSizeLong() * stat.getBlockCountLong()) - (stat.getBlockSizeLong() * stat.getAvailableBlocksLong())) * 100) / (stat.getBlockSizeLong() * stat.getBlockCountLong()));
+            romPath = Environment.getRootDirectory().getAbsolutePath();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -54,6 +56,7 @@ public class MemoryInfo {
             totalInternalStorage = ((double) stat.getBlockSizeLong() * (double) stat.getBlockCountLong()) / 1024 / 1024 / 1024;
             usedInternalStorage = totalInternalStorage - availableInternalStorage;
             usedInternalPercentage = (double) ((((stat.getBlockSizeLong() * stat.getBlockCountLong()) - (stat.getBlockSizeLong() * stat.getAvailableBlocksLong())) * 100) / (stat.getBlockSizeLong() * stat.getBlockCountLong()));
+            internalStoragePath = Environment.getExternalStorageDirectory().getPath();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -61,16 +64,29 @@ public class MemoryInfo {
 
     public void ExternalStorage() {
         try {
-            if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED) && ContextCompat.getExternalFilesDirs(context, null).length >= 2) {
+            if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED) && ContextCompat.getExternalFilesDirs(context, null).length >= 2) {
                 StatFs stat = new StatFs(GetDetails.getStorageDirectories(context)[0]);
                 availableExternalStorage = (((double) stat.getBlockSizeLong() * (double) stat.getAvailableBlocksLong()) / 1024 / 1024 / 1024);
                 totalExternalStorage = ((double) stat.getBlockSizeLong() * (double) stat.getBlockCountLong()) / 1024 / 1024 / 1024;
                 usedExternalStorage = totalExternalStorage - availableExternalStorage;
                 usedExternalPercentage = (double) ((((stat.getBlockSizeLong() * stat.getBlockCountLong()) - (stat.getBlockSizeLong() * stat.getAvailableBlocksLong())) * 100) / (stat.getBlockSizeLong() * stat.getBlockCountLong()));
+                externalStoragePath = GetDetails.getStorageDirectories(context)[0];
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    String getRomPath() {
+        return romPath;
+    }
+
+    String getInternalStoragePath() {
+        return internalStoragePath;
+    }
+
+    String getExternalStoragePath() {
+        return externalStoragePath;
     }
 
     double getTotalRam() {

@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/cardviewDisplay"
                 style="?attr/cardStyle"
                 android:layout_width="match_parent"
@@ -67,10 +67,10 @@
                         android:layout_centerVertical="true"
                         card_view:srcCompat="@drawable/ic_phone_android" />
                 </RelativeLayout>
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/cardviewFlashlight"
                 style="?attr/cardStyle"
                 android:layout_width="match_parent"
@@ -112,9 +112,9 @@
                         android:layout_centerVertical="true"
                         card_view:srcCompat="@drawable/ic_flashlight" />
                 </RelativeLayout>
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/cardviewLoudSpeaker"
                 style="?attr/cardStyle"
                 android:layout_width="match_parent"
@@ -156,9 +156,9 @@
                         android:layout_centerVertical="true"
                         card_view:srcCompat="@drawable/ic_speaker" />
                 </RelativeLayout>
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/cardviewEarSpeaker"
                 style="?attr/cardStyle"
                 android:layout_width="match_parent"
@@ -200,9 +200,9 @@
                         android:layout_centerVertical="true"
                         card_view:srcCompat="@drawable/ic_earspeaker" />
                 </RelativeLayout>
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/cardviewEarProximity"
                 style="?attr/cardStyle"
                 android:layout_width="match_parent"
@@ -244,9 +244,9 @@
                         android:layout_centerVertical="true"
                         card_view:srcCompat="@drawable/ic_earproximity" />
                 </RelativeLayout>
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/cardviewLightSensor"
                 style="?attr/cardStyle"
                 android:layout_width="match_parent"
@@ -288,9 +288,9 @@
                         android:layout_centerVertical="true"
                         card_view:srcCompat="@drawable/ic_light_sensor" />
                 </RelativeLayout>
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/cardviewVibration"
                 style="?attr/cardStyle"
                 android:layout_width="match_parent"
@@ -332,9 +332,9 @@
                         android:layout_centerVertical="true"
                         card_view:srcCompat="@drawable/ic_vibration" />
                 </RelativeLayout>
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/cardviewWifi"
                 style="?attr/cardStyle"
                 android:layout_width="match_parent"
@@ -376,9 +376,9 @@
                         android:layout_centerVertical="true"
                         card_view:srcCompat="@drawable/ic_wifi" />
                 </RelativeLayout>
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/cardviewBluetooth"
                 style="?attr/cardStyle"
                 android:layout_width="match_parent"
@@ -420,9 +420,9 @@
                         android:layout_centerVertical="true"
                         card_view:srcCompat="@drawable/ic_bluetooth" />
                 </RelativeLayout>
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/cardviewFingerprint"
                 style="?attr/cardStyle"
                 android:layout_width="match_parent"
@@ -464,9 +464,9 @@
                         android:layout_centerVertical="true"
                         card_view:srcCompat="@drawable/ic_fingerprint" />
                 </RelativeLayout>
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/cardviewVolumeUp"
                 style="?attr/cardStyle"
                 android:layout_width="match_parent"
@@ -508,9 +508,9 @@
                         android:layout_centerVertical="true"
                         card_view:srcCompat="@drawable/ic_volume_up" />
                 </RelativeLayout>
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/cardviewVolumeDown"
                 style="?attr/cardStyle"
                 android:layout_width="match_parent"
@@ -552,7 +552,7 @@
                         android:layout_centerVertical="true"
                         card_view:srcCompat="@drawable/ic_volume_down" />
                 </RelativeLayout>
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
         </LinearLayout>
 
     </ScrollView>

@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:padding="5dp">
 
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/cardviewRam"
             style="?attr/cardStyle"
             android:layout_width="match_parent"
@@ -53,14 +53,14 @@
                     android:id="@+id/progressRam"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="18dp"
+                    android:layout_height="wrap_content"
                     android:layout_below="@+id/txtRamTitle"
                     android:layout_marginEnd="35dp"
                     android:layout_toEndOf="@+id/imageRam"
                     android:max="1000"
                     android:progress="400"
-                    android:scaleY="4.5"
-                    android:progressTint="@color/colorPrimary"/>
+                    android:progressTint="@color/colorPrimary"
+                     />
 
                 <TextView
                     android:id="@+id/txtRamPerc"
@@ -77,16 +77,16 @@
                     android:id="@+id/txtRamStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/imageRam"
+                    android:layout_below="@id/progressRam"
                     android:layout_toEndOf="@+id/imageRam"
                     android:gravity="top"
                     android:text="Free:0GB, Total:0GB"
                     android:textSize="12sp"
                     android:textStyle="bold" />
             </RelativeLayout>
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/cardviewRom"
             style="?attr/cardStyle"
             android:layout_width="match_parent"
@@ -124,14 +124,14 @@
                     android:id="@+id/progressRom"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="18dp"
+                    android:layout_height="wrap_content"
                     android:layout_below="@+id/txtROMTitle"
                     android:layout_marginEnd="35dp"
                     android:layout_toEndOf="@+id/imageROM"
                     android:max="1000"
                     android:progress="500"
-                    android:scaleY="4.5"
-                    android:progressTint="@color/colorPrimary"/>
+                    android:progressTint="@color/colorPrimary"
+                     />
 
                 <TextView
                     android:id="@+id/txtROMPerc"
@@ -148,16 +148,16 @@
                     android:id="@+id/txtROMStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/imageROM"
+                    android:layout_below="@id/progressRom"
                     android:layout_toEndOf="@+id/imageROM"
                     android:gravity="top"
                     android:text="Free:0GB, Total:0GB"
                     android:textSize="12sp"
                     android:textStyle="bold" />
             </RelativeLayout>
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/cardviewInStorage"
             style="?attr/cardStyle"
             android:layout_width="match_parent"
@@ -194,14 +194,14 @@
                     android:id="@+id/progressInStorage"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="18dp"
+                    android:layout_height="wrap_content"
                     android:layout_below="@+id/txtInStorageTitle"
                     android:layout_marginEnd="35dp"
                     android:layout_toEndOf="@+id/imageInStorage"
                     android:max="1000"
                     android:progress="600"
-                    android:scaleY="4.5"
-                    android:progressTint="@color/colorPrimary" />
+                    android:progressTint="@color/colorPrimary"
+                     />
 
                 <TextView
                     android:id="@+id/txtInStoragePerc"
@@ -218,16 +218,16 @@
                     android:id="@+id/txtInStorageStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/imageInStorage"
+                    android:layout_below="@id/progressInStorage"
                     android:layout_toEndOf="@+id/imageInStorage"
                     android:gravity="top"
                     android:text="Free:0GB, Total:0GB"
                     android:textSize="12sp"
                     android:textStyle="bold" />
             </RelativeLayout>
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/cardviewExStorage"
             style="?attr/cardStyle"
             android:layout_width="match_parent"
@@ -264,14 +264,14 @@
                     android:id="@+id/progressExStorage"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="18dp"
+                    android:layout_height="wrap_content"
                     android:layout_below="@+id/txtExStorageTitle"
                     android:layout_marginEnd="35dp"
                     android:layout_toEndOf="@+id/imageExStorage"
                     android:max="1000"
                     android:progress="700"
-                    android:scaleY="4.5"
-                    android:progressTint="@color/colorPrimary" />
+                    android:progressTint="@color/colorPrimary"
+                     />
 
                 <TextView
                     android:id="@+id/txtExStoragePerc"
@@ -288,16 +288,16 @@
                     android:id="@+id/txtExStorageStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/imageExStorage"
+                    android:layout_below="@id/progressExStorage"
                     android:layout_toEndOf="@+id/imageExStorage"
                     android:gravity="top"
                     android:text="Free:0GB, Total:0GB"
                     android:textSize="12sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
             </RelativeLayout>
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/cardviewBattery"
             style="?attr/cardStyle"
             android:layout_width="match_parent"
@@ -334,14 +334,14 @@
                     android:id="@+id/progressBattery"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="18dp"
+                    android:layout_height="wrap_content"
                     android:layout_below="@+id/txtBatteryTitle"
                     android:layout_marginEnd="35dp"
                     android:layout_toEndOf="@+id/imageBattery"
                     android:max="1000"
                     android:progress="800"
-                    android:scaleY="4.5"
-                    android:progressTint="@color/colorPrimary" />
+                    android:progressTint="@color/colorPrimary"
+                     />
 
                 <TextView
                     android:id="@+id/txtBatteryPerc"
@@ -358,16 +358,16 @@
                     android:id="@+id/txtBatteryStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/imageBattery"
+                    android:layout_below="@id/progressBattery"
                     android:layout_toEndOf="@+id/imageBattery"
                     android:gravity="top"
                     android:text="Voltage:0 mV, Temperature:0C"
                     android:textSize="12sp"
                     android:textStyle="bold" />
             </RelativeLayout>
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/cardviewCPU"
             style="?attr/cardStyle"
             android:layout_width="match_parent"
@@ -404,14 +404,14 @@
                     android:id="@+id/progressCPU"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="18dp"
+                    android:layout_height="wrap_content"
                     android:layout_below="@+id/txtCPUTitle"
                     android:layout_marginEnd="35dp"
                     android:layout_toEndOf="@+id/imageCPU"
                     android:max="1000"
                     android:progress="900"
-                    android:scaleY="4.5"
-                    android:progressTint="@color/colorPrimary"/>
+                    android:progressTint="@color/colorPrimary"
+                     />
 
                 <TextView
                     android:id="@+id/txtCPUPerc"
@@ -428,14 +428,14 @@
                     android:id="@+id/txtCPUStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/imageCPU"
+                    android:layout_below="@id/progressCPU"
                     android:layout_toEndOf="@+id/imageCPU"
                     android:gravity="top"
                     android:text="Cores:8"
                     android:textSize="12sp"
                     android:textStyle="bold" />
             </RelativeLayout>
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -443,7 +443,7 @@
             android:layout_below="@+id/cardviewCPU"
             android:orientation="horizontal">
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/cardviewSensor"
                 style="?attr/cardStyle"
                 android:layout_width="0dp"
@@ -499,9 +499,9 @@
 
                 </RelativeLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/cardviewApp"
                 style="?attr/cardStyle"
                 android:layout_width="0dp"
@@ -556,7 +556,7 @@
                         android:textStyle="bold" />
 
                 </RelativeLayout>
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
         </LinearLayout>
     </RelativeLayout>
 </ScrollView>

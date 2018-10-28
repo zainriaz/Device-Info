@@ -17,6 +17,23 @@
         <item>#ff5722</item>
         <item>#795548</item>
     </string-array>
+    <string-array name="accent_colors_2">
+        <item>#f29323</item>
+        <item>#d100ac</item>
+        <item>#6e34bf</item>
+        <item>#4053c1</item>
+        <item>#50acd6</item>
+        <item>#00d5be</item>
+        <item>#00d990</item>
+        <item>#00cb6b</item>
+        <item>#22b851</item>
+        <item>#89bf54</item>
+        <item>#e9d84e</item>
+        <item>#ff4b0c</item>
+        <item>#ff2d0d</item>
+        <item>#ff225d</item>
+        <item>#86515c</item>
+    </string-array>
     <string-array name="accent_colors_700">
         <item>#d32f2f</item>
         <item>#c2185b</item>

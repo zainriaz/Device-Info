@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -33,7 +33,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
 
     private Context mContext;
     private ArrayList<AppInfo> mDataSet;
-    private int lastPosition = -1;
+    private int lastPosition = -1,uninstall_position=0;
 
     AppAdapter(Context context, ArrayList<AppInfo> list) {
         mContext = context;
@@ -66,6 +66,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
+        uninstall_position = holder.getAdapterPosition();
         final Context context = holder.itemView.getContext();
         final int TextDisColor = MainActivity.themeColor;
 
@@ -93,6 +94,16 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
                         Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                         intent.setData(Uri.parse("package:" + packageName));
                         context.startActivity(intent);
+                        return true;
+                    }
+                });
+                menu.add("Uninstall").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        Intent intent = new Intent(Intent.ACTION_UNINSTALL_PACKAGE);
+                        intent.setData(Uri.parse("package:" + packageName));
+                        context.startActivity(intent);
+                        notifyItemRemoved(uninstall_position);
                         return true;
                     }
                 });

@@ -7,9 +7,9 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Environment;
-import android.support.annotation.AttrRes;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
+import androidx.annotation.AttrRes;
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Display;
@@ -88,9 +88,9 @@ public class GetDetails {
         return OSName;
     }
 
-    static String GetOSReleaseDate(int sdk) {
+    static String GetOSReleaseDate() {
         String OSReleaseDate;
-        switch (sdk) {
+        switch (Build.VERSION.SDK_INT) {
             case 11:
             case 12:
             case 13:
@@ -176,7 +176,7 @@ public class GetDetails {
         return OSName;
     }
 
-    static String getProcessor(Context context) {
+    static String getProcessor() {
         String Final = "";
         try {
             StringBuilder sb = new StringBuilder();

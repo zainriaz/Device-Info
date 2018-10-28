@@ -1,36 +1,40 @@
 package com.ytheekshana.deviceinfo;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.AdapterView;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 public class tabApps extends Fragment {
-    int apptype = 0, TextDisColor;
-    Thread loadApps;
+    private int apptype = 0;
+    private Thread loadApps;
     SwipeRefreshLayout swipeapplist;
-    Activity activity;
     Context context;
     RecyclerView recyclerInstalledApps;
 
@@ -38,16 +42,12 @@ public class tabApps extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         this.context = context;
-        if (context instanceof Activity) {
-            activity = (Activity) context;
-        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
         context = null;
-        activity = null;
     }
 
     @Override
@@ -100,11 +100,11 @@ public class tabApps extends Fragment {
                              final Bundle savedInstanceState) {
 
         final View rootView = inflater.inflate(R.layout.tabapps, container, false);
-        final RelativeLayout relmain = rootView.findViewById(R.id.relmain);
-        TextDisColor = MainActivity.themeColor;
         Spinner spinnerAppType = rootView.findViewById(R.id.spinnerAppType);
         swipeapplist = rootView.findViewById(R.id.swipeapplist);
+        swipeapplist.setColorSchemeColors(MainActivity.themeColor);
         recyclerInstalledApps = rootView.findViewById(R.id.recyclerInstalledApps);
+        setHasOptionsMenu(true);
 
         if (getUserVisibleHint()) {
             loadApps = new Thread() {
@@ -177,21 +177,40 @@ public class tabApps extends Fragment {
     private ArrayList<AppInfo> getInstalledApps() {
         ArrayList<AppInfo> res = new ArrayList<>();
         final PackageManager pm = context.getPackageManager();
-        List<PackageInfo> packs = pm.getInstalledPackages(0);
+        List<PackageInfo> packs = pm.getInstalledPackages(PackageManager.GET_PERMISSIONS);
 
-        Collections.sort(packs, new Comparator<PackageInfo>() {
-            @Override
-            public int compare(PackageInfo arg0, PackageInfo arg1) {
-                CharSequence name0 = arg0.applicationInfo.loadLabel(pm);
-                CharSequence name1 = arg1.applicationInfo.loadLabel(pm);
-                return name0.toString().compareTo(name1.toString());
-            }
-        });
+        if (MainActivity.appsort == 1) {
+            Collections.sort(packs, new Comparator<PackageInfo>() {
+                @Override
+                public int compare(PackageInfo arg0, PackageInfo arg1) {
+                    CharSequence name0 = arg0.applicationInfo.loadLabel(pm);
+                    CharSequence name1 = arg1.applicationInfo.loadLabel(pm);
+                    return name0.toString().compareTo(name1.toString());
+                }
+            });
+        } else if (MainActivity.appsort == 2) {
+            Collections.sort(packs, new Comparator<PackageInfo>() {
+                @Override
+                public int compare(PackageInfo arg0, PackageInfo arg1) {
+                    long name0 = new File(arg0.applicationInfo.publicSourceDir).length();
+                    long name1 = new File(arg1.applicationInfo.publicSourceDir).length();
+                    return Long.compare(name1, name0);
+                }
+            });
+        } else if (MainActivity.appsort == 3) {
+            Collections.sort(packs, new Comparator<PackageInfo>() {
+                @Override
+                public int compare(PackageInfo arg0, PackageInfo arg1) {
+                    Date name0 = new Date(arg0.lastUpdateTime);
+                    Date name1 = new Date(arg1.lastUpdateTime);
+                    return name1.compareTo(name0);
+                }
+            });
+        }
 
         for (int i = 0; i < packs.size(); i++) {
             PackageInfo p = packs.get(i);
             if ((!isSystemPackage(p))) {
-
                 String appName = p.applicationInfo.loadLabel(context.getPackageManager()).toString();
                 String packageName = p.applicationInfo.packageName;
                 String appVersion = "Version : " + p.versionName;
@@ -202,7 +221,32 @@ public class tabApps extends Fragment {
         return res;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_sort_date:
+                MainActivity.appsort = 3;
+                loadApps.start();
+                break;
+            case R.id.action_sort_name:
+                MainActivity.appsort = 1;
+                loadApps.start();
+                break;
+            case R.id.action_sort_size:
+                MainActivity.appsort = 2;
+                loadApps.start();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private boolean isSystemPackage(PackageInfo pkgInfo) {
         return (pkgInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != apptype;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        MenuItem menuSort = menu.findItem(R.id.action_sort);
+        menuSort.setVisible(true);
     }
 }

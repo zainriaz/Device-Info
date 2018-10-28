@@ -5,11 +5,11 @@ import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,13 +21,13 @@ import java.util.Objects;
 
 public class tabSensor extends Fragment {
 
-    String getcount;
+    private String getcount;
     TextView sensor_count;
-    Thread loadSensors;
+    private Thread loadSensors;
     SwipeRefreshLayout swipesensorlist;
     RecyclerView recyclerSensors;
     Context context;
-    Activity activity;
+    private Activity activity;
 
     @Override
     public void onAttach(Context context) {
@@ -46,6 +46,7 @@ public class tabSensor extends Fragment {
         recyclerSensors = rootView.findViewById(R.id.recyclerSensors);
         sensor_count = rootView.findViewById(R.id.sensor_count);
         swipesensorlist = rootView.findViewById(R.id.swipesensorlist);
+        swipesensorlist.setColorSchemeColors(MainActivity.themeColor);
         swipesensorlist.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -100,7 +101,7 @@ public class tabSensor extends Fragment {
     private ArrayList<SensorInfo> getAllSensors() {
 
         ArrayList<SensorInfo> allsensors = new ArrayList<>();
-        SensorManager mSensorManager = (SensorManager) Objects.requireNonNull(getActivity()).getSystemService(Context.SENSOR_SERVICE);
+        SensorManager mSensorManager = (SensorManager) Objects.requireNonNull(activity.getSystemService(Context.SENSOR_SERVICE));
         List<Sensor> deviceSensors = Objects.requireNonNull(mSensorManager).getSensorList(Sensor.TYPE_ALL);
 
         for (Sensor s : deviceSensors) {

@@ -23,6 +23,12 @@
     <uses-feature
         android:name="android.hardware.camera.front"
         android:required="false" />
+    <uses-feature
+        android:name="android.hardware.wifi"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.sensor.proximity"
+        android:required="false" />
 
     <application
         android:allowBackup="true"

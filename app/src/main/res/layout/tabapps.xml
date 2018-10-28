@@ -1,4 +1,4 @@
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/swipeapplist"
     android:layout_width="match_parent"
@@ -16,18 +16,19 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
             android:entries="@array/app_type"
             android:theme="@style/Base.AlertDialog.AppCompat.Light" />
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerInstalledApps"
             android:scrollbars="none"
             style="?attr/listDividerStyle"
             android:layoutAnimation="@anim/recycler_layout_animation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/spinnerAppType"
-            android:layout_marginTop="10dp" />
+            android:layout_below="@+id/spinnerAppType" />
 
     </RelativeLayout>
-</android.support.v4.widget.SwipeRefreshLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

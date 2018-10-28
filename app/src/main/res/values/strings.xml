@@ -1,7 +1,7 @@
 <resources>
 
     <string name="DashRAM">RAM</string>
-    <string name="DashROM">ROM</string>
+    <string name="DashROM">System Storage</string>
     <string name="DashInternalStorage">Internal Storage</string>
     <string name="DashExternalStorage">External Storage</string>
     <string name="DashBattery">Battery</string>
@@ -26,7 +26,8 @@
     <string name="action_about">About</string>
     <string name="action_rate">Rate App</string>
     <string name="section_format">Hello World from section: %1$d</string>
-    <string name="authorname">Yasiru Nayanajith</string>
+    <string name="app_author">Yasiru Nayanajith</string>
+    <string name="app_cover_photo">Cover Picture</string>
 
     <string name="DeviceName">Device Name</string>
     <string name="Model">Model</string>
@@ -91,7 +92,8 @@
     <string name="RefreshRate">Refresh Rate</string>
     <string name="Orientation">Orientation</string>
 
-    <string name="RAM">RAM</string>
+    <string name="RAM">Random Access Memory</string>
+    <string name="ROM">System Storage</string>
     <string name="InternalStorage">Internal Storage</string>
     <string name="ExternalStorage">External Storage</string>
 
@@ -164,6 +166,10 @@
     <string name="review_not_really">Not Really</string>
     <string name="review_yes">Yes!</string>
     <string name="unknown_min_sdk">Unknown</string>
+    <string name="action_app_sort_title">Sort</string>
+    <string name="action_app_sort_name">Name</string>
+    <string name="action_app_sort_size">Size</string>
+    <string name="action_app_sort_date">Installation Date</string>
 
 
 </resources>

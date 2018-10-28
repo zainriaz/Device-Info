@@ -23,11 +23,11 @@
             android:id="@+id/imgCover"
             android:layout_width="match_parent"
             android:layout_height="170dp"
-            android:contentDescription="Cover Picture"
+            android:contentDescription="@string/app_cover_photo"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/cover" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             android:id="@+id/circleimgProfile"
             android:layout_width="140dp"
             android:layout_height="120dp"
@@ -35,8 +35,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="100dp"
             android:src="@drawable/icon"
-            app:border_color="#fff"
-            app:border_width="3dp"/>
+            android:contentDescription="@string/app_description" />
 
         <TextView
             android:id="@+id/txtAppNameAbout"
@@ -70,7 +69,7 @@
             android:textAlignment="center"
             android:textSize="16sp" />
 
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/cardviewDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -92,9 +91,9 @@
                 android:textStyle="bold"
                 android:typeface="sans" />
 
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             android:id="@+id/circleimgAuthor"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -103,8 +102,7 @@
             android:layout_marginTop="15dp"
             android:clickable="true"
             android:src="@drawable/author"
-            app:border_color="#fff"
-            app:border_width="2dp"
-            android:focusable="true" />
+            android:focusable="true"
+            android:contentDescription="@string/app_author" />
     </RelativeLayout>
 </ScrollView>
