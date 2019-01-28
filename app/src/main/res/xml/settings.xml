@@ -13,7 +13,14 @@
             android:summary="Select an Accent Color"
             android:title="Accent Color"
             app:colorChoices="@array/accent_colors"
-            app:colorShape="circle"/>
+            app:colorShape="circle" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="App Backup">
+
+        <Preference
+            android:key="pref_extract_location"
+            android:summary="/emulated/0/DeviceInfo"
+            android:title="Extract Location" />
     </PreferenceCategory>
     <PreferenceCategory android:title="Support Us">
 
@@ -21,14 +28,19 @@
             android:key="pref_rate_us"
             android:summary="Enjoying Device Info? Would you mind giving us some feedback on Google Play Store"
             android:title="Rate Us" />
+
+        <Preference
+            android:key="pref_donate"
+            android:summary="You can show your appreciation for my work by making a small donation"
+            android:title="Donate (Support Development)" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="About">
         <Preference
             android:key="app_version_pref"
-            android:selectable="false"
             android:persistent="false"
-            android:title="App Version"
-            android:summary=""/>
+            android:selectable="false"
+            android:summary=""
+            android:title="App Version" />
     </PreferenceCategory>
 </PreferenceScreen>

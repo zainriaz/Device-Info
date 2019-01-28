@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/circleimgProfile"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="10dp"
             android:text="@string/app_name"
             android:textSize="28sp"
             android:textStyle="bold" />
@@ -80,10 +80,10 @@
             <TextView
                 android:id="@+id/txtDescription"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:layout_marginStart="10dp"
+                android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:padding="10dp"
                 android:text="@string/app_description"
                 android:textAlignment="center"
                 android:textAllCaps="false"
@@ -99,10 +99,28 @@
             android:layout_height="50dp"
             android:layout_below="@+id/cardviewDescription"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:clickable="true"
             android:src="@drawable/author"
             android:focusable="true"
             android:contentDescription="@string/app_author" />
+
+        <Button
+            android:id="@+id/btnDonate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/circleimgAuthor"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/google"
+            android:paddingBottom="15dp"
+            android:paddingEnd="20dp"
+            android:paddingStart="20dp"
+            android:paddingTop="15dp"
+            android:text="@string/donate_button"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
     </RelativeLayout>
 </ScrollView>

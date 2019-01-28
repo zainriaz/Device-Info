@@ -34,6 +34,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="10dp"
                     android:contentDescription="@string/imgRAM"
+                    android:tint="@color/progress_ram"
                     app:srcCompat="@drawable/ram" />
 
                 <TextView
@@ -87,6 +88,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="10dp"
                     android:contentDescription="@string/imgROM"
+                    android:tint="@color/progress_rom"
                     app:srcCompat="@drawable/rom" />
 
                 <TextView
@@ -148,6 +150,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="10dp"
                     android:contentDescription="@string/imgInternalStorage"
+                    android:tint="@color/progress_insto"
                     app:srcCompat="@drawable/instorage" />
 
                 <TextView
@@ -209,6 +212,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="10dp"
                     android:contentDescription="@string/imgExternalStorage"
+                    android:tint="@color/progress_exsto"
                     app:srcCompat="@drawable/exstorage" />
 
                 <TextView
@@ -243,7 +247,6 @@
                     android:layout_below="@id/txtExStorageStatus"
                     android:layout_toEndOf="@id/imageExStorage"
                     android:progress="80" />
-
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>

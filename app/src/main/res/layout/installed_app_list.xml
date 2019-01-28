@@ -35,7 +35,8 @@
                 android:layout_alignTop="@+id/img_app_icon"
                 android:layout_marginStart="16dp"
                 android:layout_toEndOf="@+id/img_app_icon"
-                android:text="com.app.name"
+                android:layout_toStartOf="@id/progressApp"
+                android:text="com.app.nameyuver ryeigf riug reiug ergiiu tgfvtyf"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -56,6 +57,15 @@
                 android:layout_below="@+id/txt_package_name"
                 android:text="com.version.name"
                 android:textSize="14sp" />
+
+            <ProgressBar
+                android:id="@+id/progressApp"
+                style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:visibility="gone"/>
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

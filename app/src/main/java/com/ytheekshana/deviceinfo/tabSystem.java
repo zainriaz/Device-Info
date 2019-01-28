@@ -1,12 +1,12 @@
 package com.ytheekshana.deviceinfo;
 
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +34,8 @@ public class tabSystem extends Fragment {
         try {
             int textDisColor = MainActivity.themeColor;
             int lineColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorButtonNormal);
+            CardView cardviewRam = rootView.findViewById(R.id.cardviewSystem);
+            cardviewRam.setCardBackgroundColor(MainActivity.themeColor);
 
             switch (Build.VERSION.SDK_INT) {
                 case 21:
@@ -50,6 +52,7 @@ public class tabSystem extends Fragment {
                 case 26:
                 case 27:
                     imgAndroidLogo.setImageResource(R.drawable.oreo);
+                    break;
                 case 28:
                     imgAndroidLogo.setImageResource(R.drawable.pie);
                     break;
@@ -61,10 +64,8 @@ public class tabSystem extends Fragment {
             txtAndroidVersionDate.setText(AReleaseDate);
             if (SplashActivity.rootedStatus) {
                 txtRootStatus.setText(R.string.rooted);
-                txtRootStatus.setTextColor(Color.parseColor("#e20000"));
             } else {
                 txtRootStatus.setText(R.string.not_rooted);
-                txtRootStatus.setTextColor(Color.parseColor("#09a400"));
             }
 
             TextView txtAndroidName = new TextView(getContext());

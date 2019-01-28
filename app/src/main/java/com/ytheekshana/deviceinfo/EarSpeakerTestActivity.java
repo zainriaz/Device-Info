@@ -5,7 +5,6 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -16,19 +15,20 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.preference.PreferenceManager;
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
+import com.nabinbhandari.android.permissions.PermissionHandler;
+import com.nabinbhandari.android.permissions.Permissions;
+
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class EarSpeakerTestActivity extends AppCompatActivity {
-    public static final int REQUEST_READ_EXTERNAL_STORAGE = 1;
     SharedPreferences sharedPrefs;
     SharedPreferences.Editor editPrefs;
     Context context;
@@ -89,42 +89,30 @@ public class EarSpeakerTestActivity extends AppCompatActivity {
             mediaPlayer = new MediaPlayer();
             mediaPlayer.setAudioStreamType(AudioManager.STREAM_VOICE_CALL);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_READ_EXTERNAL_STORAGE);
-                } else {
-                    Uri defaultRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
-                    mediaPlayer.setDataSource(this, defaultRingtoneUri);
-                    mediaPlayer.prepare();
-                    mediaPlayer.start();
-                }
+                Permissions.check(context, Manifest.permission.READ_EXTERNAL_STORAGE, null, new PermissionHandler() {
+                    @Override
+                    public void onGranted() {
+                        testEarSpeaker();
+                    }
+                    @Override
+                    public void onDenied(Context context, ArrayList<String> deniedPermissions) {
+                        finish();
+                    }
+                });
             } else {
-                Uri defaultRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
-                mediaPlayer.setDataSource(this, defaultRingtoneUri);
-                mediaPlayer.prepare();
-                mediaPlayer.start();
+                testEarSpeaker();
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
+    private void testEarSpeaker() {
         try {
-            switch (requestCode) {
-                case REQUEST_READ_EXTERNAL_STORAGE: {
-                    if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                        Uri defaultRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
-                        mediaPlayer.setDataSource(this, defaultRingtoneUri);
-                        mediaPlayer.prepare();
-                        mediaPlayer.start();
-                    } else {
-                        Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
+            Uri defaultRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+            mediaPlayer.setDataSource(this, defaultRingtoneUri);
+            mediaPlayer.prepare();
+            mediaPlayer.start();
         } catch (Exception ex) {
             ex.printStackTrace();
         }

@@ -12,6 +12,7 @@
     tools:context="com.ytheekshana.deviceinfo.MainActivity">
 
     <RelativeLayout
+        android:id="@+id/relmain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp">
@@ -20,69 +21,91 @@
             android:id="@+id/cardviewRam"
             style="?attr/cardStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentTop="true"
             android:layout_margin="5dp"
+            app:cardBackgroundColor="@color/colorPrimary"
             card_view:cardCornerRadius="5dp"
             card_view:contentPadding="10dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/imageRam"
-                    android:layout_width="60dp"
-                    android:layout_height="53dp"
+                <TextView
+                    android:id="@+id/txtTotalRam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/google"
+                    android:text="RAM - Total 2679MB"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/txtUsedRam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
-                    android:layout_marginEnd="5dp"
-                    android:contentDescription="@string/imgRAM"
-                    app:srcCompat="@drawable/ram" />
+                    android:layout_toStartOf="@id/txtUsedRamStatus"
+                    android:fontFamily="@font/google"
+                    android:text="1260"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/txtRamTitle"
+                    android:id="@+id/txtUsedRamStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/imageRam"
-                    android:layout_toEndOf="@+id/imageRam"
-                    android:gravity="top"
-                    android:text="@string/DashRAM"
-                    android:textStyle="bold" />
-
-                <ProgressBar
-                    android:id="@+id/progressRam"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/txtRamTitle"
-                    android:layout_marginEnd="35dp"
-                    android:layout_toEndOf="@+id/imageRam"
-                    android:max="1000"
-                    android:progress="400"
-                    android:progressTint="@color/colorPrimary"
-                     />
-
-                <TextView
-                    android:id="@+id/txtRamPerc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_above="@id/lineChartRam"
                     android:layout_alignParentEnd="true"
-                    android:layout_below="@+id/txtRamTitle"
-                    android:gravity="top"
-                    android:text="@string/ZeroPerc"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/google"
+                    android:paddingBottom="1dp"
+                    android:text=" MB Used"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/txtRamStatus"
+                    android:id="@+id/txtFreeRam"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/progressRam"
-                    android:layout_toEndOf="@+id/imageRam"
-                    android:gravity="top"
-                    android:text="Free:0GB, Total:0GB"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
+                    android:layout_alignParentBottom="true"
+                    android:layout_toStartOf="@id/txtFreeRamStatus"
+                    android:fontFamily="@font/google"
+                    android:text="1260"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/txtFreeRamStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:fontFamily="@font/google"
+                    android:paddingBottom="1dp"
+                    android:text=" MB Free"
+                    android:textColor="@color/white"
+                    android:textSize="9sp" />
+
+                <com.github.lzyzsd.circleprogress.ArcProgress
+                    android:id="@+id/arcProgressRam"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_below="@id/txtUsedRam"
+                    app:arc_bottom_text="RAM"
+                    app:arc_max="100"
+                    app:arc_progress="40"
+                    app:arc_text_color="@color/white" />
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/lineChartRam"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_below="@id/txtUsedRam"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toEndOf="@id/arcProgressRam">
+
+                </com.github.mikephil.charting.charts.LineChart>
+
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
 
@@ -130,8 +153,7 @@
                     android:layout_toEndOf="@+id/imageROM"
                     android:max="1000"
                     android:progress="500"
-                    android:progressTint="@color/colorPrimary"
-                     />
+                    android:progressTint="@color/colorPrimary" />
 
                 <TextView
                     android:id="@+id/txtROMPerc"
@@ -200,8 +222,7 @@
                     android:layout_toEndOf="@+id/imageInStorage"
                     android:max="1000"
                     android:progress="600"
-                    android:progressTint="@color/colorPrimary"
-                     />
+                    android:progressTint="@color/colorPrimary" />
 
                 <TextView
                     android:id="@+id/txtInStoragePerc"
@@ -270,8 +291,7 @@
                     android:layout_toEndOf="@+id/imageExStorage"
                     android:max="1000"
                     android:progress="700"
-                    android:progressTint="@color/colorPrimary"
-                     />
+                    android:progressTint="@color/colorPrimary" />
 
                 <TextView
                     android:id="@+id/txtExStoragePerc"
@@ -340,8 +360,7 @@
                     android:layout_toEndOf="@+id/imageBattery"
                     android:max="1000"
                     android:progress="800"
-                    android:progressTint="@color/colorPrimary"
-                     />
+                    android:progressTint="@color/colorPrimary" />
 
                 <TextView
                     android:id="@+id/txtBatteryPerc"
@@ -410,8 +429,7 @@
                     android:layout_toEndOf="@+id/imageCPU"
                     android:max="1000"
                     android:progress="900"
-                    android:progressTint="@color/colorPrimary"
-                     />
+                    android:progressTint="@color/colorPrimary" />
 
                 <TextView
                     android:id="@+id/txtCPUPerc"

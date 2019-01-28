@@ -8,26 +8,16 @@
 
     <color name="DarkcolorPrimary">#ff212121</color>
     <color name="DarkcolorPrimaryDark">@color/black</color>
-    <color name="cardview_dark_background">#ff424242</color>
+    <color name="cardview_background_dark">#ff424242</color>
 
     <color name="progress_ram">#2196F3</color>
-    <color name="progress_ram_dark">#1a75d2</color>
-    <color name="progress_ram_unfinished">#c4e5ff</color>
     <color name="progress_rom">#FF0266</color>
-    <color name="progress_rom_dark">#d70060</color>
-    <color name="progress_rom_unfinished">#ffc4db</color>
     <color name="progress_insto">#FF9900</color>
-    <color name="progress_insto_dark">#f57d00</color>
-    <color name="progress_insto_unfinished">#fdeec2</color>
     <color name="progress_exsto">#41C300</color>
-    <color name="progress_exsto_dark">#009f00</color>
-    <color name="progress_exsto_unfinished">#d7ffc4</color>
-
 
     <color name="test_default">#ffa000</color>
     <color name="test_success">#008f00</color>
     <color name="test_failed">#e33806</color>
-
 
     <color name="transparent">#00ffffff</color>
 

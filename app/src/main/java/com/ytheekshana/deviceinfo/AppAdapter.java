@@ -1,12 +1,18 @@
 package com.ytheekshana.deviceinfo;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.Build;
+import android.preference.PreferenceManager;
 import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -16,11 +22,19 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.nabinbhandari.android.permissions.PermissionHandler;
+import com.nabinbhandari.android.permissions.Permissions;
+
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,15 +43,18 @@ import java.util.Objects;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
-public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
+public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> implements Filterable {
 
     private Context mContext;
-    private ArrayList<AppInfo> mDataSet;
-    private int lastPosition = -1,uninstall_position=0;
+    ArrayList<AppInfo> mDataSet;
+    private ArrayList<AppInfo> filterMDataSet;
+    private AppFilter filter;
+    private int lastPosition = -1;
 
     AppAdapter(Context context, ArrayList<AppInfo> list) {
         mContext = context;
         mDataSet = list;
+        filterMDataSet = list;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -46,6 +63,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
         TextView txt_package_name;
         TextView txt_version_name;
         ImageView img_app_icon;
+        ProgressBar progressApp;
 
         ViewHolder(View view) {
             super(view);
@@ -53,6 +71,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
             txt_package_name = view.findViewById(R.id.txt_package_name);
             txt_version_name = view.findViewById(R.id.txt_version_name);
             img_app_icon = view.findViewById(R.id.img_app_icon);
+            progressApp = view.findViewById(R.id.progressApp);
         }
     }
 
@@ -64,9 +83,8 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
-        uninstall_position = holder.getAdapterPosition();
         final Context context = holder.itemView.getContext();
         final int TextDisColor = MainActivity.themeColor;
 
@@ -97,13 +115,36 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
                         return true;
                     }
                 });
+                menu.add("Extract App").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            Permissions.check(context, Manifest.permission.WRITE_EXTERNAL_STORAGE, null, new PermissionHandler() {
+                                @Override
+                                public void onGranted() {
+                                    extractApp(context, packageName, holder.progressApp);
+                                }
+
+                                @Override
+                                public void onDenied(Context context, ArrayList<String> deniedPermissions) {
+                                    Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        } else {
+                            extractApp(context, packageName, holder.progressApp);
+                        }
+                        return true;
+                    }
+                });
                 menu.add("Uninstall").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         Intent intent = new Intent(Intent.ACTION_UNINSTALL_PACKAGE);
                         intent.setData(Uri.parse("package:" + packageName));
                         context.startActivity(intent);
-                        notifyItemRemoved(uninstall_position);
+                        mDataSet.remove(holder.getAdapterPosition());
+                        notifyItemRemoved(holder.getAdapterPosition());
+                        notifyItemRangeChanged(holder.getAdapterPosition(),1);
                         return true;
                     }
                 });
@@ -188,4 +229,50 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
         return mDataSet.size();
     }
 
+    private void extractApp(final Context context, final String packageName, final ProgressBar progressApp) {
+        try {
+            SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+            final String getExtractpath = sharedPrefs.getString("extract_location", "/storage/emulated/0/DeviceInfo");
+            ApplicationInfo appinfo = context.getPackageManager().getApplicationInfo(packageName, 0);
+            final File sourceFile = new File(appinfo.sourceDir);
+            final File destinationFile = new File(getExtractpath);
+            boolean success = true;
+            if (!destinationFile.exists()) {
+                success = destinationFile.mkdir();
+            }
+            if (success) {
+                new Thread() {
+                    @Override
+                    public void run() {
+                        progressApp.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressApp.setVisibility(View.VISIBLE);
+                            }
+                        });
+                        GetDetails.copy(sourceFile.getAbsoluteFile(), new File(destinationFile, packageName + ".apk"));
+                        progressApp.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressApp.setVisibility(View.GONE);
+                                Toast.makeText(context, "Exported to " + getExtractpath + "/", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                    }
+                }.start();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @Override
+    public Filter getFilter() {
+        if (filter == null) {
+            filter = new AppFilter(filterMDataSet, this);
+        }
+        return filter;
+    }
 }
+

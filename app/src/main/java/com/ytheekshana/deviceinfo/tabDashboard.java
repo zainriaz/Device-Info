@@ -11,20 +11,36 @@ import android.graphics.ColorFilter;
 import android.graphics.LightingColorFilter;
 import android.os.BatteryManager;
 import android.os.Handler;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
 import android.os.Bundle;
+
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.cardview.widget.CardView;
+
+import android.text.SpannableString;
+import android.text.style.RelativeSizeSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.github.lzyzsd.circleprogress.ArcProgress;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import java.util.Locale;
 import java.util.Objects;
@@ -32,13 +48,18 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class tabDashboard extends Fragment {
-    private TextView txtRamPerce, txtRamStatus, txtBatteryPerce, txtBatteryStatus, txtCPUPerce;
-    private ProgressBar ProgressBarRam, ProgressBarBattery, ProgressBarCPU;
-    private int startExStorage;
-    private int usagecpu;
+    private TextView txtUsedRam, txtFreeRam, txtBatteryPerce, txtBatteryStatus, txtCPUPerce;
+    private ProgressBar ProgressBarBattery, ProgressBarCPU;
+    private int startExStorage, usagecpu;
     private CPUUsage cu2;
     private String cUsage;
     private Timer timercUsage;
+    private ArcProgress arcProgressRam;
+    LineChart lineChartRam;
+    private float usedRam = 0;
+    private Handler handlerChart, handlerRam;
+    private Runnable runnableChart;
+    LineData data;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -46,7 +67,6 @@ public class tabDashboard extends Fragment {
         View rootView = inflater.inflate(R.layout.tabdashboard, container, false);
 
         try {
-            ImageView imgRAM = rootView.findViewById(R.id.imageRam);
             ImageView imgROM = rootView.findViewById(R.id.imageROM);
             ImageView imgInStorage = rootView.findViewById(R.id.imageInStorage);
             ImageView imgExStorage = rootView.findViewById(R.id.imageExStorage);
@@ -56,7 +76,6 @@ public class tabDashboard extends Fragment {
             ImageView imgApps = rootView.findViewById(R.id.imageApps);
 
             ColorFilter accentFilter = new LightingColorFilter(Color.BLACK, MainActivity.themeColor);
-            imgRAM.setColorFilter(accentFilter);
             imgROM.setColorFilter(accentFilter);
             imgInStorage.setColorFilter(accentFilter);
             imgExStorage.setColorFilter(accentFilter);
@@ -69,7 +88,10 @@ public class tabDashboard extends Fragment {
             Context batteryContext = Objects.requireNonNull(getActivity()).getApplicationContext();
             batteryContext.registerReceiver(batteryBroadcastReceiver, batteryIntentFilter);
             cu2 = new CPUUsage();
-            final CardView cardRam = rootView.findViewById(R.id.cardviewRam);
+
+            CardView cardviewRam = rootView.findViewById(R.id.cardviewRam);
+            cardviewRam.setCardBackgroundColor(MainActivity.themeColor);
+
             final CardView cardRom = rootView.findViewById(R.id.cardviewRom);
             final CardView cardInternalStorage = rootView.findViewById(R.id.cardviewInStorage);
             final CardView cardExternalStorage = rootView.findViewById(R.id.cardviewExStorage);
@@ -78,8 +100,9 @@ public class tabDashboard extends Fragment {
             final CardView cardSensor = rootView.findViewById(R.id.cardviewSensor);
             final CardView cardApps = rootView.findViewById(R.id.cardviewApp);
 
-            txtRamPerce = rootView.findViewById(R.id.txtRamPerc);
-            txtRamStatus = rootView.findViewById(R.id.txtRamStatus);
+            txtUsedRam = rootView.findViewById(R.id.txtUsedRam);
+            txtFreeRam = rootView.findViewById(R.id.txtFreeRam);
+            TextView txtTotalRam = rootView.findViewById(R.id.txtTotalRam);
             TextView txtRomPerce = rootView.findViewById(R.id.txtROMPerc);
             TextView txtRomStatus = rootView.findViewById(R.id.txtROMStatus);
             txtBatteryPerce = rootView.findViewById(R.id.txtBatteryPerc);
@@ -93,8 +116,30 @@ public class tabDashboard extends Fragment {
             TextView txtSensorCount = rootView.findViewById(R.id.txtSensorCount);
             TextView txtAppCount = rootView.findViewById(R.id.txtAppCount);
 
-            ProgressBarRam = rootView.findViewById(R.id.progressRam);
-            DrawableCompat.setTint(ProgressBarRam.getProgressDrawable(), MainActivity.themeColor);
+            lineChartRam = rootView.findViewById(R.id.lineChartRam);
+            lineChartRam.setDrawGridBackground(false);
+            lineChartRam.getDescription().setEnabled(false);
+            lineChartRam.setBackgroundColor(Color.TRANSPARENT);
+            LineData data = new LineData();
+            data.setValueTextColor(Color.WHITE);
+            lineChartRam.setData(data);
+            lineChartRam.getLegend().setEnabled(false);
+            lineChartRam.setTouchEnabled(false);
+
+            XAxis xl = lineChartRam.getXAxis();
+            xl.setEnabled(false);
+
+            YAxis leftAxis = lineChartRam.getAxisLeft();
+            leftAxis.setEnabled(false);
+
+            YAxis rightAxis = lineChartRam.getAxisRight();
+            rightAxis.setLabelCount(3);
+            rightAxis.setTextColor(Color.WHITE);
+            rightAxis.setDrawGridLines(false);
+            rightAxis.setTextSize(9);
+
+            arcProgressRam = rootView.findViewById(R.id.arcProgressRam);
+            arcProgressRam.setUnfinishedStrokeColor(MainActivity.themeColorDark);
 
             ProgressBar progressBarRom = rootView.findViewById(R.id.progressRom);
             DrawableCompat.setTint(progressBarRom.getProgressDrawable(), MainActivity.themeColor);
@@ -117,10 +162,14 @@ public class tabDashboard extends Fragment {
             animateTextView(SplashActivity.numberOfSensors, txtSensorCount);
 
             int startRAM = (int) SplashActivity.usedRamPercentage;
-            String setRam = "Free: " + String.format(Locale.US, "%.2f", SplashActivity.availableRam / 1024) + " GB,  Total: " + String.format(Locale.US, "%.2f", SplashActivity.totalRam / 1024) + " GB";
-            txtRamStatus.setText(setRam);
-            String ram_percentage = String.valueOf((int) SplashActivity.usedRamPercentage) + "%";
-            txtRamPerce.setText(ram_percentage);
+            txtUsedRam.setText(String.valueOf((int)SplashActivity.usedRam));
+            txtFreeRam.setText(String.valueOf((int)SplashActivity.availableRam));
+            usedRam = (float) SplashActivity.usedRam;
+
+            String totalRamSpan= "RAM - "+(int)SplashActivity.totalRam+" MB Total";
+            SpannableString ssTotalRam=  new SpannableString(totalRamSpan);
+            ssTotalRam.setSpan(new RelativeSizeSpan(0.7f), totalRamSpan.length()-8,totalRamSpan.length(), 0); // set size
+            txtTotalRam.setText(ssTotalRam);
 
             int startROM = (int) SplashActivity.usedRomPercentage;
             String setRom = "Free: " + String.format(Locale.US, "%.1f", SplashActivity.availableRom) + " GB,  Total: " + String.format(Locale.US, "%.1f", SplashActivity.totalRom) + " GB";
@@ -146,19 +195,28 @@ public class tabDashboard extends Fragment {
             }
 
             final MemoryInfo memoryInfo = new MemoryInfo(getActivity(), getContext());
-            final Handler updateRam = new Handler();
+            handlerRam = new Handler();
             Runnable runnable = new Runnable() {
                 public void run() {
                     memoryInfo.Ram();
-                    ProgressBarRam.setProgress((int) memoryInfo.getUsedRamPercentage() * 10);
-                    String ram_percentage = (int) memoryInfo.getUsedRamPercentage() + "%";
-                    txtRamPerce.setText(ram_percentage);
-                    String setRam = "Free: " + String.format(Locale.US, "%.2f", memoryInfo.getAvailableRam() / 1024) + " GB,  Total: " + String.format(Locale.US, "%.2f", memoryInfo.getTotalRam() / 1024) + " GB";
-                    txtRamStatus.setText(setRam);
-                    updateRam.postDelayed(this, 1000);
+                    arcProgressRam.setProgress((int) memoryInfo.getUsedRamPercentage());
+                    usedRam = (float) memoryInfo.getUsedRam();
+                    SplashActivity.usedRam =  memoryInfo.getUsedRam();
+                    txtUsedRam.setText(String.valueOf((int)memoryInfo.getUsedRam()));
+                    txtFreeRam.setText(String.valueOf((int)memoryInfo.getAvailableRam()));
+                    handlerRam.postDelayed(this, 1000);
                 }
             };
-            updateRam.postDelayed(runnable, 1000);
+            handlerRam.postDelayed(runnable, 1000);
+
+            handlerChart = new Handler();
+            runnableChart = new Runnable() {
+                public void run() {
+                    addEntry();
+                    handlerChart.postDelayed(this, 1000);
+                }
+            };
+            handlerChart.postDelayed(runnableChart, 0);
 
             timercUsage = new Timer();
             timercUsage.scheduleAtFixedRate(new TimerTask() {
@@ -181,12 +239,13 @@ public class tabDashboard extends Fragment {
 
                 }
             }, 1000, 1000);
-            String cpuStatus = "Cores: " + Runtime.getRuntime().availableProcessors() + ",  Max Frequency: " + (int)SplashActivity.cpuMaxFreq + " MHz";
+            String cpuStatus = "Cores: " + Runtime.getRuntime().availableProcessors() + ",  Max Frequency: " + (int) SplashActivity.cpuMaxFreq + " MHz";
             txtCPUStatus.setText(cpuStatus);
 
-            ObjectAnimator progressAnimatorRAM = ObjectAnimator.ofInt(ProgressBarRam, "progress", 0, startRAM * 10);
-            progressAnimatorRAM.setDuration(800);
-            progressAnimatorRAM.start();
+            ObjectAnimator arcProgressAnimatorRAM = ObjectAnimator.ofInt(arcProgressRam, "progress", 0, startRAM);
+            arcProgressAnimatorRAM.setDuration(800);
+            arcProgressAnimatorRAM.setInterpolator(new DecelerateInterpolator());
+            arcProgressAnimatorRAM.start();
 
             ObjectAnimator progressAnimatorROM = ObjectAnimator.ofInt(progressBarRom, "progress", 0, startROM * 10);
             progressAnimatorROM.setDuration(800);
@@ -205,14 +264,6 @@ public class tabDashboard extends Fragment {
             progressAnimatorCPU.start();
 
             final com.ytheekshana.deviceinfo.BounceInterpolator bounceInterpolator = new com.ytheekshana.deviceinfo.BounceInterpolator(0.2, 20);
-            cardRam.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Animation animRam = AnimationUtils.loadAnimation(getContext(), R.anim.bounce_dash);
-                    animRam.setInterpolator(bounceInterpolator);
-                    cardRam.startAnimation(animRam);
-                }
-            });
             cardRom.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -317,6 +368,50 @@ public class tabDashboard extends Fragment {
             }
         });
         valueAnimator.start();
+    }
+
+    private void addEntry() {
+        data = lineChartRam.getData();
+        if (data != null) {
+
+            ILineDataSet set = data.getDataSetByIndex(0);
+            if (set == null) {
+                set = createSet();
+                data.addDataSet(set);
+            }
+            data.addEntry(new Entry(set.getEntryCount(), usedRam), 0);
+            data.notifyDataChanged();
+            lineChartRam.notifyDataSetChanged();
+            lineChartRam.setVisibleXRangeMaximum(20);
+            lineChartRam.moveViewToX(data.getEntryCount());
+        }
+    }
+
+    private LineDataSet createSet() {
+        LineDataSet set = new LineDataSet(null, "Dynamic Data");
+        set.setAxisDependency(YAxis.AxisDependency.RIGHT);
+        set.setColor(Color.WHITE);
+        set.setDrawCircles(false);
+        set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        set.setLineWidth(2f);
+        set.setDrawValues(false);
+        return set;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (runnableChart != null) {
+            handlerChart.postDelayed(runnableChart, 0);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (runnableChart != null) {
+            handlerChart.removeCallbacks(runnableChart);
+        }
     }
 }
 

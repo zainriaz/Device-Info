@@ -36,7 +36,6 @@ public class SensorAdapter extends RecyclerView.Adapter<SensorAdapter.ViewHolder
             txt_wake_up_type = view.findViewById(R.id.txt_wake_up_type);
             txt_sensor_power = view.findViewById(R.id.txt_sensor_power);
         }
-
     }
 
     @NonNull

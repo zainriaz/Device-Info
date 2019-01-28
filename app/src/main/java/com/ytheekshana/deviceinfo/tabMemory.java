@@ -28,8 +28,6 @@ public class tabMemory extends Fragment {
     ProgressBar progressRam, progressRom, progressInStorage, progressExStorage;
     RelativeLayout rlayout;
 
-
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -58,20 +56,6 @@ public class tabMemory extends Fragment {
             txtExStorageStatus = rootView.findViewById(R.id.txtExStorageStatus);
             progressExStorage = rootView.findViewById(R.id.progressExStorage);
             CardView cardExStorage = rootView.findViewById(R.id.cardExStorageInfo);
-
-            ImageView imgRam = rootView.findViewById(R.id.imageRam);
-            ImageView imgRom = rootView.findViewById(R.id.imageRom);
-            ImageView imgInSto = rootView.findViewById(R.id.imageInStorage);
-            ImageView imgExSto = rootView.findViewById(R.id.imageExStorage);
-
-            ColorFilter clfRam = new LightingColorFilter(Color.BLACK, getResources().getColor(R.color.progress_ram));
-            imgRam.setColorFilter(clfRam);
-            ColorFilter clfRom = new LightingColorFilter(Color.BLACK, getResources().getColor(R.color.progress_rom));
-            imgRom.setColorFilter(clfRom);
-            ColorFilter clfInSto = new LightingColorFilter(Color.BLACK, getResources().getColor(R.color.progress_insto));
-            imgInSto.setColorFilter(clfInSto);
-            ColorFilter clfExSto = new LightingColorFilter(Color.BLACK, getResources().getColor(R.color.progress_exsto));
-            imgExSto.setColorFilter(clfExSto);
 
             DrawableCompat.setTint(progressRam.getProgressDrawable(), getResources().getColor(R.color.progress_ram));
             DrawableCompat.setTint(progressRom.getProgressDrawable(), getResources().getColor(R.color.progress_rom));

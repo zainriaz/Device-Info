@@ -187,7 +187,8 @@ public class SplashActivity extends Activity implements GLSurfaceView.Renderer {
                 glVersion = info.getGlEsVersion();
                 androidRuntime = System.getProperty("java.vm.version");
                 kernelVersion = System.getProperty("os.version");
-                selinuxMode = GetDetails.GetSELinuxMode();
+                String selinux = GetDetails.GetSELinuxMode();
+                selinuxMode = selinux.equals("") ?"Not Available":selinux;
                 Thread.sleep(threadSleepAmount);
                 publishProgress(20 * 10);
 

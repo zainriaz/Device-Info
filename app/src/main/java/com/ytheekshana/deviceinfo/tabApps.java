@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,19 +25,19 @@ import android.view.animation.LayoutAnimationController;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
-public class tabApps extends Fragment {
+public class tabApps extends Fragment implements SearchView.OnQueryTextListener {
     private int apptype = 0;
     private Thread loadApps;
-    SwipeRefreshLayout swipeapplist;
+    private SwipeRefreshLayout swipeapplist;
     Context context;
-    RecyclerView recyclerInstalledApps;
+    private RecyclerView recyclerInstalledApps;
+    PackageManager pm;
+    private RecyclerView.Adapter appAdapter;
 
     @Override
     public void onAttach(Context context) {
@@ -67,7 +68,7 @@ public class tabApps extends Fragment {
                         }
                     });
                     final LinearLayoutManager layoutManager = new LinearLayoutManager(context);
-                    final RecyclerView.Adapter appAdapter = new AppAdapter(context, getInstalledApps());
+                    appAdapter = new AppAdapter(context, getInstalledApps());
                     recyclerInstalledApps.post(new Runnable() {
                         @Override
                         public void run() {
@@ -120,7 +121,7 @@ public class tabApps extends Fragment {
                         }
                     });
 
-                    final RecyclerView.Adapter appAdapter = new AppAdapter(context, getInstalledApps());
+                    appAdapter = new AppAdapter(context, getInstalledApps());
                     final LinearLayoutManager layoutManager = new LinearLayoutManager(context);
                     recyclerInstalledApps.post(new Runnable() {
                         @Override
@@ -170,74 +171,48 @@ public class tabApps extends Fragment {
 
             }
         });
-
         return rootView;
     }
 
     private ArrayList<AppInfo> getInstalledApps() {
+
         ArrayList<AppInfo> res = new ArrayList<>();
-        final PackageManager pm = context.getPackageManager();
-        List<PackageInfo> packs = pm.getInstalledPackages(PackageManager.GET_PERMISSIONS);
-
-        if (MainActivity.appsort == 1) {
-            Collections.sort(packs, new Comparator<PackageInfo>() {
-                @Override
-                public int compare(PackageInfo arg0, PackageInfo arg1) {
-                    CharSequence name0 = arg0.applicationInfo.loadLabel(pm);
-                    CharSequence name1 = arg1.applicationInfo.loadLabel(pm);
-                    return name0.toString().compareTo(name1.toString());
+        try {
+            if (context != null) {
+                pm = context.getPackageManager();
+                List<PackageInfo> packs = pm.getInstalledPackages(PackageManager.GET_PERMISSIONS);
+                Collections.sort(packs, new Comparator<PackageInfo>() {
+                    @Override
+                    public int compare(PackageInfo arg0, PackageInfo arg1) {
+                        CharSequence name0 = arg0.applicationInfo.loadLabel(pm);
+                        CharSequence name1 = arg1.applicationInfo.loadLabel(pm);
+                        return name0.toString().compareTo(name1.toString());
+                    }
+                });
+                for (int i = 0; i < packs.size(); i++) {
+                    PackageInfo p = packs.get(i);
+                    if ((!isSystemPackage(p))) {
+                        String appName = p.applicationInfo.loadLabel(context.getPackageManager()).toString();
+                        String packageName = p.applicationInfo.packageName;
+                        String appVersion = "Version : " + p.versionName;
+                        Drawable icon = p.applicationInfo.loadIcon(context.getPackageManager());
+                        res.add(new AppInfo(appName, packageName, appVersion, icon));
+                    }
                 }
-            });
-        } else if (MainActivity.appsort == 2) {
-            Collections.sort(packs, new Comparator<PackageInfo>() {
-                @Override
-                public int compare(PackageInfo arg0, PackageInfo arg1) {
-                    long name0 = new File(arg0.applicationInfo.publicSourceDir).length();
-                    long name1 = new File(arg1.applicationInfo.publicSourceDir).length();
-                    return Long.compare(name1, name0);
-                }
-            });
-        } else if (MainActivity.appsort == 3) {
-            Collections.sort(packs, new Comparator<PackageInfo>() {
-                @Override
-                public int compare(PackageInfo arg0, PackageInfo arg1) {
-                    Date name0 = new Date(arg0.lastUpdateTime);
-                    Date name1 = new Date(arg1.lastUpdateTime);
-                    return name1.compareTo(name0);
-                }
-            });
-        }
-
-        for (int i = 0; i < packs.size(); i++) {
-            PackageInfo p = packs.get(i);
-            if ((!isSystemPackage(p))) {
-                String appName = p.applicationInfo.loadLabel(context.getPackageManager()).toString();
-                String packageName = p.applicationInfo.packageName;
-                String appVersion = "Version : " + p.versionName;
-                Drawable icon = p.applicationInfo.loadIcon(context.getPackageManager());
-                res.add(new AppInfo(appName, packageName, appVersion, icon));
             }
+        } catch (NullPointerException ex) {
+            ex.printStackTrace();
         }
         return res;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_sort_date:
-                MainActivity.appsort = 3;
-                loadApps.start();
-                break;
-            case R.id.action_sort_name:
-                MainActivity.appsort = 1;
-                loadApps.start();
-                break;
-            case R.id.action_sort_size:
-                MainActivity.appsort = 2;
-                loadApps.start();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        MenuItem item = menu.findItem(R.id.action_search);
+        item.setVisible(true);
+        SearchView searchView = (SearchView) item.getActionView();
+        searchView.setOnQueryTextListener(this);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     private boolean isSystemPackage(PackageInfo pkgInfo) {
@@ -245,8 +220,15 @@ public class tabApps extends Fragment {
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        MenuItem menuSort = menu.findItem(R.id.action_sort);
-        menuSort.setVisible(true);
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        if(recyclerInstalledApps.getAdapter()!=null){
+            ((AppAdapter) appAdapter).getFilter().filter(newText);
+        }
+        return false;
     }
 }

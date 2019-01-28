@@ -33,8 +33,6 @@
     <style name="PopupAppWindow.Light" parent="AppTheme.PopupOverlay">
         <item name="android:background">@color/background_material_light</item>
     </style>
-
-
     <!-- Dark Theme -->
 
     <style name="AppThemeDark" parent="Theme.AppCompat.DayNight.DarkActionBar">
@@ -98,5 +96,4 @@
     <style name="BottomSheetStyleTransparent" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@android:color/transparent</item>
     </style>
-
 </resources>

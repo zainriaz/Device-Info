@@ -1,15 +1,13 @@
 <resources>
 
-    <string name="DashRAM">RAM</string>
     <string name="DashROM">System Storage</string>
     <string name="DashInternalStorage">Internal Storage</string>
     <string name="DashExternalStorage">External Storage</string>
     <string name="DashBattery">Battery</string>
     <string name="DashCPU">CPU</string>
-    <string name="DashTests">Tests Passed</string>
     <string name="DashSensor">Sensors</string>
     <string name="DashSensorStatus">Available</string>
-    <string name="DashApp">Apps</string>
+    <string name="DashApp">All Apps</string>
     <string name="DashAppStatus">Installed</string>
 
     <string name="ZeroPerc">0%</string>
@@ -25,7 +23,8 @@
     <string name="action_settings">Settings</string>
     <string name="action_about">About</string>
     <string name="action_rate">Rate App</string>
-    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="action_donate">Donate</string>
+    <string name="action_search">Search</string>
     <string name="app_author">Yasiru Nayanajith</string>
     <string name="app_cover_photo">Cover Picture</string>
 
@@ -50,7 +49,6 @@
     <string name="usbHost">USB Host</string>
     <string name="GrantPermission">Click to Grant Permission</string>
 
-    <string name="AndroidVersion">Android Version</string>
     <string name="CodeName">Code Name</string>
     <string name="APILevel">API Level</string>
     <string name="SecurityPatchLevel">Security Patch Level</string>
@@ -90,6 +88,9 @@
     <string name="FontScale">Font Scale</string>
     <string name="PhysicalSize">Physical Size</string>
     <string name="RefreshRate">Refresh Rate</string>
+    <string name="brightnessLevel">Brightness Level</string>
+    <string name="brightnessMode">Brightness Mode</string>
+    <string name="screenTimeout">Screen Timeout</string>
     <string name="Orientation">Orientation</string>
 
     <string name="RAM">Random Access Memory</string>
@@ -101,12 +102,16 @@
     <string name="about_shortcut_long_label">About</string>
     <string name="about_disabled_message">Shortcut Disabled</string>
 
+    <string name="donate_shortcut_short_label">Donate</string>
+    <string name="donate_shortcut_long_label">Donate</string>
+    <string name="donate_disabled_message">Shortcut Disabled</string>
+
     <string name="settings_shortcut_short_label">Settings</string>
     <string name="settings_shortcut_long_label">Settings</string>
     <string name="settings_disabled_message">Shortcut Disabled</string>
 
-    <string name="rooted">ROOTED</string>
-    <string name="not_rooted">NOT ROOTED</string>
+    <string name="rooted">Root Access Available</string>
+    <string name="not_rooted">Root Access Not Available</string>
 
     <string-array name="app_type">
         <item>User Apps</item>
@@ -114,6 +119,10 @@
     </string-array>
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_splash">Device Info</string>
+    <string name="title_activity_donate">Donate</string>
+    <string name="title_activity_about">About</string>
+    <string name="title_activity_running_services">Running Services</string>
+
 
     <string name="test_failed">Test Failed</string>
     <string name="test_passed">Test Passed</string>
@@ -166,10 +175,24 @@
     <string name="review_not_really">Not Really</string>
     <string name="review_yes">Yes!</string>
     <string name="unknown_min_sdk">Unknown</string>
-    <string name="action_app_sort_title">Sort</string>
-    <string name="action_app_sort_name">Name</string>
-    <string name="action_app_sort_size">Size</string>
-    <string name="action_app_sort_date">Installation Date</string>
+
+    <string name="file_chooser_title">Select Extract Folder</string>
+    <string name="file_chooser_choose">Choose Folder</string>
+    <string name="file_chooser_cancel">Cancel</string>
+
+    <string name="donate_coffee_title">Cup of Coffee</string>
+    <string name="donate_coffee_description">Buy me a cup of coffee</string>
+    <string name="donate_sandwich_title">Sandwich</string>
+    <string name="donate_sandwich_description">Buy me a Sandwich</string>
+    <string name="donate_lunch_title">Lunch</string>
+    <string name="donate_lunch_description">Buy me Lunch</string>
+    <string name="donate_huge_title">Huge Donation</string>
+    <string name="donate_huge_description">Buy me all of the above</string>
+    <string name="donate_btn_buy">Buy</string>
+    <string name="donate_no_connection">No internet connection</string>
+    <string name="donate_title">Thanks you for installing Device Info</string>
+    <string name="donate_description">You can show your appreciation for my work by making a small donation. This will help me to continue work on this app</string>
+    <string name="donate_button">Support Development</string>
 
 
 </resources>

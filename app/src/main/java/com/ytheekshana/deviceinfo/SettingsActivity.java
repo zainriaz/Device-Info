@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
@@ -18,6 +19,9 @@ import android.preference.SwitchPreference;
 import android.view.MenuItem;
 
 import com.kizitonwose.colorpreference.ColorDialog;
+import com.obsez.android.lib.filechooser.ChooserDialog;
+
+import java.io.File;
 
 public class SettingsActivity extends AppCompatPreferenceActivity implements ColorDialog.OnColorSelectedListener {
 
@@ -52,8 +56,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Col
         SwitchPreference dark_theme_Pref;
         SharedPreferences sharedPrefs;
         SharedPreferences.Editor shareEdit;
-        Preference app_version_pref;
-        Preference pref_rate_us;
+        Preference app_version_pref, pref_rate_us, pref_donate, pref_extract_location;
 
         @Override
         public void onCreate(final Bundle savedInstanceState) {
@@ -102,7 +105,48 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Col
                     intent.setData(Uri.parse("https://play.google.com/store/apps/details?id=com.ytheekshana.deviceinfo"));
                     intent.setPackage("com.android.vending");
                     startActivity(intent);
-                    return false;
+                    return true;
+                }
+            });
+            pref_donate = findPreference("pref_donate");
+            pref_donate.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent intent = new Intent(getActivity(), DonateActivity.class);
+                    startActivity(intent);
+                    getActivity().overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
+                    return true;
+                }
+            });
+            pref_extract_location = findPreference("pref_extract_location");
+            String getExtractpath = sharedPrefs.getString("extract_location", "/storage/emulated/0/DeviceInfo");
+            pref_extract_location.setSummary(getExtractpath);
+            pref_extract_location.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+
+                    ChooserDialog chooseLocation = new ChooserDialog(getActivity());
+                    chooseLocation.enableOptions(true);
+                    chooseLocation.withResources(R.string.file_chooser_title, R.string.file_chooser_choose, R.string.file_chooser_cancel);
+                    chooseLocation.withFilter(true, false);
+                    chooseLocation.withStartFile(Environment.getExternalStorageDirectory().getAbsolutePath());
+                    chooseLocation.withChosenListener(new ChooserDialog.Result() {
+                        @Override
+                        public void onChoosePath(String path, File pathFile) {
+                            shareEdit.putString("extract_location", path);
+                            shareEdit.apply();
+                            shareEdit.commit();
+                            pref_extract_location.setSummary(path);
+                        }
+                    });
+                    if (dark_theme_Pref.isChecked()) {
+                        chooseLocation.withRowLayoutView(R.layout.file_chooser_layout_dark);
+                    } else {
+                        chooseLocation.withRowLayoutView(R.layout.file_chooser_layout_light);
+                    }
+                    chooseLocation.build();
+                    chooseLocation.show();
+                    return true;
                 }
             });
         }
@@ -134,7 +178,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Col
         sharedEdit.commit();
         themeBarValue = sharedPref.getInt("ThemeBar", 0);
 
-        ValueAnimator actionBarAnimator= ValueAnimator.ofObject(new ArgbEvaluator(), themeColor, newColor);
+        ValueAnimator actionBarAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), themeColor, newColor);
         actionBarAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 
             @Override
@@ -144,7 +188,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Col
                 }
             }
         });
-        ValueAnimator statusBarAnimator= ValueAnimator.ofObject(new ArgbEvaluator(), themeColorDark, GetDetails.getDarkColor(this, newColor));
+        ValueAnimator statusBarAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), themeColorDark, GetDetails.getDarkColor(this, newColor));
         statusBarAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 
             @Override

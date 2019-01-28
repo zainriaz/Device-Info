@@ -1,38 +1,37 @@
 package com.ytheekshana.deviceinfo;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.preference.PreferenceManager;
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
+import com.nabinbhandari.android.permissions.PermissionHandler;
+import com.nabinbhandari.android.permissions.Permissions;
+
+import java.util.ArrayList;
 import java.util.Objects;
 
 import github.nisrulz.lantern.Lantern;
 
 public class FlashlightTestActivity extends AppCompatActivity {
-
-    public static final int REQUEST_CAMERA = 1;
     SharedPreferences sharedPrefs;
     SharedPreferences.Editor editPrefs;
     Context context;
     Lantern lantern;
 
+    @SuppressLint("MissingPermission")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         try {
@@ -83,12 +82,18 @@ public class FlashlightTestActivity extends AppCompatActivity {
 
             lantern = new Lantern(this);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA);
-                } else {
-                    lantern.initTorch();
-                    lantern.enableTorchMode(true);
-                }
+
+                Permissions.check(context, Manifest.permission.CAMERA, null, new PermissionHandler() {
+                    @Override
+                    public void onGranted() {
+                        lantern.initTorch();
+                        lantern.enableTorchMode(true);
+                    }
+                    @Override
+                    public void onDenied(Context context, ArrayList<String> deniedPermissions) {
+                        finish();
+                    }
+                });
             } else {
                 lantern.initTorch();
                 lantern.enableTorchMode(true);
@@ -96,27 +101,6 @@ public class FlashlightTestActivity extends AppCompatActivity {
 
 
         } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        try {
-            switch (requestCode) {
-                case REQUEST_CAMERA: {
-                    if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                        lantern.initTorch();
-                        lantern.enableTorchMode(true);
-                    } else {
-                        Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
-                }
-            }
-        } catch (SecurityException ex) {
             ex.printStackTrace();
         }
     }

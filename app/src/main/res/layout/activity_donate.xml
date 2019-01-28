@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@android:style/Widget.Material.ScrollView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_centerHorizontal="true"
+    android:clipToPadding="false"
+    android:scrollbars="none"
+    tools:context="com.ytheekshana.deviceinfo.DonateActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="2dp">
+
+        <TextView
+            android:id="@+id/txt_donate_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/donate_title"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txt_donate_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_donate_title"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:text="@string/donate_description"
+            android:textAlignment="center"
+            android:textSize="14sp" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/txt_donate_description">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardviewCoffee"
+                    style="?attr/cardStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    card_view:cardCornerRadius="5dp">
+
+                    <RelativeLayout
+                        android:id="@+id/relcoffee"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/imgCoffee"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentTop="true"
+                            android:contentDescription="@string/donate_coffee_title"
+                            android:scaleType="centerCrop"
+                            app:srcCompat="@drawable/donate_coffee" />
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/imgCoffee"
+                            android:paddingBottom="5dp"
+                            android:paddingEnd="8dp"
+                            android:paddingStart="8dp"
+                            android:paddingTop="2dp">
+
+                            <TextView
+                                android:id="@+id/txt_coffee_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:text="@string/donate_coffee_title"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/txt_coffee_description"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/txt_coffee_title"
+                                android:text="@string/donate_coffee_description" />
+
+                            <TextView
+                                android:id="@+id/txt_coffee_price"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/txt_coffee_description" />
+
+                            <Button
+                                android:id="@+id/btn_coffee"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/txt_coffee_price"
+                                android:fontFamily="@font/google"
+                                android:text="@string/donate_btn_buy"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardviewSandwich"
+                    style="?attr/cardStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    card_view:cardCornerRadius="5dp">
+
+                    <RelativeLayout
+                        android:id="@+id/relsandwich"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/imgSandwich"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentTop="true"
+                            android:contentDescription="@string/donate_sandwich_title"
+                            android:scaleType="centerCrop"
+                            app:srcCompat="@drawable/donate_sandwich" />
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/imgSandwich"
+                            android:paddingBottom="5dp"
+                            android:paddingEnd="8dp"
+                            android:paddingStart="8dp"
+                            android:paddingTop="2dp">
+
+                            <TextView
+                                android:id="@+id/txt_sandwich_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:text="@string/donate_sandwich_title"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/txt_sandwich_description"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/txt_sandwich_title"
+                                android:text="@string/donate_sandwich_description" />
+
+                            <TextView
+                                android:id="@+id/txt_sandwich_price"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/txt_sandwich_description" />
+
+                            <Button
+                                android:id="@+id/btn_sandwich"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/txt_sandwich_price"
+                                android:fontFamily="@font/google"
+                                android:text="@string/donate_btn_buy"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardviewLunch"
+                    style="?attr/cardStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    card_view:cardCornerRadius="5dp">
+
+                    <RelativeLayout
+                        android:id="@+id/rellunch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/imgLunch"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentTop="true"
+                            android:contentDescription="@string/donate_lunch_title"
+                            android:scaleType="centerCrop"
+                            app:srcCompat="@drawable/donate_lunch" />
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/imgLunch"
+                            android:paddingBottom="5dp"
+                            android:paddingEnd="8dp"
+                            android:paddingStart="8dp"
+                            android:paddingTop="2dp">
+
+                            <TextView
+                                android:id="@+id/txt_lunch_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:text="@string/donate_lunch_title"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/txt_lunch_description"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/txt_lunch_title"
+                                android:text="@string/donate_lunch_description" />
+
+                            <TextView
+                                android:id="@+id/txt_lunch_price"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/txt_lunch_description" />
+
+                            <Button
+                                android:id="@+id/btn_lunch"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/txt_lunch_price"
+                                android:fontFamily="@font/google"
+                                android:text="@string/donate_btn_buy"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardviewHuge"
+                    style="?attr/cardStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    card_view:cardCornerRadius="5dp">
+
+                    <RelativeLayout
+                        android:id="@+id/relhuge"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/imgHuge"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentTop="true"
+                            android:contentDescription="@string/donate_huge_title"
+                            android:scaleType="centerCrop"
+                            app:srcCompat="@drawable/donate_huge" />
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/imgHuge"
+                            android:paddingBottom="5dp"
+                            android:paddingEnd="8dp"
+                            android:paddingStart="8dp"
+                            android:paddingTop="2dp">
+
+                            <TextView
+                                android:id="@+id/txt_huge_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:text="@string/donate_huge_title"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/txt_huge_description"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/txt_huge_title"
+                                android:text="@string/donate_huge_description" />
+
+                            <TextView
+                                android:id="@+id/txt_huge_price"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/txt_huge_description" />
+
+                            <Button
+                                android:id="@+id/btn_huge"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/txt_huge_price"
+                                android:fontFamily="@font/google"
+                                android:text="@string/donate_btn_buy"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+            </TableRow>
+
+        </TableLayout>
+    </RelativeLayout>
+</ScrollView>

@@ -1,8 +1,10 @@
 package com.ytheekshana.deviceinfo;
 
 import android.graphics.Typeface;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +18,7 @@ import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class tabCPU extends Fragment{
+public class tabCPU extends Fragment {
     LinearLayout llayout;
     private TextView txtCPUUsagedis;
     private CPUUsage cu;

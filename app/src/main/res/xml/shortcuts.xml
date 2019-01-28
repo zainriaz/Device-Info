@@ -2,7 +2,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <shortcut
         android:enabled="true"
-        android:icon="@drawable/shortcut_about"
+        android:icon="@drawable/ic_action_about_dark"
         android:shortcutDisabledMessage="@string/about_disabled_message"
         android:shortcutId="shortcutAbout"
         android:shortcutLongLabel="@string/about_shortcut_long_label"
@@ -11,6 +11,20 @@
         <intent
             android:action="android.intent.action.VIEW"
             android:targetClass="com.ytheekshana.deviceinfo.AboutActivity"
+            android:targetPackage="com.ytheekshana.deviceinfo" />
+    </shortcut>
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_action_donate_dark"
+        android:shortcutDisabledMessage="@string/donate_disabled_message"
+        android:shortcutId="shortcutDonate"
+        android:shortcutLongLabel="@string/donate_shortcut_long_label"
+        android:shortcutShortLabel="@string/donate_shortcut_short_label"
+        tools:targetApi="n_mr1">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.ytheekshana.deviceinfo.DonateActivity"
             android:targetPackage="com.ytheekshana.deviceinfo" />
     </shortcut>
     <!--shortcut

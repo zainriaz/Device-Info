@@ -5,39 +5,32 @@
 
     <item
         android:id="@+id/action_settings"
-        android:orderInCategory="100"
+        android:orderInCategory="1"
         android:title="@string/action_settings"
         app:showAsAction="never" />
-
-    <item
-        android:id="@+id/action_sort"
-        android:icon="@drawable/ic_action_sort"
-        android:title="@string/action_app_sort_title"
-        app:showAsAction="ifRoom"
-        android:visible="false">
-        <menu>
-            <item
-                android:id="@+id/action_sort_name"
-                android:title="@string/action_app_sort_name" />
-            <item
-                android:id="@+id/action_sort_size"
-                android:title="@string/action_app_sort_size" />
-            <item
-                android:id="@+id/action_sort_date"
-                android:title="@string/action_app_sort_date" />
-        </menu>
-    </item>
-
     <item
         android:id="@+id/action_rate"
         android:icon="@drawable/ic_action_rate"
-        android:orderInCategory="100"
+        android:orderInCategory="2"
         android:title="@string/action_rate"
         app:showAsAction="ifRoom" />
     <item
+        android:id="@+id/action_donate"
+        android:icon="@drawable/ic_action_donate"
+        android:title="@string/action_donate"
+        android:orderInCategory="3"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_about"
-        android:icon="@drawable/shortcut_about"
-        android:orderInCategory="100"
+        android:icon="@drawable/ic_action_about"
+        android:orderInCategory="4"
         android:title="@string/action_about"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/ic_action_search"
+        app:showAsAction="always|collapseActionView"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        android:title="@string/action_search"
+        android:visible="false"/>
 </menu>

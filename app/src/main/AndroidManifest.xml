@@ -14,8 +14,10 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+    <uses-permission android:name="com.android.vending.BILLING" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -40,9 +42,11 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <!--meta-data
+        <!--
+            meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-9823272508031979~9460111064"/-->
+            android:value="ca-app-pub-9823272508031979~9460111064"/
+        -->
 
         <activity
             android:name=".MainActivity"
@@ -64,7 +68,11 @@
         </activity>
         <activity
             android:name=".AboutActivity"
-            android:label="About"
+            android:label="@string/title_activity_about"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".DonateActivity"
+            android:label="@string/title_activity_donate"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".SettingsActivity"

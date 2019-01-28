@@ -4,6 +4,7 @@ import android.graphics.Typeface;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,15 @@ public class tabDisplay extends Fragment {
         try {
             int textDisColor = MainActivity.themeColor;
             int lineColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorButtonNormal);
+
+            String brightnessLevelPerc = String.valueOf((Settings.System.getInt(getContext().getContentResolver(),Settings.System.SCREEN_BRIGHTNESS)*100)/255)+"%";
+            String brightnessMode="";
+            if(Settings.System.getInt(getContext().getContentResolver(),Settings.System.SCREEN_BRIGHTNESS_MODE)==Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC){
+                brightnessMode = "Adaptive";
+            }else if(Settings.System.getInt(getContext().getContentResolver(),Settings.System.SCREEN_BRIGHTNESS_MODE)==Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL){
+                brightnessMode = "Manual";
+            }
+            String screenTimeout = String.valueOf(Settings.System.getInt(getContext().getContentResolver(),Settings.System.SCREEN_OFF_TIMEOUT)/1000)+" Seconds";
 
             TextView txtResolution = new TextView(getContext());
             TextView txtResolutiondis = new TextView(getContext());
@@ -123,11 +133,68 @@ public class tabDisplay extends Fragment {
             llayout.addView(txtRefreshRatedis);
             llayout.addView(v4);
 
-            TextView txtOrientation = new TextView(getContext());
-            TextView txtOrientationdis = new TextView(getContext());
+            TextView txtBrightnessLevel = new TextView(getContext());
+            TextView txtBrightnessLeveldis = new TextView(getContext());
             View v5 = new View(getContext());
             v5.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
             v5.setBackgroundColor(lineColor);
+            txtBrightnessLevel.setText(R.string.brightnessLevel);
+            txtBrightnessLevel.setTypeface(null, Typeface.BOLD);
+            txtBrightnessLevel.setTextSize(16);
+            txtBrightnessLevel.setPadding(0, 15, 0, 0);
+            txtBrightnessLeveldis.setPadding(0, 0, 0, 15);
+            txtBrightnessLeveldis.setTextColor(textDisColor);
+            txtBrightnessLeveldis.setTextSize(16);
+            txtBrightnessLeveldis.setText(brightnessLevelPerc);
+            txtBrightnessLeveldis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            txtBrightnessLevel.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            llayout.addView(txtBrightnessLevel);
+            llayout.addView(txtBrightnessLeveldis);
+            llayout.addView(v5);
+
+            TextView txtBrightnessMode = new TextView(getContext());
+            TextView txtBrightnessModedis = new TextView(getContext());
+            View v6 = new View(getContext());
+            v6.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
+            v6.setBackgroundColor(lineColor);
+            txtBrightnessMode.setText(R.string.brightnessMode);
+            txtBrightnessMode.setTypeface(null, Typeface.BOLD);
+            txtBrightnessMode.setTextSize(16);
+            txtBrightnessMode.setPadding(0, 15, 0, 0);
+            txtBrightnessModedis.setPadding(0, 0, 0, 15);
+            txtBrightnessModedis.setTextColor(textDisColor);
+            txtBrightnessModedis.setTextSize(16);
+            txtBrightnessModedis.setText(brightnessMode);
+            txtBrightnessModedis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            txtBrightnessMode.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            llayout.addView(txtBrightnessMode);
+            llayout.addView(txtBrightnessModedis);
+            llayout.addView(v6);
+
+            TextView txtScreenTimeout = new TextView(getContext());
+            TextView txtScreenTimeoutdis = new TextView(getContext());
+            View v7 = new View(getContext());
+            v7.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
+            v7.setBackgroundColor(lineColor);
+            txtScreenTimeout.setText(R.string.screenTimeout);
+            txtScreenTimeout.setTypeface(null, Typeface.BOLD);
+            txtScreenTimeout.setTextSize(16);
+            txtScreenTimeout.setPadding(0, 15, 0, 0);
+            txtScreenTimeoutdis.setPadding(0, 0, 0, 15);
+            txtScreenTimeoutdis.setTextColor(textDisColor);
+            txtScreenTimeoutdis.setTextSize(16);
+            txtScreenTimeoutdis.setText(screenTimeout);
+            txtScreenTimeoutdis.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            txtScreenTimeout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            llayout.addView(txtScreenTimeout);
+            llayout.addView(txtScreenTimeoutdis);
+            llayout.addView(v7);
+
+            TextView txtOrientation = new TextView(getContext());
+            TextView txtOrientationdis = new TextView(getContext());
+            View v8 = new View(getContext());
+            v8.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3));
+            v8.setBackgroundColor(lineColor);
             txtOrientation.setText(R.string.Orientation);
             txtOrientation.setTypeface(null, Typeface.BOLD);
             txtOrientation.setTextSize(16);
@@ -140,7 +207,7 @@ public class tabDisplay extends Fragment {
             txtOrientation.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             llayout.addView(txtOrientation);
             llayout.addView(txtOrientationdis);
-            llayout.addView(v5);
+            llayout.addView(v8);
 
         } catch (Exception ex) {
             ex.printStackTrace();

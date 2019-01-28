@@ -1,5 +1,6 @@
 package com.ytheekshana.deviceinfo;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
@@ -7,9 +8,11 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Environment;
+
 import androidx.annotation.AttrRes;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
+
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Display;
@@ -18,9 +21,13 @@ import android.telephony.TelephonyManager;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.NetworkInterface;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -399,6 +406,7 @@ public class GetDetails {
         return "";
     }
 
+    @SuppressLint("HardwareIds")
     static String getBluetoothMac(Context context) {
         String result = "";
         try {
@@ -407,7 +415,7 @@ public class GetDetails {
                         "bluetooth_address");
             } else {
                 BluetoothAdapter bta = BluetoothAdapter.getDefaultAdapter();
-                result = bta != null ? bta.getAddress() : "";
+                result = (bta != null) ? bta.getAddress() : "";
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -449,6 +457,9 @@ public class GetDetails {
     static Double getAndroidVersion(int sdk) {
         Double Version;
         switch (sdk) {
+            case 10:
+                Version = 2.3;
+                break;
             case 11:
                 Version = 3.0;
                 break;
@@ -637,5 +648,27 @@ public class GetDetails {
         List<String> colorThemeColorDark = Arrays.asList(context.getResources().getStringArray(R.array.accent_colors_700));
         String getHex = String.format("#%02x%02x%02x", Color.red(color), Color.green(color), Color.blue(color));
         return Color.parseColor(colorThemeColorDark.get(colorThemeColor.indexOf(getHex)));
+    }
+
+    static int getDarkColor2(Context context, int color) {
+        List<String> colorThemeColor = Arrays.asList(context.getResources().getStringArray(R.array.accent_colors));
+        List<String> colorThemeColor2 = Arrays.asList(context.getResources().getStringArray(R.array.accent_colors_2));
+        String getHex = String.format("#%02x%02x%02x", Color.red(color), Color.green(color), Color.blue(color));
+        return Color.parseColor(colorThemeColor2.get(colorThemeColor.indexOf(getHex)));
+    }
+
+    static void copy(File src, File dst) {
+        try (InputStream in = new FileInputStream(src)) {
+            try (OutputStream out = new FileOutputStream(dst)) {
+                // Transfer bytes from in to out
+                byte[] buf = new byte[1024];
+                int len;
+                while ((len = in.read(buf)) > 0) {
+                    out.write(buf, 0, len);
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 }

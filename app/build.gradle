@@ -8,8 +8,8 @@ android {
         applicationId "com.ytheekshana.deviceinfo"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 16
-        versionName "1.5.7"
+        versionCode 23
+        versionName "1.6.5"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -25,23 +25,29 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testImplementation 'junit:junit:4.12'
     implementation 'com.google.firebase:firebase-crash:16.2.1'
-    implementation 'com.google.firebase:firebase-core:16.0.4'
+    implementation 'com.google.firebase:firebase-core:16.0.6'
     implementation 'com.google.firebase:firebase-messaging:17.3.4'
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.5'
-    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.8'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'com.android.billingclient:billing:1.2'
     implementation 'com.github.kizitonwose.colorpreference:core:1.0.6'
     implementation 'com.jaredrummler:android-device-names:1.1.8'
     implementation 'com.github.nisrulz:lantern:2.0.0'
     implementation 'com.ogaclejapan.smarttablayout:library:1.6.1'
+    implementation 'com.github.lzyzsd:circleprogress:1.2.1'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
+    implementation 'com.nabinbhandari.android:permissions:3.8'
+    implementation 'com.obsez.android.lib.filechooser:filechooser:1.1.11'
 }
 
 apply plugin: 'com.google.gms.google-services'

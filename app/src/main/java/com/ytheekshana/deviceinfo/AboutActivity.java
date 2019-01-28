@@ -1,6 +1,8 @@
 package com.ytheekshana.deviceinfo;
 
 import android.app.ActivityManager;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,12 +13,14 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Objects;
 
 public class AboutActivity extends AppCompatActivity {
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +41,22 @@ public class AboutActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
+        context = this;
 
         TextView txtVersion = findViewById(R.id.txtVersion);
         TextView txtPackageName = findViewById(R.id.txtPackageName);
         txtPackageName.setText(getApplicationContext().getPackageName());
         txtVersion.setText(BuildConfig.VERSION_NAME);
         ImageView circleimgAuthor = findViewById(R.id.circleimgAuthor);
+        Button btnDonate = findViewById(R.id.btnDonate);
+        btnDonate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, DonateActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
+            }
+        });
 
         circleimgAuthor.setOnClickListener(new View.OnClickListener() {
             @Override

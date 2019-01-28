@@ -1,6 +1,7 @@
 package com.ytheekshana.deviceinfo;
 
 import android.app.ActivityManager;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -25,12 +26,13 @@ import androidx.viewpager.widget.ViewPager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     NotificationCompat.Builder mBuilder;
-    public static int themeColor, requestReviewCount, appsort = 1;
+    public static int themeColor, themeColor2, themeColorDark, requestReviewCount;
     SharedPreferences sharedPrefs;
     SharedPreferences.Editor editor;
     ViewPager mViewPager;
@@ -42,7 +44,8 @@ public class MainActivity extends AppCompatActivity {
         int themeId = sharedPrefs.getInt("ThemeNoBar", R.style.AppTheme_NoActionBar);
         requestReviewCount = sharedPrefs.getInt("requestReviewCount", 0);
         themeColor = sharedPrefs.getInt("accent_color_dialog", Color.parseColor("#2196f3"));
-        int themeColorDark = GetDetails.getDarkColor(this, themeColor);
+        themeColorDark = GetDetails.getDarkColor(this, themeColor);
+        themeColor2 = GetDetails.getDarkColor2(this,themeColor);
         setTheme(themeId);
 
         super.onCreate(savedInstanceState);
@@ -123,12 +126,23 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             }
-            case R.id.action_rate: {
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse("https://play.google.com/store/apps/details?id=com.ytheekshana.deviceinfo"));
-                intent.setPackage("com.android.vending");
+            case R.id.action_donate: {
+                Intent intent = new Intent(this, DonateActivity.class);
                 startActivity(intent);
                 return true;
+            }
+            case R.id.action_rate: {
+                try{
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse("https://play.google.com/store/apps/details?id=com.ytheekshana.deviceinfo"));
+                    intent.setPackage("com.android.vending");
+                    startActivity(intent);
+                    return true;
+                }catch (ActivityNotFoundException ex){
+                    ex.printStackTrace();
+                    Toast.makeText(this, "Intall Google Play Services", Toast.LENGTH_SHORT).show();
+                }
+
             }
             case R.id.action_settings: {
                 Intent intent = new Intent(this, SettingsActivity.class);
