@@ -57,6 +57,11 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> impl
         filterMDataSet = list;
     }
 
+    void addData(ArrayList<AppInfo> list){
+        mDataSet.clear();
+        mDataSet.addAll(list);
+    }
+
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView txt_app_name;

@@ -194,5 +194,6 @@
     <string name="donate_description">You can show your appreciation for my work by making a small donation. This will help me to continue work on this app</string>
     <string name="donate_button">Support Development</string>
 
-
+    <string name="cameraNoteTitle">Please Read This</string>
+    <string name="cameraNote">If the MegaPixel count shown is wrong, that means your device manufacturer has limited the access to the camera for third-party apps. Also even if your device has more than one camera on one side, Android OS identifies them as a single camera for that side.</string>
 </resources>

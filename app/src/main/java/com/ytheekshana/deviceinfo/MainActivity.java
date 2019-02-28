@@ -10,11 +10,10 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 
-import androidx.annotation.NonNull;
-
 import com.google.android.material.appbar.AppBarLayout;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -33,6 +32,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     NotificationCompat.Builder mBuilder;
     public static int themeColor, themeColor2, themeColorDark, requestReviewCount;
+    public static boolean isDarkmode;
     SharedPreferences sharedPrefs;
     SharedPreferences.Editor editor;
     ViewPager mViewPager;
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         requestReviewCount = sharedPrefs.getInt("requestReviewCount", 0);
         themeColor = sharedPrefs.getInt("accent_color_dialog", Color.parseColor("#2196f3"));
         themeColorDark = GetDetails.getDarkColor(this, themeColor);
-        themeColor2 = GetDetails.getDarkColor2(this,themeColor);
+        themeColor2 = GetDetails.getDarkColor2(this, themeColor);
         setTheme(themeId);
 
         super.onCreate(savedInstanceState);
@@ -77,6 +77,9 @@ public class MainActivity extends AppCompatActivity {
             toolbar.setBackgroundColor(themeColor);
             tabLayout.setBackgroundColor(themeColor);
             getWindow().setStatusBarColor(themeColorDark);
+            isDarkmode = false;
+        } else {
+            isDarkmode = true;
         }
         Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.icon);
         ActivityManager.TaskDescription taskDescription = new ActivityManager.TaskDescription(getString(R.string.app_name), icon, themeColor);
@@ -132,13 +135,17 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
             case R.id.action_rate: {
-                try{
+                try {
                     Intent intent = new Intent(Intent.ACTION_VIEW);
                     intent.setData(Uri.parse("https://play.google.com/store/apps/details?id=com.ytheekshana.deviceinfo"));
                     intent.setPackage("com.android.vending");
-                    startActivity(intent);
+                    if (intent.resolveActivity(getPackageManager()) != null) {
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(this, "Google Play Store not found", Toast.LENGTH_SHORT).show();
+                    }
                     return true;
-                }catch (ActivityNotFoundException ex){
+                } catch (ActivityNotFoundException ex) {
                     ex.printStackTrace();
                     Toast.makeText(this, "Intall Google Play Services", Toast.LENGTH_SHORT).show();
                 }
@@ -160,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
             super(fm);
         }
 
+        @NonNull
         @Override
         public Fragment getItem(int position) {
             switch (position) {
@@ -178,10 +186,14 @@ public class MainActivity extends AppCompatActivity {
                 case 6:
                     return new tabMemory();
                 case 7:
-                    return new tabSensor();
+                    return new tabCamera();
                 case 8:
-                    return new tabApps();
+                    return new tabThermal();
                 case 9:
+                    return new tabSensor();
+                case 10:
+                    return new tabApps();
+                case 11:
                     return new tabTests();
                 default:
                     return null;
@@ -190,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 10;
+            return 12;
         }
 
         @Override
@@ -211,10 +223,14 @@ public class MainActivity extends AppCompatActivity {
                 case 6:
                     return "Memory";
                 case 7:
-                    return "Sensors";
+                    return "Camera";
                 case 8:
-                    return "Apps";
+                    return "Thermal";
                 case 9:
+                    return "Sensors";
+                case 10:
+                    return "Apps";
+                case 11:
                     return "Tests";
             }
             return null;

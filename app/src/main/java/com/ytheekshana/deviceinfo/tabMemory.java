@@ -1,9 +1,6 @@
 package com.ytheekshana.deviceinfo;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.ColorFilter;
-import android.graphics.LightingColorFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import androidx.annotation.NonNull;
@@ -14,19 +11,15 @@ import androidx.cardview.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.Locale;
 
 public class tabMemory extends Fragment {
     private Context context;
-    TextView txtRAMStatus,txtROMPath,txtROMStatus,txtInStoragePath,txtInStorageStatus,txtExStoragePath,
-            txtExStorageStatus;
-    ProgressBar progressRam, progressRom, progressInStorage, progressExStorage;
-    RelativeLayout rlayout;
+    private TextView txtRAMStatus;
+    private ProgressBar progressRam;
 
     @Override
     public void onAttach(Context context) {
@@ -38,23 +31,26 @@ public class tabMemory extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tabmemory, container, false);
-        try {
+        TextView txtROMPath,txtROMStatus,txtInStoragePath,txtInStorageStatus,txtExStoragePath,
+                txtExStorageStatus;
 
-            rlayout = rootView.findViewById(R.id.rlayout);
+
+
+        try {
             txtRAMStatus = rootView.findViewById(R.id.txtRAMStatus);
             progressRam = rootView.findViewById(R.id.progressRam);
 
             txtROMPath = rootView.findViewById(R.id.txtROMPath);
             txtROMStatus = rootView.findViewById(R.id.txtROMStatus);
-            progressRom = rootView.findViewById(R.id.progressRom);
+            ProgressBar progressRom = rootView.findViewById(R.id.progressRom);
 
             txtInStoragePath = rootView.findViewById(R.id.txtInStoragePath);
             txtInStorageStatus = rootView.findViewById(R.id.txtInStorageStatus);
-            progressInStorage = rootView.findViewById(R.id.progressInStorage);
+            ProgressBar progressInStorage = rootView.findViewById(R.id.progressInStorage);
 
             txtExStoragePath = rootView.findViewById(R.id.txtExStoragePath);
             txtExStorageStatus = rootView.findViewById(R.id.txtExStorageStatus);
-            progressExStorage = rootView.findViewById(R.id.progressExStorage);
+            ProgressBar progressExStorage = rootView.findViewById(R.id.progressExStorage);
             CardView cardExStorage = rootView.findViewById(R.id.cardExStorageInfo);
 
             DrawableCompat.setTint(progressRam.getProgressDrawable(), getResources().getColor(R.color.progress_ram));

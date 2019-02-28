@@ -7,7 +7,7 @@ import android.os.Environment;
 import android.os.StatFs;
 import androidx.core.content.ContextCompat;
 
-public class MemoryInfo {
+class MemoryInfo {
     private Activity activity;
     private Context context;
     private double totalRam, availableRam, usedRam, usedRamPercentage;
@@ -49,7 +49,7 @@ public class MemoryInfo {
         }
     }
 
-    public void InternalStorage() {
+    void InternalStorage() {
         try {
             StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
             availableInternalStorage = (((double) stat.getBlockSizeLong() * (double) stat.getAvailableBlocksLong()) / 1024 / 1024 / 1024);
@@ -62,7 +62,7 @@ public class MemoryInfo {
         }
     }
 
-    public void ExternalStorage() {
+    void ExternalStorage() {
         try {
             if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED) && ContextCompat.getExternalFilesDirs(context, null).length >= 2) {
                 StatFs stat = new StatFs(GetDetails.getStorageDirectories(context)[0]);

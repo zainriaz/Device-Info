@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Environment;
 
@@ -14,6 +15,7 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 
 import android.util.DisplayMetrics;
+import android.util.Size;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.WindowManager;
@@ -29,11 +31,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.NetworkInterface;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class GetDetails {
@@ -325,7 +329,7 @@ public class GetDetails {
         return Type;
     }
 
-    public static String NetworkType(int gettype) {
+    static String NetworkType(int gettype) {
         String Type;
         switch (gettype) {
             case TelephonyManager.NETWORK_TYPE_CDMA:
@@ -423,11 +427,11 @@ public class GetDetails {
         return result;
     }
 
-    static int getBatteryCapacity(Activity batactivity) {
+    static int getBatteryCapacity(Context context) {
         double batteryCapacity = 0;
         final String POWER_PROFILE_CLASS = "com.android.internal.os.PowerProfile";
         try {
-            Object mPowerProfile = Class.forName(POWER_PROFILE_CLASS).getConstructor(Context.class).newInstance(batactivity);
+            Object mPowerProfile = Class.forName(POWER_PROFILE_CLASS).getConstructor(Context.class).newInstance(context);
             batteryCapacity = (Double) Class.forName(POWER_PROFILE_CLASS).getMethod("getAveragePower", java.lang.String.class).invoke(mPowerProfile, "battery.capacity");
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -455,7 +459,7 @@ public class GetDetails {
     }
 
     static Double getAndroidVersion(int sdk) {
-        Double Version;
+        double Version;
         switch (sdk) {
             case 10:
                 Version = 2.3;
@@ -517,15 +521,28 @@ public class GetDetails {
     }
 
     static String GetSELinuxMode() {
-        String SELinux = "";
+        StringBuilder output = new StringBuilder();
+        Process p;
         try {
-            Process getselinux = Runtime.getRuntime().exec("getenforce");
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(getselinux.getInputStream()));
-            SELinux = bufferedReader.readLine();
+            p = Runtime.getRuntime().exec("getenforce");
+            p.waitFor();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                output.append(line);
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
+            return "Not Supported";
         }
-        return SELinux;
+        String response = output.toString();
+        if ("Enforcing".equals(response)) {
+            return "Enforcing";
+        } else if ("Permissive".equals(response)) {
+            return "Permissive";
+        } else {
+            return "Unable to determine";
+        }
     }
 
     static String GetSensorType(int type) {
@@ -670,5 +687,258 @@ public class GetDetails {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    static String getKeyName(String name) {
+        String keyName = "";
+        switch (name) {
+            case "android.colorCorrection.availableAberrationModes":
+                keyName = "Aberration Modes";
+                break;
+            case "android.control.aeAvailableAntibandingModes":
+                keyName = "Antibanding Modes";
+                break;
+            case "android.control.aeAvailableModes":
+                keyName = "Auto Exposure Modes";
+                break;
+            case "android.control.aeAvailableTargetFpsRanges":
+                keyName = "Target FPS Ranges";
+                break;
+            case "android.control.aeCompensationRange":
+                keyName = "Compensation Range";
+                break;
+            case "android.control.aeCompensationStep":
+                keyName = "Compensation Step";
+                break;
+            case "android.control.aeLockAvailable":
+                keyName = "Auto Exposure Lock";
+                break;
+            case "android.control.afAvailableModes":
+                keyName = "AutoFocus Modes";
+                break;
+            case "android.control.availableEffects":
+                keyName = "Effects";
+                break;
+            case "android.control.availableModes":
+                keyName = "Available Modes";
+                break;
+            case "android.control.availableSceneModes":
+                keyName = "Scene Modes";
+                break;
+            case "android.control.availableVideoStabilizationModes":
+                keyName = "Video Stabilization Modes";
+                break;
+            case "android.control.awbAvailableModes":
+                keyName = "Auto White Balance Modes";
+                break;
+            case "android.control.awbLockAvailable":
+                keyName = "Auto White Balance Lock";
+                break;
+            case "android.control.maxRegionsAe":
+                keyName = "Max Auto Exposure Regions";
+                break;
+            case "android.control.maxRegionsAf":
+                keyName = "Max Auto Focus Regions";
+                break;
+            case "android.control.maxRegionsAwb":
+                keyName = "Max Auto White Balance Regions";
+                break;
+            case "android.edge.availableEdgeModes":
+                keyName = "Edge Modes";
+                break;
+            case "android.flash.info.available":
+                keyName = "Flash Available";
+                break;
+            case "android.hotPixel.availableHotPixelModes":
+                keyName = "Hot Pixel Modes";
+                break;
+            case "android.info.supportedHardwareLevel":
+                keyName = "Hardware Level";
+                break;
+            case "android.jpeg.availableThumbnailSizes":
+                keyName = "Thumbnail Sizes";
+                break;
+            case "android.lens.facing":
+                keyName = "Lens Placement";
+                break;
+            case "android.lens.info.availableApertures":
+                keyName = "Apertures";
+                break;
+            case "android.lens.info.availableFilterDensities":
+                keyName = "Filter Densities";
+                break;
+            case "android.lens.info.availableFocalLengths":
+                keyName = "Focal Lengths";
+                break;
+            case "android.lens.info.availableOpticalStabilization":
+                keyName = "Optical Stabilization";
+                break;
+            case "android.lens.info.focusDistanceCalibration":
+                keyName = "Focus Distance Calibration";
+                break;
+            case "android.lens.info.hyperfocalDistance":
+                keyName = "Hyperfocal Distance";
+                break;
+            case "android.lens.info.minimumFocusDistance":
+                keyName = "Minimum Focus Distance";
+                break;
+            case "android.noiseReduction.availableNoiseReductionModes":
+                keyName = "Noise Reduction Modes";
+                break;
+            case "android.request.availableCapabilities":
+                keyName = "Camera Capabilities";
+                break;
+            case "android.request.maxNumInputStreams":
+                keyName = "Maximum Input Streams";
+                break;
+            case "android.request.maxNumOutputProc":
+                keyName = "Maximum Output Streams";
+                break;
+            case "android.request.maxNumOutputProcStalling":
+                keyName = "Maximum Output Streams Stalling";
+                break;
+            case "android.request.maxNumOutputRaw":
+                keyName = "Maximum RAW Output Streams";
+                break;
+            case "android.request.partialResultCount":
+                keyName = "Partial Results";
+                break;
+            case "android.request.pipelineMaxDepth":
+                keyName = "Maximum Pipeline Depth";
+                break;
+            case "android.scaler.availableMaxDigitalZoom":
+                keyName = "Maximum Digital Zoom";
+                break;
+            case "android.scaler.croppingType":
+                keyName = "Cropping Type";
+                break;
+            case "android.scaler.streamConfigurationMap":
+                keyName = "Supported Resolutions";
+                break;
+            case "android.sensor.availableTestPatternModes":
+                keyName = "Test Pattern Modes";
+                break;
+            case "android.sensor.blackLevelPattern":
+                keyName = "Black Level Pattern";
+                break;
+            case "android.sensor.info.activeArraySize":
+                keyName = "Active Array Size";
+                break;
+            case "android.sensor.info.colorFilterArrangement":
+                keyName = "Color Filter Arrangement";
+                break;
+            case "android.sensor.info.exposureTimeRange":
+                keyName = "Exposure Time Range";
+                break;
+            case "android.sensor.info.maxFrameDuration":
+                keyName = "Maximum Frame Duration";
+                break;
+            case "android.sensor.info.physicalSize":
+                keyName = "Sensor Size";
+                break;
+            case "android.sensor.info.pixelArraySize":
+                keyName = "Pixel Array Size";
+                break;
+            case "android.sensor.info.preCorrectionActiveArraySize":
+                keyName = "Pre Correction Active Array Size";
+                break;
+            case "android.sensor.info.sensitivityRange":
+                keyName = "Sensitivity Range";
+                break;
+            case "android.sensor.info.timestampSource":
+                keyName = "Timestamp Source";
+                break;
+            case "android.sensor.info.whiteLevel":
+                keyName = "White Level";
+                break;
+            case "android.sensor.maxAnalogSensitivity":
+                keyName = "Maximum Analog Sensitivity";
+                break;
+            case "android.sensor.orientation":
+                keyName = "Orientation";
+                break;
+            case "android.shading.availableModes":
+                keyName = "Shading Modes";
+                break;
+            case "android.statistics.info.availableFaceDetectModes":
+                keyName = "Face Detection Modes";
+                break;
+            case "android.statistics.info.availableHotPixelMapModes":
+                keyName = "Hot Pixel Map Modes";
+                break;
+            case "android.statistics.info.availableLensShadingMapModes":
+                keyName = "Lens Shading Map Modes";
+                break;
+            case "android.statistics.info.maxFaceCount":
+                keyName = "Maximum Faces Detectable";
+                break;
+            case "android.sync.maxLatency":
+                keyName = "Maximum Latency";
+                break;
+            case "android.tonemap.availableToneMapModes":
+                keyName = "Tone Map Modes";
+                break;
+            case "android.tonemap.maxCurvePoints":
+                keyName = "Maximum Curve Points";
+                break;
+            default:
+                keyName = name;
+                break;
+        }
+        return keyName;
+    }
+
+    static String getCameraMP(Size[] size) {
+        Size first = size[0];
+        if (size.length > 1) {
+            Size second = size[size.length - 1];
+            if (first.getWidth() > second.getWidth()) {
+                return getMP(first, 1);
+            } else {
+                return getMP(second, 1);
+            }
+        } else {
+            return getMP(first, 1);
+        }
+    }
+
+    static String getCameraResolution(Size[] size) {
+        Size first = size[0];
+        if (size.length > 1) {
+            Size second = size[size.length - 1];
+            if (first.getWidth() > second.getWidth()) {
+                return first.getWidth() + "x" + first.getHeight();
+            } else {
+                return second.getWidth() + "x" + second.getHeight();
+            }
+        } else {
+            return first.getWidth() + "x" + first.getHeight();
+        }
+    }
+
+    static String getMP(Size size, int decimalPlaces) {
+        float mp = (size.getWidth() * size.getHeight()) / 1000000f;
+        if (decimalPlaces == 1) {
+            return String.format(Locale.US, "%.1f", mp) + " MP";
+        } else if (decimalPlaces == 2) {
+            return String.format(Locale.US, "%.2f", mp) + " MP";
+        } else {
+            return String.format(Locale.US, "%.2f", mp) + " MP";
+        }
+    }
+
+    static String getFormattedTemp(String zoneValue){
+        double finalTemp;
+        int val = Integer.parseInt(zoneValue.trim());
+        if(val>=10000){
+            finalTemp = val/1000.0;
+        }else if (val>=1000){
+            finalTemp = val/100.0;
+        }else if(val>100){
+            finalTemp = val/10.0;
+        }else{
+            finalTemp = val;
+        }
+        return new DecimalFormat("##.#").format(finalTemp)+" \u2103";
     }
 }

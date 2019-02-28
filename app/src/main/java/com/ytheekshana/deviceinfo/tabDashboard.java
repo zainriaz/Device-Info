@@ -55,11 +55,10 @@ public class tabDashboard extends Fragment {
     private String cUsage;
     private Timer timercUsage;
     private ArcProgress arcProgressRam;
-    LineChart lineChartRam;
+    private LineChart lineChartRam;
     private float usedRam = 0;
     private Handler handlerChart, handlerRam;
     private Runnable runnableChart;
-    LineData data;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -371,7 +370,7 @@ public class tabDashboard extends Fragment {
     }
 
     private void addEntry() {
-        data = lineChartRam.getData();
+        LineData data = lineChartRam.getData();
         if (data != null) {
 
             ILineDataSet set = data.getDataSetByIndex(0);

@@ -24,7 +24,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
             android:layout_margin="5dp"
-            app:cardBackgroundColor="@color/colorPrimary"
+            card_view:cardBackgroundColor="@color/colorPrimary"
             card_view:cardCornerRadius="5dp"
             card_view:contentPadding="10dp">
 

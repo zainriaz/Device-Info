@@ -22,10 +22,10 @@ import java.util.Objects;
 public class tabSensor extends Fragment {
 
     private String getcount;
-    TextView sensor_count;
+    private TextView sensor_count;
     private Thread loadSensors;
-    SwipeRefreshLayout swipesensorlist;
-    RecyclerView recyclerSensors;
+    private SwipeRefreshLayout swipesensorlist;
+    private RecyclerView recyclerSensors;
     Context context;
     private Activity activity;
 

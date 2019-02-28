@@ -8,14 +8,17 @@ import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.cardview.widget.CardView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.Objects;
 
@@ -23,15 +26,17 @@ import static android.content.Context.MODE_PRIVATE;
 
 
 public class tabTests extends Fragment {
-    LinearLayout llayout;
-    CardView cardviewFlashlight, cardviewDisplay, cardviewLoudSpeaker, cardviewEarSpeaker, cardviewEarProximity, cardviewLightSensor, cardviewVibration,
-            cardviewWifi, cardviewBluetooth, cardviewFingerprint, cardviewVolumeUp, cardviewVolumeDown;
-    ImageView imgFlashlightTest, imgDisplayTest, imgLoudSpeakerTest, imgEarSpeakerTest, imgEarProximityTest, imgLightSensorTest, imgVibrationTest,
+
+    private ImageView imgFlashlightTest, imgDisplayTest, imgLoudSpeakerTest, imgEarSpeakerTest, imgEarProximityTest, imgLightSensorTest, imgVibrationTest,
             imgWifiTest, imgBluetoothTest, imgFingerprintTest, imgVolumeUpTest, imgVolumeDownTest;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        CardView cardviewFlashlight, cardviewDisplay, cardviewLoudSpeaker, cardviewEarSpeaker, cardviewEarProximity, cardviewLightSensor, cardviewVibration,
+                cardviewWifi, cardviewBluetooth, cardviewFingerprint, cardviewVolumeUp, cardviewVolumeDown;
+
         View rootView = inflater.inflate(R.layout.tabtests, container, false);
         imgFlashlightTest = rootView.findViewById(R.id.imgFlashlightTest);
         imgDisplayTest = rootView.findViewById(R.id.imgDisplayTest);
@@ -84,7 +89,7 @@ public class tabTests extends Fragment {
             public void onClick(View v) {
                 Intent loadFlashlight = new Intent(getContext(), FlashlightTestActivity.class);
                 startActivity(loadFlashlight);
-                getActivity().overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
+                Objects.requireNonNull(getActivity()).overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
             }
         });
         cardviewDisplay.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +97,7 @@ public class tabTests extends Fragment {
             public void onClick(View v) {
                 Intent loadDisplay = new Intent(getContext(), DisplayTestActivity.class);
                 startActivity(loadDisplay);
-                getActivity().overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
+                Objects.requireNonNull(getActivity()).overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
             }
         });
         cardviewLoudSpeaker.setOnClickListener(new View.OnClickListener() {
@@ -100,7 +105,7 @@ public class tabTests extends Fragment {
             public void onClick(View v) {
                 Intent loadLoudSpeaker = new Intent(getContext(), LoudSpeakerTestActivity.class);
                 startActivity(loadLoudSpeaker);
-                getActivity().overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
+                Objects.requireNonNull(getActivity()).overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
             }
         });
         cardviewEarSpeaker.setOnClickListener(new View.OnClickListener() {
@@ -108,7 +113,7 @@ public class tabTests extends Fragment {
             public void onClick(View v) {
                 Intent loadEarSpeaker = new Intent(getContext(), EarSpeakerTestActivity.class);
                 startActivity(loadEarSpeaker);
-                getActivity().overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
+                Objects.requireNonNull(getActivity()).overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
             }
         });
         cardviewEarProximity.setOnClickListener(new View.OnClickListener() {
@@ -116,7 +121,7 @@ public class tabTests extends Fragment {
             public void onClick(View v) {
                 Intent loadEarProximity = new Intent(getContext(), EarProximityTestActivity.class);
                 startActivity(loadEarProximity);
-                getActivity().overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
+                Objects.requireNonNull(getActivity()).overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
             }
         });
         cardviewLightSensor.setOnClickListener(new View.OnClickListener() {
@@ -124,7 +129,7 @@ public class tabTests extends Fragment {
             public void onClick(View v) {
                 Intent loadLightSensor = new Intent(getContext(), LightSensorTestActivity.class);
                 startActivity(loadLightSensor);
-                getActivity().overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
+                Objects.requireNonNull(getActivity()).overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
             }
         });
         cardviewVibration.setOnClickListener(new View.OnClickListener() {
@@ -132,7 +137,7 @@ public class tabTests extends Fragment {
             public void onClick(View v) {
                 Intent loadVibration = new Intent(getContext(), VibrationTestActivity.class);
                 startActivity(loadVibration);
-                getActivity().overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
+                Objects.requireNonNull(getActivity()).overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
             }
         });
         cardviewWifi.setOnClickListener(new View.OnClickListener() {
@@ -140,7 +145,7 @@ public class tabTests extends Fragment {
             public void onClick(View v) {
                 Intent loadWifi = new Intent(getContext(), WifiTestActivity.class);
                 startActivity(loadWifi);
-                getActivity().overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
+                Objects.requireNonNull(getActivity()).overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
             }
         });
         cardviewBluetooth.setOnClickListener(new View.OnClickListener() {
@@ -148,7 +153,7 @@ public class tabTests extends Fragment {
             public void onClick(View v) {
                 Intent loadBluetooth = new Intent(getContext(), BluetoothTestActivity.class);
                 startActivity(loadBluetooth);
-                getActivity().overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
+                Objects.requireNonNull(getActivity()).overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
             }
         });
         cardviewFingerprint.setOnClickListener(new View.OnClickListener() {
@@ -156,7 +161,7 @@ public class tabTests extends Fragment {
             public void onClick(View v) {
                 Intent loadFingerprint = new Intent(getContext(), FingerprintTestActivity.class);
                 startActivity(loadFingerprint);
-                getActivity().overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
+                Objects.requireNonNull(getActivity()).overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
             }
         });
         cardviewVolumeUp.setOnClickListener(new View.OnClickListener() {
@@ -164,7 +169,7 @@ public class tabTests extends Fragment {
             public void onClick(View v) {
                 Intent loadVolumeUp = new Intent(getContext(), VolumeUpTestActivity.class);
                 startActivity(loadVolumeUp);
-                getActivity().overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
+                Objects.requireNonNull(getActivity()).overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
             }
         });
         cardviewVolumeDown.setOnClickListener(new View.OnClickListener() {
@@ -172,7 +177,7 @@ public class tabTests extends Fragment {
             public void onClick(View v) {
                 Intent loadVolumeDown = new Intent(getContext(), VolumeDownTestActivity.class);
                 startActivity(loadVolumeDown);
-                getActivity().overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
+                Objects.requireNonNull(getActivity()).overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
             }
         });
 
@@ -186,7 +191,7 @@ public class tabTests extends Fragment {
         super.onResume();
     }
 
-    public void updateTestData() {
+    private void updateTestData() {
         SharedPreferences sharedPref = Objects.requireNonNull(getContext()).getSharedPreferences("tests", MODE_PRIVATE);
         int flashstatus = sharedPref.getInt("flashlight_test_status", 2);
         int displaystatus = sharedPref.getInt("display_test_status", 2);
@@ -201,136 +206,30 @@ public class tabTests extends Fragment {
         int volumeup_test_status = sharedPref.getInt("volumeup_test_status", 2);
         int volumedown_test_status = sharedPref.getInt("volumedown_test_status", 2);
 
-        if (flashstatus == 0) {
-            imgFlashlightTest.setImageResource(R.drawable.test_failed);
-            imgFlashlightTest.setColorFilter(getResources().getColor(R.color.test_failed));
-        } else if (flashstatus == 1) {
-            imgFlashlightTest.setImageResource(R.drawable.test_success);
-            imgFlashlightTest.setColorFilter(getResources().getColor(R.color.test_success));
-        } else if (flashstatus == 2) {
-            imgFlashlightTest.setImageResource(R.drawable.test_default);
-            imgFlashlightTest.setColorFilter(getResources().getColor(R.color.test_default));
-        }
+        updateImageView(imgFlashlightTest,flashstatus);
+        updateImageView(imgDisplayTest,displaystatus);
+        updateImageView(imgLoudSpeakerTest,loudspeakerstatus);
+        updateImageView(imgEarSpeakerTest,earspeakerstatus);
+        updateImageView(imgEarProximityTest,earproximitystatus);
+        updateImageView(imgLightSensorTest,lightsensorstatus);
+        updateImageView(imgVibrationTest,vibrationstatus);
+        updateImageView(imgWifiTest,wifistatus);
+        updateImageView(imgBluetoothTest,bluetoothstatus);
+        updateImageView(imgFingerprintTest,fingerprintstatus);
+        updateImageView(imgVolumeUpTest,volumeup_test_status);
+        updateImageView(imgVolumeDownTest,volumedown_test_status);
+    }
 
-        if (displaystatus == 0) {
-            imgDisplayTest.setImageResource(R.drawable.test_failed);
-            imgDisplayTest.setColorFilter(getResources().getColor(R.color.test_failed));
-        } else if (displaystatus == 1) {
-            imgDisplayTest.setImageResource(R.drawable.test_success);
-            imgDisplayTest.setColorFilter(getResources().getColor(R.color.test_success));
-        } else if (displaystatus == 2) {
-            imgDisplayTest.setImageResource(R.drawable.test_default);
-            imgDisplayTest.setColorFilter(getResources().getColor(R.color.test_default));
-        }
-
-        if (loudspeakerstatus == 0) {
-            imgLoudSpeakerTest.setImageResource(R.drawable.test_failed);
-            imgLoudSpeakerTest.setColorFilter(getResources().getColor(R.color.test_failed));
-        } else if (loudspeakerstatus == 1) {
-            imgLoudSpeakerTest.setImageResource(R.drawable.test_success);
-            imgLoudSpeakerTest.setColorFilter(getResources().getColor(R.color.test_success));
-        } else if (loudspeakerstatus == 2) {
-            imgLoudSpeakerTest.setImageResource(R.drawable.test_default);
-            imgLoudSpeakerTest.setColorFilter(getResources().getColor(R.color.test_default));
-        }
-
-        if (earspeakerstatus == 0) {
-            imgEarSpeakerTest.setImageResource(R.drawable.test_failed);
-            imgEarSpeakerTest.setColorFilter(getResources().getColor(R.color.test_failed));
-        } else if (earspeakerstatus == 1) {
-            imgEarSpeakerTest.setImageResource(R.drawable.test_success);
-            imgEarSpeakerTest.setColorFilter(getResources().getColor(R.color.test_success));
-        } else if (earspeakerstatus == 2) {
-            imgEarSpeakerTest.setImageResource(R.drawable.test_default);
-            imgEarSpeakerTest.setColorFilter(getResources().getColor(R.color.test_default));
-        }
-
-        if (earproximitystatus == 0) {
-            imgEarProximityTest.setImageResource(R.drawable.test_failed);
-            imgEarProximityTest.setColorFilter(getResources().getColor(R.color.test_failed));
-        } else if (earproximitystatus == 1) {
-            imgEarProximityTest.setImageResource(R.drawable.test_success);
-            imgEarProximityTest.setColorFilter(getResources().getColor(R.color.test_success));
-        } else if (earproximitystatus == 2) {
-            imgEarProximityTest.setImageResource(R.drawable.test_default);
-            imgEarProximityTest.setColorFilter(getResources().getColor(R.color.test_default));
-        }
-
-        if (lightsensorstatus == 0) {
-            imgLightSensorTest.setImageResource(R.drawable.test_failed);
-            imgLightSensorTest.setColorFilter(getResources().getColor(R.color.test_failed));
-        } else if (lightsensorstatus == 1) {
-            imgLightSensorTest.setImageResource(R.drawable.test_success);
-            imgLightSensorTest.setColorFilter(getResources().getColor(R.color.test_success));
-        } else if (lightsensorstatus == 2) {
-            imgLightSensorTest.setImageResource(R.drawable.test_default);
-            imgLightSensorTest.setColorFilter(getResources().getColor(R.color.test_default));
-        }
-
-        if (vibrationstatus == 0) {
-            imgVibrationTest.setImageResource(R.drawable.test_failed);
-            imgVibrationTest.setColorFilter(getResources().getColor(R.color.test_failed));
-        } else if (vibrationstatus == 1) {
-            imgVibrationTest.setImageResource(R.drawable.test_success);
-            imgVibrationTest.setColorFilter(getResources().getColor(R.color.test_success));
-        } else if (vibrationstatus == 2) {
-            imgVibrationTest.setImageResource(R.drawable.test_default);
-            imgVibrationTest.setColorFilter(getResources().getColor(R.color.test_default));
-        }
-
-        if (wifistatus == 0) {
-            imgWifiTest.setImageResource(R.drawable.test_failed);
-            imgWifiTest.setColorFilter(getResources().getColor(R.color.test_failed));
-        } else if (wifistatus == 1) {
-            imgWifiTest.setImageResource(R.drawable.test_success);
-            imgWifiTest.setColorFilter(getResources().getColor(R.color.test_success));
-        } else if (wifistatus == 2) {
-            imgWifiTest.setImageResource(R.drawable.test_default);
-            imgWifiTest.setColorFilter(getResources().getColor(R.color.test_default));
-        }
-
-        if (bluetoothstatus == 0) {
-            imgBluetoothTest.setImageResource(R.drawable.test_failed);
-            imgBluetoothTest.setColorFilter(getResources().getColor(R.color.test_failed));
-        } else if (bluetoothstatus == 1) {
-            imgBluetoothTest.setImageResource(R.drawable.test_success);
-            imgBluetoothTest.setColorFilter(getResources().getColor(R.color.test_success));
-        } else if (bluetoothstatus == 2) {
-            imgBluetoothTest.setImageResource(R.drawable.test_default);
-            imgBluetoothTest.setColorFilter(getResources().getColor(R.color.test_default));
-        }
-
-        if (fingerprintstatus == 0) {
-            imgFingerprintTest.setImageResource(R.drawable.test_failed);
-            imgFingerprintTest.setColorFilter(getResources().getColor(R.color.test_failed));
-        } else if (fingerprintstatus == 1) {
-            imgFingerprintTest.setImageResource(R.drawable.test_success);
-            imgFingerprintTest.setColorFilter(getResources().getColor(R.color.test_success));
-        } else if (fingerprintstatus == 2) {
-            imgFingerprintTest.setImageResource(R.drawable.test_default);
-            imgFingerprintTest.setColorFilter(getResources().getColor(R.color.test_default));
-        }
-
-        if (volumeup_test_status == 0) {
-            imgVolumeUpTest.setImageResource(R.drawable.test_failed);
-            imgVolumeUpTest.setColorFilter(getResources().getColor(R.color.test_failed));
-        } else if (volumeup_test_status == 1) {
-            imgVolumeUpTest.setImageResource(R.drawable.test_success);
-            imgVolumeUpTest.setColorFilter(getResources().getColor(R.color.test_success));
-        } else if (volumeup_test_status == 2) {
-            imgVolumeUpTest.setImageResource(R.drawable.test_default);
-            imgVolumeUpTest.setColorFilter(getResources().getColor(R.color.test_default));
-        }
-
-        if (volumedown_test_status == 0) {
-            imgVolumeDownTest.setImageResource(R.drawable.test_failed);
-            imgVolumeDownTest.setColorFilter(getResources().getColor(R.color.test_failed));
-        } else if (volumedown_test_status == 1) {
-            imgVolumeDownTest.setImageResource(R.drawable.test_success);
-            imgVolumeDownTest.setColorFilter(getResources().getColor(R.color.test_success));
-        } else if (volumedown_test_status == 2) {
-            imgVolumeDownTest.setImageResource(R.drawable.test_default);
-            imgVolumeDownTest.setColorFilter(getResources().getColor(R.color.test_default));
+    private void updateImageView(ImageView imageView, int status){
+        if (status == 0) {
+            imageView.setImageResource(R.drawable.test_failed);
+            imageView.setColorFilter(ContextCompat.getColor(Objects.requireNonNull(getContext()), R.color.test_failed));
+        } else if (status == 1) {
+            imageView.setImageResource(R.drawable.test_success);
+            imageView.setColorFilter(ContextCompat.getColor(Objects.requireNonNull(getContext()),R.color.test_success));
+        } else if (status == 2) {
+            imageView.setImageResource(R.drawable.test_default);
+            imageView.setColorFilter(ContextCompat.getColor(Objects.requireNonNull(getContext()),R.color.test_default));
         }
     }
 }

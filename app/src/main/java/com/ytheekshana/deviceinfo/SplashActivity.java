@@ -33,6 +33,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jaredrummler.android.device.DeviceName;
 
@@ -187,8 +188,7 @@ public class SplashActivity extends Activity implements GLSurfaceView.Renderer {
                 glVersion = info.getGlEsVersion();
                 androidRuntime = System.getProperty("java.vm.version");
                 kernelVersion = System.getProperty("os.version");
-                String selinux = GetDetails.GetSELinuxMode();
-                selinuxMode = selinux.equals("") ?"Not Available":selinux;
+                selinuxMode = GetDetails.GetSELinuxMode();
                 Thread.sleep(threadSleepAmount);
                 publishProgress(20 * 10);
 
@@ -216,7 +216,7 @@ public class SplashActivity extends Activity implements GLSurfaceView.Renderer {
                 publishProgress(30 * 10);
 
                 //Battery
-                batteryCapacity = String.valueOf(GetDetails.getBatteryCapacity(activity));
+                batteryCapacity = String.valueOf(GetDetails.getBatteryCapacity(context));
                 Thread.sleep(threadSleepAmount);
                 publishProgress(40 * 10);
 

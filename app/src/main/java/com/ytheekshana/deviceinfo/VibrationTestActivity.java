@@ -8,9 +8,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
+import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -71,11 +75,24 @@ public class VibrationTestActivity extends AppCompatActivity {
                     finish();
                 }
             });
-            vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+
+
+            vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            long[] pattern = {0, 1000, 0};
+
+            if (Objects.requireNonNull(vibrator).hasVibrator()) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    vibrator.vibrate(VibrationEffect.createWaveform(pattern, 0));
+                } else {
+                    vibrator.vibrate(pattern, 0);
+                }
+            }
+
+            /*vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
             if(Objects.requireNonNull(vibrator).hasVibrator()){
                 long[] pattern = {0, 1000, 0};
                 vibrator.vibrate(pattern, 0);
-            }
+            }*/
 
         } catch (Exception ex) {
             ex.printStackTrace();

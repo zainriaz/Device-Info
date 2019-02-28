@@ -11,16 +11,17 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.Objects;
 
 public class tabDisplay extends Fragment {
-    LinearLayout llayout;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tabdisplay, container, false);
-        llayout = rootView.findViewById(R.id.llayout);
+        LinearLayout llayout = rootView.findViewById(R.id.llayout);
         try {
             int textDisColor = MainActivity.themeColor;
             int lineColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorButtonNormal);

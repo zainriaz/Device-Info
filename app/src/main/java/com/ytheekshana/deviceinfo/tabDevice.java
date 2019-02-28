@@ -24,7 +24,6 @@ import java.util.Objects;
 
 public class tabDevice extends Fragment {
     private static final int REQUEST_PHONE_STATE = 1;
-    LinearLayout llayout;
     private TextView txtDeviceTypedis, txtIMEIdis, txtSIMSerialdis, txtSIMSubscriberdis, txtNetworkOperatordis, txtNetworkTypedis;
     private TelephonyManager tm;
 
@@ -33,7 +32,7 @@ public class tabDevice extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tabdevice, container, false);
-        llayout = rootView.findViewById(R.id.llayout);
+        LinearLayout llayout = rootView.findViewById(R.id.llayout);
         try {
 
             int textDisColor = MainActivity.themeColor;
@@ -196,7 +195,7 @@ public class tabDevice extends Fragment {
                     txtDeviceTypedis.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_PHONE_STATE);
+                            ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()), new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_PHONE_STATE);
                         }
                     });
                 } else {
@@ -250,7 +249,7 @@ public class tabDevice extends Fragment {
                     txtIMEIdis.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_PHONE_STATE);
+                            ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()), new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_PHONE_STATE);
                         }
                     });
                 } else {
@@ -304,7 +303,7 @@ public class tabDevice extends Fragment {
                     txtSIMSerialdis.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_PHONE_STATE);
+                            ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()), new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_PHONE_STATE);
                         }
                     });
                 } else {
@@ -339,7 +338,7 @@ public class tabDevice extends Fragment {
                     txtSIMSubscriberdis.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_PHONE_STATE);
+                            ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()), new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_PHONE_STATE);
                         }
                     });
                 } else {
@@ -374,7 +373,7 @@ public class tabDevice extends Fragment {
                     txtNetworkOperatordis.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_PHONE_STATE);
+                            ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()), new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_PHONE_STATE);
                         }
                     });
                 } else {
@@ -409,7 +408,7 @@ public class tabDevice extends Fragment {
                     txtNetworkTypedis.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_PHONE_STATE);
+                            ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()), new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_PHONE_STATE);
                         }
                     });
                 } else {

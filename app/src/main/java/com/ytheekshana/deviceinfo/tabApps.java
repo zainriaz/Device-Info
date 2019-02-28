@@ -40,7 +40,7 @@ public class tabApps extends Fragment implements SearchView.OnQueryTextListener 
     private RecyclerView.Adapter appAdapter;
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         this.context = context;
     }
@@ -151,7 +151,10 @@ public class tabApps extends Fragment implements SearchView.OnQueryTextListener 
         swipeapplist.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                new Thread(loadApps).start();
+                //new Thread(loadApps).start();
+                if (appAdapter instanceof AppAdapter) {
+                    reloadAppList();
+                }
             }
         });
 
@@ -163,7 +166,9 @@ public class tabApps extends Fragment implements SearchView.OnQueryTextListener 
                 } else if (i == 0) {
                     apptype = 0;
                 }
-                new Thread(loadApps).start();
+                if (appAdapter != null) {
+                    reloadAppList();
+                }
             }
 
             @Override
@@ -172,6 +177,33 @@ public class tabApps extends Fragment implements SearchView.OnQueryTextListener 
             }
         });
         return rootView;
+    }
+
+    private void reloadAppList() {
+        new Thread() {
+            @Override
+            public void run() {
+                swipeapplist.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (!swipeapplist.isRefreshing()) {
+                            swipeapplist.setRefreshing(true);
+                        }
+                    }
+                });
+                ((AppAdapter) appAdapter).addData(getInstalledApps());
+                swipeapplist.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        appAdapter.notifyDataSetChanged();
+                        if (swipeapplist.isRefreshing()) {
+                            swipeapplist.setRefreshing(false);
+                        }
+                    }
+                });
+            }
+        }.start();
+
     }
 
     private ArrayList<AppInfo> getInstalledApps() {
@@ -226,7 +258,7 @@ public class tabApps extends Fragment implements SearchView.OnQueryTextListener 
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        if(recyclerInstalledApps.getAdapter()!=null){
+        if (recyclerInstalledApps.getAdapter() != null) {
             ((AppAdapter) appAdapter).getFilter().filter(newText);
         }
         return false;

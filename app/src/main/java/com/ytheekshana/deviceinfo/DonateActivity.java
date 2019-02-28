@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.app.ActivityManager;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -108,7 +107,7 @@ public class DonateActivity extends AppCompatActivity implements PurchasesUpdate
                                             BillingFlowParams flowParams = BillingFlowParams.newBuilder()
                                                     .setSkuDetails(skuDetailsList.get(0))
                                                     .build();
-                                            int responseCode = mBillingClient.launchBillingFlow(activity, flowParams);
+                                            mBillingClient.launchBillingFlow(activity, flowParams);
                                         }
                                     });
 
@@ -118,7 +117,7 @@ public class DonateActivity extends AppCompatActivity implements PurchasesUpdate
                                             BillingFlowParams flowParams = BillingFlowParams.newBuilder()
                                                     .setSkuDetails(skuDetailsList.get(3))
                                                     .build();
-                                            int responseCode = mBillingClient.launchBillingFlow(activity, flowParams);
+                                            mBillingClient.launchBillingFlow(activity, flowParams);
                                         }
                                     });
 
@@ -128,7 +127,7 @@ public class DonateActivity extends AppCompatActivity implements PurchasesUpdate
                                             BillingFlowParams flowParams = BillingFlowParams.newBuilder()
                                                     .setSkuDetails(skuDetailsList.get(2))
                                                     .build();
-                                            int responseCode = mBillingClient.launchBillingFlow(activity, flowParams);
+                                            mBillingClient.launchBillingFlow(activity, flowParams);
                                         }
                                     });
 
@@ -138,7 +137,7 @@ public class DonateActivity extends AppCompatActivity implements PurchasesUpdate
                                             BillingFlowParams flowParams = BillingFlowParams.newBuilder()
                                                     .setSkuDetails(skuDetailsList.get(1))
                                                     .build();
-                                            int responseCode = mBillingClient.launchBillingFlow(activity, flowParams);
+                                            mBillingClient.launchBillingFlow(activity, flowParams);
                                         }
                                     });
                                 }

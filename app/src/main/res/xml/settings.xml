@@ -1,13 +1,15 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <PreferenceCategory android:title="Theme">
 
         <SwitchPreference
             android:key="dark_theme_switch"
+            android:icon="@drawable/ic_dark_mode"
             android:summary="Enable Dark Theme"
             android:title="Dark Theme" />
-        <com.kizitonwose.colorpreference.ColorPreference
+        <com.kizitonwose.colorpreferencecompat.ColorPreferenceCompat
             android:id="@+id/theme_color"
+            android:icon="@drawable/ic_theme_color"
             android:defaultValue="@color/colorPrimary"
             android:key="accent_color_dialog"
             android:summary="Select an Accent Color"
@@ -19,6 +21,7 @@
 
         <Preference
             android:key="pref_extract_location"
+            android:icon="@drawable/ic_extract_location"
             android:summary="/emulated/0/DeviceInfo"
             android:title="Extract Location" />
     </PreferenceCategory>
@@ -26,11 +29,13 @@
 
         <Preference
             android:key="pref_rate_us"
+            android:icon="@drawable/ic_rate_us"
             android:summary="Enjoying Device Info? Would you mind giving us some feedback on Google Play Store"
             android:title="Rate Us" />
 
         <Preference
             android:key="pref_donate"
+            android:icon="@drawable/ic_donate"
             android:summary="You can show your appreciation for my work by making a small donation"
             android:title="Donate (Support Development)" />
     </PreferenceCategory>
@@ -38,9 +43,10 @@
     <PreferenceCategory android:title="About">
         <Preference
             android:key="app_version_pref"
+            android:icon="@drawable/ic_about"
             android:persistent="false"
             android:selectable="false"
             android:summary=""
             android:title="App Version" />
     </PreferenceCategory>
-</PreferenceScreen>
+</androidx.preference.PreferenceScreen>

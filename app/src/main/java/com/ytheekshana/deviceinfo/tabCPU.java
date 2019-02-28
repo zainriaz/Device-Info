@@ -19,7 +19,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class tabCPU extends Fragment {
-    LinearLayout llayout;
     private TextView txtCPUUsagedis;
     private CPUUsage cu;
     private TextView txtCore[];
@@ -30,7 +29,7 @@ public class tabCPU extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tabcpu, container, false);
-        llayout = rootView.findViewById(R.id.llayout);
+        LinearLayout llayout = rootView.findViewById(R.id.llayout);
         cu = new CPUUsage();
 
         try {

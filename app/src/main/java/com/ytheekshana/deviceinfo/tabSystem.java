@@ -18,13 +18,12 @@ import android.widget.TextView;
 import java.util.Objects;
 
 public class tabSystem extends Fragment {
-    LinearLayout llayout;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tabsystem, container, false);
-        llayout = rootView.findViewById(R.id.llayout);
+        LinearLayout llayout = rootView.findViewById(R.id.llayout);
         ImageView imgAndroidLogo = rootView.findViewById(R.id.imgAndroidLogo);
         TextView txtAndroidVersionNumber = rootView.findViewById(R.id.txtAndroidVersionNumber);
         TextView txtAndroidVersionName = rootView.findViewById(R.id.txtAndroidVersionName);

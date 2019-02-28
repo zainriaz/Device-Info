@@ -15,7 +15,7 @@ public class CPUUsage {
     private CpuInfo mCpuInfoTotal;
     private ArrayList<CpuInfo> mCpuInfoList;
 
-    public CPUUsage() {
+    CPUUsage() {
     }
 
     private void update() {

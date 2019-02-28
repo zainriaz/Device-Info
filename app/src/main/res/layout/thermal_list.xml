@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    style="?attr/cardStyle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    card_view:cardCornerRadius="5dp"
+    card_view:contentPadding="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txtThermalName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="dsfdfdgdg"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/txtThermalValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtThermalName"
+            android:fontFamily="@font/google"
+            android:paddingTop="15px"
+            android:text="fxgfxgfgfg"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

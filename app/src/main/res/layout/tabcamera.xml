@@ -1,0 +1,46 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="1dp"
+    android:paddingLeft="1dp"
+    android:paddingRight="1dp"
+    android:paddingTop="1dp"
+    tools:context="com.ytheekshana.deviceinfo.MainActivity">
+
+    <Button
+        android:id="@+id/btnCameraPermission"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="Grant Permission" />
+
+    <HorizontalScrollView
+        android:id="@+id/scrollViewCamera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:visibility="gone">
+
+        <com.nex3z.togglebuttongroup.SingleSelectToggleGroup
+            android:id="@+id/cameraButtonGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingBottom="3dp"
+            android:paddingEnd="5dp"
+            android:paddingStart="5dp"
+            android:paddingTop="3dp" />
+    </HorizontalScrollView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerCamera"
+        android:scrollbars="none"
+        style="?attr/listDividerStyle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/scrollViewCamera"
+        android:dividerHeight="4dp"
+        android:visibility="gone">
+
+    </androidx.recyclerview.widget.RecyclerView>
+</RelativeLayout>

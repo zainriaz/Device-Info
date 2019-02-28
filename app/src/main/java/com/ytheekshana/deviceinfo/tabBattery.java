@@ -18,14 +18,13 @@ import android.widget.TextView;
 import java.util.Objects;
 
 public class tabBattery extends Fragment {
-    LinearLayout llayout;
     private TextView txtBatteryLeveldis, txtBatteryStatusdis, txtPowerSourcedis, txtBatteryHealthdis, txtTechnologydis, txtTemperaturedis, txtBatteryVoltagedis;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tabbattery, container, false);
-        llayout = rootView.findViewById(R.id.llayout);
+        LinearLayout llayout = rootView.findViewById(R.id.llayout);
 
         try {
             int textDisColor = MainActivity.themeColor;
@@ -197,7 +196,7 @@ public class tabBattery extends Fragment {
                 int batstatus = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
                 int batpowersource = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
                 int bathealth = intent.getIntExtra(BatteryManager.EXTRA_HEALTH, -1);
-                String battechno = intent.getExtras().getString(BatteryManager.EXTRA_TECHNOLOGY);
+                String battechno = Objects.requireNonNull(intent.getExtras()).getString(BatteryManager.EXTRA_TECHNOLOGY);
 
                 if (batstatus == BatteryManager.BATTERY_STATUS_CHARGING) {
                     batstatusdis = "Charging";
