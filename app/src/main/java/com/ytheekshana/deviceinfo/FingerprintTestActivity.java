@@ -10,12 +10,13 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Objects;
 
@@ -64,108 +65,56 @@ public class FingerprintTestActivity extends AppCompatActivity {
             Thread startFingerprint = new Thread() {
                 @Override
                 public void run() {
-                    txtFingerprintStatus.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            txtFingerprintStatus.setText(R.string.fingerprint_test_start);
-                        }
-                    });
+                    txtFingerprintStatus.post(() -> txtFingerprintStatus.setText(R.string.fingerprint_test_start));
                     try {
                         Thread.sleep(500);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                     if (!fingerprintManagerCompat.isHardwareDetected()) {
-                        imgIsHardwareAvailable.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                imgIsHardwareAvailable.setImageResource(R.drawable.test_failed_alt);
-                                imgIsHardwareAvailable.setVisibility(View.VISIBLE);
-                            }
+                        imgIsHardwareAvailable.post(() -> {
+                            imgIsHardwareAvailable.setImageResource(R.drawable.test_failed_alt);
+                            imgIsHardwareAvailable.setVisibility(View.VISIBLE);
                         });
-                        txtFingerprintStatus.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                txtFingerprintStatus.setText(R.string.fingerprint_test_failed_no_hardware);
-                            }
-                        });
-                        btnDone.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                btnDone.setVisibility(View.VISIBLE);
-                            }
-                        });
+                        txtFingerprintStatus.post(() -> txtFingerprintStatus.setText(R.string.fingerprint_test_failed_no_hardware));
+                        btnDone.post(() -> btnDone.setVisibility(View.VISIBLE));
                         editPrefs.putInt("fingerprint_test_status", 0);
                         editPrefs.apply();
                         editPrefs.commit();
                     } else if (!fingerprintManagerCompat.hasEnrolledFingerprints()) {
-                        imgIsHardwareAvailable.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                imgIsEnrolled.setImageResource(R.drawable.test_failed_alt);
-                                imgIsEnrolled.setVisibility(View.VISIBLE);
-                            }
+                        imgIsHardwareAvailable.post(() -> {
+                            imgIsEnrolled.setImageResource(R.drawable.test_failed_alt);
+                            imgIsEnrolled.setVisibility(View.VISIBLE);
                         });
-                        txtFingerprintStatus.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                txtFingerprintStatus.setText(R.string.fingerprint_test_failed_not_enrolled);
-                            }
-                        });
-                        btnDone.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                btnDone.setVisibility(View.VISIBLE);
-                            }
-                        });
+                        txtFingerprintStatus.post(() -> txtFingerprintStatus.setText(R.string.fingerprint_test_failed_not_enrolled));
+                        btnDone.post(() -> btnDone.setVisibility(View.VISIBLE));
                         editPrefs.putInt("fingerprint_test_status", 0);
                         editPrefs.apply();
                         editPrefs.commit();
                     } else {
-                        imgIsHardwareAvailable.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                imgIsHardwareAvailable.setImageResource(R.drawable.test_success_alt);
-                                imgIsHardwareAvailable.setVisibility(View.VISIBLE);
-                            }
+                        imgIsHardwareAvailable.post(() -> {
+                            imgIsHardwareAvailable.setImageResource(R.drawable.test_success_alt);
+                            imgIsHardwareAvailable.setVisibility(View.VISIBLE);
                         });
                         try {
                             Thread.sleep(500);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        imgIsEnrolled.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                imgIsEnrolled.setImageResource(R.drawable.test_success_alt);
-                                imgIsEnrolled.setVisibility(View.VISIBLE);
-                            }
+                        imgIsEnrolled.post(() -> {
+                            imgIsEnrolled.setImageResource(R.drawable.test_success_alt);
+                            imgIsEnrolled.setVisibility(View.VISIBLE);
                         });
                         editPrefs.putInt("fingerprint_test_status", 1);
                         editPrefs.apply();
                         editPrefs.commit();
-                        txtFingerprintStatus.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                txtFingerprintStatus.setText(R.string.test_passed);
-                            }
-                        });
-                        btnDone.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                btnDone.setVisibility(View.VISIBLE);
-                            }
-                        });
+                        txtFingerprintStatus.post(() -> txtFingerprintStatus.setText(R.string.test_passed));
+                        btnDone.post(() -> btnDone.setVisibility(View.VISIBLE));
                     }
                 }
             };
             startFingerprint.start();
-            btnDone.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    finish();
-                }
-            });
+            btnDone.setOnClickListener(view -> finish());
 
         } catch (Exception ex) {
             txtFingerprintStatus.setText(R.string.test_failed);

@@ -10,7 +10,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.preference.PreferenceManager;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -51,39 +53,29 @@ public class DisplayTestActivity extends AppCompatActivity {
         final Button btnNext = findViewById(R.id.btnNext);
         final ImageButton imgbtn_failed = findViewById(R.id.imgbtn_failed);
         final ImageButton imgbtn_success = findViewById(R.id.imgbtn_success);
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent loadFullScreenDisplayTest = new Intent(context, DisplayTestFullScreen.class);
-                startActivity(loadFullScreenDisplayTest);
-                imgbtn_failed.setVisibility(View.VISIBLE);
-                imgbtn_success.setVisibility(View.VISIBLE);
-                btnNext.setVisibility(View.GONE);
-                txtDisplayText.setText(getResources().getString(R.string.display_test_question));
-            }
+        btnNext.setOnClickListener(v -> {
+            Intent loadFullScreenDisplayTest = new Intent(context, DisplayTestFullScreen.class);
+            startActivity(loadFullScreenDisplayTest);
+            imgbtn_failed.setVisibility(View.VISIBLE);
+            imgbtn_success.setVisibility(View.VISIBLE);
+            btnNext.setVisibility(View.GONE);
+            txtDisplayText.setText(getResources().getString(R.string.display_test_question));
         });
 
         sharedPrefs = getSharedPreferences("tests", MODE_PRIVATE);
         editPrefs = sharedPrefs.edit();
 
-        imgbtn_failed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                editPrefs.putInt("display_test_status", 0);
-                editPrefs.apply();
-                editPrefs.commit();
-                finish();
-            }
+        imgbtn_failed.setOnClickListener(v -> {
+            editPrefs.putInt("display_test_status", 0);
+            editPrefs.apply();
+            editPrefs.commit();
+            finish();
         });
-        imgbtn_success.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                editPrefs.putInt("display_test_status", 1);
-                editPrefs.apply();
-                editPrefs.commit();
-                finish();
-            }
+        imgbtn_success.setOnClickListener(v -> {
+            editPrefs.putInt("display_test_status", 1);
+            editPrefs.apply();
+            editPrefs.commit();
+            finish();
         });
-
     }
 }

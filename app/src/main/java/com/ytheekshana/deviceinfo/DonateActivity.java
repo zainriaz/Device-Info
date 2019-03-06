@@ -12,7 +12,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,12 +19,10 @@ import android.widget.Toast;
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.BillingFlowParams;
-import com.android.billingclient.api.ConsumeResponseListener;
 import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.android.billingclient.api.SkuDetails;
 import com.android.billingclient.api.SkuDetailsParams;
-import com.android.billingclient.api.SkuDetailsResponseListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,65 +79,49 @@ public class DonateActivity extends AppCompatActivity implements PurchasesUpdate
                         skuList.add("donate_huge");
                         skuDetailsParams = SkuDetailsParams.newBuilder();
                         skuDetailsParams.setSkusList(skuList).setType(BillingClient.SkuType.INAPP);
-                        mBillingClient.querySkuDetailsAsync(skuDetailsParams.build(), new SkuDetailsResponseListener() {
-                            @Override
-                            public void onSkuDetailsResponse(int responseCode, final List<SkuDetails> skuDetailsList) {
-                                if (responseCode == BillingClient.BillingResponse.OK
-                                        && skuDetailsList != null) {
-                                    for (SkuDetails skuDetails : skuDetailsList) {
-                                        String sku = skuDetails.getSku();
-                                        String price = skuDetails.getPrice();
-                                        if ("donate_coffee".equals(sku)) {
-                                            txt_coffee_price.setText(price);
-                                        } else if ("donate_lunch".equals(sku)) {
-                                            txt_lunch_price.setText(price);
-                                        } else if ("donate_sandwich".equals(sku)) {
-                                            txt_sandwich_price.setText(price);
-                                        } else if ("donate_huge".equals(sku)) {
-                                            txt_huge_price.setText(price);
-                                        }
+                        mBillingClient.querySkuDetailsAsync(skuDetailsParams.build(), (responseCode, skuDetailsList) -> {
+                            if (responseCode == BillingClient.BillingResponse.OK && skuDetailsList != null) {
+                                for (SkuDetails skuDetails : skuDetailsList) {
+                                    String sku = skuDetails.getSku();
+                                    String price = skuDetails.getPrice();
+                                    if ("donate_coffee".equals(sku)) {
+                                        txt_coffee_price.setText(price);
+                                    } else if ("donate_lunch".equals(sku)) {
+                                        txt_lunch_price.setText(price);
+                                    } else if ("donate_sandwich".equals(sku)) {
+                                        txt_sandwich_price.setText(price);
+                                    } else if ("donate_huge".equals(sku)) {
+                                        txt_huge_price.setText(price);
                                     }
-
-                                    btn_coffee.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            BillingFlowParams flowParams = BillingFlowParams.newBuilder()
-                                                    .setSkuDetails(skuDetailsList.get(0))
-                                                    .build();
-                                            mBillingClient.launchBillingFlow(activity, flowParams);
-                                        }
-                                    });
-
-                                    btn_sandwich.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            BillingFlowParams flowParams = BillingFlowParams.newBuilder()
-                                                    .setSkuDetails(skuDetailsList.get(3))
-                                                    .build();
-                                            mBillingClient.launchBillingFlow(activity, flowParams);
-                                        }
-                                    });
-
-                                    btn_lunch.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            BillingFlowParams flowParams = BillingFlowParams.newBuilder()
-                                                    .setSkuDetails(skuDetailsList.get(2))
-                                                    .build();
-                                            mBillingClient.launchBillingFlow(activity, flowParams);
-                                        }
-                                    });
-
-                                    btn_huge.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            BillingFlowParams flowParams = BillingFlowParams.newBuilder()
-                                                    .setSkuDetails(skuDetailsList.get(1))
-                                                    .build();
-                                            mBillingClient.launchBillingFlow(activity, flowParams);
-                                        }
-                                    });
                                 }
+
+                                btn_coffee.setOnClickListener(view -> {
+                                    BillingFlowParams flowParams = BillingFlowParams.newBuilder()
+                                            .setSkuDetails(skuDetailsList.get(0))
+                                            .build();
+                                    mBillingClient.launchBillingFlow(activity, flowParams);
+                                });
+
+                                btn_huge.setOnClickListener(view -> {
+                                    BillingFlowParams flowParams = BillingFlowParams.newBuilder()
+                                            .setSkuDetails(skuDetailsList.get(1))
+                                            .build();
+                                    mBillingClient.launchBillingFlow(activity, flowParams);
+                                });
+
+                                btn_lunch.setOnClickListener(view -> {
+                                    BillingFlowParams flowParams = BillingFlowParams.newBuilder()
+                                            .setSkuDetails(skuDetailsList.get(2))
+                                            .build();
+                                    mBillingClient.launchBillingFlow(activity, flowParams);
+                                });
+
+                                btn_sandwich.setOnClickListener(view -> {
+                                    BillingFlowParams flowParams = BillingFlowParams.newBuilder()
+                                            .setSkuDetails(skuDetailsList.get(3))
+                                            .build();
+                                    mBillingClient.launchBillingFlow(activity, flowParams);
+                                });
                             }
                         });
                     }
@@ -161,12 +142,7 @@ public class DonateActivity extends AppCompatActivity implements PurchasesUpdate
         try {
             if (responseCode == BillingClient.BillingResponse.OK && purchases != null) {
                 for (Purchase purchase : purchases) {
-                    mBillingClient.consumeAsync(purchase.getPurchaseToken(), new ConsumeResponseListener() {
-                        @Override
-                        public void onConsumeResponse(int responseCode, String purchaseToken) {
-                            Toast.makeText(activity, "Thanks for the donation", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    mBillingClient.consumeAsync(purchase.getPurchaseToken(), (responseCode1, purchaseToken) -> Toast.makeText(activity, "Thanks for the donation", Toast.LENGTH_SHORT).show());
                 }
             } else if (responseCode == BillingClient.BillingResponse.USER_CANCELED) {
                 Toast.makeText(activity, "Purchase Cancelled", Toast.LENGTH_SHORT).show();

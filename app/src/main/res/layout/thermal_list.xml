@@ -16,7 +16,6 @@
             android:id="@+id/txtThermalName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="dsfdfdgdg"
             android:textSize="16sp" />
 
         <TextView
@@ -25,8 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtThermalName"
             android:fontFamily="@font/google"
-            android:paddingTop="15px"
-            android:text="fxgfxgfgfg"
+            android:paddingTop="8dp"
             android:textSize="18sp"
             android:textStyle="bold" />
     </RelativeLayout>

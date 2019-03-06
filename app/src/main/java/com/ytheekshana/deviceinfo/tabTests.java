@@ -8,17 +8,15 @@ import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.cardview.widget.CardView;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.util.Objects;
 
@@ -84,101 +82,65 @@ public class tabTests extends Fragment {
         }
 
 
-        cardviewFlashlight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent loadFlashlight = new Intent(getContext(), FlashlightTestActivity.class);
-                startActivity(loadFlashlight);
-                Objects.requireNonNull(getActivity()).overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
-            }
+        cardviewFlashlight.setOnClickListener(v -> {
+            Intent loadFlashlight = new Intent(getContext(), FlashlightTestActivity.class);
+            startActivity(loadFlashlight);
+            Objects.requireNonNull(getActivity()).overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
         });
-        cardviewDisplay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent loadDisplay = new Intent(getContext(), DisplayTestActivity.class);
-                startActivity(loadDisplay);
-                Objects.requireNonNull(getActivity()).overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
-            }
+        cardviewDisplay.setOnClickListener(v -> {
+            Intent loadDisplay = new Intent(getContext(), DisplayTestActivity.class);
+            startActivity(loadDisplay);
+            Objects.requireNonNull(getActivity()).overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
         });
-        cardviewLoudSpeaker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent loadLoudSpeaker = new Intent(getContext(), LoudSpeakerTestActivity.class);
-                startActivity(loadLoudSpeaker);
-                Objects.requireNonNull(getActivity()).overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
-            }
+        cardviewLoudSpeaker.setOnClickListener(v -> {
+            Intent loadLoudSpeaker = new Intent(getContext(), LoudSpeakerTestActivity.class);
+            startActivity(loadLoudSpeaker);
+            Objects.requireNonNull(getActivity()).overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
         });
-        cardviewEarSpeaker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent loadEarSpeaker = new Intent(getContext(), EarSpeakerTestActivity.class);
-                startActivity(loadEarSpeaker);
-                Objects.requireNonNull(getActivity()).overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
-            }
+        cardviewEarSpeaker.setOnClickListener(v -> {
+            Intent loadEarSpeaker = new Intent(getContext(), EarSpeakerTestActivity.class);
+            startActivity(loadEarSpeaker);
+            Objects.requireNonNull(getActivity()).overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
         });
-        cardviewEarProximity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent loadEarProximity = new Intent(getContext(), EarProximityTestActivity.class);
-                startActivity(loadEarProximity);
-                Objects.requireNonNull(getActivity()).overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
-            }
+        cardviewEarProximity.setOnClickListener(v -> {
+            Intent loadEarProximity = new Intent(getContext(), EarProximityTestActivity.class);
+            startActivity(loadEarProximity);
+            Objects.requireNonNull(getActivity()).overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
         });
-        cardviewLightSensor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent loadLightSensor = new Intent(getContext(), LightSensorTestActivity.class);
-                startActivity(loadLightSensor);
-                Objects.requireNonNull(getActivity()).overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
-            }
+        cardviewLightSensor.setOnClickListener(v -> {
+            Intent loadLightSensor = new Intent(getContext(), LightSensorTestActivity.class);
+            startActivity(loadLightSensor);
+            Objects.requireNonNull(getActivity()).overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
         });
-        cardviewVibration.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent loadVibration = new Intent(getContext(), VibrationTestActivity.class);
-                startActivity(loadVibration);
-                Objects.requireNonNull(getActivity()).overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
-            }
+        cardviewVibration.setOnClickListener(v -> {
+            Intent loadVibration = new Intent(getContext(), VibrationTestActivity.class);
+            startActivity(loadVibration);
+            Objects.requireNonNull(getActivity()).overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
         });
-        cardviewWifi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent loadWifi = new Intent(getContext(), WifiTestActivity.class);
-                startActivity(loadWifi);
-                Objects.requireNonNull(getActivity()).overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
-            }
+        cardviewWifi.setOnClickListener(v -> {
+            Intent loadWifi = new Intent(getContext(), WifiTestActivity.class);
+            startActivity(loadWifi);
+            Objects.requireNonNull(getActivity()).overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
         });
-        cardviewBluetooth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent loadBluetooth = new Intent(getContext(), BluetoothTestActivity.class);
-                startActivity(loadBluetooth);
-                Objects.requireNonNull(getActivity()).overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
-            }
+        cardviewBluetooth.setOnClickListener(v -> {
+            Intent loadBluetooth = new Intent(getContext(), BluetoothTestActivity.class);
+            startActivity(loadBluetooth);
+            Objects.requireNonNull(getActivity()).overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
         });
-        cardviewFingerprint.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent loadFingerprint = new Intent(getContext(), FingerprintTestActivity.class);
-                startActivity(loadFingerprint);
-                Objects.requireNonNull(getActivity()).overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
-            }
+        cardviewFingerprint.setOnClickListener(v -> {
+            Intent loadFingerprint = new Intent(getContext(), FingerprintTestActivity.class);
+            startActivity(loadFingerprint);
+            Objects.requireNonNull(getActivity()).overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
         });
-        cardviewVolumeUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent loadVolumeUp = new Intent(getContext(), VolumeUpTestActivity.class);
-                startActivity(loadVolumeUp);
-                Objects.requireNonNull(getActivity()).overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
-            }
+        cardviewVolumeUp.setOnClickListener(v -> {
+            Intent loadVolumeUp = new Intent(getContext(), VolumeUpTestActivity.class);
+            startActivity(loadVolumeUp);
+            Objects.requireNonNull(getActivity()).overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
         });
-        cardviewVolumeDown.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent loadVolumeDown = new Intent(getContext(), VolumeDownTestActivity.class);
-                startActivity(loadVolumeDown);
-                Objects.requireNonNull(getActivity()).overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
-            }
+        cardviewVolumeDown.setOnClickListener(v -> {
+            Intent loadVolumeDown = new Intent(getContext(), VolumeDownTestActivity.class);
+            startActivity(loadVolumeDown);
+            Objects.requireNonNull(getActivity()).overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
         });
 
 
@@ -206,30 +168,30 @@ public class tabTests extends Fragment {
         int volumeup_test_status = sharedPref.getInt("volumeup_test_status", 2);
         int volumedown_test_status = sharedPref.getInt("volumedown_test_status", 2);
 
-        updateImageView(imgFlashlightTest,flashstatus);
-        updateImageView(imgDisplayTest,displaystatus);
-        updateImageView(imgLoudSpeakerTest,loudspeakerstatus);
-        updateImageView(imgEarSpeakerTest,earspeakerstatus);
-        updateImageView(imgEarProximityTest,earproximitystatus);
-        updateImageView(imgLightSensorTest,lightsensorstatus);
-        updateImageView(imgVibrationTest,vibrationstatus);
-        updateImageView(imgWifiTest,wifistatus);
-        updateImageView(imgBluetoothTest,bluetoothstatus);
-        updateImageView(imgFingerprintTest,fingerprintstatus);
-        updateImageView(imgVolumeUpTest,volumeup_test_status);
-        updateImageView(imgVolumeDownTest,volumedown_test_status);
+        updateImageView(imgFlashlightTest, flashstatus);
+        updateImageView(imgDisplayTest, displaystatus);
+        updateImageView(imgLoudSpeakerTest, loudspeakerstatus);
+        updateImageView(imgEarSpeakerTest, earspeakerstatus);
+        updateImageView(imgEarProximityTest, earproximitystatus);
+        updateImageView(imgLightSensorTest, lightsensorstatus);
+        updateImageView(imgVibrationTest, vibrationstatus);
+        updateImageView(imgWifiTest, wifistatus);
+        updateImageView(imgBluetoothTest, bluetoothstatus);
+        updateImageView(imgFingerprintTest, fingerprintstatus);
+        updateImageView(imgVolumeUpTest, volumeup_test_status);
+        updateImageView(imgVolumeDownTest, volumedown_test_status);
     }
 
-    private void updateImageView(ImageView imageView, int status){
+    private void updateImageView(ImageView imageView, int status) {
         if (status == 0) {
             imageView.setImageResource(R.drawable.test_failed);
             imageView.setColorFilter(ContextCompat.getColor(Objects.requireNonNull(getContext()), R.color.test_failed));
         } else if (status == 1) {
             imageView.setImageResource(R.drawable.test_success);
-            imageView.setColorFilter(ContextCompat.getColor(Objects.requireNonNull(getContext()),R.color.test_success));
+            imageView.setColorFilter(ContextCompat.getColor(Objects.requireNonNull(getContext()), R.color.test_success));
         } else if (status == 2) {
             imageView.setImageResource(R.drawable.test_default);
-            imageView.setColorFilter(ContextCompat.getColor(Objects.requireNonNull(getContext()),R.color.test_default));
+            imageView.setColorFilter(ContextCompat.getColor(Objects.requireNonNull(getContext()), R.color.test_default));
         }
     }
 }

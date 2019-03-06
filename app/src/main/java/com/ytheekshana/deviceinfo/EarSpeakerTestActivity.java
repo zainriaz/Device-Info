@@ -15,12 +15,10 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import android.os.Bundle;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageButton;
 
 import com.nabinbhandari.android.permissions.PermissionHandler;
 import com.nabinbhandari.android.permissions.Permissions;
@@ -63,23 +61,17 @@ public class EarSpeakerTestActivity extends AppCompatActivity {
 
             ImageButton imgbtn_failed = findViewById(R.id.imgbtn_failed);
             ImageButton imgbtn_success = findViewById(R.id.imgbtn_success);
-            imgbtn_failed.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    editPrefs.putInt("earspeaker_test_status", 0);
-                    editPrefs.apply();
-                    editPrefs.commit();
-                    finish();
-                }
+            imgbtn_failed.setOnClickListener(v -> {
+                editPrefs.putInt("earspeaker_test_status", 0);
+                editPrefs.apply();
+                editPrefs.commit();
+                finish();
             });
-            imgbtn_success.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    editPrefs.putInt("earspeaker_test_status", 1);
-                    editPrefs.apply();
-                    editPrefs.commit();
-                    finish();
-                }
+            imgbtn_success.setOnClickListener(v -> {
+                editPrefs.putInt("earspeaker_test_status", 1);
+                editPrefs.apply();
+                editPrefs.commit();
+                finish();
             });
 
 
@@ -94,6 +86,7 @@ public class EarSpeakerTestActivity extends AppCompatActivity {
                     public void onGranted() {
                         testEarSpeaker();
                     }
+
                     @Override
                     public void onDenied(Context context, ArrayList<String> deniedPermissions) {
                         finish();

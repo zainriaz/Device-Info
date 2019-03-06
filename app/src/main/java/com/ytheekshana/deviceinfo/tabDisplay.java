@@ -1,8 +1,6 @@
 package com.ytheekshana.deviceinfo;
 
 import android.graphics.Typeface;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.LayoutInflater;
@@ -11,7 +9,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.android.material.snackbar.Snackbar;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import java.util.Objects;
 
@@ -26,14 +25,14 @@ public class tabDisplay extends Fragment {
             int textDisColor = MainActivity.themeColor;
             int lineColor = GetDetails.getThemeColor(Objects.requireNonNull(getContext()), R.attr.colorButtonNormal);
 
-            String brightnessLevelPerc = String.valueOf((Settings.System.getInt(getContext().getContentResolver(),Settings.System.SCREEN_BRIGHTNESS)*100)/255)+"%";
-            String brightnessMode="";
-            if(Settings.System.getInt(getContext().getContentResolver(),Settings.System.SCREEN_BRIGHTNESS_MODE)==Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC){
+            String brightnessLevelPerc = String.valueOf((Settings.System.getInt(getContext().getContentResolver(), Settings.System.SCREEN_BRIGHTNESS) * 100) / 255) + "%";
+            String brightnessMode = "";
+            if (Settings.System.getInt(getContext().getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE) == Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC) {
                 brightnessMode = "Adaptive";
-            }else if(Settings.System.getInt(getContext().getContentResolver(),Settings.System.SCREEN_BRIGHTNESS_MODE)==Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL){
+            } else if (Settings.System.getInt(getContext().getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE) == Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL) {
                 brightnessMode = "Manual";
             }
-            String screenTimeout = String.valueOf(Settings.System.getInt(getContext().getContentResolver(),Settings.System.SCREEN_OFF_TIMEOUT)/1000)+" Seconds";
+            String screenTimeout = String.valueOf(Settings.System.getInt(getContext().getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT) / 1000) + " Seconds";
 
             TextView txtResolution = new TextView(getContext());
             TextView txtResolutiondis = new TextView(getContext());

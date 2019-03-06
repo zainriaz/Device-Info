@@ -12,10 +12,10 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.preference.PreferenceManager;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageButton;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.nabinbhandari.android.permissions.PermissionHandler;
 import com.nabinbhandari.android.permissions.Permissions;
@@ -61,23 +61,17 @@ public class FlashlightTestActivity extends AppCompatActivity {
 
             ImageButton imgbtn_failed = findViewById(R.id.imgbtn_failed);
             ImageButton imgbtn_success = findViewById(R.id.imgbtn_success);
-            imgbtn_failed.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    editPrefs.putInt("flashlight_test_status", 0);
-                    editPrefs.apply();
-                    editPrefs.commit();
-                    finish();
-                }
+            imgbtn_failed.setOnClickListener(v -> {
+                editPrefs.putInt("flashlight_test_status", 0);
+                editPrefs.apply();
+                editPrefs.commit();
+                finish();
             });
-            imgbtn_success.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    editPrefs.putInt("flashlight_test_status", 1);
-                    editPrefs.apply();
-                    editPrefs.commit();
-                    finish();
-                }
+            imgbtn_success.setOnClickListener(v -> {
+                editPrefs.putInt("flashlight_test_status", 1);
+                editPrefs.apply();
+                editPrefs.commit();
+                finish();
             });
 
             lantern = new Lantern(this);
@@ -89,6 +83,7 @@ public class FlashlightTestActivity extends AppCompatActivity {
                         lantern.initTorch();
                         lantern.enableTorchMode(true);
                     }
+
                     @Override
                     public void onDenied(Context context, ArrayList<String> deniedPermissions) {
                         finish();

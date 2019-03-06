@@ -13,6 +13,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.Preference;
@@ -20,13 +22,9 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreference;
 
-import android.view.MenuItem;
-import android.widget.Toast;
-
 import com.kizitonwose.colorpreference.ColorDialog;
 import com.obsez.android.lib.filechooser.ChooserDialog;
 
-import java.io.File;
 import java.util.Objects;
 
 @SuppressLint("StaticFieldLeak")
@@ -81,25 +79,23 @@ public class SettingsActivity extends AppCompatActivity implements ColorDialog.O
                 theme_color = findPreference("accent_color_dialog");
                 dark_theme_Pref = findPreference("dark_theme_switch");
                 app_version_pref = findPreference("app_version_pref");
-                dark_theme_Pref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                    public boolean onPreferenceClick(Preference preference) {
+                dark_theme_Pref.setOnPreferenceClickListener(preference -> {
 
-                        if (dark_theme_Pref.isChecked()) {
-                            shareEdit.putInt("ThemeNoBar", R.style.AppThemeDark_NoActionBar);
-                            shareEdit.putInt("ThemeBar", R.style.AppThemeDark);
-                            dark_theme_Pref.setSummary("Disable Dark Theme");
-                        } else {
-                            shareEdit.putInt("ThemeNoBar", R.style.AppTheme_NoActionBar);
-                            shareEdit.putInt("ThemeBar", R.style.AppTheme);
-                            dark_theme_Pref.setSummary("Enable Dark Theme");
-                        }
-                        shareEdit.apply();
-                        shareEdit.commit();
-                        if (getActivity() != null) {
-                            getActivity().recreate();
-                        }
-                        return true;
+                    if (dark_theme_Pref.isChecked()) {
+                        shareEdit.putInt("ThemeNoBar", R.style.AppThemeDark_NoActionBar);
+                        shareEdit.putInt("ThemeBar", R.style.AppThemeDark);
+                        dark_theme_Pref.setSummary("Disable Dark Theme");
+                    } else {
+                        shareEdit.putInt("ThemeNoBar", R.style.AppTheme_NoActionBar);
+                        shareEdit.putInt("ThemeBar", R.style.AppTheme);
+                        dark_theme_Pref.setSummary("Enable Dark Theme");
                     }
+                    shareEdit.apply();
+                    shareEdit.commit();
+                    if (getActivity() != null) {
+                        getActivity().recreate();
+                    }
+                    return true;
                 });
 
                 if (sharedPrefs.getInt("ThemeBar", 0) == R.style.AppThemeDark) {
@@ -111,60 +107,48 @@ public class SettingsActivity extends AppCompatActivity implements ColorDialog.O
                 }
                 app_version_pref.setSummary(BuildConfig.VERSION_NAME);
                 pref_rate_us = findPreference("pref_rate_us");
-                pref_rate_us.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setData(Uri.parse("https://play.google.com/store/apps/details?id=com.ytheekshana.deviceinfo"));
-                        intent.setPackage("com.android.vending");
-                        if(intent.resolveActivity(Objects.requireNonNull(getContext()).getPackageManager())!=null){
-                            startActivity(intent);
-                        }else{
-                            Toast.makeText(getContext(), "Google Play Store not found", Toast.LENGTH_SHORT).show();
-                        }
-                        return true;
+                pref_rate_us.setOnPreferenceClickListener(preference -> {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse("https://play.google.com/store/apps/details?id=com.ytheekshana.deviceinfo"));
+                    intent.setPackage("com.android.vending");
+                    if (intent.resolveActivity(Objects.requireNonNull(getContext()).getPackageManager()) != null) {
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(getContext(), "Google Play Store not found", Toast.LENGTH_SHORT).show();
                     }
+                    return true;
                 });
                 pref_donate = findPreference("pref_donate");
-                pref_donate.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
-                        Intent intent = new Intent(getActivity(), DonateActivity.class);
-                        startActivity(intent);
-                        Objects.requireNonNull(getActivity()).overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
-                        return true;
-                    }
+                pref_donate.setOnPreferenceClickListener(preference -> {
+                    Intent intent = new Intent(getActivity(), DonateActivity.class);
+                    startActivity(intent);
+                    Objects.requireNonNull(getActivity()).overridePendingTransition(R.anim.slide_activity_enter, R.anim.slide_activity_exit);
+                    return true;
                 });
                 pref_extract_location = findPreference("pref_extract_location");
                 String getExtractpath = sharedPrefs.getString("extract_location", "/storage/emulated/0/DeviceInfo");
                 pref_extract_location.setSummary(getExtractpath);
-                pref_extract_location.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
+                pref_extract_location.setOnPreferenceClickListener(preference -> {
 
-                        ChooserDialog chooseLocation = new ChooserDialog(getActivity());
-                        chooseLocation.enableOptions(true);
-                        chooseLocation.withResources(R.string.file_chooser_title, R.string.file_chooser_choose, R.string.file_chooser_cancel);
-                        chooseLocation.withFilter(true, false);
-                        chooseLocation.withStartFile(Environment.getExternalStorageDirectory().getAbsolutePath());
-                        chooseLocation.withChosenListener(new ChooserDialog.Result() {
-                            @Override
-                            public void onChoosePath(String path, File pathFile) {
-                                shareEdit.putString("extract_location", path);
-                                shareEdit.apply();
-                                shareEdit.commit();
-                                pref_extract_location.setSummary(path);
-                            }
-                        });
-                        if (dark_theme_Pref.isChecked()) {
-                            chooseLocation.withRowLayoutView(R.layout.file_chooser_layout_dark);
-                        } else {
-                            chooseLocation.withRowLayoutView(R.layout.file_chooser_layout_light);
-                        }
-                        chooseLocation.build();
-                        chooseLocation.show();
-                        return true;
+                    ChooserDialog chooseLocation = new ChooserDialog(getActivity());
+                    chooseLocation.enableOptions(true);
+                    chooseLocation.withResources(R.string.file_chooser_title, R.string.file_chooser_choose, R.string.file_chooser_cancel);
+                    chooseLocation.withFilter(true, false);
+                    chooseLocation.withStartFile(Environment.getExternalStorageDirectory().getAbsolutePath());
+                    chooseLocation.withChosenListener((path, pathFile) -> {
+                        shareEdit.putString("extract_location", path);
+                        shareEdit.apply();
+                        shareEdit.commit();
+                        pref_extract_location.setSummary(path);
+                    });
+                    if (dark_theme_Pref.isChecked()) {
+                        chooseLocation.withRowLayoutView(R.layout.file_chooser_layout_dark);
+                    } else {
+                        chooseLocation.withRowLayoutView(R.layout.file_chooser_layout_light);
                     }
+                    chooseLocation.build();
+                    chooseLocation.show();
+                    return true;
                 });
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -202,23 +186,15 @@ public class SettingsActivity extends AppCompatActivity implements ColorDialog.O
             themeBarValue = sharedPref.getInt("ThemeBar", 0);
 
             ValueAnimator actionBarAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), themeColor, newColor);
-            actionBarAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-
-                @Override
-                public void onAnimationUpdate(ValueAnimator animator) {
-                    if (themeBarValue != R.style.AppThemeDark) {
-                        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable((Integer) animator.getAnimatedValue()));
-                    }
+            actionBarAnimator.addUpdateListener(animator -> {
+                if (themeBarValue != R.style.AppThemeDark) {
+                    Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable((Integer) animator.getAnimatedValue()));
                 }
             });
             ValueAnimator statusBarAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), themeColorDark, GetDetails.getDarkColor(this, newColor));
-            statusBarAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-
-                @Override
-                public void onAnimationUpdate(ValueAnimator animator) {
-                    if (themeBarValue != R.style.AppThemeDark) {
-                        getWindow().setStatusBarColor((Integer) animator.getAnimatedValue());
-                    }
+            statusBarAnimator.addUpdateListener(animator -> {
+                if (themeBarValue != R.style.AppThemeDark) {
+                    getWindow().setStatusBarColor((Integer) animator.getAnimatedValue());
                 }
             });
             actionBarAnimator.setDuration(800);

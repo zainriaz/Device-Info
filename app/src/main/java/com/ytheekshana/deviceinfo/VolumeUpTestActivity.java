@@ -10,12 +10,12 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Objects;
 
@@ -56,23 +56,17 @@ public class VolumeUpTestActivity extends AppCompatActivity {
             imgVolumeUpImage = findViewById(R.id.imgVolumeUpImage);
             ImageButton imgbtn_failed = findViewById(R.id.imgbtn_failed);
             ImageButton imgbtn_success = findViewById(R.id.imgbtn_success);
-            imgbtn_failed.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    editPrefs.putInt("volumeup_test_status", 0);
-                    editPrefs.apply();
-                    editPrefs.commit();
-                    finish();
-                }
+            imgbtn_failed.setOnClickListener(v -> {
+                editPrefs.putInt("volumeup_test_status", 0);
+                editPrefs.apply();
+                editPrefs.commit();
+                finish();
             });
-            imgbtn_success.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    editPrefs.putInt("volumeup_test_status", 1);
-                    editPrefs.apply();
-                    editPrefs.commit();
-                    finish();
-                }
+            imgbtn_success.setOnClickListener(v -> {
+                editPrefs.putInt("volumeup_test_status", 1);
+                editPrefs.apply();
+                editPrefs.commit();
+                finish();
             });
             vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 

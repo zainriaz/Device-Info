@@ -13,10 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Build;
 import android.preference.PreferenceManager;
-import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -57,7 +55,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> impl
         filterMDataSet = list;
     }
 
-    void addData(ArrayList<AppInfo> list){
+    void addData(ArrayList<AppInfo> list) {
         mDataSet.clear();
         mDataSet.addAll(list);
     }
@@ -107,118 +105,103 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> impl
         holder.itemView.startAnimation(animation);
         lastPosition = position;
 
-        holder.itemView.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
-            @Override
-            public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-                menu.setHeaderTitle(appName);
-                menu.add("App Info").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                        intent.setData(Uri.parse("package:" + packageName));
-                        context.startActivity(intent);
-                        return true;
-                    }
-                });
-                menu.add("Extract App").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            Permissions.check(context, Manifest.permission.WRITE_EXTERNAL_STORAGE, null, new PermissionHandler() {
-                                @Override
-                                public void onGranted() {
-                                    extractApp(context, packageName, holder.progressApp);
-                                }
-
-                                @Override
-                                public void onDenied(Context context, ArrayList<String> deniedPermissions) {
-                                    Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        } else {
+        holder.itemView.setOnCreateContextMenuListener((menu, v, menuInfo) -> {
+            menu.setHeaderTitle(appName);
+            menu.add("App Info").setOnMenuItemClickListener(item -> {
+                Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                intent.setData(Uri.parse("package:" + packageName));
+                context.startActivity(intent);
+                return true;
+            });
+            menu.add("Extract App").setOnMenuItemClickListener(item -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    Permissions.check(context, Manifest.permission.WRITE_EXTERNAL_STORAGE, null, new PermissionHandler() {
+                        @Override
+                        public void onGranted() {
                             extractApp(context, packageName, holder.progressApp);
                         }
-                        return true;
-                    }
-                });
-                menu.add("Uninstall").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        Intent intent = new Intent(Intent.ACTION_UNINSTALL_PACKAGE);
-                        intent.setData(Uri.parse("package:" + packageName));
-                        context.startActivity(intent);
-                        mDataSet.remove(holder.getAdapterPosition());
-                        notifyItemRemoved(holder.getAdapterPosition());
-                        notifyItemRangeChanged(holder.getAdapterPosition(),1);
-                        return true;
-                    }
-                });
-            }
+
+                        @Override
+                        public void onDenied(Context context1, ArrayList<String> deniedPermissions) {
+                            Toast.makeText(context1, "Permission Denied", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    extractApp(context, packageName, holder.progressApp);
+                }
+                return true;
+            });
+            menu.add("Uninstall").setOnMenuItemClickListener(item -> {
+                Intent intent = new Intent(Intent.ACTION_UNINSTALL_PACKAGE);
+                intent.setData(Uri.parse("package:" + packageName));
+                context.startActivity(intent);
+                mDataSet.remove(holder.getAdapterPosition());
+                notifyItemRemoved(holder.getAdapterPosition());
+                notifyItemRangeChanged(holder.getAdapterPosition(), 1);
+                return true;
+            });
         });
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        holder.itemView.setOnClickListener(v -> {
 
-                try {
-                    LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
-                    View customView = inflater != null ? inflater.inflate(R.layout.apps_popup, null) : null;
-                    RelativeLayout heading_layout = Objects.requireNonNull(customView).findViewById(R.id.heading_layout);
-                    heading_layout.setBackgroundColor(TextDisColor);
+            try {
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
+                View customView = inflater != null ? inflater.inflate(R.layout.apps_popup, null) : null;
+                RelativeLayout heading_layout = Objects.requireNonNull(customView).findViewById(R.id.heading_layout);
+                heading_layout.setBackgroundColor(TextDisColor);
 
-                    TextView txtappname = customView.findViewById(R.id.txtappnameheading);
-                    TextView txtpackagename = customView.findViewById(R.id.txtpackagenameheading);
-                    TextView txtappversion = customView.findViewById(R.id.txtappversion);
-                    TextView txtappminsdk = customView.findViewById(R.id.txtappminsdk);
-                    TextView txtapptargetsdk = customView.findViewById(R.id.txtapptargetsdk);
-                    TextView txtappinstalldate = customView.findViewById(R.id.txtappinstalldate);
-                    TextView txtappupdatedate = customView.findViewById(R.id.txtappupdatedate);
-                    ImageView imgappicon = customView.findViewById(R.id.imgappicon);
+                TextView txtappname = customView.findViewById(R.id.txtappnameheading);
+                TextView txtpackagename = customView.findViewById(R.id.txtpackagenameheading);
+                TextView txtappversion = customView.findViewById(R.id.txtappversion);
+                TextView txtappminsdk = customView.findViewById(R.id.txtappminsdk);
+                TextView txtapptargetsdk = customView.findViewById(R.id.txtapptargetsdk);
+                TextView txtappinstalldate = customView.findViewById(R.id.txtappinstalldate);
+                TextView txtappupdatedate = customView.findViewById(R.id.txtappupdatedate);
+                ImageView imgappicon = customView.findViewById(R.id.imgappicon);
 
-                    PopupWindow mPopupWindow = new PopupWindow(customView, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-                    mPopupWindow.setElevation(5.0f);
+                PopupWindow mPopupWindow = new PopupWindow(customView, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+                mPopupWindow.setElevation(5.0f);
 
-                    txtappname.setText(appName);
-                    txtpackagename.setText(packageName);
-                    txtappversion.setText(versionName);
+                txtappname.setText(appName);
+                txtpackagename.setText(packageName);
+                txtappversion.setText(versionName);
 
-                    ApplicationInfo appinfo = context.getPackageManager().getApplicationInfo(packageName, 0);
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                        int minsdk = appinfo.minSdkVersion;
-                        String minsdkall = "Min : Android " + GetDetails.getAndroidVersion(minsdk) + " (" + GetDetails.GetOSName(minsdk) + ", API " + minsdk + ")";
-                        txtappminsdk.setText(minsdkall);
-                    } else {
-                        txtappminsdk.setVisibility(View.GONE);
-                        txtappminsdk.setText(R.string.unknown_min_sdk);
-                    }
-                    int targetsdk = appinfo.targetSdkVersion;
-                    String targetsdkall = "Target : Android " + GetDetails.getAndroidVersion(targetsdk) + " (" + GetDetails.GetOSName(targetsdk) + ", API " + targetsdk + ")";
-                    txtapptargetsdk.setText(targetsdkall);
-
-                    String insdate = new SimpleDateFormat("EEE, d MMM yyyy", Locale.US).format(new Date(context.getPackageManager().getPackageInfo(packageName, 0).firstInstallTime));
-                    String finalinsdate = "Installed : " + insdate;
-                    txtappinstalldate.setText(finalinsdate);
-
-                    String updatedate = new SimpleDateFormat("EEE, d MMM yyyy", Locale.US).format(new Date(context.getPackageManager().getPackageInfo(packageName, 0).lastUpdateTime));
-                    String finalupdatedate = "Last Updated : " + updatedate;
-                    txtappupdatedate.setText(finalupdatedate);
-
-                    Drawable icon = context.getPackageManager().getApplicationIcon(packageName);
-                    imgappicon.setImageDrawable(icon);
-
-                    mPopupWindow.showAtLocation(customView, Gravity.CENTER, 0, 0);
-                    View container = (View) mPopupWindow.getContentView().getParent();
-                    WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-                    WindowManager.LayoutParams p = (WindowManager.LayoutParams) container.getLayoutParams();
-                    p.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
-                    p.dimAmount = 0.5f;
-                    if (wm != null) {
-                        wm.updateViewLayout(container, p);
-                    }
-
-                } catch (Exception ex) {
-                    ex.printStackTrace();
+                ApplicationInfo appinfo = context.getPackageManager().getApplicationInfo(packageName, 0);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    int minsdk = appinfo.minSdkVersion;
+                    String minsdkall = "Min : Android " + GetDetails.getAndroidVersion(minsdk) + " (" + GetDetails.GetOSName(minsdk) + ", API " + minsdk + ")";
+                    txtappminsdk.setText(minsdkall);
+                } else {
+                    txtappminsdk.setVisibility(View.GONE);
+                    txtappminsdk.setText(R.string.unknown_min_sdk);
                 }
+                int targetsdk = appinfo.targetSdkVersion;
+                String targetsdkall = "Target : Android " + GetDetails.getAndroidVersion(targetsdk) + " (" + GetDetails.GetOSName(targetsdk) + ", API " + targetsdk + ")";
+                txtapptargetsdk.setText(targetsdkall);
+
+                String insdate = new SimpleDateFormat("EEE, d MMM yyyy", Locale.US).format(new Date(context.getPackageManager().getPackageInfo(packageName, 0).firstInstallTime));
+                String finalinsdate = "Installed : " + insdate;
+                txtappinstalldate.setText(finalinsdate);
+
+                String updatedate = new SimpleDateFormat("EEE, d MMM yyyy", Locale.US).format(new Date(context.getPackageManager().getPackageInfo(packageName, 0).lastUpdateTime));
+                String finalupdatedate = "Last Updated : " + updatedate;
+                txtappupdatedate.setText(finalupdatedate);
+
+                Drawable icon = context.getPackageManager().getApplicationIcon(packageName);
+                imgappicon.setImageDrawable(icon);
+
+                mPopupWindow.showAtLocation(customView, Gravity.CENTER, 0, 0);
+                View container = (View) mPopupWindow.getContentView().getParent();
+                WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+                WindowManager.LayoutParams p = (WindowManager.LayoutParams) container.getLayoutParams();
+                p.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+                p.dimAmount = 0.5f;
+                if (wm != null) {
+                    wm.updateViewLayout(container, p);
+                }
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
         });
     }
@@ -249,19 +232,11 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> impl
                 new Thread() {
                     @Override
                     public void run() {
-                        progressApp.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                progressApp.setVisibility(View.VISIBLE);
-                            }
-                        });
+                        progressApp.post(() -> progressApp.setVisibility(View.VISIBLE));
                         GetDetails.copy(sourceFile.getAbsoluteFile(), new File(destinationFile, packageName + ".apk"));
-                        progressApp.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                progressApp.setVisibility(View.GONE);
-                                Toast.makeText(context, "Exported to " + getExtractpath + "/", Toast.LENGTH_SHORT).show();
-                            }
+                        progressApp.post(() -> {
+                            progressApp.setVisibility(View.GONE);
+                            Toast.makeText(context, "Exported to " + getExtractpath + "/", Toast.LENGTH_SHORT).show();
                         });
 
                     }

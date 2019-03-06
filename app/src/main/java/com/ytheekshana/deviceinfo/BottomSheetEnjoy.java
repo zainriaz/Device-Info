@@ -6,9 +6,12 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,27 +44,19 @@ public class BottomSheetEnjoy extends BottomSheetDialogFragment {
         GradientDrawable gradientDrawable = (GradientDrawable) btnno.getBackground();
         gradientDrawable.setColor(themeColor);
 
-        btnok.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                BottomSheetReview bottomSheetReview = BottomSheetReview.newInstance();
-                bottomSheetReview.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), "ReviewAppFragment");
-                dismiss();
-            }
+        btnok.setOnClickListener(view12 -> {
+            BottomSheetReview bottomSheetReview = BottomSheetReview.newInstance();
+            bottomSheetReview.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), "ReviewAppFragment");
+            dismiss();
         });
 
-        btnno.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
+        btnno.setOnClickListener(view1 -> dismiss());
 
         return view;
     }
 
     @Override
-    public void onDismiss(DialogInterface dialog) {
+    public void onDismiss(@NonNull DialogInterface dialog) {
         if (getActivity() != null) {
             getActivity().finish();
         }

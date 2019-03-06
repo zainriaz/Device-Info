@@ -15,7 +15,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -72,12 +74,7 @@ public class BluetoothTestActivity extends AppCompatActivity {
                     } else {
                         bluetoothAdapter.enable();
                     }
-                    txtBluetoothStatus.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            txtBluetoothStatus.setText(R.string.bluetooth_test_start);
-                        }
-                    });
+                    txtBluetoothStatus.post(() -> txtBluetoothStatus.setText(R.string.bluetooth_test_start));
                     try {
                         Thread.sleep(2000);
                     } catch (InterruptedException e) {
@@ -93,12 +90,7 @@ public class BluetoothTestActivity extends AppCompatActivity {
                 }
             };
             startBluetooth.start();
-            btnDone.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    finish();
-                }
-            });
+            btnDone.setOnClickListener(view -> finish());
 
         } catch (Exception ex) {
             imgBluetoothImage.setImageResource(R.drawable.ic_bluetooth_failed);

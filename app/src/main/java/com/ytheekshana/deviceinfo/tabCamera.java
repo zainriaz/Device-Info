@@ -1,14 +1,13 @@
 package com.ytheekshana.deviceinfo;
 
-import android.Manifest;
-import android.content.Context;
-
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.ImageFormat;
 import android.hardware.camera2.CameraAccessException;
@@ -80,21 +79,16 @@ public class tabCamera extends Fragment {
                 recyclerCamera.setVisibility(View.VISIBLE);
                 loadCameraAll();
             }
-            btnCameraPermission.setOnClickListener(new View.OnClickListener() {
+            btnCameraPermission.setOnClickListener(view -> Permissions.check(context, Manifest.permission.CAMERA, null, new PermissionHandler() {
                 @Override
-                public void onClick(View view) {
-                    Permissions.check(context, Manifest.permission.CAMERA, null, new PermissionHandler() {
-                        @Override
-                        public void onGranted() {
-                            Objects.requireNonNull(getFragmentManager()).beginTransaction().detach(tabCamera.this).attach(tabCamera.this).commit();
-                        }
-
-                        @Override
-                        public void onDenied(Context context, ArrayList<String> deniedPermissions) {
-                        }
-                    });
+                public void onGranted() {
+                    Objects.requireNonNull(getFragmentManager()).beginTransaction().detach(tabCamera.this).attach(tabCamera.this).commit();
                 }
-            });
+
+                @Override
+                public void onDenied(Context context, ArrayList<String> deniedPermissions) {
+                }
+            }));
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -113,14 +107,11 @@ public class tabCamera extends Fragment {
         recyclerCamera.setAdapter(cameraAdapter);
 
         featureList2 = new ArrayList<>();
-        cameraButtonGroup.setOnCheckedChangeListener(new SingleSelectToggleGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(SingleSelectToggleGroup group, int checkedId) {
-                final CameraButton cameraButton = group.findViewById(group.getCheckedId());
-                getCameraDetails(String.valueOf(cameraButton.getCameraId()), featureList2);
-                ((CameraAdapter) cameraAdapter).addData(featureList2);
-                cameraAdapter.notifyDataSetChanged();
-            }
+        cameraButtonGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            final CameraButton cameraButton = group.findViewById(group.getCheckedId());
+            getCameraDetails(String.valueOf(cameraButton.getCameraId()), featureList2);
+            ((CameraAdapter) cameraAdapter).addData(featureList2);
+            cameraAdapter.notifyDataSetChanged();
         });
     }
 
@@ -190,6 +181,7 @@ public class tabCamera extends Fragment {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private String getCameraFeatureValue(CameraCharacteristics.Key key, CameraCharacteristics characteristics) {
         List<String> values = new ArrayList<>();
 

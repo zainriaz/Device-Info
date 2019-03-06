@@ -20,7 +20,9 @@ class SensorInfo {
         return sensorName;
     }
 
-    String getVendorName() { return vendorName; }
+    String getVendorName() {
+        return vendorName;
+    }
 
     String getSensorType() {
         return sensorType;

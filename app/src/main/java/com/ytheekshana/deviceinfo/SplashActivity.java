@@ -33,7 +33,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.jaredrummler.android.device.DeviceName;
 
@@ -88,8 +87,8 @@ public class SplashActivity extends Activity implements GLSurfaceView.Renderer {
 
         RelativeLayout relativeLayout = findViewById(R.id.mainlayout_Splash);
         //relativeLayout.setBackgroundColor(themeColor);
-        int abc[] = {themeColorDark,themeColor};
-        GradientDrawable splashGradient = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,abc);
+        int abc[] = {themeColorDark, themeColor};
+        GradientDrawable splashGradient = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, abc);
         relativeLayout.setBackground(splashGradient);
 
         progressBarSplash = findViewById(R.id.progressBar_Splash);
@@ -99,13 +98,13 @@ public class SplashActivity extends Activity implements GLSurfaceView.Renderer {
         ImageView imageLogoSplash3 = findViewById(R.id.imageLogoSplash3);
         ImageView imageLogoSplash4 = findViewById(R.id.imageLogoSplash4);
 
-        Animation animLogoFromTop = AnimationUtils.loadAnimation(this,R.anim.logo_from_top);
+        Animation animLogoFromTop = AnimationUtils.loadAnimation(this, R.anim.logo_from_top);
         imageLogoSplash1.setAnimation(animLogoFromTop);
-        Animation animLogoFromBottom = AnimationUtils.loadAnimation(this,R.anim.logo_from_bottom);
+        Animation animLogoFromBottom = AnimationUtils.loadAnimation(this, R.anim.logo_from_bottom);
         imageLogoSplash2.setAnimation(animLogoFromBottom);
-        Animation animLogoFromLeft = AnimationUtils.loadAnimation(this,R.anim.logo_from_left);
+        Animation animLogoFromLeft = AnimationUtils.loadAnimation(this, R.anim.logo_from_left);
         imageLogoSplash3.setAnimation(animLogoFromLeft);
-        Animation animLogoFromRight = AnimationUtils.loadAnimation(this,R.anim.logo_from_right);
+        Animation animLogoFromRight = AnimationUtils.loadAnimation(this, R.anim.logo_from_right);
         imageLogoSplash4.setAnimation(animLogoFromRight);
 
         Animation animpTextview = AnimationUtils.loadAnimation(this, R.anim.from_bottom);
@@ -129,12 +128,7 @@ public class SplashActivity extends Activity implements GLSurfaceView.Renderer {
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         try {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    glSurfaceView.setVisibility(View.GONE);
-                }
-            });
+            runOnUiThread(() -> glSurfaceView.setVisibility(View.GONE));
             gpuRenderer = gl.glGetString(GL10.GL_RENDERER);
             gpuVendor = gl.glGetString(GL10.GL_VENDOR);
             gpuVersion = gl.glGetString(GL10.GL_VERSION);
@@ -159,13 +153,7 @@ public class SplashActivity extends Activity implements GLSurfaceView.Renderer {
             try {
                 //Device
                 if (GetDetails.GetFromBuildProp("ro.semc.product.name").equals("")) {
-                    DeviceName.with(context).request(new DeviceName.Callback() {
-
-                        @Override
-                        public void onFinished(DeviceName.DeviceInfo info, Exception error) {
-                            deviceName = info.getName();
-                        }
-                    });
+                    DeviceName.with(context).request((info, error) -> deviceName = info.getName());
                 } else {
                     deviceName = GetDetails.GetFromBuildProp("ro.semc.product.name");
                 }

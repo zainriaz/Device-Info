@@ -2,7 +2,9 @@ package com.ytheekshana.deviceinfo;
 
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -27,15 +29,12 @@ public class DisplayTestFullScreen extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         relativeMain = findViewById(R.id.relativeMain);
         relativeMain.setBackgroundColor(Color.BLACK);
-        relativeMain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (color == 4) {
-                    finish();
-                }
-                color++;
-                DisplayColor();
+        relativeMain.setOnClickListener(v -> {
+            if (color == 4) {
+                finish();
             }
+            color++;
+            DisplayColor();
         });
     }
 

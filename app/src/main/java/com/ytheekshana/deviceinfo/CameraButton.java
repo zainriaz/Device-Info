@@ -76,12 +76,7 @@ public class CameraButton extends CompoundToggleButton {
 
     private void animateButtonBar(int fromColor, int toColor) {
         final ValueAnimator animateButton = ValueAnimator.ofObject(new ArgbEvaluator(), fromColor, toColor);
-        animateButton.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animator) {
-                cardViewActivated.setCardBackgroundColor((int) animator.getAnimatedValue());
-            }
-        });
+        animateButton.addUpdateListener(animator -> cardViewActivated.setCardBackgroundColor((int) animator.getAnimatedValue()));
         animateButton.setDuration(300);
         animateButton.setStartDelay(0);
         animateButton.start();

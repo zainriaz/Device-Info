@@ -6,14 +6,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.SearchView;
-import androidx.fragment.app.Fragment;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,9 +17,15 @@ import android.view.animation.LayoutAnimationController;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class tabApps extends Fragment implements SearchView.OnQueryTextListener {
@@ -59,35 +57,26 @@ public class tabApps extends Fragment implements SearchView.OnQueryTextListener 
                 @Override
                 public void run() {
 
-                    swipeapplist.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (!swipeapplist.isRefreshing()) {
-                                swipeapplist.setRefreshing(true);
-                            }
+                    swipeapplist.post(() -> {
+                        if (!swipeapplist.isRefreshing()) {
+                            swipeapplist.setRefreshing(true);
                         }
                     });
                     final LinearLayoutManager layoutManager = new LinearLayoutManager(context);
                     appAdapter = new AppAdapter(context, getInstalledApps());
-                    recyclerInstalledApps.post(new Runnable() {
-                        @Override
-                        public void run() {
+                    recyclerInstalledApps.post(() -> {
 
-                            recyclerInstalledApps.setLayoutManager(layoutManager);
-                            LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(context, R.anim.recycler_layout_animation);
+                        recyclerInstalledApps.setLayoutManager(layoutManager);
+                        LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(context, R.anim.recycler_layout_animation);
 
-                            recyclerInstalledApps.setLayoutAnimation(controller);
-                            recyclerInstalledApps.scheduleLayoutAnimation();
-                            recyclerInstalledApps.setAdapter(appAdapter);
-                        }
+                        recyclerInstalledApps.setLayoutAnimation(controller);
+                        recyclerInstalledApps.scheduleLayoutAnimation();
+                        recyclerInstalledApps.setAdapter(appAdapter);
                     });
 
-                    swipeapplist.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (swipeapplist.isRefreshing()) {
-                                swipeapplist.setRefreshing(false);
-                            }
+                    swipeapplist.post(() -> {
+                        if (swipeapplist.isRefreshing()) {
+                            swipeapplist.setRefreshing(false);
                         }
                     });
                 }
@@ -112,35 +101,26 @@ public class tabApps extends Fragment implements SearchView.OnQueryTextListener 
                 @Override
                 public void run() {
 
-                    swipeapplist.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (!swipeapplist.isRefreshing()) {
-                                swipeapplist.setRefreshing(true);
-                            }
+                    swipeapplist.post(() -> {
+                        if (!swipeapplist.isRefreshing()) {
+                            swipeapplist.setRefreshing(true);
                         }
                     });
 
                     appAdapter = new AppAdapter(context, getInstalledApps());
                     final LinearLayoutManager layoutManager = new LinearLayoutManager(context);
-                    recyclerInstalledApps.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            recyclerInstalledApps.setLayoutManager(layoutManager);
-                            LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(context, R.anim.recycler_layout_animation);
+                    recyclerInstalledApps.post(() -> {
+                        recyclerInstalledApps.setLayoutManager(layoutManager);
+                        LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(context, R.anim.recycler_layout_animation);
 
-                            recyclerInstalledApps.setLayoutAnimation(controller);
-                            recyclerInstalledApps.scheduleLayoutAnimation();
-                            recyclerInstalledApps.setAdapter(appAdapter);
-                        }
+                        recyclerInstalledApps.setLayoutAnimation(controller);
+                        recyclerInstalledApps.scheduleLayoutAnimation();
+                        recyclerInstalledApps.setAdapter(appAdapter);
                     });
 
-                    swipeapplist.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (swipeapplist.isRefreshing()) {
-                                swipeapplist.setRefreshing(false);
-                            }
+                    swipeapplist.post(() -> {
+                        if (swipeapplist.isRefreshing()) {
+                            swipeapplist.setRefreshing(false);
                         }
                     });
                 }
@@ -148,13 +128,10 @@ public class tabApps extends Fragment implements SearchView.OnQueryTextListener 
             loadApps.start();
         }
 
-        swipeapplist.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                //new Thread(loadApps).start();
-                if (appAdapter instanceof AppAdapter) {
-                    reloadAppList();
-                }
+        swipeapplist.setOnRefreshListener(() -> {
+            //new Thread(loadApps).start();
+            if (appAdapter instanceof AppAdapter) {
+                reloadAppList();
             }
         });
 
@@ -183,27 +160,20 @@ public class tabApps extends Fragment implements SearchView.OnQueryTextListener 
         new Thread() {
             @Override
             public void run() {
-                swipeapplist.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (!swipeapplist.isRefreshing()) {
-                            swipeapplist.setRefreshing(true);
-                        }
+                swipeapplist.post(() -> {
+                    if (!swipeapplist.isRefreshing()) {
+                        swipeapplist.setRefreshing(true);
                     }
                 });
                 ((AppAdapter) appAdapter).addData(getInstalledApps());
-                swipeapplist.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        appAdapter.notifyDataSetChanged();
-                        if (swipeapplist.isRefreshing()) {
-                            swipeapplist.setRefreshing(false);
-                        }
+                swipeapplist.post(() -> {
+                    appAdapter.notifyDataSetChanged();
+                    if (swipeapplist.isRefreshing()) {
+                        swipeapplist.setRefreshing(false);
                     }
                 });
             }
         }.start();
-
     }
 
     private ArrayList<AppInfo> getInstalledApps() {
@@ -213,13 +183,10 @@ public class tabApps extends Fragment implements SearchView.OnQueryTextListener 
             if (context != null) {
                 pm = context.getPackageManager();
                 List<PackageInfo> packs = pm.getInstalledPackages(PackageManager.GET_PERMISSIONS);
-                Collections.sort(packs, new Comparator<PackageInfo>() {
-                    @Override
-                    public int compare(PackageInfo arg0, PackageInfo arg1) {
-                        CharSequence name0 = arg0.applicationInfo.loadLabel(pm);
-                        CharSequence name1 = arg1.applicationInfo.loadLabel(pm);
-                        return name0.toString().compareTo(name1.toString());
-                    }
+                Collections.sort(packs, (arg0, arg1) -> {
+                    CharSequence name0 = arg0.applicationInfo.loadLabel(pm);
+                    CharSequence name1 = arg1.applicationInfo.loadLabel(pm);
+                    return name0.toString().compareTo(name1.toString());
                 });
                 for (int i = 0; i < packs.size(); i++) {
                     PackageInfo p = packs.get(i);
@@ -239,7 +206,7 @@ public class tabApps extends Fragment implements SearchView.OnQueryTextListener 
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         MenuItem item = menu.findItem(R.id.action_search);
         item.setVisible(true);
         SearchView searchView = (SearchView) item.getActionView();

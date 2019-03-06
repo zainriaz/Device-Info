@@ -3,6 +3,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cordmain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.ytheekshana.deviceinfo.MainActivity">
@@ -31,20 +32,19 @@
 
         <com.ogaclejapan.smarttablayout.SmartTabLayout
             android:id="@+id/tabs"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            app:stl_indicatorInterpolation="smart"
-            app:stl_indicatorGravity="center"
-            app:stl_indicatorThickness="30dp"
-            app:stl_indicatorCornerRadius="150dp"
-            app:stl_overlineThickness="0dp"
-            app:stl_underlineThickness="0dp"
-            app:stl_dividerThickness="0dp"
+            android:paddingEnd="5dp"
+            android:paddingStart="5dp"
             app:stl_defaultTabTextColor="#ffffff"
+            app:stl_dividerThickness="0dp"
+            app:stl_indicatorCornerRadius="150dp"
+            app:stl_indicatorGravity="center"
+            app:stl_indicatorInterpolation="smart"
+            app:stl_indicatorThickness="30dp"
+            app:stl_overlineThickness="0dp"
             app:stl_titleOffset="auto_center"
-            />
+            app:stl_underlineThickness="0dp" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

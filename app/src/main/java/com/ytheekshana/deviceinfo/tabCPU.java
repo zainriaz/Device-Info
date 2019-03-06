@@ -1,10 +1,9 @@
 package com.ytheekshana.deviceinfo;
 
-import android.graphics.Typeface;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -265,30 +264,15 @@ public class tabCPU extends Fragment {
                             readerCurFreq.close();
                             final String settextcorecores = "\t\tCore " + corecount + "       " + (int) currentFreq + " Mhz";
                             final int finalCorecount1 = corecount;
-                            txtCore[corecount].post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    txtCore[finalCorecount1].setText(settextcorecores);
-                                }
-                            });
+                            txtCore[corecount].post(() -> txtCore[finalCorecount1].setText(settextcorecores));
 
                         } catch (Exception ex) {
                             final String settextcorecoresEX = "\t\tCore " + corecount + "       " + "Idle";
                             final int finalCorecount = corecount;
-                            txtCore[corecount].post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    txtCore[finalCorecount].setText(settextcorecoresEX);
-                                }
-                            });
+                            txtCore[corecount].post(() -> txtCore[finalCorecount].setText(settextcorecoresEX));
                         }
                     }
-                    txtCPUUsagedis.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            txtCPUUsagedis.setText(cUsage);
-                        }
-                    });
+                    txtCPUUsagedis.post(() -> txtCPUUsagedis.setText(cUsage));
 
                 }
             }, 0, 1000);

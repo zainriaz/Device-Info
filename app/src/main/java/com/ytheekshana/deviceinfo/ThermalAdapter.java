@@ -1,33 +1,25 @@
 package com.ytheekshana.deviceinfo;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
 
 public class ThermalAdapter extends RecyclerView.Adapter<ThermalAdapter.ViewHolder> {
 
     private Context mContext;
     private ArrayList<ThermalInfo> mDataSet;
 
-    ThermalAdapter(Context context,ArrayList<ThermalInfo> list) {
+    ThermalAdapter(Context context, ArrayList<ThermalInfo> list) {
         mContext = context;
         mDataSet = list;
-    }
-
-    void addData(ArrayList<ThermalInfo> list){
-        mDataSet.clear();
-        mDataSet.addAll(list);
     }
 
     void updateEmployeeListItems(ArrayList<ThermalInfo> thermal) {

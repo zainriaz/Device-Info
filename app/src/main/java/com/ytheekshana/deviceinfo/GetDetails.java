@@ -6,20 +6,18 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Environment;
-
-import androidx.annotation.AttrRes;
-import androidx.annotation.ColorInt;
-import androidx.annotation.NonNull;
-
 import android.util.DisplayMetrics;
 import android.util.Size;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.WindowManager;
 import android.telephony.TelephonyManager;
+
+import androidx.annotation.AttrRes;
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -37,7 +35,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class GetDetails {
@@ -690,7 +687,7 @@ public class GetDetails {
     }
 
     static String getKeyName(String name) {
-        String keyName = "";
+        String keyName;
         switch (name) {
             case "android.colorCorrection.availableAberrationModes":
                 keyName = "Aberration Modes";
@@ -927,18 +924,19 @@ public class GetDetails {
         }
     }
 
-    static String getFormattedTemp(String zoneValue){
+    static String getFormattedTemp(String zoneValue) {
         double finalTemp;
         int val = Integer.parseInt(zoneValue.trim());
-        if(val>=10000){
-            finalTemp = val/1000.0;
-        }else if (val>=1000){
-            finalTemp = val/100.0;
-        }else if(val>100){
-            finalTemp = val/10.0;
-        }else{
+        if (val >= 10000) {
+            finalTemp = val / 1000.0;
+        } else if (val >= 1000) {
+            finalTemp = val / 100.0;
+        } else if (val > 100) {
+            finalTemp = val / 10.0;
+        } else {
             finalTemp = val;
         }
-        return new DecimalFormat("##.#").format(finalTemp)+" \u2103";
+        finalTemp = Math.abs(finalTemp);
+        return new DecimalFormat("##.#").format(finalTemp) + " \u2103";
     }
 }

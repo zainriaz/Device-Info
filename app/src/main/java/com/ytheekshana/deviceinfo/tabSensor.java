@@ -5,15 +5,16 @@ import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,11 +31,11 @@ public class tabSensor extends Fragment {
     private Activity activity;
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         this.context = context;
-        if (context instanceof Activity){
-            activity=(Activity) context;
+        if (context instanceof Activity) {
+            activity = (Activity) context;
         }
     }
 
@@ -47,49 +48,29 @@ public class tabSensor extends Fragment {
         sensor_count = rootView.findViewById(R.id.sensor_count);
         swipesensorlist = rootView.findViewById(R.id.swipesensorlist);
         swipesensorlist.setColorSchemeColors(MainActivity.themeColor);
-        swipesensorlist.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                new Thread(loadSensors).start();
-            }
-        });
+        swipesensorlist.setOnRefreshListener(() -> new Thread(loadSensors).start());
 
         getcount = String.valueOf(SplashActivity.numberOfSensors) + " Sensors are available on your device";
 
         loadSensors = new Thread() {
             @Override
             public void run() {
-                swipesensorlist.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (!swipesensorlist.isRefreshing()) {
-                            swipesensorlist.setRefreshing(true);
-                        }
+                swipesensorlist.post(() -> {
+                    if (!swipesensorlist.isRefreshing()) {
+                        swipesensorlist.setRefreshing(true);
                     }
                 });
 
                 final LinearLayoutManager layoutManager = new LinearLayoutManager(context);
-                final RecyclerView.Adapter sensorAdapter = new SensorAdapter(context,getAllSensors());
-                recyclerSensors.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        recyclerSensors.setLayoutManager(layoutManager);
-                        recyclerSensors.setAdapter(sensorAdapter);
-                    }
+                final RecyclerView.Adapter sensorAdapter = new SensorAdapter(context, getAllSensors());
+                recyclerSensors.post(() -> {
+                    recyclerSensors.setLayoutManager(layoutManager);
+                    recyclerSensors.setAdapter(sensorAdapter);
                 });
-                sensor_count.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        sensor_count.setText(getcount);
-                    }
-                });
-
-                swipesensorlist.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (swipesensorlist.isRefreshing()) {
-                            swipesensorlist.setRefreshing(false);
-                        }
+                sensor_count.post(() -> sensor_count.setText(getcount));
+                swipesensorlist.post(() -> {
+                    if (swipesensorlist.isRefreshing()) {
+                        swipesensorlist.setRefreshing(false);
                     }
                 });
             }

@@ -14,11 +14,12 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Objects;
 
@@ -71,12 +72,7 @@ public class WifiTestActivity extends AppCompatActivity {
                     } else {
                         wifiManager.setWifiEnabled(true);
                     }
-                    txtWifiStatus.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            txtWifiStatus.setText(R.string.wifi_test_start);
-                        }
-                    });
+                    txtWifiStatus.post(() -> txtWifiStatus.setText(R.string.wifi_test_start));
                     try {
                         Thread.sleep(2000);
                     } catch (InterruptedException e) {
@@ -92,12 +88,7 @@ public class WifiTestActivity extends AppCompatActivity {
                 }
             };
             startWifi.start();
-            btnDone.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    finish();
-                }
-            });
+            btnDone.setOnClickListener(view -> finish());
 
         } catch (Exception ex) {
             imgWifiImage.setImageResource(R.drawable.ic_wifi_failed);

@@ -3,16 +3,17 @@ package com.ytheekshana.deviceinfo;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.cardview.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.cardview.widget.CardView;
 
 import java.util.Locale;
 
@@ -22,7 +23,7 @@ public class tabMemory extends Fragment {
     private ProgressBar progressRam;
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         this.context = context;
     }
@@ -31,9 +32,8 @@ public class tabMemory extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tabmemory, container, false);
-        TextView txtROMPath,txtROMStatus,txtInStoragePath,txtInStorageStatus,txtExStoragePath,
+        TextView txtROMPath, txtROMStatus, txtInStoragePath, txtInStorageStatus, txtExStoragePath,
                 txtExStorageStatus;
-
 
 
         try {
@@ -63,7 +63,7 @@ public class tabMemory extends Fragment {
             Runnable runnable = new Runnable() {
                 public void run() {
                     memoryInfo.Ram();
-                    String ramStatus = Double.toString(memoryInfo.getUsedRam()) + "MB used of " + Double.toString(memoryInfo.getTotalRam())+"MB";
+                    String ramStatus = Double.toString(memoryInfo.getUsedRam()) + "MB used of " + Double.toString(memoryInfo.getTotalRam()) + "MB";
                     txtRAMStatus.setText(ramStatus);
                     progressRam.setProgress((int) memoryInfo.getUsedRamPercentage());
                     updateRam.postDelayed(this, 1000);

@@ -6,13 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.Objects;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -26,6 +27,7 @@ public class tabThermal extends Fragment {
     Context context;
     private ArrayList<ThermalInfo> thermalList, thermalList2;
     private ThermalAdapter thermalAdapter;
+    private ScheduledExecutorService scheduledExecutorService;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -37,6 +39,14 @@ public class tabThermal extends Fragment {
     public void onDetach() {
         context = null;
         super.onDetach();
+    }
+
+    @Override
+    public void onDestroyView() {
+        if (scheduledExecutorService != null) {
+            scheduledExecutorService.shutdownNow();
+        }
+        super.onDestroyView();
     }
 
     @Override
@@ -54,20 +64,22 @@ public class tabThermal extends Fragment {
             recyclerThermal.setLayoutManager(layoutManager);
             recyclerThermal.setAdapter(thermalAdapter);
 
-            thermalList2 = new ArrayList<>();
-            ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-            scheduler.scheduleAtFixedRate(new Runnable() {
-                public void run() {
+            if (thermalList.isEmpty()) {
+                Snackbar snackbar = Snackbar.make(Objects.requireNonNull(getActivity()).findViewById(R.id.cordmain), "No Thermal Data", Snackbar.LENGTH_INDEFINITE);
+                SnackbarHelper.configSnackbar(context, snackbar);
+                snackbar.show();
+            } else {
+
+                thermalList2 = new ArrayList<>();
+                scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+                scheduledExecutorService.scheduleAtFixedRate(() -> {
                     loadThermal();
                     thermalList2 = thermalList;
-                    recyclerThermal.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            thermalAdapter.updateEmployeeListItems(thermalList2);
-                        }
-                    });
-                }
-            }, 1, 2, TimeUnit.SECONDS);
+                    recyclerThermal.post(() ->
+                            thermalAdapter.updateEmployeeListItems(thermalList2)
+                    );
+                }, 1, 2, TimeUnit.SECONDS);
+            }
 
         } catch (Exception ex) {
             ex.printStackTrace();

@@ -13,9 +13,10 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.preference.PreferenceManager;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -60,23 +61,17 @@ public class EarProximityTestActivity extends AppCompatActivity implements Senso
             imgEarProximityImage = findViewById(R.id.imgEarProximityImage);
             ImageButton imgbtn_failed = findViewById(R.id.imgbtn_failed);
             ImageButton imgbtn_success = findViewById(R.id.imgbtn_success);
-            imgbtn_failed.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    editPrefs.putInt("earproximity_test_status", 0);
-                    editPrefs.apply();
-                    editPrefs.commit();
-                    finish();
-                }
+            imgbtn_failed.setOnClickListener(v -> {
+                editPrefs.putInt("earproximity_test_status", 0);
+                editPrefs.apply();
+                editPrefs.commit();
+                finish();
             });
-            imgbtn_success.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    editPrefs.putInt("earproximity_test_status", 1);
-                    editPrefs.apply();
-                    editPrefs.commit();
-                    finish();
-                }
+            imgbtn_success.setOnClickListener(v -> {
+                editPrefs.putInt("earproximity_test_status", 1);
+                editPrefs.apply();
+                editPrefs.commit();
+                finish();
             });
 
             sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);

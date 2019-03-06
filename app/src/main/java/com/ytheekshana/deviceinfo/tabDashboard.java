@@ -11,16 +11,7 @@ import android.graphics.ColorFilter;
 import android.graphics.LightingColorFilter;
 import android.os.BatteryManager;
 import android.os.Handler;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.os.Bundle;
-
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.cardview.widget.CardView;
-
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
 import android.view.LayoutInflater;
@@ -32,6 +23,12 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.cardview.widget.CardView;
 
 import com.github.lzyzsd.circleprogress.ArcProgress;
 import com.github.mikephil.charting.charts.LineChart;
@@ -161,13 +158,13 @@ public class tabDashboard extends Fragment {
             animateTextView(SplashActivity.numberOfSensors, txtSensorCount);
 
             int startRAM = (int) SplashActivity.usedRamPercentage;
-            txtUsedRam.setText(String.valueOf((int)SplashActivity.usedRam));
-            txtFreeRam.setText(String.valueOf((int)SplashActivity.availableRam));
+            txtUsedRam.setText(String.valueOf((int) SplashActivity.usedRam));
+            txtFreeRam.setText(String.valueOf((int) SplashActivity.availableRam));
             usedRam = (float) SplashActivity.usedRam;
 
-            String totalRamSpan= "RAM - "+(int)SplashActivity.totalRam+" MB Total";
-            SpannableString ssTotalRam=  new SpannableString(totalRamSpan);
-            ssTotalRam.setSpan(new RelativeSizeSpan(0.7f), totalRamSpan.length()-8,totalRamSpan.length(), 0); // set size
+            String totalRamSpan = "RAM - " + (int) SplashActivity.totalRam + " MB Total";
+            SpannableString ssTotalRam = new SpannableString(totalRamSpan);
+            ssTotalRam.setSpan(new RelativeSizeSpan(0.7f), totalRamSpan.length() - 8, totalRamSpan.length(), 0); // set size
             txtTotalRam.setText(ssTotalRam);
 
             int startROM = (int) SplashActivity.usedRomPercentage;
@@ -200,9 +197,9 @@ public class tabDashboard extends Fragment {
                     memoryInfo.Ram();
                     arcProgressRam.setProgress((int) memoryInfo.getUsedRamPercentage());
                     usedRam = (float) memoryInfo.getUsedRam();
-                    SplashActivity.usedRam =  memoryInfo.getUsedRam();
-                    txtUsedRam.setText(String.valueOf((int)memoryInfo.getUsedRam()));
-                    txtFreeRam.setText(String.valueOf((int)memoryInfo.getAvailableRam()));
+                    SplashActivity.usedRam = memoryInfo.getUsedRam();
+                    txtUsedRam.setText(String.valueOf((int) memoryInfo.getUsedRam()));
+                    txtFreeRam.setText(String.valueOf((int) memoryInfo.getAvailableRam()));
                     handlerRam.postDelayed(this, 1000);
                 }
             };
@@ -223,18 +220,8 @@ public class tabDashboard extends Fragment {
                 public void run() {
                     usagecpu = cu2.getTotalCpuUsage();
                     cUsage = String.valueOf(usagecpu) + " %";
-                    txtCPUPerce.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            txtCPUPerce.setText(cUsage);
-                        }
-                    });
-                    ProgressBarCPU.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            ProgressBarCPU.setProgress(usagecpu * 10);
-                        }
-                    });
+                    txtCPUPerce.post(() -> txtCPUPerce.setText(cUsage));
+                    ProgressBarCPU.post(() -> ProgressBarCPU.setProgress(usagecpu * 10));
 
                 }
             }, 1000, 1000);
@@ -263,61 +250,40 @@ public class tabDashboard extends Fragment {
             progressAnimatorCPU.start();
 
             final com.ytheekshana.deviceinfo.BounceInterpolator bounceInterpolator = new com.ytheekshana.deviceinfo.BounceInterpolator(0.2, 20);
-            cardRom.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Animation animRom = AnimationUtils.loadAnimation(getContext(), R.anim.bounce_dash);
-                    animRom.setInterpolator(bounceInterpolator);
-                    cardRom.startAnimation(animRom);
-                }
+            cardRom.setOnClickListener(v -> {
+                Animation animRom = AnimationUtils.loadAnimation(getContext(), R.anim.bounce_dash);
+                animRom.setInterpolator(bounceInterpolator);
+                cardRom.startAnimation(animRom);
             });
-            cardInternalStorage.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Animation animInSto = AnimationUtils.loadAnimation(getContext(), R.anim.bounce_dash);
-                    animInSto.setInterpolator(bounceInterpolator);
-                    cardInternalStorage.startAnimation(animInSto);
-                }
+            cardInternalStorage.setOnClickListener(v -> {
+                Animation animInSto = AnimationUtils.loadAnimation(getContext(), R.anim.bounce_dash);
+                animInSto.setInterpolator(bounceInterpolator);
+                cardInternalStorage.startAnimation(animInSto);
             });
-            cardExternalStorage.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Animation animExSto = AnimationUtils.loadAnimation(getContext(), R.anim.bounce_dash);
-                    animExSto.setInterpolator(bounceInterpolator);
-                    cardExternalStorage.startAnimation(animExSto);
-                }
+            cardExternalStorage.setOnClickListener(v -> {
+                Animation animExSto = AnimationUtils.loadAnimation(getContext(), R.anim.bounce_dash);
+                animExSto.setInterpolator(bounceInterpolator);
+                cardExternalStorage.startAnimation(animExSto);
             });
-            cardBattery.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Animation animBattery = AnimationUtils.loadAnimation(getContext(), R.anim.bounce_dash);
-                    animBattery.setInterpolator(bounceInterpolator);
-                    cardBattery.startAnimation(animBattery);
-                }
+            cardBattery.setOnClickListener(v -> {
+                Animation animBattery = AnimationUtils.loadAnimation(getContext(), R.anim.bounce_dash);
+                animBattery.setInterpolator(bounceInterpolator);
+                cardBattery.startAnimation(animBattery);
             });
-            cardCpu.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Animation animCpu = AnimationUtils.loadAnimation(getContext(), R.anim.bounce_dash);
-                    animCpu.setInterpolator(bounceInterpolator);
-                    cardCpu.startAnimation(animCpu);
-                }
+            cardCpu.setOnClickListener(v -> {
+                Animation animCpu = AnimationUtils.loadAnimation(getContext(), R.anim.bounce_dash);
+                animCpu.setInterpolator(bounceInterpolator);
+                cardCpu.startAnimation(animCpu);
             });
-            cardSensor.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Animation animSensor = AnimationUtils.loadAnimation(getContext(), R.anim.bounce_dash);
-                    animSensor.setInterpolator(bounceInterpolator);
-                    cardSensor.startAnimation(animSensor);
-                }
+            cardSensor.setOnClickListener(v -> {
+                Animation animSensor = AnimationUtils.loadAnimation(getContext(), R.anim.bounce_dash);
+                animSensor.setInterpolator(bounceInterpolator);
+                cardSensor.startAnimation(animSensor);
             });
-            cardApps.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Animation animApps = AnimationUtils.loadAnimation(getContext(), R.anim.bounce_dash);
-                    animApps.setInterpolator(bounceInterpolator);
-                    cardApps.startAnimation(animApps);
-                }
+            cardApps.setOnClickListener(v -> {
+                Animation animApps = AnimationUtils.loadAnimation(getContext(), R.anim.bounce_dash);
+                animApps.setInterpolator(bounceInterpolator);
+                cardApps.startAnimation(animApps);
             });
 
         } catch (Exception ex) {
@@ -360,12 +326,7 @@ public class tabDashboard extends Fragment {
 
         ValueAnimator valueAnimator = ValueAnimator.ofInt(0, finalValue);
         valueAnimator.setDuration(800);
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                textview.setText(valueAnimator.getAnimatedValue().toString());
-            }
-        });
+        valueAnimator.addUpdateListener(valueAnimator1 -> textview.setText(valueAnimator1.getAnimatedValue().toString()));
         valueAnimator.start();
     }
 
